@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.zerry.api_server.dao.MessageDao">
+
+	<resultMap id="MessageMap" type="Message">
+		<result property="id" column="id" />
+		<result property="type" column="type" />
+		<result property="author" column="author" />
+		<result property="content" column="content" />
+		<result property="create_time" column="create_time" />
+	</resultMap>
+
+	<!-- <select id="selectUserByUsername" parameterType="string" resultType="User"> 
+		SELECT * FROM user_inf WHERE username = #{username} </select> -->
+	<delete id="deleteMessageById" parameterType="string">
+		DELETE
+		FROM
+		message_inf
+		WHERE
+		id = #{id}
+	</delete>
+
+	<insert id="addMessage" parameterType="Message" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO message_inf (
+		type,
+		author,
+		content,
+		create_time
+		)
+		VALUES
+		(
+		#{type}, #{author}, #{content}, now()
+		)
+	</insert>
+
+</mapper>

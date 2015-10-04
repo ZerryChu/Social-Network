@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 兼容层，可以适配多种缓存环境，也可以同时使用 O(∩_∩)O~~ -->
+	
+	<!-- 使用Redis作为缓存 -->
+	<bean id="cacheTools" class="group.zerry.api_server.utils.RedisUtils" init-method="init" />
+	
+	<!-- 使用Aliyun OCS作为缓存
+	<bean id="cacheTools" class="me.zhilong.bms.api.utils.MemcachedUtils" init-method="init" />
+	 -->
+</beans>
