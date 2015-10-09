@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 
+import group.zerry.api_server.annotation.AuthPass;
 import group.zerry.api_server.entity.User;
+import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.enumtypes.UserStatusEnum;
 import group.zerry.api_server.service.UserService;
 import group.zerry.api_server.utils.CacheTools;
 import redis.clients.jedis.Jedis;
 
-@Controller(value="/user")
+@Controller
+@RequestMapping(value="/user")
 public class UserController {
 	
 	@Autowired
@@ -49,9 +52,22 @@ public class UserController {
         	UUID uuid = UUID.randomUUID();
         	jedis.set(username, uuid.toString());
         	request.getSession().setAttribute(username, uuid.toString());
+        	logger.info(request.getSession().getAttribute("zerry"));
+        	//is nickname need to send? name = nickname
         }
         return regMsg.toString();
         //usertoken
+	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/addfriend", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String addFriend(HttpServletRequest request, String username, String friendUsername, String group) {
+		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
+		regMsg.append(userService.addFriend(username, friendUsername, group));
+		regMsg.append("\"}");
+		logger.info(regMsg.toString());
+		return regMsg.toString();
 	}
 	
 	/*
@@ -61,7 +77,6 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/reg", produces = "text/html;charset=UTF-8")
 	public String reg(User user) {
-		//密码加盐
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
         regMsg.append(userService.Reg(user).getValue());
         regMsg.append("\"}");
@@ -69,6 +84,10 @@ public class UserController {
         return regMsg.toString();
 	}
 	
+	
+	//check 是否能越权限访问
+	//{"returnmsg":"{"age":20,"habit":"旅游、打各种球、编程","nickname":"zerrychu","type":2}"}
+	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/getinfo", produces = "text/html;charset=UTF-8")
 	public String ShowUserInfo(String username) {

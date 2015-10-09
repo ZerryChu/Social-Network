@@ -8,7 +8,7 @@
 		<result property="id" column="id" />
 		<result property="nickname" column="nickname" />
 		<result property="username" column="username" />
-		<result property="password" column="password" />	
+		<result property="password" column="password" />
 		<result property="type" column="type" />
 		<result property="habit" column="habit" />
 	</resultMap>
@@ -23,9 +23,54 @@
 		username = #{username}
 	</select>
 
-	<insert id="addUser" parameterType="User" useGeneratedKeys="true"
-		keyProperty="id">
-		INSERT INTO user_inf (
+	<select id="selectUserByNickname" parameterType="string"
+		resultType="User">
+		SELECT
+		*
+		FROM
+		user_inf
+		WHERE
+		nickname = #{nickname}
+	</select>
+	
+	<select id="selectFriendsByUsername" parameterType="string"
+		resultType="User">
+		SELECT
+		friend_id
+		FROM
+		friend,
+		user_inf
+		WHERE
+		friend.user_id =
+		user_inf.id
+		AND user_inf.username = #{author}
+	</select>
+
+
+	<select id="selectFriendsNicknameByUserNickname" parameterType="string"
+		resultType="string">
+		SELECT
+		user_inf.nickname
+		FROM
+		user_inf
+		WHERE
+		id IN (
+		SELECT
+		friend_id
+		FROM
+		friend,
+		user_inf
+		WHERE
+		nickname = #{nickname}
+		AND user_id =
+		id
+		)
+	</select>
+
+	<!-- parameterType? -->
+	<insert id="addUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT
+		INTO user_inf (
 		nickname,
 		username,
 		PASSWORD,
@@ -35,8 +80,16 @@
 		)
 		VALUES
 		(
-		#{nickname}, #{username}, #{password}, #{age}, #{type}, #{habit}
+		#{nickname}, #{username}, #{password}, #{age},
+		1, #{habit}
 		)
+	</insert>
+
+	<insert id="addFriend" parameterType="string" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO friend
+		VALUES
+		(#{1}, #{2}, #{3})
 	</insert>
 
 </mapper>

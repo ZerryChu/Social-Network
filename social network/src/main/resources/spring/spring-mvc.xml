@@ -11,14 +11,16 @@
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 	<!-- 自动扫描的包名 -->
-	<context:component-scan base-package="group.zerry.api_server.controllers" />
+	<context:component-scan base-package="group.zerry.api_server.controllers"/>
 	<context:component-scan base-package="group.zerry.api_server.service.impl" />
-
 	<!-- 自动扫描的包名 -->
 	<mvc:annotation-driven />
 
-	<!-- 拦截器 <mvc:interceptors> <bean class="me.zhilong.bms.api.interceptor.SecurityInterceptor"></bean> 
-		</mvc:interceptors> -->
+	<!-- 拦截器 -->
+	<mvc:interceptors> 
+		<bean class="group.zerry.api_server.interceptors.SecurityInterceptor"></bean> 
+	</mvc:interceptors>
+	
 	<!-- 多方法 -->
 	<bean id="paramMethodResolver"
 		class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">

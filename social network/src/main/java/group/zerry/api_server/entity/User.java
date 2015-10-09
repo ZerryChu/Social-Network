@@ -6,6 +6,7 @@ package group.zerry.api_server.entity;
  * @content: 用户实体
  */
 public class User {
+	private int    id;
 	private String nickname;
 	private int    age;
 	private String username;
@@ -13,6 +14,12 @@ public class User {
 	private int    type;
 	private String habit;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getType() {
 		return type;
 	}

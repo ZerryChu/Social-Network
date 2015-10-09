@@ -12,8 +12,21 @@
 		<result property="create_time" column="create_time" />
 	</resultMap>
 
-	<!-- <select id="selectUserByUsername" parameterType="string" resultType="User"> 
-		SELECT * FROM user_inf WHERE username = #{username} </select> -->
+	<select id="getMessages" resultType="Message">
+		SELECT
+		*
+		FROM
+		message_inf
+		WHERE
+		<foreach collection="array" item="friend" index="index" open=" "
+			close=" " separator=" or ">
+			author=#{friend}
+		</foreach>
+		AND create_time &lt; now()
+		ORDER BY
+		create_time DESC
+	</select>
+	
 	<delete id="deleteMessageById" parameterType="string">
 		DELETE
 		FROM
@@ -22,8 +35,8 @@
 		id = #{id}
 	</delete>
 
-	<insert id="addMessage" parameterType="Message" useGeneratedKeys="true"
-		keyProperty="id">
+	<insert id="addMessage" parameterType="Message"
+		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO message_inf (
 		type,
 		author,
@@ -32,8 +45,9 @@
 		)
 		VALUES
 		(
-		#{type}, #{author}, #{content}, now()
+		#{type}, #{author}, #{content},
+		now()
 		)
 	</insert>
-
+	
 </mapper>

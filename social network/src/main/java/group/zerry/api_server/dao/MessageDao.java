@@ -10,6 +10,10 @@ public interface MessageDao {
 	
 	public Message getMessageById(int id);
 	
+	public Message[] getMessages(String[] friend);
+	
 	public void deleteMessageByID(int id);
+	
+	/* 获取自己的帖子 */
 	//public Message getMessagesByAuthor(String authorName);
 }

@@ -10,7 +10,11 @@ public enum UserStatusEnum {
 	PI("PASSWORD_INCORRECT", "密码错误"),
 	UNV("USER_DOES_NOT_VALID", "用户无效"),
 	AUF("ADD_USER_FAIL", "注册失败"),
-	ANE("AUTHORITY_NOT_ENOUGH", "权限不够");
+	ANE("AUTHORITY_NOT_ENOUGH", "权限不够"),
+	UNE("USERNAME_OR_FRIEND_NOT_EXIST", "用户不存在"),
+	PNV("PARAM_NOT_VALID", "参数无效"),
+	AFE("ADD_FRIEND_ERROR", "添加好友失败"),
+	AFS("ADD_FRIEND_SUCCEED", "添加好友成功");
 	
 	private static Map<String, UserStatusEnum> valueMap = new HashMap<String, UserStatusEnum>();
 
