@@ -1,9 +1,5 @@
 package group.zerry.api_server.controllers;
 
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +28,7 @@ public class UserController {
 	@Autowired
 	CacheTools                             cacheTools;
     
-	private static Jedis                   jedis = new Jedis("localhost", 6379);
+	//private static Jedis                   jedis = new Jedis("localhost", 6379);
 
 	private static SimplePropertyPreFilter userFilter   = new SimplePropertyPreFilter(User.class, "nickname",
             "age", "type", "habit");
@@ -42,18 +38,16 @@ public class UserController {
     
 	@ResponseBody
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String login(HttpServletRequest request, String username, String password) {
+	public String login(String username, String password, String userToken) {
         StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
         UserStatusEnum status = userService.login(username, password);
         regMsg.append(status.getValue());
         regMsg.append("\"}");
         logger.info(regMsg.toString());
         if(status == UserStatusEnum.LS) {
-        	UUID uuid = UUID.randomUUID();
-        	jedis.set(username, uuid.toString());
-        	request.getSession().setAttribute(username, uuid.toString());
-        	logger.info(request.getSession().getAttribute("zerry"));
-        	//is nickname need to send? name = nickname
+        	cacheTools.put(username, userToken);
+        	//jedis.set(username, uuid.toString());
+        	//request.getSession().setAttribute(username, uuid.toString());
         }
         return regMsg.toString();
         //usertoken
@@ -62,7 +56,7 @@ public class UserController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/addfriend", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String addFriend(HttpServletRequest request, String username, String friendUsername, String group) {
+	public String addFriend(String username, String friendUsername, String group) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		regMsg.append(userService.addFriend(username, friendUsername, group));
 		regMsg.append("\"}");

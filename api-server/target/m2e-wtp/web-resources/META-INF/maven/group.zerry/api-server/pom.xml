@@ -4,7 +4,7 @@
 	<groupId>group.zerry</groupId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>wifi_car</name>
+	<name>social network</name>
 
 	<properties>
 		<!-- 指定spring.version -->
@@ -67,7 +67,13 @@
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
+		<!-- 
+		<dependency>
+			<groupId>group.zerry</groupId>
+			<artifactId>common-code</artifactId>
+			<version>0.01-SNAPSHOT</version>
+		</dependency>
+	    -->
 		<!-- Spring JSON支持 -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -159,7 +165,7 @@
 			<artifactId>jedis</artifactId>
 			<version>2.7.2</version>
 		</dependency>
-
+		
 	</dependencies>
 
 	<build>

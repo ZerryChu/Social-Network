@@ -13,19 +13,12 @@ import group.zerry.api_server.enumtypes.UserStatusEnum;
 import group.zerry.api_server.utils.CacheTools;
 import redis.clients.jedis.Jedis;
 
-/**
- * 登陆权限鉴定
- * 
- * @author：刘志龙
- * @since：2014年12月4日 下午2:31:14
- * @version:1.0
- */
 public class SecurityInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	CacheTools cacheTools;
 
-	private static Jedis jedis = new Jedis("localhost", 6379);
+	//private static Jedis jedis = new Jedis("localhost", 6379);
 
 	@Override
 	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
@@ -48,8 +41,9 @@ public class SecurityInterceptor implements HandlerInterceptor {
             if (authPass == null || authPass.validate() == false)
                 return true;
             else {
-            	String userToken = (String) request.getSession().getAttribute("usertoken");
-        		if (null == userToken || null == jedis.get("username") || !jedis.get("username").equals(userToken)) {
+            	String username = request.getParameter("username");
+            	String userToken = request.getParameter("userToken");
+        		if (null == cacheTools.get(username) || !cacheTools.get(username).equals(userToken)) {
                     response.setCharacterEncoding("UTF-8");
                     response.setContentType("application/json");
         			StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
