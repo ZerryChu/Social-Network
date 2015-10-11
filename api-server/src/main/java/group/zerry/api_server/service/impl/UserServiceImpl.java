@@ -1,5 +1,6 @@
 package group.zerry.api_server.service.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDao userDao;
 
+	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
 	@Override
 	public UserStatusEnum login(String username, String password) {
 		// TODO Auto-generated method stub
@@ -26,9 +28,10 @@ public class UserServiceImpl implements UserService {
 		password = password.trim();
 		if (username == "" || password == "")
 			return UserStatusEnum.UNV;
-		String temp = userDao.selectUserByUsername(username).getPassword();
-		if (temp.equals(EncodeTools.encoder(password, temp.substring(0, 4))))
-			return UserStatusEnum.LS;
+		User user = userDao.selectUserByUsername(username);
+		if(user != null && user.getPassword().equals(EncodeTools.encoder(password, user.getPassword().substring(0, 4)))) {
+				return UserStatusEnum.LS;
+		}
 		else
 			return UserStatusEnum.PI;
 	}

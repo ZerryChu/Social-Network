@@ -3,6 +3,7 @@ package group.zerry.api_server.interceptors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,6 +19,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
 	@Autowired
 	CacheTools cacheTools;
 
+	private static Logger logger = Logger.getLogger(SecurityInterceptor.class);
 	//private static Jedis jedis = new Jedis("localhost", 6379);
 
 	@Override
@@ -43,6 +45,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
             else {
             	String username = request.getParameter("username");
             	String userToken = request.getParameter("userToken");
+            	logger.info(username + "   " + userToken);
         		if (null == cacheTools.get(username) || !cacheTools.get(username).equals(userToken)) {
                     response.setCharacterEncoding("UTF-8");
                     response.setContentType("application/json");

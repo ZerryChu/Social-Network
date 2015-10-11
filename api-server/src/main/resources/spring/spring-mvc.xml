@@ -13,6 +13,9 @@
 	<!-- 自动扫描的包名 -->
 	<context:component-scan base-package="group.zerry.api_server.controllers"/>
 	<context:component-scan base-package="group.zerry.api_server.service.impl" />
+	<context:component-scan base-package="group.zerry.api_server.annotation" />
+	<context:component-scan base-package="group.zerry.api_server.utils" />
+	
 	<!-- 自动扫描的包名 -->
 	<mvc:annotation-driven />
 
@@ -20,6 +23,16 @@
 	<mvc:interceptors> 
 		<bean class="group.zerry.api_server.interceptors.SecurityInterceptor"></bean> 
 	</mvc:interceptors>
+	
+	<!-- 注入配置文件参数 -->
+	<bean id="configLoader"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath*:*.properties</value>
+			</list>
+		</property>
+	</bean>
 	
 	<!-- 多方法 -->
 	<bean id="paramMethodResolver"

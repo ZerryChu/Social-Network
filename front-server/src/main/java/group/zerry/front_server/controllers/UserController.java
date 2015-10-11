@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.HttpRequest;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +16,20 @@ import group.zerry.front_server.entity.User;
 import group.zerry.front_server.service.UserService;
 
 @Controller
+@RequestMapping(value="/user")
 public class UserController {
 	
 	@Autowired
 	UserService userService;
 	
+	private static Logger logger = Logger.getLogger(UserController.class);
+	
 	@ResponseBody
-	@RequestMapping(value = "/user/login", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/login", produces = "text/html;charset=UTF-8")
 	public String login(HttpServletRequest request, String username, String password) {
 		//for AJAX
 		UUID uuid = UUID.randomUUID();
+		logger.error(uuid.toString());
 		if(userService.login(username, password, uuid.toString())) {
 			request.getSession().setAttribute(username, uuid.toString());
 			return "{\"msg\" : 1}";
@@ -34,7 +39,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/user/reg", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value="/reg", produces = "text/html;charset=UTF-8")
 	public String reg(User user) {
 		//for AJAX
 		if(userService.reg(user)) {
@@ -45,13 +50,13 @@ public class UserController {
 	}
 	
 	@AuthPass
-	@RequestMapping(value = "/user/getinfo", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/getinfo", produces = "text/html;charset=UTF-8")
 	public String showUserInfo(String username) {
 		return userService.showUserInfo(username); //json data
 	}
 	
 	@AuthPass
-	@RequestMapping(value = "/user/addfriend", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/addfriend", produces = "text/html;charset=UTF-8")
 	public String addFriend(String username, String friendUsername, String group) {
 		if(userService.addFriend(username, friendUsername, group))
 			return "{\"msg\" : 1}";

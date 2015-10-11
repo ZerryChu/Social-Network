@@ -3,6 +3,7 @@ package group.zerry.front_server.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	FetchUrlTools fetchURLTool;
 
+	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
+	
 	public boolean login(String username, String password, String userToken) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "user/login";
@@ -30,6 +33,7 @@ public class UserServiceImpl implements UserService {
 		paramsMap.put("username", username);
 		paramsMap.put("password", password);
 		paramsMap.put("userToken", userToken);
+		//logger.error(fetchURLTool.doPost(url, paramsMap));
 		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
 		if (returnMsgDto.getReturnMsg().trim().equals(UserStatusEnum.LS.getValue())) {
 			return true;

@@ -40,17 +40,23 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String login(String username, String password, String userToken) {
         StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-        UserStatusEnum status = userService.login(username, password);
-        regMsg.append(status.getValue());
-        regMsg.append("\"}");
-        logger.info(regMsg.toString());
-        if(status == UserStatusEnum.LS) {
-        	cacheTools.put(username, userToken);
-        	//jedis.set(username, uuid.toString());
-        	//request.getSession().setAttribute(username, uuid.toString());
+        if(null != userToken) {
+        	UserStatusEnum status = userService.login(username, password);
+        	regMsg.append(status.getValue());
+        	regMsg.append("\"}");
+        	logger.info(regMsg.toString());
+            if(status == UserStatusEnum.LS) {
+            	cacheTools.put(username, userToken);
+            	//jedis.set(username, uuid.toString());
+            	//request.getSession().setAttribute(username, uuid.toString());
+            }
+            return regMsg.toString();
         }
-        return regMsg.toString();
-        //usertoken
+        else {
+        	regMsg.append(UserStatusEnum.ANE.getValue());
+        	regMsg.append("\"}");
+        	return regMsg.toString();
+        }
 	}
 	
 	@AuthPass
