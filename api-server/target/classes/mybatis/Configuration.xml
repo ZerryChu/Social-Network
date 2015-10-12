@@ -10,6 +10,7 @@
 	<typeAliases>
 		<typeAlias alias="User" type="group.zerry.api_server.entity.User" />
 		<typeAlias alias="Message" type="group.zerry.api_server.entity.Message" />
+		<typeAlias alias="Comment" type="group.zerry.api_server.entity.Comment" />
 		
 	</typeAliases>
 	

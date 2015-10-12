@@ -11,4 +11,5 @@ public interface UserService {
 	public User showUserInfo(String username);
 
 	public UserStatusEnum addFriend(String username, String friendUsername, String group);
+
 }

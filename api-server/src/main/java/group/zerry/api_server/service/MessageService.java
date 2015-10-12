@@ -9,4 +9,11 @@ public interface MessageService {
 	public MessageStatusEnum delete_message(int id);
 	
 	public Message[] show_messages(String nickname, int type);
+	
+	public MessageStatusEnum addRepostTimes(String username, int id);  //转发
+	
+	public MessageStatusEnum addComment(String username, String content, int id); //评论
+	
+	public MessageStatusEnum addSupportTimes(String username, int id); //点赞
+	
 }

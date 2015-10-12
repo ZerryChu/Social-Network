@@ -1,6 +1,7 @@
 package group.zerry.api_server.controllers;
 
 import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,12 @@ import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.service.MessageService;
 
+/**
+ * @author  ZerryChu
+ * @since   2015 10 3
+ * @version 2.0
+ *
+ */
 @Controller
 @RequestMapping(value="/message")
 public class MessageController {
@@ -57,16 +64,18 @@ public class MessageController {
 	 * type 1 好友可见
 	 * 
 	 */
+	//分页
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show", produces = "text/html;charset=UTF-8")
 	public String show_messages(String nickname, int type, int page) {
-		page--;
+		//page--;
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		Message[] messages;
-		Message[] messagesInUse;
+		//Message[] messagesInUse;
 		try {
 			messages = messageService.show_messages(nickname, type);
+			/*
 			messagesInUse = new Message[10];
 			int index = 0;
 			for (int i = page * 10; i < (page + 1) * 10; i++) {
@@ -75,12 +84,14 @@ public class MessageController {
 				else
 					break;
 			}
+			*/
 		} catch (Exception e) {
 			regMsg.append(MessageStatusEnum.SMF);
 			regMsg.append("\"}");
 			return regMsg.toString();
 		}
-		regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
+		//regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
+		regMsg.append(JSON.toJSONString(messages, messageFilter));
 		regMsg.append("\"}");
 		logger.info(regMsg.toString());
 		return regMsg.toString();

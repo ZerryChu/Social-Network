@@ -1,8 +1,10 @@
 package group.zerry.api_server.entity;
 
 /**
- * @author：Zerry
- * @content: 用户实体
+ * @author  Zerry
+ * @version 1.0
+ * @content 用户实体
+ * 
  */
 public class User {
 	private int    id;

@@ -1,16 +1,23 @@
 package group.zerry.api_server.service.impl;
 
 import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import group.zerry.api_server.dao.MessageDao;
 import group.zerry.api_server.dao.UserDao;
+import group.zerry.api_server.entity.Comment;
 import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.service.MessageService;
 
+/**
+ * @author ZerryChu
+ * @since  2015.10.3
+ *
+ */
 @Service(value = "MessageService")
 public class MessageServiceImpl implements MessageService {
 
@@ -52,6 +59,7 @@ public class MessageServiceImpl implements MessageService {
 
 	}
 
+	//分页
 	@Override
 	public Message[] show_messages(String nickname, int type) {
 		// TODO Auto-generated method stub
@@ -69,4 +77,38 @@ public class MessageServiceImpl implements MessageService {
 		}
 		return message;
 	}
+
+	@Override
+	public MessageStatusEnum addRepostTimes(String username, int id) {
+		// TODO Auto-generated method stub
+		try {
+			messageDao.addRepostTimes(id);
+			Message message = messageDao.getMessageById(id);
+			message.setAuthor(username);
+			messageDao.addMessage(message);
+		} catch(Exception e) {
+			return MessageStatusEnum.OF;
+		}
+		return MessageStatusEnum.RS;
+		
+	}
+
+	@Override
+	public MessageStatusEnum addComment(String username, String content, int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MessageStatusEnum addSupportTimes(String username, int id) {
+		// TODO Auto-generated method stub
+		try {
+			messageDao.addSupportTimes(id);
+		} catch(Exception e) {
+			return MessageStatusEnum.OF;
+		}
+		return MessageStatusEnum.SS;
+		
+	}
+
 }

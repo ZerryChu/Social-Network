@@ -11,7 +11,11 @@ import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.UserStatusEnum;
 import group.zerry.api_server.service.UserService;
 import group.zerry.api_server.utils.EncodeTools;
-
+/**
+ * @author ZerryChu
+ * @since  2015.10.3
+ *
+ */
 @Service(value = "UserService")
 public class UserServiceImpl implements UserService {
 
@@ -19,6 +23,7 @@ public class UserServiceImpl implements UserService {
 	UserDao userDao;
 
 	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
+	
 	@Override
 	public UserStatusEnum login(String username, String password) {
 		// TODO Auto-generated method stub
@@ -84,4 +89,5 @@ public class UserServiceImpl implements UserService {
 		}
 		return user;
 	}
+
 }

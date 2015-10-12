@@ -10,6 +10,9 @@
 		<result property="author" column="author" />
 		<result property="content" column="content" />
 		<result property="create_time" column="create_time" />
+		<result property="repost_times" column="repost_times" />
+		<result property="comment_times" column="comment_times" />
+		<result property="support_times" column="support_times" />
 	</resultMap>
 
 	<select id="getMessages" resultType="Message">
@@ -26,7 +29,7 @@
 		ORDER BY
 		create_time DESC
 	</select>
-	
+
 	<delete id="deleteMessageById" parameterType="string">
 		DELETE
 		FROM
@@ -41,13 +44,39 @@
 		type,
 		author,
 		content,
-		create_time
+		create_time,
+		repost_times,
+		comment_times,
+		support_times
 		)
 		VALUES
 		(
 		#{type}, #{author}, #{content},
-		now()
+		now(),
+		0,
+		0,
+		0
 		)
 	</insert>
-	
+
+	<update id="addRepostTimes" parameterType="int">
+		UPDATE message_inf
+		SET repost_times = repost_times + 1
+		WHERE
+		id = #{id}
+	</update>
+
+	<update id="addSupportTimes" parameterType="int">
+		UPDATE message_inf
+		SET support_times = support_times + 1
+		WHERE
+		id = #{id}
+	</update>
+
+	<update id="addCommentTimes" parameterType="int">
+		UPDATE message_inf
+		SET comment_times = comment_times + 1
+		WHERE
+		id = #{id}
+	</update>
 </mapper>

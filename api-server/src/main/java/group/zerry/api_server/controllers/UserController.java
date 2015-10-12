@@ -104,4 +104,21 @@ public class UserController {
 		return regMsg.toString();
 	}
 	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/logout", produces = "text/html;charset=UTF-8")
+	public String UserLogout(String username, String usertoken) {
+		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
+		try {
+			cacheTools.remove(username);
+		} catch(Exception e) {
+			regMsg.append(UserStatusEnum.LOF.getValue());
+			regMsg.append("\"}");
+			return regMsg.toString();
+		}
+		regMsg.append(UserStatusEnum.LOS.getValue());
+		regMsg.append("\"}");
+		return regMsg.toString();
+	}
+	
 }

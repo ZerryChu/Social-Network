@@ -47,6 +47,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
             	String userToken = request.getParameter("userToken");
             	logger.info(username + "   " + userToken);
         		if (null == cacheTools.get(username) || !cacheTools.get(username).equals(userToken)) {
+        			//验证userToken 是否正确
                     response.setCharacterEncoding("UTF-8");
                     response.setContentType("application/json");
         			StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");

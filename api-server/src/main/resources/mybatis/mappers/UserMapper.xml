@@ -67,7 +67,6 @@
 		)
 	</select>
 
-	<!-- parameterType? -->
 	<insert id="addUser" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		INTO user_inf (

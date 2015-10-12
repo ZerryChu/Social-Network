@@ -14,6 +14,12 @@ public interface MessageDao {
 	
 	public void deleteMessageByID(int id);
 	
+	public void addRepostTimes(int id);
+	
+	public void addCommentTimes(int id);
+	
+	public void addSupportTimes(int id);
+	
 	/* 获取自己的帖子 */
 	//public Message getMessagesByAuthor(String authorName);
 }
