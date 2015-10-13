@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.zerry.api_server.dao.UserDao">
+
+	<resultMap id="UserMap" type="User">
+		<result property="id" column="id" />
+		<result property="nickname" column="nickname" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="type" column="type" />
+		<result property="habit" column="habit" />
+		<result property="friend_num" column="friend_num" />
+		<result property="message_num" column="message_num" />
+
+	</resultMap>
+
+	<select id="selectUserByUsername" parameterType="string"
+		resultType="User">
+		SELECT
+		*
+		FROM
+		user_inf
+		WHERE
+		username = #{username}
+	</select>
+
+	<select id="selectUserByNickname" parameterType="string"
+		resultType="User">
+		SELECT
+		*
+		FROM
+		user_inf
+		WHERE
+		nickname = #{nickname}
+	</select>
+	
+	<select id="selectFriendsByUsername" parameterType="string"
+		resultType="User">
+		SELECT
+		friend_id
+		FROM
+		friend,
+		user_inf
+		WHERE
+		friend.user_id =
+		user_inf.id
+		AND user_inf.username = #{author}
+	</select>
+
+
+	<select id="selectFriendsNicknameByUsername" parameterType="string"
+		resultType="string">
+		SELECT
+		user_inf.nickname
+		FROM
+		user_inf
+		WHERE
+		id IN (
+		SELECT
+		friend_id
+		FROM
+		friend,
+		user_inf
+		WHERE
+		username = #{username}
+		AND user_id =
+		id
+		)
+	</select>
+
+	<insert id="addUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT
+		INTO user_inf (
+		nickname,
+		username,
+		PASSWORD,
+		age,
+		type,
+		habit,
+		friend_num,
+		message_num
+		)
+		VALUES
+		(
+		#{nickname}, #{username}, #{password}, #{age},
+		1, #{habit}, 0, 0
+		)
+	</insert>
+
+	<insert id="addFriend" parameterType="string" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO friend
+		VALUES
+		(#{1}, #{2}, #{3})
+	</insert>
+
+	<update id="addMessage_numByUsername" parameterType="string">
+		UPDATE user_inf
+		SET message_num = message_num + 1
+		WHERE
+		username = #{username}
+	</update>
+	
+	<update id="decreaseMessage_numByUsername" parameterType="string">
+		UPDATE user_inf
+		SET message_num = message_num - 1
+		WHERE
+		username = #{username}
+	</update>
+	
+	<update id="addFriend_numByUsername" parameterType="string">
+		UPDATE user_inf
+		SET friend_num = friend_num + 1
+		WHERE
+		username = #{username}
+	</update>
+</mapper>
