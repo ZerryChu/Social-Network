@@ -1,8 +1,10 @@
 package group.zerry.front_server.entity;
 
 /**
- * @author：Zerry
- * @content: 用户实体
+ * @author  Zerry
+ * @version 2.0
+ * @content 用户实体
+ * 
  */
 public class User {
 	private int    id;
@@ -12,6 +14,8 @@ public class User {
 	private String password;
 	private int    type;
 	private String habit;
+	private int    friend_num;
+	private int    message_num;
 	
 	public int getId() {
 		return id;
@@ -54,6 +58,18 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public int getFriend_num() {
+		return friend_num;
+	}
+	public void setFriend_num(int friend_num) {
+		this.friend_num = friend_num;
+	}
+	public int getMessage_num() {
+		return message_num;
+	}
+	public void setMessage_num(int message_num) {
+		this.message_num = message_num;
 	}
 	
 }

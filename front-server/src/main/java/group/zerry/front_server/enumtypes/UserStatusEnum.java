@@ -14,7 +14,9 @@ public enum UserStatusEnum {
 	UNE("USERNAME_OR_FRIEND_NOT_EXIST", "用户不存在"),
 	PNV("PARAM_NOT_VALID", "参数无效"),
 	AFE("ADD_FRIEND_ERROR", "添加好友失败"),
-	AFS("ADD_FRIEND_SUCCEED", "添加好友成功");
+	AFS("ADD_FRIEND_SUCCEED", "添加好友成功"),
+	LOS("LOGOUT_SUCCEED", "下线成功"),
+	LOF("LOGOUT_FAIL", "下线失败");
 	
 	private static Map<String, UserStatusEnum> valueMap = new HashMap<String, UserStatusEnum>();
 

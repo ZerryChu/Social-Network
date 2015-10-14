@@ -333,7 +333,7 @@ Return:
     &quot;returnmsg&quot;:返回信息
 Response(JSON):
     {
-        &quot;returnmsg&quot;: &quot;REG_SUCCEED&quot;,
+        &quot;returnmsg&quot;: &quot;REG_SUCCEED&quot;
     }
 </code></pre>
 
@@ -382,9 +382,29 @@ Response(JSON):
     {&quot;returnmsg&quot;:&quot;ADD_FRIEND_SUCCEED&quot;}
 </code></pre>
 
-<h2 id="toc_6">微博帖子模块</h2>
+<h3 id="toc_6">显示信息：</h3>
 
-<h3 id="toc_7">发微博</h3>
+<pre><code>URL: /user/getinfo
+Method: POST
+Params:
+    &quot;username&quot;:require(用户名)
+Return:
+    &quot;returnmsg&quot;:返回信息
+Response(JSON):
+    &quot;returnmsg&quot;: 
+        {
+        	&quot;nickname&quot;: (作者昵称),
+       	    &quot;age&quot;: (年龄);,
+        	&quot;habit&quot;: (爱好),
+        	&quot;type&quot;: (1：普通用户 2：管理员)
+        	&quot;friend_num&quot;: (朋友数)
+        	&quot;message_num&quot;: (微博数)
+        }
+</code></pre>
+
+<h2 id="toc_7">微博帖子模块</h2>
+
+<h3 id="toc_8">发微博</h3>
 
 <pre><code>URL: /message/send
 Method: POST
@@ -399,21 +419,21 @@ Response(JSON):
     {&quot;returnmsg&quot;: &quot;ADD_MESSAGE_SUCCEED&quot;}
 </code></pre>
 
-<h3 id="toc_8">删除微博</h3>
+<h3 id="toc_9">删除微博</h3>
 
 <pre><code>URL: /message/delete
 Method: POST
 Params:
     &quot;username&quot;:require、(用户名)
     &quot;userToken&quot;:require、(登陆标示)
-    &quot;id&quot;:require、(微博id)
+    &quot;id&quot;:require(微博id)
 Return:
     &quot;returnmsg&quot;:返回信息
 Response(JSON):
     {&quot;returnmsg&quot;: &quot;DELETE_MESSAGE_SUCCEED&quot;}
 </code></pre>
 
-<h3 id="toc_9">获取微博数据</h3>
+<h3 id="toc_10">获取微博数据</h3>
 
 <pre><code>URL: /message/show
 Method: POST
@@ -427,19 +447,22 @@ Return:
 Response(JSON):
     {
         &quot;returnmsg&quot;: 
-        &quot;data&quot;:{
+        {
         	&quot;author&quot;: (作者昵称),
-       	    &quot;content&quot;: &quot;(微博内容)&quot;,
+       	    &quot;content&quot;: &quot;(微博内容);,
         	&quot;create_time&quot;: (发微博的时间),
         	&quot;repost_times&quot;: (转发量),
         	&quot;comment_times&quot;: (评论量),
         	&quot;support_times&quot;: (点赞量)
-        }
+        },
+        {
+        ...
+        },
         ...
     }
 </code></pre>
 
-<h3 id="toc_10">转发微博</h3>
+<h3 id="toc_11">转发微博</h3>
 
 <pre><code>URL: /message/repost
 Method: POST
@@ -455,94 +478,58 @@ Response(JSON):
     }
 </code></pre>
 
-<h3 id="toc_11">保存警报信息</h3>
+<h3 id="toc_12">评论微博</h3>
 
-<pre><code>URL: /sensordata/alert/add
-Method: POST
-Params:
-    &quot;serialnum&quot;:require、(设备序列号)
-Return:
-    &quot;returnmsg&quot;:返回信息
-Response(JSON):
-    {&quot;returnmsg&quot;: &quot;数据接收成功&quot;}
-</code></pre>
-
-<h3 id="toc_16">查询警报信息</h3>
-
-<pre><code>URL: /alert/get
+<pre><code>URL: /message/comment
 Method: POST
 Params:
     &quot;username&quot;:require、(用户名)
     &quot;usertoken&quot;:require、(登陆标识)
-    &quot;serialnum&quot;:require、(设备序列号)
+    &quot;id&quot;:require、(微博id)
+    &quot;content&quot;:require(评论内容)
 Return:
     &quot;returnmsg&quot;:返回信息
-    &quot;data&quot;:返回的数据(JSON)
 Response(JSON):
-    {
-        &quot;returnmsg&quot;:&quot;DATA_FETCH_SUCCESS&quot;,
-        &quot;data&quot;:[{
-                    &quot;createTime&quot;:&quot;2014-12-29 14:00:16.0&quot;
-                },
-                {
-                    &quot;createTime&quot;:&quot;2014-12-30 12:55:42.0&quot;
-                }
-            ]
-    }
+    {&quot;returnmsg&quot;: &quot;ADD_COMMENT_SUCCEED&quot;}
 </code></pre>
 
-<h3>查询警报信息统计数据</h3>
+<h3 id="toc_13">微博点赞</h3>
 
-<pre><code>URL: /sensordata/alert/count
+<pre><code>URL: /message/support
 Method: POST
 Params:
-    "username":require、(用户名)
-    "usertoken":require、(登陆标识)
-    "timestamp":require、(时间点)
+    &quot;username&quot;:require、(用户名)
+    &quot;usertoken&quot;:require、(登陆标识)
+    &quot;serialnum&quot;:require(设备序列号)
 Return:
-    "returnmsg":返回信息
-    "data":返回的数据(JSON)
+    &quot;returnmsg&quot;:返回信息
 Response(JSON):
-    {
-        "returnmsg": "DATA_FETCH_SUCCESS",
-        "data":[
-        {
-            "count": 4,
-            "serialNum": "40A259C7"
-        },
-        {
-            "count": 9,
-            "serialNum": "40A61AF3"
-        }
-        ]
-    }
+    {&quot;returnmsg&quot;:&quot;ADD_SUPPORT_SUCCEED&quot;}
 </code></pre>
 
-<h3>查询传感器数据统计数据</h3>
+<h2 id="toc_14">微博评论模块</h2>
 
-<pre><code>URL: /sensordata/count
+<h3 id="toc_15">显示评论</h3>
+
+<pre><code>URL: /comment/show
 Method: POST
 Params:
-    "username":require、(用户名)
-    "usertoken":require、(登陆标识)
-    "timestamp":require、(时间点)
+    &quot;id&quot;:require(微博id)
 Return:
     "returnmsg":返回信息
-    "data":返回的数据(JSON)
 Response(JSON):
     {
-        "returnmsg": "DATA_FETCH_SUCCESS",
-        "data":[
+        &quot;returnmsg&quot;: 
         {
-            "count": 4,
-            "serialNum": "40A259C7"
+        	&quot;nickname&quot;: (用户昵称),
+        	&quot;content&quot;: (评论内容),
+        	&quot;create_time&quot;: (评论时间)
+        }, 
+        {
+        ...
         },
-        {
-            "count": 9,
-            "serialNum": "40A61AF3"
-        }
-        ]
-    }   
+        ...
+    }
 </code></pre>
 
 <p></article></p>

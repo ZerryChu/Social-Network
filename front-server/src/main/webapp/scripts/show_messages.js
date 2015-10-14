@@ -5,7 +5,7 @@ function show_messages() {
     $.ajax({
         type: "post",
         url: "message/show",
-        data: { nickname :  (标签id).nickname.value, type : 1, page : .value },
+        data: { username :  (标签id).username.value, userToken: , type : 1 },
         dataType: "json",
         success : function(data){
             $.each(data,function(){

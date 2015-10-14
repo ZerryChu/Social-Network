@@ -49,16 +49,16 @@ public class UserController {
 			return "{\"msg\" : 0}";
 	}
 	
-	@AuthPass
 	@RequestMapping(value = "/getinfo", produces = "text/html;charset=UTF-8")
 	public String showUserInfo(String username) {
 		return userService.showUserInfo(username); //json data
 	}
 	
+	// 考虑验证好友请求
 	@AuthPass
 	@RequestMapping(value = "/addfriend", produces = "text/html;charset=UTF-8")
-	public String addFriend(String username, String friendUsername, String group) {
-		if(userService.addFriend(username, friendUsername, group))
+	public String addFriend(String username, String userToken, String friendUsername, String group) {
+		if(userService.addFriend(username, userToken, friendUsername, group))
 			return "{\"msg\" : 1}";
 		else
 			return "{\"msg\" : 0}";

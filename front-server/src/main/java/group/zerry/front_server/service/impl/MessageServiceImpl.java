@@ -26,11 +26,12 @@ public class MessageServiceImpl implements MessageService {
 	@Autowired
 	FetchUrlTools fetchURLTool;
 
-	public boolean send_message(String username, String content, int type) {
+	public boolean send_message(String username, String userToken, String content, int type) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/send";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
 		paramsMap.put("content", content);
 		paramsMap.put("type", String.valueOf(type));
 		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
@@ -40,11 +41,12 @@ public class MessageServiceImpl implements MessageService {
 			return false;
 	}
 
-	public boolean delete_message(String username, int id) {
+	public boolean delete_message(String username, String userToken, int id) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/delete";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
 		paramsMap.put("id", String.valueOf(id));
 		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
 		if (returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.DMS.getValue())) {
@@ -53,13 +55,13 @@ public class MessageServiceImpl implements MessageService {
 			return false;
 	}
 
-	public String show_messages(String nickname, int type, int page) {
+	public String show_messages(String username, String userToken, int type) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/delete";
 		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("nickname", nickname);
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
 		paramsMap.put("type", String.valueOf(type));
-		paramsMap.put("page", String.valueOf(page));
 		//List<Message> messages = JSON.parseArray(fetchURLTool.doPost(url, paramsMap), Message.class);
 		return fetchURLTool.doPost(url, paramsMap);
 	}

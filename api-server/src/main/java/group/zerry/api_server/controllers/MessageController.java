@@ -29,7 +29,7 @@ public class MessageController {
 	@Autowired
 	MessageService messageService;
 
-	private static SimplePropertyPreFilter messageFilter = new SimplePropertyPreFilter(Message.class, "author",
+	private static SimplePropertyPreFilter messageFilter = new SimplePropertyPreFilter(Message.class, "id", "author",
 			"content", "create_time", "repost_times", "comment_times", "support_times");
 
 	private static Logger logger = Logger.getLogger(MessageController.class);
@@ -111,13 +111,24 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/comment", produces = "text/html;charset=UTF-8")
-	public String repost_message(String username, String userToken, int id, String content) {
+	public String comment_message(String username, String userToken, int id, String content) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		MessageStatusEnum status = messageService.addComment(username, content, id);
 		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		return regMsg.toString();
 	}
-	// 点赞
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/support", produces = "text/html;charset=UTF-8")
+	public String support_message(String username, String userToken, int id) {
+		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
+		MessageStatusEnum status = messageService.addSupportTimes(username, id);
+		regMsg.append(status.getValue());
+		regMsg.append("\"}");
+		return regMsg.toString();
+	}
+
 	//待选添加： 查看自己的帖子
 }

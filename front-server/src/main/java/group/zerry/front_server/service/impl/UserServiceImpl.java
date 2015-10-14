@@ -68,10 +68,11 @@ public class UserServiceImpl implements UserService {
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 
-	public boolean addFriend(String username, String friendUsername, String group) {
+	public boolean addFriend(String username, String userToken, String friendUsername, String group) {
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "user/addfriend";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
 		paramsMap.put("friendUsername", friendUsername);
 		paramsMap.put("group", group);
 		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);

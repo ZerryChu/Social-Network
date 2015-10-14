@@ -19,8 +19,8 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/send", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String post_message(String username, String content, int type) {
-		if(messageService.send_message(username, content, type))
+	public String post_message(String username, String userToken, String content, int type) {
+		if(messageService.send_message(username, userToken, content, type))
 			return "{\"msg\" : 1}";
 		else 
 			return "{\"msg\" : 0}";
@@ -29,8 +29,8 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String delete_message(String username, int id) {
-		if(messageService.delete_message(username, id))
+	public String delete_message(String username, String userToken, int id) {
+		if(messageService.delete_message(username, userToken, id))
 			return "{\"msg\" : 1}";
 		else 
 			return "{\"msg\" : 0}";
@@ -39,8 +39,8 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String show_messages(String nickname, int type, int page) {
-		return messageService.show_messages(nickname, type, page);
+	public String show_messages(String username, String userToken, int type) {
+		return messageService.show_messages(username, username, type);
 	}
 	
 }

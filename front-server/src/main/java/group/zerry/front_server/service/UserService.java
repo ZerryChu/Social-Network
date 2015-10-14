@@ -10,5 +10,5 @@ public interface UserService {
 
 	public String showUserInfo(String username);
 
-	public boolean addFriend(String username, String friendUsername, String group);
+	public boolean addFriend(String username, String userToken, String friendUsername, String group);
 }
