@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>社交网络api文档</title>
+
 </head>
 <body>
 <ul id="tree" class="ztree"></ul>
@@ -23,7 +24,6 @@ Params:
     &quot;nickname&quot;:require、(昵称)    
     &quot;age&quot;:require、(年龄)
     &quot;habit&quot;:require(爱好)     
-    
 Return:
     &quot;returnmsg&quot;:返回信息
 Response(JSON):
@@ -89,9 +89,11 @@ Response(JSON):
     &quot;returnmsg&quot;: 
         {
         	&quot;nickname&quot;: (作者昵称),
-       	    &quot;age&quot;: &quot;(年龄);,
+       	    &quot;age&quot;: (年龄);,
         	&quot;habit&quot;: (爱好),
         	&quot;type&quot;: (1：普通用户 2：管理员)
+        	&quot;friend_num&quot;: (朋友数)
+        	&quot;message_num&quot;: (微博数)
         }
 </code></pre>
 
@@ -227,28 +229,6 @@ Response(JSON):
 
 <p></article></p>
 
-<script type="text/javascript" src="static/js/jquery-1.10.2.min.js"></script>
 
-<script type="text/javascript" src="static/js/jquery.ztree.all-3.5.min.js"></script>
-
-<script type="text/javascript" src="static/js/jquery.ztree_toc.js"></script>
-
-<SCRIPT type="text/javascript" >
-$(document).ready(function(){
-    $('#tree').ztree_toc({
-        is_auto_number:true,
-        documment_selector:'.markdown-body',
-        ztreeStyle: {
-            width:'260px',
-            overflow: 'auto',
-            position: 'fixed',
-            'z-index': 2147483647,
-            border: '0px none',
-            left: '0px',
-            top: '55px'
-        }
-    });
-});
-</SCRIPT>
 </body>
 </html>
