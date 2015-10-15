@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <title>社交网络后台服务器api文档</title>
+=======
+<title>社交网络api文档</title>
+
+>>>>>>> origin/master
 </head>
 <body>
 <ul id="tree" class="ztree"></ul>
@@ -23,7 +27,6 @@ Params:
     &quot;nickname&quot;:require、(昵称)    
     &quot;age&quot;:require、(年龄)
     &quot;habit&quot;:require(爱好)     
-    
 Return:
     &quot;returnmsg&quot;:返回信息
 Response(JSON):
@@ -89,9 +92,11 @@ Response(JSON):
     &quot;returdata&quot;: 
         {
         	&quot;nickname&quot;: (作者昵称),
-       	    &quot;age&quot;: &quot;(年龄);,
+       	    &quot;age&quot;: (年龄);,
         	&quot;habit&quot;: (爱好),
         	&quot;type&quot;: (1：普通用户 2：管理员)
+        	&quot;friend_num&quot;: (朋友数)
+        	&quot;message_num&quot;: (微博数)
         }
 </code></pre>
 
@@ -226,5 +231,10 @@ Response(JSON):
 </code></pre>
 
 <p></article></p>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/master
 </body>
 </html>
