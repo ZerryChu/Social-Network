@@ -57,7 +57,7 @@ public class MessageServiceImpl implements MessageService {
 			messageDao.deleteMessageByID(id);
 			userDao.decreaseMessage_numByUsername(username);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 			return MessageStatusEnum.DMF;
 		}
 		return MessageStatusEnum.DMS;
@@ -77,7 +77,7 @@ public class MessageServiceImpl implements MessageService {
 			}
 			message = messageDao.getMessages(friend);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 			return null;
 		}
 		return message;

@@ -40,7 +40,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
             if (authPass == null || authPass.validate() == false)
                 return true;
             else {
-            	String userToken = (String) request.getSession().getAttribute("usertoken");
+            	String userToken = request.getParameter("userToken");
         		if (null == userToken) {
                     response.setCharacterEncoding("UTF-8");
                     response.setContentType("application/json");

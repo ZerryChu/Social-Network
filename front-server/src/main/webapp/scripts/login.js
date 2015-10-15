@@ -9,11 +9,12 @@ function login() {
         dataType: "json",
         success : function(data){
             $.each(data,function(){
-                if (data.msg == 1) {
+                if (data.msg != "0") {
                     //...add content
                 	alert("succeed");
-                    setTimeout("window.location='main'",2000);
-                }else {
+                	var forward = "window.location=\"main?username=" + logininfo_form.username.value + "&userToken=" + data.msg + "\"";
+                    setTimeout(forward, 2000);
+                } else {
                     //...tell fail
                 	alert("fail");
                 }

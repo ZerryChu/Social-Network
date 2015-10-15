@@ -2,19 +2,19 @@
  * Created by zhuzirui on 10/11/15.
  */
 function showUserInfo() {
-    $("#logincommit").hide();
-    $.ajax({
+	$.ajax({
         type: "post",
         url: "user/getinfo",
-        data: { username :  (标签id).username.value },
+        data: { username : $.query.get("username") },
         dataType: "json",
         success : function(data){
             $.each(data,function(){
-                if () {
-
-
-
-                }else {
+                if (data.returndata != null) {
+                	$("#nickname").text(data.returndata.nickname);
+                	$("#friend_num").text(data.returndata.friend_num);
+                	$("#message_num").text(data.returndata.message_num);
+                } else {
+                	//
                 }
             });
         }

@@ -32,7 +32,8 @@ public class UserController {
 		logger.error(uuid.toString());
 		if(userService.login(username, password, uuid.toString())) {
 			request.getSession().setAttribute(username, uuid.toString());
-			return "{\"msg\" : 1}";
+			return "{\"msg\" : \"" + uuid.toString() + "\"}";
+			//返回userToken
 		}
 		else
 			return "{\"msg\" : 0}";
@@ -49,6 +50,7 @@ public class UserController {
 			return "{\"msg\" : 0}";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/getinfo", produces = "text/html;charset=UTF-8")
 	public String showUserInfo(String username) {
 		return userService.showUserInfo(username); //json data

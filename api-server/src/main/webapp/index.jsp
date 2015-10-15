@@ -389,9 +389,9 @@ Method: POST
 Params:
     &quot;username&quot;:require(用户名)
 Return:
-    &quot;returnmsg&quot;:返回信息
+    &quot;returndata&quot;:返回的数据(JSON)
 Response(JSON):
-    &quot;returnmsg&quot;: 
+    &quot;returndata&quot;: 
         {
         	&quot;nickname&quot;: (作者昵称),
        	    &quot;age&quot;: (年龄);,
@@ -442,11 +442,10 @@ Params:
     &quot;usertoken&quot;:require、(登陆标识)
     &quot;type&quot;:require(1: 所有人可见 2: 仅看好友微博)
 Return:
-    &quot;returnmsg&quot;:返回信息
-    &quot;data&quot;:返回的数据(JSON)
+    &quot;returndata&quot;:返回的数据(JSON)
 Response(JSON):
     {
-        &quot;returnmsg&quot;: 
+        &quot;returndata&quot;: 
         {
         	&quot;author&quot;: (作者昵称),
        	    &quot;content&quot;: &quot;(微博内容);,
@@ -516,10 +515,10 @@ Method: POST
 Params:
     &quot;id&quot;:require(微博id)
 Return:
-    "returnmsg":返回信息
+        &quot;returndata&quot;:返回的数据(JSON)
 Response(JSON):
     {
-        &quot;returnmsg&quot;: 
+        &quot;returndata&quot;: 
         {
         	&quot;nickname&quot;: (用户昵称),
         	&quot;content&quot;: (评论内容),

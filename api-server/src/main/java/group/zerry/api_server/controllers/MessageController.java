@@ -70,7 +70,7 @@ public class MessageController {
 	@RequestMapping(value = "/show", produces = "text/html;charset=UTF-8")
 	public String show_messages(String username, String userToken, int type) {
 		//page--;
-		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
 		//Message[] messagesInUse;
 		try {
@@ -87,13 +87,13 @@ public class MessageController {
 			*/
 		} catch (Exception e) {
 			regMsg.append(MessageStatusEnum.SMF);
-			regMsg.append("\"}");
+			regMsg.append("}");
 			return regMsg.toString();
 		}
 		//regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
 		regMsg.append(JSON.toJSONString(messages, messageFilter));
-		regMsg.append("\"}");
-		logger.info(regMsg.toString());
+		regMsg.append("}");
+		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 	

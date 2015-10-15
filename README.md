@@ -2,14 +2,14 @@
 
 <head>
 <meta charset="utf-8">
-<title>社交网络api文档</title>
+<title>社交网络后台服务器api文档</title>
 </head>
 <body>
 <ul id="tree" class="ztree"></ul>
 
 <p><article class='markdown-body'></p>
 
-<h1 id="toc_0">社交网络API文档</h1>
+<h1 id="toc_0">社交网络后台服务器api文档</h1>
 
 <h2 id="toc_1">用户模块</h2>
 
@@ -84,9 +84,9 @@ Method: POST
 Params:
     &quot;username&quot;:require(用户名)
 Return:
-    &quot;returnmsg&quot;:返回信息
+    &quot;returndata&quot;:返回信息
 Response(JSON):
-    &quot;returnmsg&quot;: 
+    &quot;returdata&quot;: 
         {
         	&quot;nickname&quot;: (作者昵称),
        	    &quot;age&quot;: &quot;(年龄);,
@@ -135,23 +135,24 @@ Params:
     &quot;usertoken&quot;:require、(登陆标识)
     &quot;type&quot;:require(1: 所有人可见 2: 仅看好友微博)
 Return:
-    &quot;returnmsg&quot;:返回信息
-    &quot;data&quot;:返回的数据(JSON)
+    &quot;returndata&quot;:返回信息
 Response(JSON):
     {
-        &quot;returnmsg&quot;: 
-        {
-        	&quot;author&quot;: (作者昵称),
-       	    &quot;content&quot;: &quot;(微博内容);,
-        	&quot;create_time&quot;: (发微博的时间),
-        	&quot;repost_times&quot;: (转发量),
-        	&quot;comment_times&quot;: (评论量),
-        	&quot;support_times&quot;: (点赞量)
-        },
-        {
-        ...
-        },
-        ...
+        &quot;returndata&quot;: 
+        [
+            {
+                &quot;author&quot;: (作者昵称),
+                &quot;content&quot;: &quot;(微博内容);,
+                &quot;create_time&quot;: (发微博的时间),
+                &quot;repost_times&quot;: (转发量),
+                &quot;comment_times&quot;: (评论量),
+                &quot;support_times&quot;: (点赞量)
+            },
+            {
+                ...
+            }
+            ...
+        ]
     }
 </code></pre>
 
@@ -193,7 +194,6 @@ Method: POST
 Params:
     &quot;username&quot;:require、(用户名)
     &quot;usertoken&quot;:require、(登陆标识)
-    &quot;serialnum&quot;:require(设备序列号)
 Return:
     &quot;returnmsg&quot;:返回信息
 Response(JSON):
@@ -226,29 +226,5 @@ Response(JSON):
 </code></pre>
 
 <p></article></p>
-
-<script type="text/javascript" src="static/js/jquery-1.10.2.min.js"></script>
-
-<script type="text/javascript" src="static/js/jquery.ztree.all-3.5.min.js"></script>
-
-<script type="text/javascript" src="static/js/jquery.ztree_toc.js"></script>
-
-<SCRIPT type="text/javascript" >
-$(document).ready(function(){
-    $('#tree').ztree_toc({
-        is_auto_number:true,
-        documment_selector:'.markdown-body',
-        ztreeStyle: {
-            width:'260px',
-            overflow: 'auto',
-            position: 'fixed',
-            'z-index': 2147483647,
-            border: '0px none',
-            left: '0px',
-            top: '55px'
-        }
-    });
-});
-</SCRIPT>
 </body>
 </html>

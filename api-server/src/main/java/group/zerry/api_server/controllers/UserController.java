@@ -86,11 +86,11 @@ public class UserController {
 	}
 	
 	
-	//{"returnmsg":"{"age":20,"habit":"旅游、打各种球、编程","nickname":"zerrychu","type":2}"}
+	//{"returnmsg": {"age":20,"habit":"旅游、打各种球、编程","nickname":"zerrychu","type":2}}
 	@ResponseBody
 	@RequestMapping(value = "/getinfo", produces = "text/html;charset=UTF-8")
 	public String ShowUserInfo(String username) {
-		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		User user;
 		if(null == (user = userService.showUserInfo(username))) {
 			regMsg.append(UserStatusEnum.UNV.getValue());
@@ -98,8 +98,8 @@ public class UserController {
 		else {
 			regMsg.append(JSON.toJSONString(user, userFilter));
 		}
-		regMsg.append("\"}");
-        logger.info(regMsg.toString());
+		regMsg.append("}");
+        logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 	

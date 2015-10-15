@@ -57,7 +57,7 @@ public class MessageServiceImpl implements MessageService {
 
 	public String show_messages(String username, String userToken, int type) {
 		// TODO Auto-generated method stub
-		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/delete";
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/show";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("username", username);
 		paramsMap.put("userToken", userToken);
