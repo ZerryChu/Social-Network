@@ -1,0 +1,104 @@
+
+* {
+    margin: 0px;
+}
+
+.main {
+    width: auto;
+    margin-right: 10%;
+    height: 800px;
+}
+
+.left_content, .right_content {
+    display: inline-block;
+    float: right;
+}
+
+.left_content {
+    border: 1px solid #786F66;
+    width: 60%;
+}
+
+.right_content {
+    border: 1px solid #786F66;
+    width: 30%;
+}
+
+.post_message {
+    height: 150px;
+    border: 1px solid #786F66;
+
+}
+
+.user_info {
+    height: 200px;
+    border: 1px solid #786F66;
+
+}
+
+.weibo_info {
+    height: 650px;
+    border: 1px solid #786F66;
+
+}
+
+.friend_recommand {
+    height: 300px;
+    border: 1px solid #786F66;
+
+}
+
+.heated_topic {
+    height: 300px;
+    border: 1px solid #786F66;
+
+}
+
+.weibo li {
+    list-style-type: none;
+}
+
+.user_account li {
+     float: left;
+     margin-left: 40px;
+     text-align: center;
+     list-style-type: none;
+ }
+
+.messages_class li {
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+    list-style-type: none;
+}
+
+.rec_content li {
+
+    list-style-type: none;
+}
+
+.topic li {
+
+    list-style-type: none;
+}
+
+.post_message_form {
+    margin-left: 40px;
+    margin-top: 25px;
+}
+
+.weibo {
+    margin-left: 40px;
+    margin-top: 25px;
+}
+
+.rec_content {
+    margin-left: 40px;
+    margin-top: 25px;
+}
+
+.topic {
+    margin-left: 40px;
+    margin-top: 25px;
+}

@@ -1,11 +1,15 @@
 /**
  * Created by zhuzirui on 10/12/15.
  */
-function showUserInfo() {
+function delete_message() {
     $.ajax({
         type: "post",
-        url: "user/getinfo",
-        data: { username :  (标签id).username.value id : .value},
+        url: "message/delete",
+        data: { 
+        	username : $.query.get("username"),
+        	userTpken : $.query.get("userToken"),
+        	id : 1//change id
+        },
         dataType: "json",
         success : function(data){
             $.each(data,function(){

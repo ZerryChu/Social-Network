@@ -29,11 +29,11 @@ function show_messages() {
 																	+ data.returndata[i].create_time
 																	+ "</span><br><span class=\"content\">"
 																	+ data.returndata[i].content
-																	+ "</span><br><span class=\"repost_times\">"
+																	+ "</span><br>转发<span class=\"repost_times\">"
 																	+ data.returndata[i].repost_times
-																	+ "</span><span class=\"comment_times\">"
+																	+ "</span>评论<span class=\"comment_times\">"
 																	+ data.returndata[i].comment_times
-																	+ "</span><span class=\"support_times\">"
+																	+ "</span>赞<span class=\"support_times\">"
 																	+ data.returndata[i].support_times
 																	+ "</span>");
 											i++;
