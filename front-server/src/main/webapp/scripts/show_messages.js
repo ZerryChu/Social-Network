@@ -22,9 +22,10 @@ function show_messages() {
 											$(".weibo")
 													.append(
 															"<li id=\"weibo_"
-																	+ i
+																	+ data.returndata[i].id
 																	+ "\"><br><img class=\"weibo_icon\" src=\"pic/"
-																	+ $.query.get("username") 
+																	+ $.query
+																			.get("username")
 																	+ ".jpg\" onerror=\"javascript:this.src='images/no_user_icon.png'\">"
 																	+ "<span class=\"weibo_name\">"
 																	+ data.returndata[i].author
@@ -38,13 +39,17 @@ function show_messages() {
 																	+ data.returndata[i].comment_times
 																	+ "</span>赞<span class=\"support_times\">"
 																	+ data.returndata[i].support_times
-																	+ "</span></li>");
+																	// 获取评论模块
+																	+ "</span><div id=\"comment_"
+																	+ data.returndata[i].id
+																	+ "\"></div>"
+																	+ "</li>");
 											i++;
 										}
 									});
 				}
 			});
 }
-// {"returnmsg":"[{"author":"lucy","content":"今天去爬了二龙山，好累啊","create_time":"2015-10-05
+// {"returnmsg":[{"author":"lucy","content":"今天去爬了二龙山，好累啊","create_time":"2015-10-05
 // 22:15:13.0"},{"author":"lucy","content":"今天去爬了二龙山，好累啊","create_time":"2015-10-05
-// 22:15:12.0"},null,null,null,null,null,null,null,null]"}
+// 22:15:12.0"},null,null,null,null,null,null,null,null]}

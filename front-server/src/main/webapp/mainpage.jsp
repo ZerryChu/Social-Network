@@ -16,10 +16,10 @@
 			<div class="user_info">
 				<img width="50%" class="user_icon" src=""
 					onerror="javascript:this.src='images/no_user_icon.png'"> <span
-					class="nickname">nickname</span> <br>
+					class="nickname"></span> <br>
 				<ul class="user_account">
-					<li id="friend_num">好友：</li>
-					<li id="message_num">广播：</li>
+					<li id="friend_num"></li>
+					<li id="message_num"></li>
 				</ul>
 			</div>
 			<div class="heated_topic">
@@ -74,6 +74,7 @@
 	<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 	<script src="scripts/login.js" type="text/javascript"></script>
 	<script src="scripts/showUserInfo.js" type="text/javascript"></script>
+	<script src="scripts/show_comments.js" type="text/javascript"></script>
 	<script src="scripts/show_messages.js" type="text/javascript"></script>
 	<script src="scripts/send_message.js" type="text/javascript"></script>
 	<script src="scripts/delete_message.js" type="text/javascript"></script>
@@ -82,6 +83,16 @@
 			showUserInfo();
 			show_messages();
 		});
+		
+		//点击显示评论
+		$("li[id^='weibo_']").live('click',function(){
+			var message_id = $(this).attr("id");
+			message_id = message_id.substr(6);
+			show_comments(message_id);
+			var comments_id = "#comment_" + message_id;
+			$(comments_id).slideToggle();
+		});
+		
 	</SCRIPT>
 
 </body>

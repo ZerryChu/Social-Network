@@ -4,8 +4,7 @@
 }
 
 .main {
-	    margin-top: 10px;
-	
+	margin-top: 10px;
     width: auto;
     margin-right: 10%;
     height: 500px;
@@ -57,6 +56,9 @@
 }
 
 .weibo li {
+    border: 1px solid #786F66;
+    width: 90%;
+    margin-top: 10px;
     list-style-type: none;
 }
 
@@ -96,7 +98,6 @@
 }
 
 .weibo {
-    margin-left: 40px;
     margin-top: 25px;
 }
 
