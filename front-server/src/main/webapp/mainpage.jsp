@@ -54,16 +54,12 @@
 			<div id="messages">
 				<ul class="messages_class">
 					<li>好友广播</li>
-					<li>全部广播</li>
 					<li>敬请期待</li>
 				</ul>
+				<br>
 				<div class="weibo_info">
 					<ul class="weibo">
-						<li id="weibo_1"><br> <span class="weibo_name"></span><span
-							class="create_time"></span> <br> <span class="content"></span>
-							<br> <span class="repost_times"></span><span
-							class="comment_times"></span><span class="support_times"></span>
-						</li>
+					
 					</ul>
 				</div>
 			</div>
@@ -83,8 +79,8 @@
 	<script src="scripts/delete_message.js" type="text/javascript"></script>
 	<SCRIPT type="text/javascript">
 		$(document).ready(function() {
-			//showUserInfo();
-			//show_messages();
+			showUserInfo();
+			show_messages();
 		});
 	</SCRIPT>
 

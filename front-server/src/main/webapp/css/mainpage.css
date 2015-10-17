@@ -4,9 +4,11 @@
 }
 
 .main {
+	    margin-top: 10px;
+	
     width: auto;
     margin-right: 10%;
-    height: 800px;
+    height: 500px;
 }
 
 .left_content, .right_content {
@@ -36,7 +38,7 @@
 
 }
 
-.weibo_info {
+#messages {
     height: 650px;
     border: 1px solid #786F66;
 
@@ -56,6 +58,11 @@
 
 .weibo li {
     list-style-type: none;
+}
+
+.weibo_icon {
+	height: 50px;	
+	width: 50px;
 }
 
 .user_account li {
