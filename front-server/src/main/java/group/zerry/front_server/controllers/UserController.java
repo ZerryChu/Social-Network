@@ -68,7 +68,7 @@ public class UserController {
 			return "{\"msg\" : 0}";
 	}
 	
-	//@AuthPass
+	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/insert_icon", produces = "text/html;charset=UTF-8")
 	public String insertIcon(HttpServletRequest request, String username, String usertoken) {

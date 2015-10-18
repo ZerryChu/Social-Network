@@ -92,7 +92,14 @@ public class UserServiceImpl implements UserService {
 		else
 			return false;
 	}
-
+	
+	//文件存储路径
+	private String path = "/Users/zhuzirui/Documents/workspace/front-server/src/main/webapp/pic/";
+	
+	/**
+	 * 用户头像上传，只开放jpg，pic，png文件的接口
+	 * 
+	 */
 	public boolean fileUpload(HttpServletRequest request, String username) {
 		// TODO Auto-generated method stub
 		try {
@@ -109,7 +116,6 @@ public class UserServiceImpl implements UserService {
 				if (item.isFormField()) {
 					return false;
 				} else {// 如果fileitem中封装的是上传文件
-					String path = "/Users/zhuzirui/Documents/workspace/front-server/src/main/webapp/pic/";
 					String filename = item.getName();
 					if (filename == null || filename.trim().equals("")) {
 						return false;

@@ -1,50 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="css/mainpage.css" rel="stylesheet" type="text/css" />
-
-<title>欢迎登陆</title>
+<meta charset="UTF-8">
+<title>主页</title>
+<link rel="stylesheet" type="text/css" href="css/mainpage.css">
 </head>
 <body>
-
-	<jsp:include page="topContent.jsp"></jsp:include>
+	<div class="bg"></div>
+	<div class="top">
+		<ul class="top_content">
+			<li>首页</li>
+			<li>敬请期待</li>
+			<!--  at    好友    私信 -->
+			<form action="" method="post">
+				<input type="text" class="search_text" />
+			</form>
+		</ul>
+	</div>
 	<div class="main">
 		<div class="right_content">
-			<div class="user_info">
-				<img width="50%" class="user_icon" src=""
-					onerror="javascript:this.src='images/no_user_icon.png'"> <span
-					class="nickname"></span> <br>
+			<div id="userinfo">
+				<div id="nickname">
+					<a href="javascript:void(0);"></a>
+				</div>
+				<img id="user_icon"
+					onerror="javascript:this.src='images/no_found.png'" /> <br>
 				<ul class="user_account">
-					<li id="friend_num"></li>
-					<li id="message_num"></li>
-				</ul>
-			</div>
-			<div class="heated_topic">
-				<div class="sub_title">热门话题</div>
-				<ul class="topic">
-					<li id="topic_1">旅游</li>
-					<li id="topic_2">游戏</li>
-					<li id="topic_3">美食</li>
-					<li id="topic_4">电影</li>
-					<li id="topic_5">动漫</li>
-				</ul>
-			</div>
-			<div class="friend_recommand">
-				<div class="sub_title">好友推荐</div>
-				<ul class="rec_content">
-					<li id="rec_1"><span class="rec_nickname">nickname</span> <br>
-						<span>原因</span></li>
+					<li class="text"><span>好友：</span> <span id="friend_num">10</span>
+					</li>
+					<li class="text"><span>广播：</span> <span id="message_num">10</span>
+					</li>
 				</ul>
 			</div>
 		</div>
 		<div class="left_content">
 			<div class="post_message">
-				<form class="post_message_form">
-					说点什么吧~ <br>
-					<textarea style="width: 60%; height: 48%;" name="content"></textarea>
+				<form>
+					<h2>content</h2>
+					<textarea class="message_content" name="content"></textarea>
 					<br> <select name="type">
 						<option value="1">所有人可见</option>
 						<option value="2">好友可见</option>
@@ -52,48 +47,108 @@
 				</form>
 			</div>
 			<div id="messages">
-				<ul class="messages_class">
-					<li>好友广播</li>
-					<li>敬请期待</li>
-				</ul>
-				<br>
-				<div class="weibo_info">
-					<ul class="weibo">
-					
+				<div class="messages_class">
+					<ul>
+						<li class="on">好友广播</li>
+						<li>全部广播</li>
+						<li>敬请期待</li>
+					</ul>
+				</div>
+				<div class="weibolist">
+					<ul id="weibo">
+						<!-- <li id="weibo_1">
+							<div id="" class="weiboinfo">
+								<div class="userPic">
+									<a href="javascript:void(0);"><img src="" /></a>
+								</div>
+								<div class="msgBox">
+									<div class="username">
+										<a href="javascript:void(0);">username</a>
+									</div>
+									<div class="txt">内容</div>
+									<div class="info">
+										<span class="create_time">11年1月1日</span> <span
+											class="repost_times"></span> <span class="support_times"></span>
+										<a href="javascript:void(0);"><span class="comment">评论</span></a>
+										<a href="javascript:void(0);"><span class="repost">转发</span>
+										</a>
+										<a href="javascript:void(0);"><span class="support">赞</span>
+										</a>
+									</div>
+									<div class="comtxt">
+										<textarea class="comarea"></textarea>
+										<input type="hidden" value="0" />
+										<ul class="otherCom">
+										</ul>
+									</div>
+								</div>
+							</div>
+						</li> -->
+					</ul>
+				</div>
+			</div>
+			<!--  
+			<div>
+				<div class="heated_topic">
+					<div class="sub_title">热门话题</div>
+					<ul class="topic">
+						<li id="topic_1">旅游</li>
+						<li id="topic_2">游戏</li>
+						<li id="topic_3">美食</li>
+						<li id="topic_4">电影</li>
+						<li id="topic_5">动漫</li>
+					</ul>
+				</div>
+				<div class="friend_recommand">
+					<div class="sub_title">好友推荐</div>
+					<ul class="rec_content">
+						<li id="rec_1"><span class="rec_nickname">nickname</span> <br>
+							<span>原因</span></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-	</div>
-	<jsp:include page="copyright.jsp"></jsp:include>
+		-->
+		</div>
+		<script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+		<script src="plugins/jquery-migrate-1.2.1.min.js"
+			type="text/javascript"></script>
+		<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
+		<script src="scripts/login.js" type="text/javascript"></script>
+		<script src="scripts/showUserInfo.js" type="text/javascript"></script>
+		<script src="scripts/show_messages.js" type="text/javascript"></script>
+		<script src="scripts/show_comments.js" type="text/javascript"></script>
+		<script src="scripts/send_message.js" type="text/javascript"></script>
+		<script src="scripts/delete_message.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
 
+				$(".messages_class li").each(function(index) {
+					var $this = $(this);
+					$this.hover(function() {
+						$(this).addClass("hover");
+					}, function() {
+						$(this).removeClass("hover");
+					});
+					$this.click(function() {
+						if (!($(this).hasClass("on"))) {
+							$(".on").removeClass("on");
+							$(this).addClass("on");
+						}
+					});
+				});
 
-	<script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-	<script src="plugins/jquery-migrate-1.2.1.min.js"
-		type="text/javascript"></script>
-	<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
-	<script src="scripts/login.js" type="text/javascript"></script>
-	<script src="scripts/showUserInfo.js" type="text/javascript"></script>
-	<script src="scripts/show_comments.js" type="text/javascript"></script>
-	<script src="scripts/show_messages.js" type="text/javascript"></script>
-	<script src="scripts/send_message.js" type="text/javascript"></script>
-	<script src="scripts/delete_message.js" type="text/javascript"></script>
-	<SCRIPT type="text/javascript">
-		$(document).ready(function() {
-			showUserInfo();
-			show_messages();
-		});
-		
-		//点击显示评论
-		$("li[id^='weibo_']").live('click',function(){
-			var message_id = $(this).attr("id");
-			message_id = message_id.substr(6);
-			show_comments(message_id);
-			var comments_id = "#comment_" + message_id;
-			$(comments_id).slideToggle();
-		});
-		
-	</SCRIPT>
+				showUserInfo();
+				show_messages();
+			});
 
+			$("li[id^='weibo_']").live('click', function() {
+				var message_id = $(this).attr("id");
+				message_id = message_id.substr(6);
+				show_comments(message_id);
+				var comments_id = "#comment_" + message_id;
+				$(comments_id).slideToggle();
+			});
+		</script>
 </body>
 </html>
