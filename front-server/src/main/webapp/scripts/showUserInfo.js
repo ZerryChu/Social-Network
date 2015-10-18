@@ -11,6 +11,7 @@ function showUserInfo() {
             $.each(data,function(){
                 if (data.returndata != null) {
                 	$(".nickname").text(data.returndata.nickname);
+                	$(".username").text(data.returndata.username);
                 	$("#friend_num").text("好友：" + data.returndata.friend_num);
                 	$("#message_num").text("广播：" + data.returndata.message_num);
                 } else {

@@ -18,7 +18,7 @@ function show_messages() {
 									data,
 									function() {
 										var i = 0;
-										while (data.returndata[i].author != null) {
+										while (data.returndata[i] != undefined) {
 											$(".weibo")
 													.append(
 															"<li id=\"weibo_"

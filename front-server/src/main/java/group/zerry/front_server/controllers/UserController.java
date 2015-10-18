@@ -1,7 +1,9 @@
 package group.zerry.front_server.controllers;
 
+import java.io.File;
 import java.util.UUID;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.HttpRequest;
@@ -64,6 +66,18 @@ public class UserController {
 			return "{\"msg\" : 1}";
 		else
 			return "{\"msg\" : 0}";
+	}
+	
+	//@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/insert_icon", produces = "text/html;charset=UTF-8")
+	public String insertIcon(HttpServletRequest request, String username, String usertoken) {
+		if(userService.fileUpload(request, username)) {
+			return "{\"msg\" : 1}";
+		}
+		else {
+			return "{\"msg\" : 0}";	
+		}
 	}
 	
 }

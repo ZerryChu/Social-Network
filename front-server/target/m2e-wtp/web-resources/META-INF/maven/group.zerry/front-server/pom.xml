@@ -58,13 +58,8 @@
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<!--  
-		<dependency>
-			<groupId>group.zerry</groupId>
-			<artifactId>common-code</artifactId>
-			<version>0.01-SNAPSHOT</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>group.zerry</groupId> <artifactId>common-code</artifactId> 
+			<version>0.01-SNAPSHOT</version> </dependency> -->
 		<!-- Spring JSON支持 -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -126,6 +121,13 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.1.37</version>
 		</dependency>
+		<!-- apache common fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
 
 		<!-- redis client -->
 		<dependency>
