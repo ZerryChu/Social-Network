@@ -25,12 +25,12 @@
 				<div id="nickname">
 					<a href="javascript:void(0);"></a>
 				</div>
-				<img id="user_icon"
-					onerror="javascript:this.src='images/no_found.png'" /> <br>
+				<img id="user_icon" src="pic/${param.username}.jpg"
+					onerror="this.src='images/no_found.png'" /> <br>
 				<ul class="user_account">
-					<li class="text"><span>好友：</span> <span id="friend_num">10</span>
+					<li class="text"><span>好友：</span> <span id="friend_num">0</span>
 					</li>
-					<li class="text"><span>广播：</span> <span id="message_num">10</span>
+					<li class="text"><span>广播：</span> <span id="message_num">0</span>
 					</li>
 				</ul>
 			</div>

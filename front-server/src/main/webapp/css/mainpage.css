@@ -191,7 +191,7 @@
 }
 
 .weibolist ul li{
-   height: 300px;
+ /*  height: 300px;*/
     height: auto;
     border-bottom: 1px dashed #e4e4e4;
     position: relative;
