@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 
 import group.zerry.api_server.annotation.AuthPass;
+import group.zerry.api_server.entity.Friend;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.enumtypes.UserStatusEnum;
@@ -103,6 +104,22 @@ public class UserController {
 		return regMsg.toString();
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/getTargetinfo", produces = "text/html;charset=UTF-8")
+	public String ShowTargetInfoByNickname(String nickname) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
+		User user;
+		if(null == (user = userService.showTargetInfoByNickname(nickname))) {
+			regMsg.append(UserStatusEnum.UNV.getValue());
+		}
+		else {
+			regMsg.append(JSON.toJSONString(user, userFilter));
+		}
+		regMsg.append("}");
+        logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
+	
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/logout", produces = "text/html;charset=UTF-8")
@@ -120,4 +137,19 @@ public class UserController {
 		return regMsg.toString();
 	}
 	
+	//check
+	@ResponseBody
+	@RequestMapping(value = "/showfriends", produces = "text/html;charset=UTF-8")
+	public String showFriendsByNickname(String nickname) {
+		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":");
+		Friend[] friends = null;
+		if(null == (friends = userService.showFriendsByNickname(nickname))) {
+			regMsg.append(UserStatusEnum.FNF.getValue());
+		} else {
+			regMsg.append(JSON.toJSONString(friends));
+		}
+		regMsg.append(UserStatusEnum.LOS.getValue());
+		regMsg.append("}");
+		return regMsg.toString();
+	}
 }

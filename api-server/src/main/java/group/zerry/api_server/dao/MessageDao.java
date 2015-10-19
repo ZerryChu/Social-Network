@@ -12,6 +12,8 @@ public interface MessageDao {
 	
 	public Message[] getMessages(String[] friend);
 	
+	public Message[] getOwnMessages(String nickname);
+	
 	public void deleteMessageByID(int id);
 	
 	public void addRepostTimes(int id);

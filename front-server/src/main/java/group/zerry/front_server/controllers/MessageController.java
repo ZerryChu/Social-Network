@@ -40,7 +40,7 @@ public class MessageController {
 	@ResponseBody
 	@RequestMapping(value = "/show", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String show_messages(String username, String userToken, int type) {
-		return messageService.show_messages(username, username, type);
+		return messageService.show_messages(username, userToken, type);
 	}
 	
 }

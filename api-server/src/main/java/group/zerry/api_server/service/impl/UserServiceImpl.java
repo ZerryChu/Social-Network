@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 
+import group.zerry.api_server.dao.FriendDao;
 import group.zerry.api_server.dao.UserDao;
+import group.zerry.api_server.entity.Friend;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.UserStatusEnum;
 import group.zerry.api_server.service.UserService;
@@ -20,8 +22,11 @@ import group.zerry.api_server.utils.EncodeTools;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	UserDao userDao;
+	UserDao               userDao;
 
+	@Autowired
+	FriendDao             friendDao;
+	
 	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
 	
 	@Override
@@ -90,6 +95,32 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 		return user;
+	}
+
+	@Override
+	public User showTargetInfoByNickname(String nickname) {
+		// TODO Auto-generated method stub
+		User user = null;
+		try {
+			user = userDao.selectUserByNickname(nickname);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		return user;
+	}
+
+	@Override
+	public Friend[] showFriendsByNickname(String nickname) {
+		// TODO Auto-generated method stub
+		Friend[] friends = null;
+		try {
+			friends = friendDao.selectFriendsByNickname(nickname);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		return friends;
 	}
 
 }

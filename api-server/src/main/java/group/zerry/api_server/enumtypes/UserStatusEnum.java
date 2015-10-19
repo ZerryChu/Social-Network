@@ -9,6 +9,7 @@ public enum UserStatusEnum {
 	LS("LOGIN_SUCCEED", "登陆成功"),
 	PI("PASSWORD_INCORRECT", "密码错误"),
 	UNV("USER_DOES_NOT_VALID", "用户无效"),
+	FNF("FRIEND_NOT_FOUND", "无好友"),
 	AUF("ADD_USER_FAIL", "注册失败"),
 	ANE("AUTHORITY_NOT_ENOUGH", "权限不够"),
 	UNE("USERNAME_OR_FRIEND_NOT_EXIST", "用户不存在"),

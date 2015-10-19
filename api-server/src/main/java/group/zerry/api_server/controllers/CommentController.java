@@ -33,15 +33,15 @@ public class CommentController {
 	@ResponseBody
 	@RequestMapping(value = "/show", produces = "text/html;charset=UTF-8")
 	public String show_comments(int id) {
-		StringBuilder regMsg = new StringBuilder("{\"returndata\":\"");
+		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
 		Comment[] comments = commentService.showComments(id);
 		if(null == comments) {
 			regMsg.append(CommentStatusEnum.CNF.getValue());
-			regMsg.append("\"}");
+			regMsg.append("}");
 			return regMsg.toString();
 		}
 		regMsg.append(JSON.toJSONString(comments, commentFilter));
-		regMsg.append("\"}");
+		regMsg.append("}");
 		return regMsg.toString();
 	}
 	

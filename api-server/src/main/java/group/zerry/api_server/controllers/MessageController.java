@@ -130,5 +130,37 @@ public class MessageController {
 		return regMsg.toString();
 	}
 
-	//待选添加： 查看自己的帖子
+	/**
+	 * 获取目标对象发的微博
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/show_ownmessages", produces = "text/html;charset=UTF-8")
+	public String show_userownMessages(String nickname) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
+		Message[] messages;
+		//Message[] messagesInUse;
+		try {
+			messages = messageService.show_ownMessages(nickname);
+			/*
+			messagesInUse = new Message[10];
+			int index = 0;
+			for (int i = page * 10; i < (page + 1) * 10; i++) {
+				if(i + 1 <= messages.length)
+					messagesInUse[index++] = messages[i];
+				else
+					break;
+			}
+			*/
+		} catch (Exception e) {
+			regMsg.append(MessageStatusEnum.SMF);
+			regMsg.append("}");
+			return regMsg.toString();
+		}
+		//regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
+		regMsg.append(JSON.toJSONString(messages, messageFilter));
+		regMsg.append("}");
+		logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
 }

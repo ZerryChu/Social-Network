@@ -2,7 +2,7 @@
  * Created by zhuzirui on 10/12/15.
  */
 function show_messages() {
-	$
+		$
 			.ajax({
 				type : "post",
 				url : "message/show",

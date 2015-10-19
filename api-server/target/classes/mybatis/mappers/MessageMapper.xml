@@ -15,6 +15,13 @@
 		<result property="support_times" column="support_times" />
 	</resultMap>
 
+	<select id="getOwnMessages" parameterType="string" resultType="Message">
+		select
+		*
+		from message_inf
+		where author = #{nickname}
+	</select>
+
 	<select id="getMessages" resultType="Message">
 		SELECT
 		*
@@ -61,7 +68,8 @@
 
 	<update id="addRepostTimes" parameterType="int">
 		UPDATE message_inf
-		SET repost_times = repost_times + 1
+		SET
+		repost_times = repost_times + 1
 		WHERE
 		id = #{id}
 	</update>

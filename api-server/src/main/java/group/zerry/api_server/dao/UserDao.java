@@ -12,8 +12,8 @@ public interface UserDao {
 	
 	public void addUser(User user);
 	
-	public User[] selectFriendsByUsername(String username);
-	
+	//public User[] selectFriendIdByUsername(String username);
+		
 	public void addFriend(int id, int friendId, String group);
 	
 	public String[] selectFriendsNicknameByUsername(String nickname);

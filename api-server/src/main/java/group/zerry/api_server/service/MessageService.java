@@ -10,6 +10,8 @@ public interface MessageService {
 	
 	public Message[] show_messages(String username, int type);
 	
+	public Message[] show_ownMessages(String nickname);
+	
 	public MessageStatusEnum addRepostTimes(String username, int id);  //转发
 	
 	public MessageStatusEnum addComment(String username, String content, int id); //评论

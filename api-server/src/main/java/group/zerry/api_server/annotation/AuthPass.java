@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 @Inherited @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AuthPass {
-/*
+
 	boolean validate() default true;
-*/
+
 /* 测试接口 */
-	boolean validate() default false;
+	//boolean validate() default false;
 
 }

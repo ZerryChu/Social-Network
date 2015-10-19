@@ -27,6 +27,7 @@ public class MessageServiceImpl implements MessageService {
 
 	@Autowired
 	CommentDao commentDao;
+	
 	@Autowired
 	UserDao userDao;
 	
@@ -127,6 +128,20 @@ public class MessageServiceImpl implements MessageService {
 		}
 		return MessageStatusEnum.SS;
 		
+	}
+
+	@Override
+	public Message[] show_ownMessages(String nickname) {
+		// TODO Auto-generated method stub
+		Message[] message = null;
+		try {
+			//User user = userDao.selectUserByUsername(username);
+			message = messageDao.getOwnMessages(nickname);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+		return message;
 	}
 
 }
