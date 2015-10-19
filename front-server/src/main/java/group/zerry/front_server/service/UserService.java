@@ -1,7 +1,5 @@
 package group.zerry.front_server.service;
 
-import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 
 import group.zerry.front_server.entity.User;
@@ -14,6 +12,10 @@ public interface UserService {
 
 	public String showUserInfo(String username);
 
+	public String showTargetInfoByNickname(String nickname);
+
+	public String showFriendsByNickname(String nickname);
+	
 	public boolean addFriend(String username, String userToken, String friendUsername, String group);
 	
 	public boolean fileUpload(HttpServletRequest request, String username);

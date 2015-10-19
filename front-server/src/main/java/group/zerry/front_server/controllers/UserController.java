@@ -1,12 +1,9 @@
 package group.zerry.front_server.controllers;
 
-import java.io.File;
 import java.util.UUID;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.HttpRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,7 +52,20 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/getinfo", produces = "text/html;charset=UTF-8")
 	public String showUserInfo(String username) {
-		return userService.showUserInfo(username); //json data
+		return userService.showUserInfo(username);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/showfriends", produces = "text/html;charset=UTF-8")
+	public String showFriendsByNickname(String nickname) {
+		return userService.showFriendsByNickname(nickname);
+	}
+	
+	//显示目标用户的信息
+	@ResponseBody
+	@RequestMapping(value = "/getTargetinfo", produces = "text/html;charset=UTF-8")
+	public String showTargetInfoByNickname(String nickname) {
+		return userService.showTargetInfoByNickname(nickname);
 	}
 	
 	// 考虑验证好友请求
