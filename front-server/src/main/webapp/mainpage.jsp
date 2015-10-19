@@ -142,8 +142,9 @@
 				show_messages();
 			});
 
-			$("li[id^='weibo_']").live('click', function() {
-				var message_id = $(this).attr("id");
+			//$("li[id^='weibo_']").live('click', function() {
+			$(".comment").live('click', function() {
+				var message_id = $(this).parents("li").attr("id");
 				message_id = message_id.substr(6);
 				show_comments(message_id);
 				var comments_id = "#comment_" + message_id;
