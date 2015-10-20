@@ -15,23 +15,25 @@
 			<li>敬请期待</li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
-				<input type="text" class="search_text" />
+				<input type="text" class="search_text" /> <select class="search_type"
+					name="type">
+					<option value="2">搜微博</option>
+					<option value="1" selected="selected">搜昵称</option>
+				</select> <input type="button" value="搜索" onclick="search()">
 			</form>
 		</ul>
 	</div>
 	<div class="main">
 		<div class="right_content">
 			<div id="userinfo">
-				<div id="nickname">
-					<a href="javascript:void(0);"></a>
-				</div>
+				<div id="nickname"></div>
 				<img id="user_icon" src="pic/${param.username}.jpg"
 					onerror="this.src='images/no_found.png'" /> <br>
 				<ul class="user_account">
-					<li class="text"><span>好友：</span> <span id="friend_num">0</span>
-					</li>
-					<li class="text"><span>广播：</span> <span id="message_num">0</span>
-					</li>
+					<li id="friends_count" class="text"><span>好友：</span> <span
+						id="friend_num">0</span></li>
+					<li id="messages_count" class="text"><span>广播：</span> <span
+						id="message_num">0</span></li>
 				</ul>
 			</div>
 		</div>
@@ -43,14 +45,14 @@
 					<br> <select class="type" name="type">
 						<option value="2">所有人可见</option>
 						<option value="1" selected="selected">好友可见</option>
-					</select> <input type="button" value="发送" onclick="send_message()">
+					</select> <input type="button" value="发送" onclick="send_message();showUserInfo();">
 				</form>
 			</div>
 			<div id="messages">
 				<div class="messages_class">
 					<ul>
-						<li class="on">好友广播</li>
-						<li>全部广播</li>
+						<li id="friend_messages" class="on">好友广播</li>
+						<li id="all_messages">全部广播</li>
 						<li>敬请期待</li>
 					</ul>
 				</div>
@@ -119,7 +121,10 @@
 		<script src="scripts/show_messages.js" type="text/javascript"></script>
 		<script src="scripts/show_comments.js" type="text/javascript"></script>
 		<script src="scripts/send_message.js" type="text/javascript"></script>
+		<script src="scripts/show_friends.js" type="text/javascript"></script>
+		<script src="scripts/showOwnmessages.js" type="text/javascript"></script>
 		<script src="scripts/delete_message.js" type="text/javascript"></script>
+		<script src="scripts/search.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 
@@ -149,6 +154,21 @@
 				show_comments(message_id);
 				var comments_id = "#comment_" + message_id;
 				$(comments_id).slideToggle();
+			});
+			
+			$("#friends_count").click(function() {
+				//show_friends();
+
+			});
+			
+			$("#friend_messages").click(function() {
+				show_messages();
+
+			});
+			
+			$("#messages_count").live('click', function() {
+				var nickname = $("#nickname").text();
+				showOwnmessages(nickname);
 			});
 		</script>
 </body>

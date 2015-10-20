@@ -20,6 +20,8 @@
 		*
 		from message_inf
 		where author = #{nickname}
+		ORDER BY
+		create_time DESC
 	</select>
 
 	<select id="getMessages" resultType="Message">

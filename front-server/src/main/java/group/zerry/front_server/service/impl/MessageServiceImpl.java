@@ -21,7 +21,7 @@ import group.zerry.front_server.utils.HttpTarget;
 public class MessageServiceImpl implements MessageService {
 
 	@Autowired
-	HttpTarget httpTarget;
+	HttpTarget    httpTarget;
 
 	@Autowired
 	FetchUrlTools fetchURLTool;
@@ -63,6 +63,14 @@ public class MessageServiceImpl implements MessageService {
 		paramsMap.put("userToken", userToken);
 		paramsMap.put("type", String.valueOf(type));
 		//List<Message> messages = JSON.parseArray(fetchURLTool.doPost(url, paramsMap), Message.class);
+		return fetchURLTool.doPost(url, paramsMap);
+	}
+
+	public String show_userOwnMessages(String nickname) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/show_ownmessages";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("nickname", nickname);
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 

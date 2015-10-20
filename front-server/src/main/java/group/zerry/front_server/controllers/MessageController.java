@@ -43,4 +43,9 @@ public class MessageController {
 		return messageService.show_messages(username, userToken, type);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/show_ownmessages", produces = "text/html;charset=UTF-8")
+	public String show_ownMessages(String nickname) {
+		return messageService.show_userOwnMessages(nickname);
+	}
 }

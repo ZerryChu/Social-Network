@@ -5,19 +5,26 @@ function showTargetInfo() {
 	$.ajax({
         type: "post",
         url: "user/getTargetinfo",
-        data: { nickname : $.query.get("targetUsername") },
+        data: { nickname : $.query.get("targetNickname") },
         dataType: "json",
         success : function(data){
             $.each(data,function(){
                 if (data.returndata != null) {
-                	$(".targetNickname").text(data.returndata.nickname);
-                	//$(".targetUsername").text(data.returndata.username);
-                	$(".friend_num").text(data.returndata.friend_num);
-                	$(".message_num").text(data.returndata.message_num);
+                	$(".targetNickname div").text(data.returndata.nickname);
+                	$(".targetUsername div").text(data.returndata.username);
+                	$(".friend_num div").text(data.returndata.friend_num);
+                	$(".message_num div").text(data.returndata.message_num);
+                	$(".age div").text(data.returndata.age);
+                	$(".habit div").text(data.returndata.habit);
+            		$("img").attr("src", "pic/" + data.returndata.username + ".jpg");
                 } else {
-                	$(".targetNickname").text("null");
-                	$("#friend_num").text("0");
-                	$("#message_num").text("0");
+                	alert("fail");
+                	$(".targetUsername div").text("null");
+                	$(".targetNickname div").text("null");
+                	$(".friend_num div").text("0");
+                	$(".message_num div").text("0");
+                	$(".age div").text("0");
+                	$(".habit div").text("null");
                 	//
                 }
             });

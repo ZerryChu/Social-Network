@@ -17,6 +17,7 @@ function show_messages() {
 							.each(
 									data,
 									function() {
+										$("#weibo").empty();
 										var i = 0;
 										while (data.returndata[i] != undefined) {
 											$("#weibo")
