@@ -63,12 +63,12 @@ function show_messages() {
 																	+ data.returndata[i].repost_times
 																	+ ")</span></a><a href=\"javascript:void(0);\"><span class=\"support\">赞("
 																	+ data.returndata[i].support_times
-																	+ ")</span></a></div><div class=\"comtxt\">"
+																	+ ")</span></a></div></div><div class=\"comtxt\">"
 																	+ "<div id=\"comment_"
 																	+ data.returndata[i].id
-																	+ "\"></div>" 
+																	+ "\" style=\"display: none\"></div>" 
 																	+ "</li>"
-																	+ "</div></div></li>"
+																	+ "</div></li>"
 													)
 											i++;
 										}
