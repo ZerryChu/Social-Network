@@ -27,14 +27,20 @@ function show_comments(message_id) {
 																	+ data.returndata[i].nickname
 																	+ "</span><span class=\"comment_createtime\">"
 																	+ data.returndata[i].create_time
-																	+ "</span></div>"
-															);
+																	+ "</span></div>");
 											i++;
 										}
 										$(target)
 												.append(
 														"<div><form class=\"send_comment\"><textarea style=\"width: 60%; height: 48%;\" name=\"content\"></textarea><input type=\"button\" value=\"发送\" onclick=\"send_comment()\"></form></div>");
 									});
+				},
+				error : function(data) {
+					var target = "#comment_" + message_id;
+					$(target).empty();
+					$(target)
+							.append(
+									"<div><form class=\"send_comment\"><textarea style=\"width: 60%; height: 48%;\" name=\"content\"></textarea><input type=\"button\" value=\"发送\" onclick=\"send_comment()\"></form></div>");
 				}
 			});
 }

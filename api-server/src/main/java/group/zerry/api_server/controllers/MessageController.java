@@ -43,9 +43,9 @@ public class MessageController {
 	@RequestMapping(value = "/send", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String post_message(String username, String userToken, String content, int type) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-		regMsg.append(messageService.send_message(username, content, type));
+		regMsg.append(messageService.send_message(username, content, type).getValue());
 		regMsg.append("\"}");
-		logger.info(regMsg.toString());
+		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 
@@ -54,7 +54,7 @@ public class MessageController {
 	@RequestMapping(value = "/delete", produces = "text/html;charset=UTF-8")
 	public String delete_message(String username, String userToken, int id) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-		regMsg.append(messageService.delete_message(username, id));
+		regMsg.append(messageService.delete_message(username, id).getValue());
 		regMsg.append("\"}");
 		logger.info(regMsg.toString());
 		return regMsg.toString();
@@ -153,7 +153,7 @@ public class MessageController {
 			}
 			*/
 		} catch (Exception e) {
-			regMsg.append(MessageStatusEnum.SMF);
+			regMsg.append(MessageStatusEnum.SMF.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
 		}

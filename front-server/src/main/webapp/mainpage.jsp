@@ -38,12 +38,12 @@
 		<div class="left_content">
 			<div class="post_message">
 				<form>
-					<h2>content</h2>
+					<h2>说点什么吧~</h2>
 					<textarea class="message_content" name="content"></textarea>
-					<br> <select name="type">
-						<option value="1">所有人可见</option>
-						<option value="2">好友可见</option>
-					</select> <input type="submit" value="发送">
+					<br> <select class="type" name="type">
+						<option value="2">所有人可见</option>
+						<option value="1" selected="selected">好友可见</option>
+					</select> <input type="button" value="发送" onclick="send_message()">
 				</form>
 			</div>
 			<div id="messages">

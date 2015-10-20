@@ -48,6 +48,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
         			regMsg.append(UserStatusEnum.UNV);
         			regMsg.append("\"}");
                     response.getWriter().write(regMsg.toString());
+                    System.out.println("authpass fail1.");
                     return false;
         		}
         		else

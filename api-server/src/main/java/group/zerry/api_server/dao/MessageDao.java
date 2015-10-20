@@ -22,6 +22,5 @@ public interface MessageDao {
 	
 	public void addSupportTimes(int id);
 	
-	/* 获取自己的帖子 */
-	//public Message getMessagesByAuthor(String authorName);
+	public Message[] searchMessagesLikeContent(String content);
 }

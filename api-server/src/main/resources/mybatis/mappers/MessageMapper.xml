@@ -87,4 +87,15 @@
 		WHERE
 		id = #{id}
 	</update>
+
+	<select id="searchMessagesLikeContent" parameterType="string"
+		resultType="Message">
+		SELECT
+		*
+		FROM
+		message_inf
+		WHERE
+		content LIKE #{%content%}
+		AND type = 1
+	</select>
 </mapper>

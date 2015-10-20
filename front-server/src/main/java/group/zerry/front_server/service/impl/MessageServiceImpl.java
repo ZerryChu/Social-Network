@@ -49,7 +49,7 @@ public class MessageServiceImpl implements MessageService {
 		paramsMap.put("userToken", userToken);
 		paramsMap.put("id", String.valueOf(id));
 		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
-		if (returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.DMS.getValue())) {
+		if (returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.DMS)) {
 			return true;
 		} else
 			return false;

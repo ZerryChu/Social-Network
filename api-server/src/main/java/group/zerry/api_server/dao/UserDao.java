@@ -24,4 +24,5 @@ public interface UserDao {
 	
 	public void addFriend_numByUsername(String username);
 
+	public User[] searchUsersLikeNickname(String nickname);
 }

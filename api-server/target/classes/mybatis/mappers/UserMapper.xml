@@ -60,6 +60,16 @@
 		)
 	</select>
 
+	<select id="searchUsersLikeNickname" parameterType="string"
+		resultType="User">
+		SELECT
+		*
+		FROM
+		user_inf
+		WHERE
+		nickname LIKE #{%nickname%}
+	</select>
+
 	<insert id="addUser" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		INTO user_inf (
