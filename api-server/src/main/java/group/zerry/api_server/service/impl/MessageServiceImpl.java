@@ -85,7 +85,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public MessageStatusEnum addRepostTimes(String username, int id) {
+	public MessageStatusEnum addRepost(String username, int id) {
 		// TODO Auto-generated method stub
 		try {
 			messageDao.addRepostTimes(id);
@@ -118,11 +118,17 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public MessageStatusEnum addSupportTimes(String username, int id) {
+	public MessageStatusEnum addSupport(String username, int id) {
 		// TODO Auto-generated method stub
 		try {
+			int num = messageDao.findIfSupportedByUsername(username, id);
+			if(num > 1 || num < 0) {
+				return MessageStatusEnum.OF;
+			}
+			else if(num == 1)
+				return MessageStatusEnum.HAS;
 			messageDao.addSupportTimes(id);
-			// 待考量： 限制个人点赞次数
+			messageDao.addSupportInfo(id, username);
 		} catch(Exception e) {
 			return MessageStatusEnum.OF;
 		}
@@ -137,6 +143,20 @@ public class MessageServiceImpl implements MessageService {
 		try {
 			//User user = userDao.selectUserByUsername(username);
 			message = messageDao.getOwnMessages(nickname);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+		return message;
+	}
+
+	@Override
+	public Message[] show_announcements() {
+		// TODO Auto-generated method stub
+		Message[] message = null;
+		try {
+			//User user = userDao.selectUserByUsername(username);
+			message = messageDao.getAnnouncements();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;

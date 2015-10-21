@@ -21,7 +21,23 @@
 		from message_inf
 		where author = #{nickname}
 		ORDER BY
-		create_time DESC
+		create_time
+		DESC
+	</select>
+
+	<select id="getAnnouncements" resultType="Message">
+		SELECT
+		message_inf.id as
+		id,
+		author,
+		content,
+		create_time
+		FROM
+		message_inf,
+		user_inf
+		WHERE
+		user_inf.type = 2
+		AND author = nickname
 	</select>
 
 	<select id="getMessages" resultType="Message">
@@ -68,6 +84,13 @@
 		)
 	</insert>
 
+	<!-- 增加点赞信息 -->
+	<insert id="addSupportInfo">
+		INSERT INTO support_inf (message_id, username)
+		VALUES
+		(#{id}, #{username})
+	</insert>
+	
 	<update id="addRepostTimes" parameterType="int">
 		UPDATE message_inf
 		SET
@@ -76,6 +99,7 @@
 		id = #{id}
 	</update>
 
+	<!-- 点赞次数+1 -->
 	<update id="addSupportTimes" parameterType="int">
 		UPDATE message_inf
 		SET support_times = support_times + 1
@@ -97,7 +121,8 @@
 		FROM
 		message_inf
 		WHERE
-		content LIKE #{%content%} 
-		AND type = 1
+		content LIKE #{%content%}
+		AND
+		type = 1
 	</select>
 </mapper>

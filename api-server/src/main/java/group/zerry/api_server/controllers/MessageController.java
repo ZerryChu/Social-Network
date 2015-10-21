@@ -35,7 +35,6 @@ public class MessageController {
 	private static Logger logger = Logger.getLogger(MessageController.class);
 
 	/*
-	 * 发帖子 type: 1 所有人可见 2 好友可见
 	 * 
 	 */
 	@AuthPass
@@ -61,8 +60,7 @@ public class MessageController {
 	}
 
 	/*
-	 * type 1 好友可见
-	 * 
+	 * type 2: 转发的微博
 	 */
 	//分页
 	@AuthPass
@@ -102,7 +100,7 @@ public class MessageController {
 	@RequestMapping(value = "/repost", produces = "text/html;charset=UTF-8")
 	public String repost_message(String username, String userToken, int id) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-		MessageStatusEnum status = messageService.addRepostTimes(username, id);
+		MessageStatusEnum status = messageService.addRepost(username, id);
 		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		return regMsg.toString();
@@ -124,7 +122,7 @@ public class MessageController {
 	@RequestMapping(value = "/support", produces = "text/html;charset=UTF-8")
 	public String support_message(String username, String userToken, int id) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-		MessageStatusEnum status = messageService.addSupportTimes(username, id);
+		MessageStatusEnum status = messageService.addSupport(username, id);
 		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		return regMsg.toString();
@@ -142,6 +140,36 @@ public class MessageController {
 		//Message[] messagesInUse;
 		try {
 			messages = messageService.show_ownMessages(nickname);
+			/*
+			messagesInUse = new Message[10];
+			int index = 0;
+			for (int i = page * 10; i < (page + 1) * 10; i++) {
+				if(i + 1 <= messages.length)
+					messagesInUse[index++] = messages[i];
+				else
+					break;
+			}
+			*/
+		} catch (Exception e) {
+			regMsg.append(MessageStatusEnum.SMF.getValue());
+			regMsg.append("}");
+			return regMsg.toString();
+		}
+		//regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
+		regMsg.append(JSON.toJSONString(messages, messageFilter));
+		regMsg.append("}");
+		logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/show_announcements", produces = "text/html;charset=UTF-8")
+	public String show_announcements() {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
+		Message[] messages;
+		//Message[] messagesInUse;
+		try {
+			messages = messageService.show_announcements();
 			/*
 			messagesInUse = new Message[10];
 			int index = 0;

@@ -36,11 +36,29 @@ public class MessageController {
 			return "{\"msg\" : 0}";
 	}
 	
+	/**
+	 * @return 1:点赞成功 0：操作异常 3：已点过赞
+	 */
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/support", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String addSupportTimes(String username, int id) {
+		StringBuilder regMsg = new StringBuilder("{\"msg\": ");
+		regMsg.append(messageService.addSupportTimes(username, id) + "}");
+		return regMsg.toString();
+	}
+	
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String show_messages(String username, String userToken, int type) {
 		return messageService.show_messages(username, userToken, type);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/show_announcements", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String show_announcements() {
+		return messageService.show_announcement();
 	}
 	
 	@ResponseBody

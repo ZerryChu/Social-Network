@@ -7,7 +7,11 @@ public interface MessageService {
 	
 	public boolean delete_message(String username, String userToken, int id);
 	
+	public int addSupportTimes(String username, int id);
+	
 	public String show_messages(String username, String userToken, int type);
 	
 	public String show_userOwnMessages(String nickname);
+	
+	public String show_announcement();
 }

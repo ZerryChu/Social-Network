@@ -74,4 +74,31 @@ public class MessageServiceImpl implements MessageService {
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 
+	public String show_announcement() {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/show_announcements";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		//无参
+		return fetchURLTool.doPost(url, paramsMap);
+	}
+
+	/**
+	 * @return 1:点赞成功 0：操作异常 3：已点过赞
+	 */
+	public int addSupportTimes(String username, int id) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/support";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("id", String.valueOf(id));
+		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		if(returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.OF.getValue())) {
+			return 0;
+		}
+		else if(returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.SS.getValue()))
+			return 1;
+		else
+			return 2;
+	}
+
 }

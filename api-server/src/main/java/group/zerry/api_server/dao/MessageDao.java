@@ -14,6 +14,8 @@ public interface MessageDao {
 	
 	public Message[] getOwnMessages(String nickname);
 	
+	public Message[] getAnnouncements();
+	
 	public void deleteMessageByID(int id);
 	
 	public void addRepostTimes(int id);
@@ -21,6 +23,15 @@ public interface MessageDao {
 	public void addCommentTimes(int id);
 	
 	public void addSupportTimes(int id);
-
+	public void addSupportInfo(int id, String username);
+	
+	/**
+	 * 
+	 * @param username
+	 * @param id
+	 * @return 查询结果条数
+	 */
+	public int findIfSupportedByUsername(String username, int id);
+	
 	public Message[] searchMessagesLikeContent(String content);
 }

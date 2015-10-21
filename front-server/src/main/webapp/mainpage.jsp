@@ -52,7 +52,7 @@
 				<div class="messages_class">
 					<ul>
 						<li id="friend_messages" class="on">好友广播</li>
-						<li id="all_messages">全部广播</li>
+						<li id="all_messages">公告</li>
 						<li>敬请期待</li>
 					</ul>
 				</div>
@@ -123,6 +123,7 @@
 		<script src="scripts/send_message.js" type="text/javascript"></script>
 		<script src="scripts/show_friends.js" type="text/javascript"></script>
 		<script src="scripts/showOwnmessages.js" type="text/javascript"></script>
+		<script src="scripts/show_announcements.js" type="text/javascript"></script>
 		<script src="scripts/delete_message.js" type="text/javascript"></script>
 		<script src="scripts/search.js" type="text/javascript"></script>
 		<script type="text/javascript">
@@ -164,6 +165,11 @@
 			
 			$("#friend_messages").click(function() {
 				show_messages();
+
+			});
+			
+			$("#all_messages").click(function() {
+				show_announcements();
 
 			});
 			
