@@ -21,6 +21,6 @@ public interface MessageDao {
 	public void addCommentTimes(int id);
 	
 	public void addSupportTimes(int id);
-	
+
 	public Message[] searchMessagesLikeContent(String content);
 }

@@ -97,7 +97,7 @@
 		FROM
 		message_inf
 		WHERE
-		content LIKE #{%content%}
+		content LIKE #{%content%} 
 		AND type = 1
 	</select>
 </mapper>

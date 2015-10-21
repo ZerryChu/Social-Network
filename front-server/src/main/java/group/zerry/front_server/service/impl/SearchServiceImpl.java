@@ -23,7 +23,7 @@ public class SearchServiceImpl implements SearchService{
 	
 	public String searchUsersLikeNickname(String nickname) {
 		// TODO Auto-generated method stub
-		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/send";
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "search/users";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("nickname", nickname);		
 		return fetchURLTool.doPost(url, paramsMap);
@@ -31,7 +31,7 @@ public class SearchServiceImpl implements SearchService{
 
 	public String searchMessagesLikeContent(String content) {
 		// TODO Auto-generated method stub
-		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/send";
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "search/messages";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("content", content);
 		return fetchURLTool.doPost(url, paramsMap);

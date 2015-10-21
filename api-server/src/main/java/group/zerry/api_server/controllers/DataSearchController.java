@@ -41,7 +41,7 @@ public class DataSearchController {
 			users = searchService.searchUsersLikeNickname(nickname);
 
 		} catch (Exception e) {
-			regMsg.append(UserStatusEnum.UNE);
+			regMsg.append(UserStatusEnum.UNE.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
 		}
@@ -59,7 +59,7 @@ public class DataSearchController {
 			messages = searchService.searchMessagesLikeContent(content);
 
 		} catch (Exception e) {
-			regMsg.append(MessageStatusEnum.SMF);
+			regMsg.append(MessageStatusEnum.SMF.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
 		}

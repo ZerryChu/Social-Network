@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>主页</title>
-<link rel="stylesheet" type="text/css" href="css/mainpage.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
 	<div class="bg"></div>
@@ -28,7 +28,7 @@
 			<div id="userinfo">
 				<div id="nickname"></div>
 				<img id="user_icon" src="pic/${param.username}.jpg"
-					onerror="this.src='images/no_found.png'" /> <br>
+					onerror="this.src='images/no_found.png'" onclick=""/> <br>
 				<ul class="user_account">
 					<li id="friends_count" class="text"><span>好友：</span> <span
 						id="friend_num">0</span></li>
@@ -145,6 +145,7 @@
 
 				showUserInfo();
 				show_messages();
+				
 			});
 
 			//$("li[id^='weibo_']").live('click', function() {
@@ -171,5 +172,6 @@
 				showOwnmessages(nickname);
 			});
 		</script>
+				<!--<jsp:include page="copyright.jsp"></jsp:include>-->
 </body>
 </html>
