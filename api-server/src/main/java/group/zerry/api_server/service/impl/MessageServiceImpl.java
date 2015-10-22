@@ -164,4 +164,13 @@ public class MessageServiceImpl implements MessageService {
 		return message;
 	}
 
+	@Override
+	public boolean judgeIfSupport(String username, int id) {
+		// TODO Auto-generated method stub
+		int num = messageDao.findIfSupportedByUsername(username, id);
+		if(num > 1 || num < 0 || num == 1)
+			return true;
+		return false;
+	}
+
 }

@@ -123,7 +123,7 @@ public class UserController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/logout", produces = "text/html;charset=UTF-8")
-	public String UserLogout(String username, String usertoken) {
+	public String UserLogout(String username, String userToken) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		try {
 			cacheTools.remove(username);

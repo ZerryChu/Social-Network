@@ -191,4 +191,23 @@ public class MessageController {
 		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
+	/**
+	 * 
+	 * @param username
+	 * @param id
+	 * @return 1: 允许点赞 0: 不允许点赞
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/judge_ifsupport", produces = "text/html;charset=UTF-8")
+	public String findIfSupportedByUsername(String username, int id) {
+		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":");
+		if(true == messageService.judgeIfSupport(username, id)) {
+			regMsg.append(" 0");
+		}
+		else {
+			regMsg.append(" 1");
+		}
+		regMsg.append("}");
+		return regMsg.toString();
+	}
 }
