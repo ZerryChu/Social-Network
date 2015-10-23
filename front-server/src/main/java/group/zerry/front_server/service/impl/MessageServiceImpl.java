@@ -101,4 +101,14 @@ public class MessageServiceImpl implements MessageService {
 			return 2;
 	}
 
+	public String judgeIfSupport(String username, int message_id, String userToken) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/judge_ifsupport";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("id", String.valueOf(message_id));
+		paramsMap.put("userToken", userToken);
+		return fetchURLTool.doPost(url, paramsMap);
+	}
+
 }

@@ -66,4 +66,11 @@ public class MessageController {
 	public String show_ownMessages(String nickname) {
 		return messageService.show_userOwnMessages(nickname);
 	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/judge_ifsupport", produces = "text/html;charset=UTF-8")
+	public String judgeIfSupported(String username, int message_id, String userToken) {
+		return messageService.judgeIfSupport(username, message_id, userToken);
+	}
 }

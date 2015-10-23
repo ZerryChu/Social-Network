@@ -26,17 +26,27 @@
 					<!-- 					<form id="form"> -->
 					<div class="loginbox">
 						<div class="un">
+							<div class="un_returnmsg"></div>
 							<input type="text" name="username" /> <span class="unholder">用户名</span>
 							<span class="tip"></span>
 						</div>
 						<!-- username -->
 						<div class="pwd">
+							<div class="pwd_returnmsg"></div>
 							<input type="password" name="password" /> <span
 								class="pwdholder">密码</span> <span class="tip"></span>
 						</div>
+						<!-- 验证码 -->
+						<div class="checknum">
+							<div class="checknum_returnmsg"></div>
+							<input align="left" type="text" class="checknumText" style="width: 30%">
+							<span class="checknumholder">验证码</span>
+							<img class="checknumPic" src="getChecknum"
+								alt="checknum" onClick="this.src='getChecknum?' + Math.random()" />
+						</div>
 						<!-- password -->
 						<div class="sub">
-							<input type="button" value="登 录" id="login" onclick="login()"/>
+							<input type="button" value="登 录" id="login" onclick="login()" />
 							<div class="auto">
 								<a href="javascript:void(0);" id="checkbtn"></a><label>下次自动登录</label>
 							</div>

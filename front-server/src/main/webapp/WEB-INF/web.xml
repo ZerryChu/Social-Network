@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-	
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
@@ -67,4 +67,13 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<servlet>
+		<servlet-name>CheckNumServlet</servlet-name>
+		<servlet-class>group.zerry.front_server.controllers.CheckNumServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckNumServlet</servlet-name>
+		<url-pattern>/getChecknum</url-pattern>
+	</servlet-mapping>
 </web-app>

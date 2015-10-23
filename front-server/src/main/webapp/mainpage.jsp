@@ -126,6 +126,7 @@
 		<script src="scripts/showOwnmessages.js" type="text/javascript"></script>
 		<script src="scripts/show_announcements.js" type="text/javascript"></script>
 		<script src="scripts/delete_message.js" type="text/javascript"></script>
+		<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
 		<script src="scripts/search.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -164,6 +165,12 @@
 				show_comments(message_id);
 				var comments_id = "#comment_" + message_id;
 				$(comments_id).slideToggle();
+			});
+			
+			$(".support").live('click', function() {
+				var message_id = $(this).parents("li").attr("id");
+				message_id = message_id.substr(6);
+				judgeIfSupport(message_id);
 			});
 			
 			$("#friends_count").click(function() {

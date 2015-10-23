@@ -87,7 +87,7 @@
 .loginbox{
 	width: 371px;
 	border: 1px solid #fff;
-	height: 200px;
+	height: 220px;
 	padding: 10px 10px 0; 
 	background-color: #fff;
 	/*overflow: hidden;
@@ -102,13 +102,13 @@
 	padding-top: 10px;
 }
 
-.loginbox .un,.loginbox .pwd{
+.loginbox .un,.loginbox .pwd, .loginbox .checknum {
 	/*background-image: url(images/login.png);
 	background-position: 0px -84px;*/
 	position:relative;
 }
 
-.loginbox .un,.loginbox .pwd,.loginbox .sub{
+.loginbox .un,.loginbox .pwd,.loginbox .sub, .loginbox .checknum{
 	width: 90%;
 	padding-left: 50px;
 	margin-top: 10px;
@@ -127,12 +127,16 @@
 	background-position: 0 0;
 }
 
-.unholder,.pwdholder{
+.unholder,.pwdholder, .checknumholder{
 	position: absolute;
 	font-size: 13px;
 	color: #a9a9a9;
 	top: 16px;
 	left: 88px;
+}
+
+.checknumPic {
+	margin-left: 10%;	
 }
 
 /*居中问题*/

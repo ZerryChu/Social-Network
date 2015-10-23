@@ -9,6 +9,7 @@ import group.zerry.api_server.dao.CommentDao;
 import group.zerry.api_server.dao.MessageDao;
 import group.zerry.api_server.dao.UserDao;
 import group.zerry.api_server.entity.Comment;
+import group.zerry.api_server.entity.Count;
 import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
@@ -121,7 +122,7 @@ public class MessageServiceImpl implements MessageService {
 	public MessageStatusEnum addSupport(String username, int id) {
 		// TODO Auto-generated method stub
 		try {
-			int num = messageDao.findIfSupportedByUsername(username, id);
+			int num = messageDao.findIfSupportedByUsername(username, id).getNumber();
 			if(num > 1 || num < 0) {
 				return MessageStatusEnum.OF;
 			}
@@ -164,13 +165,20 @@ public class MessageServiceImpl implements MessageService {
 		return message;
 	}
 
+	/**
+	 * 
+	 * @param username
+	 * @param id
+	 * @return true: 可以点赞 false： 无法点赞
+	 */
 	@Override
 	public boolean judgeIfSupport(String username, int id) {
 		// TODO Auto-generated method stub
-		int num = messageDao.findIfSupportedByUsername(username, id);
+		Count count = messageDao.findIfSupportedByUsername(username, id);
+		int num = count.getNumber();
 		if(num > 1 || num < 0 || num == 1)
-			return true;
-		return false;
+			return false;
+		return true;
 	}
 
 }

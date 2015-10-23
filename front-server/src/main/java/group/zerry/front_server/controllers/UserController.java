@@ -25,7 +25,11 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/login", produces = "text/html;charset=UTF-8")
-	public String login(HttpServletRequest request, String username, String password) {
+	public String login(HttpServletRequest request, String username, String password, String checknum) {
+		String num = (String) request.getSession().getAttribute("getNum");
+		if(!num.equals(checknum)) {
+			return "{\"msg\" : -1}";
+		}
 		UUID uuid = UUID.randomUUID();
 		logger.error(uuid.toString());
 		if(userService.login(username, password, uuid.toString())) {
@@ -99,7 +103,5 @@ public class UserController {
 			return "{\"msg\" : 0}";	
 		}
 	}
-	
-	
 	
 }

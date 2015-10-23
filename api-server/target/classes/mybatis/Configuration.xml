@@ -6,15 +6,16 @@
 		<setting name="cacheEnabled" value="true" />
 		<setting name="useGeneratedKeys" value="true" />
 	</settings>
-	
+
 	<typeAliases>
 		<typeAlias alias="User" type="group.zerry.api_server.entity.User" />
 		<typeAlias alias="Message" type="group.zerry.api_server.entity.Message" />
 		<typeAlias alias="Comment" type="group.zerry.api_server.entity.Comment" />
 		<typeAlias alias="Friend" type="group.zerry.api_server.entity.Friend" />
-		
+		<typeAlias alias="Count" type="group.zerry.api_server.entity.Count" />
+
 	</typeAliases>
-	
+
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -26,10 +27,7 @@
 			</dataSource>
 		</environment>
 	</environments>
-	
-	<!-- spring整合后，有获取mapper的机制，无需指定 
-	<mappers>
-		<mapper resource="resources/mybatis/mappers/UserMapper.xml" />
-	</mappers>
-	-->
+
+	<!-- spring整合后，有获取mapper的机制，无需指定 <mappers> <mapper resource="resources/mybatis/mappers/UserMapper.xml" 
+		/> </mappers> -->
 </configuration>

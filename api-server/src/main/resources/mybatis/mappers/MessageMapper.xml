@@ -15,6 +15,10 @@
 		<result property="support_times" column="support_times" />
 	</resultMap>
 
+	<resultMap id="CountMap" type="Count">
+		<result property="number" column="number" />
+	</resultMap>
+
 	<select id="getOwnMessages" parameterType="string" resultType="Message">
 		select
 		*
@@ -90,7 +94,7 @@
 		VALUES
 		(#{id}, #{username})
 	</insert>
-	
+
 	<update id="addRepostTimes" parameterType="int">
 		UPDATE message_inf
 		SET
@@ -124,5 +128,15 @@
 		content LIKE #{%content%}
 		AND
 		type = 1
+	</select>
+
+	<select id="findIfSupportedByUsername" resultType="Count">
+		SELECT
+		count(id) as number
+		FROM
+		support_inf
+		WHERE
+		username = #{0}
+		AND message_id = #{1}
 	</select>
 </mapper>

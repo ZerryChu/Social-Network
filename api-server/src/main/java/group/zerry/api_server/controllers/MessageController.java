@@ -197,16 +197,17 @@ public class MessageController {
 	 * @param id
 	 * @return 1: 允许点赞 0: 不允许点赞
 	 */
+	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/judge_ifsupport", produces = "text/html;charset=UTF-8")
-	public String findIfSupportedByUsername(String username, int id) {
-		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":");
+	public String findIfSupportedByUsername(String username, int id, String userToken) {
+		StringBuilder regMsg = new StringBuilder("{\"msg\":");
 		if(true == messageService.judgeIfSupport(username, id)) {
-			regMsg.append(" 0");
-		}
-		else {
 			regMsg.append(" 1");
-		}
+		} //可以点赞
+		else {
+			regMsg.append(" 0");
+		} //不能点赞
 		regMsg.append("}");
 		return regMsg.toString();
 	}

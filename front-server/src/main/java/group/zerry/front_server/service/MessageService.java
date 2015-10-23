@@ -14,4 +14,6 @@ public interface MessageService {
 	public String show_userOwnMessages(String nickname);
 	
 	public String show_announcement();
+	
+	public String judgeIfSupport(String username, int message_id, String userToken);
 }

@@ -2,6 +2,7 @@ package group.zerry.api_server.dao;
 
 import org.springframework.stereotype.Repository;
 
+import group.zerry.api_server.entity.Count;
 import group.zerry.api_server.entity.Message;
 
 @Repository
@@ -31,7 +32,7 @@ public interface MessageDao {
 	 * @param id
 	 * @return 查询结果条数
 	 */
-	public int findIfSupportedByUsername(String username, int id);
+	public Count findIfSupportedByUsername(String username, int id);
 	
 	public Message[] searchMessagesLikeContent(String content);
 }
