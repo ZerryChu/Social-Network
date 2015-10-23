@@ -164,8 +164,10 @@
 				message_id = message_id.substr(6);
 				show_comments(message_id);
 				var comments_id = "#comment_" + message_id;
-				$(comments_id).slideToggle();
+				$(this).parents("li").find(".comtxt").slideToggle();
+				//$(this).parents("li").find("textarea").slideToggle();
 			});
+			
 			
 			$(".support").live('click', function() {
 				var message_id = $(this).parents("li").attr("id");
