@@ -46,7 +46,7 @@
 					<br> <select class="type" name="type">
 						<option value="2">所有人可见</option>
 						<option value="1" selected="selected">好友可见</option>
-					</select> <input type="button" value="发送" onclick="send_message();showUserInfo();">
+					</select> <input type="button" value="发送" onclick="send_message();">
 				</form>
 			</div>
 			<div id="messages">
@@ -121,6 +121,7 @@
 		<script src="scripts/showUserInfo.js" type="text/javascript"></script>
 		<script src="scripts/show_messages.js" type="text/javascript"></script>
 		<script src="scripts/show_comments.js" type="text/javascript"></script>
+		<script src="scripts/send_comment.js" type="text/javascript"></script>
 		<script src="scripts/send_message.js" type="text/javascript"></script>
 		<script src="scripts/show_friends.js" type="text/javascript"></script>
 		<script src="scripts/showOwnmessages.js" type="text/javascript"></script>
@@ -145,35 +146,45 @@
 						}
 					});
 				});
-
-				$(".icon").live('click', function() {
-					var classUsername = $(this).parents("li").find("name");
-					var tag_a = classUsername.children("a");
-					var targetNickname = tag_a.text();
-					window.location = "userinfo.jsp?targetNickname=" + targetNickname; //+ "&userToken=" + $.query.get("userToken");
-				})
 				
 				showUserInfo();
 				show_messages();
 				
 			});
 
+			$(".icon").live('click', function() {
+				var classUsername = $(this).parents("li").find("name");
+				var tag_a = classUsername.children("a");
+				var targetNickname = tag_a.text();
+				window.location = "userinfo.jsp?targetNickname=" + targetNickname; //+ "&userToken=" + $.query.get("userToken");
+			})// 更换头像
+			
 			//$("li[id^='weibo_']").live('click', function() {
 			$(".comment").live('click', function() {
 				var message_id = $(this).parents("li").attr("id");
 				message_id = message_id.substr(6);
 				show_comments(message_id);
-				var comments_id = "#comment_" + message_id;
 				$(this).parents("li").find(".comtxt").slideToggle();
-				//$(this).parents("li").find("textarea").slideToggle();
-			});
+			}); // 查看评论
 			
+			$(".btn").live('click', function() {
+				var message_id = $(this).parents("li").attr("id");
+				message_id = message_id.substr(6);
+				comarea = ".comarea_" + message_id;
+				content = $(comarea).val();
+				send_comment(message_id, content);
+				$(comarea).val(""); // 清空输入框
+			}); //发送评论
+			
+			$("#all_messages").click(function() {
+				show_announcements();
+			});
 			
 			$(".support").live('click', function() {
 				var message_id = $(this).parents("li").attr("id");
 				message_id = message_id.substr(6);
 				judgeIfSupport(message_id);
-			});
+			});// 点赞
 			
 			$("#friends_count").click(function() {
 				//show_friends();
@@ -182,17 +193,11 @@
 			
 			$("#friend_messages").click(function() {
 				show_messages();
-
-			});
-			
-			$("#all_messages").click(function() {
-				show_announcements();
-
-			});
+			});// 好友广播
 			
 			$(".logout").click(function() {
 				logout();
-			});
+			});// 登出
 			
 			$("#messages_count").live('click', function() {
 				var nickname = $("#nickname").text();

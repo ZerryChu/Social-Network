@@ -73,4 +73,14 @@ public class MessageController {
 	public String judgeIfSupported(String username, int message_id, String userToken) {
 		return messageService.judgeIfSupport(username, message_id, userToken);
 	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/comment", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String send_comment(String username, String userToken, int id, String content) {
+		if(messageService.send_comment(username, userToken, id, content))
+			return "{\"msg\" : 1}";
+		else 
+			return "{\"msg\" : 0}";
+	}
 }

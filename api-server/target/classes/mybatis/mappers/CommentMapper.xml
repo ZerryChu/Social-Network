@@ -20,6 +20,8 @@
 		comment_inf
 		WHERE
 		message_id = #{id}
+		ORDER BY
+		create_time DESC
 	</select>
 
 	<insert id="addComment" parameterType="Comment">
@@ -30,6 +32,7 @@
 		create_time
 		)
 		VALUES
-		(#{id}, #{nickname}, #{content}, now())
+		(#{message_id},
+		#{nickname}, #{content}, now())
 	</insert>
 </mapper>

@@ -1,22 +1,22 @@
 /**
  * Created by zhuzirui on 10/12/15.
  */
-function send_message() {
+function send_comment(message_id, comment_content) {
 	$.ajax({
 		type : "post",
-		url : "message/send",
+		url : "message/comment",
 		data : {
 			username : $.query.get("username"),
 			userToken : $.query.get("userToken"),
-			content : $(".message_content").val(),
-			type : $(".type").val()
+			id : message_id,
+			content : comment_content,
 		},
 		dataType : "json",
 		success : function(data) {
 			$.each(data, function() {
 				if (data.msg == 1) {
 					//...add content
-					alert("succeed");
+					show_comments(message_id);
 				} else {
 					//...tell fail
 					alert("fail");
@@ -24,6 +24,4 @@ function send_message() {
 			});
 		}
 	});
-	var num = $("#message_num").text(); 
-	$("#message_num").text(Number.parseInt(num) + 1); // 广播数+1
 }
