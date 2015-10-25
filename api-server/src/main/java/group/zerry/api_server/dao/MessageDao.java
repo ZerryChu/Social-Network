@@ -17,7 +17,7 @@ public interface MessageDao {
 	
 	public Message[] getAnnouncements();
 	
-	public void deleteMessageByID(int id);
+	public void deleteMessageById(int id);
 	
 	public void addRepostTimes(int id);
 

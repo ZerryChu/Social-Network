@@ -24,6 +24,7 @@ function send_message() {
 			});
 		}
 	});
+	$(".message_content").val("");
 	var num = $("#message_num").text(); 
 	$("#message_num").text(Number.parseInt(num) + 1); // 广播数+1
 }

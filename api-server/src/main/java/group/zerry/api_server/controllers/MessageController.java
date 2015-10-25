@@ -55,7 +55,7 @@ public class MessageController {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		regMsg.append(messageService.delete_message(username, id).getValue());
 		regMsg.append("\"}");
-		logger.info(regMsg.toString());
+		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 

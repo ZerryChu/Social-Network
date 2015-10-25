@@ -56,14 +56,13 @@ public class MessageServiceImpl implements MessageService {
 	public MessageStatusEnum delete_message(String username, int id) {
 		// TODO Auto-generated method stub
 		try {
-			messageDao.deleteMessageByID(id);
+			messageDao.deleteMessageById(id);
 			userDao.decreaseMessage_numByUsername(username);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return MessageStatusEnum.DMF;
 		}
 		return MessageStatusEnum.DMS;
-
 	}
 
 	//分页
@@ -97,7 +96,6 @@ public class MessageServiceImpl implements MessageService {
 			return MessageStatusEnum.OF;
 		}
 		return MessageStatusEnum.RS;
-		
 	}
 
 	//check

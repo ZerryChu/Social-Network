@@ -178,7 +178,7 @@
 			
 			$("#all_messages").click(function() {
 				show_announcements();
-			});
+			});// 显示公告
 			
 			$(".support").live('click', function() {
 				var message_id = $(this).parents("li").attr("id");
