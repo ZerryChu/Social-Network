@@ -26,6 +26,9 @@ public interface MessageDao {
 	public void addSupportTimes(int id);
 	public void addSupportInfo(int id, String username);
 	
+	public void decreaseSupportTimes(int id);
+	public void decreaseSupportInfo(int id, String username);
+	
 	/**
 	 * 
 	 * @param username

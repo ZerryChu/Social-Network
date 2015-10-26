@@ -22,4 +22,5 @@ public interface MessageService {
 	
 	public MessageStatusEnum addSupport(String username, int id); //点赞
 	
+	public MessageStatusEnum decreaseSupport(String username, int id);
 }

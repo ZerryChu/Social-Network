@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		paramsMap.put("username", username);
 		paramsMap.put("password", password);
 		paramsMap.put("userToken", userToken);
-		// logger.error(fetchURLTool.doPost(url, paramsMap));
+		logger.error(fetchURLTool.doPost(url, paramsMap));
 		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
 		if (returnMsgDto.getReturnMsg().trim().equals(UserStatusEnum.LS.getValue())) {
 			return true;

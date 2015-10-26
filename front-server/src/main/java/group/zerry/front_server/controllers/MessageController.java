@@ -37,14 +37,26 @@ public class MessageController {
 	}
 	
 	/**
-	 * @return 1:点赞成功 0：操作异常 3：已点过赞
+	 * @return 1:点赞成功 0：操作异常 2：已点过赞
 	 */
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/support", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String addSupportTimes(String username, int id) {
+	public String addSupportTimes(String username, String userToken, int id) {
 		StringBuilder regMsg = new StringBuilder("{\"msg\": ");
-		regMsg.append(messageService.addSupportTimes(username, id) + "}");
+		regMsg.append(messageService.addSupportTimes(username, userToken, id) + "}");
+		return regMsg.toString();
+	}
+	
+	/**
+	 * @return 1:取消点赞成功 0：操作异常 2：没有点过赞
+	 */
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/_support", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String decreaseSupportTimes(String username, String userToken, int id) {
+		StringBuilder regMsg = new StringBuilder("{\"msg\": ");
+		regMsg.append(messageService.decreaseSupportTimes(username, userToken, id) + "}");
 		return regMsg.toString();
 	}
 	

@@ -149,7 +149,6 @@
 				
 				showUserInfo();
 				show_messages(1);
-				
 			});
 
 			$(".icon").live('click', function() {
@@ -180,7 +179,7 @@
 				show_announcements();
 			});// 显示公告
 			
-			$(".support").live('click', function() {
+			$(".zan").live('click', function() {
 				var message_id = $(this).parents("li").attr("id");
 				message_id = message_id.substr(6);
 				judgeIfSupport(message_id);

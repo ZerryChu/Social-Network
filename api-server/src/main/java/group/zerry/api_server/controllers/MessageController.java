@@ -128,6 +128,17 @@ public class MessageController {
 		return regMsg.toString();
 	}
 
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/_support", produces = "text/html;charset=UTF-8")
+	public String decreseSupport(String username, String userToken, int id) {
+		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
+		MessageStatusEnum status = messageService.decreaseSupport(username, id);
+		regMsg.append(status.getValue());
+		regMsg.append("\"}");
+		return regMsg.toString();
+	}
+	
 	/**
 	 * 获取目标对象发的微博
 	 * @分页 pagesize=10

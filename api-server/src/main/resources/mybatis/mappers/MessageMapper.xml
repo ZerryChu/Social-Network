@@ -56,7 +56,7 @@
 		<foreach collection="array" item="friend" index="index" open=" "
 			close=" " separator=" or ">
 			author=#{friend}
-		</foreach>		
+		</foreach>
 		AND create_time &lt; now()
 		ORDER BY
 		create_time DESC
@@ -95,9 +95,19 @@
 	<insert id="addSupportInfo">
 		INSERT INTO support_inf (message_id, username)
 		VALUES
-		(#{id}, #{username})
+		(#{0}, #{1})
 	</insert>
 
+	<delete id="decreaseSupportInfo">
+		DELETE
+		FROM
+		support_inf
+		WHERE
+		message_id = #{0}
+		and
+		username = #{1}
+	</delete>
+	
 	<update id="addRepostTimes" parameterType="int">
 		UPDATE message_inf
 		SET
@@ -114,6 +124,13 @@
 		id = #{id}
 	</update>
 
+	<update id="decreaseSupportTimes" parameterType="int">
+		UPDATE message_inf
+		SET support_times = support_times - 1
+		WHERE
+		id = #{id}
+	</update>
+	
 	<update id="addCommentTimes" parameterType="int">
 		UPDATE message_inf
 		SET comment_times = comment_times + 1
@@ -140,6 +157,7 @@
 		support_inf
 		WHERE
 		username = #{0}
-		AND message_id = #{1}
+		AND message_id =
+		#{1}
 	</select>
 </mapper>

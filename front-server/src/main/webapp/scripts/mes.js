@@ -85,7 +85,7 @@ function show_messages() {
 																	+ data.returndata[i].comment_times
 																	+ ")</span></a><a href=\"javascript:void(0);\"><span class=\"repost\">转发("
 																	+ data.returndata[i].repost_times
-																	+ ")</span></a><a href=\"javascript:void(0);\"><span class=\"support\"><img class=\"zan\" style=\"width:3%; height:50%;\" src=\"images/2.png\">("
+																	+ ")</span></a><a href=\"javascript:void(0);\"><span class=\"support\"><img class=\"zan\" style=\"width:3%; height:50%;\" src=\"judgeIfSupport(10);\">("
 																	+ data.returndata[i].support_times
 																	+ ")</span></a></div><div style=\"display: none\" id=\"comment_"
 																	+ data.returndata[i].id

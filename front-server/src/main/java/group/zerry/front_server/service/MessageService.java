@@ -9,7 +9,8 @@ public interface MessageService {
 	
 	public boolean delete_message(String username, String userToken, int id);
 	
-	public int addSupportTimes(String username, int id);
+	public int addSupportTimes(String username, String userToken, int id);
+	public int decreaseSupportTimes(String username, String userToken, int id);
 	
 	public String show_messages(String username, String userToken, int page, int type);
 	

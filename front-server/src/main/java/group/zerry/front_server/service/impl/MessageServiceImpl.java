@@ -86,19 +86,40 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	/**
-	 * @return 1:点赞成功 0：操作异常 3：已点过赞
+	 * @return 1:点赞成功 0：操作异常 2：已点过赞
 	 */
-	public int addSupportTimes(String username, int id) {
+	public int addSupportTimes(String username, String userToken, int id) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/support";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
 		paramsMap.put("id", String.valueOf(id));
 		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
 		if(returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.OF.getValue())) {
 			return 0;
 		}
 		else if(returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.SS.getValue()))
+			return 1;
+		else
+			return 2;
+	}
+	
+	/**
+	 * @return 1:取消点赞成功 0：操作异常 2：没点过赞
+	 */
+	public int decreaseSupportTimes(String username, String userToken, int id) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/_support";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("id", String.valueOf(id));
+		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		if(returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.OF.getValue())) {
+			return 0;
+		}
+		else if(returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.OS.getValue()))
 			return 1;
 		else
 			return 2;

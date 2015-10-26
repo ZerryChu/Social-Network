@@ -14,9 +14,12 @@ public enum MessageStatusEnum {
 	MNE("MESSAGE_DOES_NOT_EXIST", "消息不存在"),
 	SMF("SHOW_MESSAGES_FAIL", "帖子展示失败"),
 	ACF("AUTHORITY_CHECK_FAIL", "权限认证失败"),
+	HAS("HAS_ALREADY_BEEN_SUPPORTED", "已点过赞"),
+	HNS("HAS_NO_SUPPORT", "没有点赞"),
 	SS("ADD_SUPPORT_SUCCEED", "点赞成功"),
 	RS("ADD_REPOST_SUCCEED", "转发成功"),
 	CS("ADD_COMMENT_SUCCEED", "评论成功"),
+	OS("OPERATION_SUCCESS", "操作成功"),
 	OF("OPERATION_FAIL", "操作失败");
 	
 	private static Map<String, MessageStatusEnum> valueMap = new HashMap<String, MessageStatusEnum>();

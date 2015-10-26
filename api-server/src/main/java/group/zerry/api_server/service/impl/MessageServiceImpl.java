@@ -138,12 +138,32 @@ public class MessageServiceImpl implements MessageService {
 			messageDao.addSupportTimes(id);
 			messageDao.addSupportInfo(id, username);
 		} catch(Exception e) {
+			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;
 		}
 		return MessageStatusEnum.SS;
 		
 	}
 
+	@Override
+	public MessageStatusEnum decreaseSupport(String username, int id) {
+		// TODO Auto-generated method stub
+		try {
+			int num = messageDao.findIfSupportedByUsername(username, id).getNumber();
+			if(num == 0) {
+				return MessageStatusEnum.HNS;
+			}
+			if(num > 1 || num < 0)
+				return MessageStatusEnum.OF;
+			messageDao.decreaseSupportTimes(id);
+			messageDao.decreaseSupportInfo(id, username);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			return MessageStatusEnum.OF;
+		}
+		return MessageStatusEnum.OS;
+	}
+	
 	@Override
 	public Message[] show_ownMessages(String nickname, int page) {
 		// TODO Auto-generated method stub
