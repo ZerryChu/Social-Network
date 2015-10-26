@@ -23,7 +23,7 @@ public class CommentController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/show", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String show_comments(int id) {
-		return commentService.show_message(id);
+	public String show_comments(int id, int page) {
+		return commentService.show_message(id, page);
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * Created by zhuzirui on 10/12/15.
  */
-function show_messages() {
+function show_messages(pageNumber) {
 	$
 			.ajax({
 				type : "post",
@@ -9,6 +9,7 @@ function show_messages() {
 				data : {
 					username : $.query.get("username"),
 					userToken : $.query.get("userToken"),
+					page : pageNumber,
 					type : 1
 				},
 				dataType : "json",
@@ -61,13 +62,13 @@ function show_messages() {
 																	+ data.returndata[i].content
 																	+ "</div><div class=\"info\"><span class=\"create_time\">"
 																	+ data.returndata[i].create_time
-																	+ "</span> <span class=\"repost_times\"></span> <span class=\"support_times\"></span><a href=\"javascript:void(0);\"><span class=\"comment\">评论("
+																	+ "</span> <span class=\"repost_times\"></span> <span class=\"support_times\"></span><a href=\"javascript:void(0);\"><span class=\"comment\">评论(<span class=\"num\">"
 																	+ data.returndata[i].comment_times
-																	+ ")</span></a><a href=\"javascript:void(0);\"><span class=\"repost\">转发("
+																	+ "</span>)</span></a><a href=\"javascript:void(0);\"><span class=\"repost\">转发(<span class=\"num\">"
 																	+ data.returndata[i].repost_times
-																	+ ")</span></a><a href=\"javascript:void(0);\"><span class=\"support\">赞("
+																	+ "</span>)</span></a><a href=\"javascript:void(0);\"><span class=\"support\">赞(<span class=\"num\">"
 																	+ data.returndata[i].support_times
-																	+ ")</span></a></div><div class=\"comtxt\" style=\"display: none\"><textarea class=\"comarea_"
+																	+ "</span>)</span></a></div><div class=\"comtxt\" style=\"display: none\"><textarea class=\"comarea_"
 																	+ data.returndata[i].id
 																	+ "\" name=\"content\"></textarea><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"btn\">评论</button></div>" 
 																	+ "<ul class=\"otherCom\" id=\"comment_"

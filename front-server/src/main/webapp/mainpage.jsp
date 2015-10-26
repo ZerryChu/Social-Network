@@ -44,7 +44,7 @@
 					<h2>说点什么吧~</h2>
 					<textarea class="message_content" name="content"></textarea>
 					<br> <select class="type" name="type">
-						<option value="2">所有人可见</option>
+						<option value="2">暂无</option>
 						<option value="1" selected="selected">好友可见</option>
 					</select> <input type="button" value="发送" onclick="send_message();">
 				</form>
@@ -148,7 +148,7 @@
 				});
 				
 				showUserInfo();
-				show_messages();
+				show_messages(1);
 				
 			});
 
@@ -163,7 +163,7 @@
 			$(".comment").live('click', function() {
 				var message_id = $(this).parents("li").attr("id");
 				message_id = message_id.substr(6);
-				show_comments(message_id);
+				show_comments(message_id, 1);
 				$(this).parents("li").find(".comtxt").slideToggle();
 			}); // 查看评论
 			
@@ -192,7 +192,7 @@
 			});
 			
 			$("#friend_messages").click(function() {
-				show_messages();
+				show_messages(1);
 			});// 好友广播
 			
 			$(".logout").click(function() {
@@ -201,7 +201,7 @@
 			
 			$("#messages_count").live('click', function() {
 				var nickname = $("#nickname").text();
-				showOwnmessages(nickname);
+				showOwnmessages(nickname, 1);
 			});
 		</script>
 				<!--<jsp:include page="copyright.jsp"></jsp:include>-->

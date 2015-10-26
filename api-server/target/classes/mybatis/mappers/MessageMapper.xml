@@ -42,6 +42,9 @@
 		WHERE
 		user_inf.type = 2
 		AND author = nickname
+		ORDER BY
+		create_time
+		DESC
 	</select>
 
 	<select id="getMessages" resultType="Message">
@@ -53,7 +56,7 @@
 		<foreach collection="array" item="friend" index="index" open=" "
 			close=" " separator=" or ">
 			author=#{friend}
-		</foreach>
+		</foreach>		
 		AND create_time &lt; now()
 		ORDER BY
 		create_time DESC

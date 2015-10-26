@@ -61,18 +61,18 @@ public class MessageController {
 
 	/*
 	 * type 2: 转发的微博
+	 * 分页 pagesize=10
 	 */
-	//分页
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show", produces = "text/html;charset=UTF-8")
-	public String show_messages(String username, String userToken, int type) {
+	public String show_messages(String username, String userToken, int page, int type) {
 		//page--;
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
 		//Message[] messagesInUse;
 		try {
-			messages = messageService.show_messages(username, type);
+			messages = messageService.show_messages(username, page, type);
 			/*
 			messagesInUse = new Message[10];
 			int index = 0;
@@ -130,16 +130,17 @@ public class MessageController {
 
 	/**
 	 * 获取目标对象发的微博
+	 * @分页 pagesize=10
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/show_ownmessages", produces = "text/html;charset=UTF-8")
-	public String show_userOwnMessages(String nickname) {
+	public String show_userOwnMessages(String nickname, int page) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
 		//Message[] messagesInUse;
 		try {
-			messages = messageService.show_ownMessages(nickname);
+			messages = messageService.show_ownMessages(nickname, page);
 			/*
 			messagesInUse = new Message[10];
 			int index = 0;

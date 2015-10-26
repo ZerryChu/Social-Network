@@ -51,8 +51,8 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String show_messages(String username, String userToken, int type) {
-		return messageService.show_messages(username, userToken, type);
+	public String show_messages(String username, String userToken, int page, int type) {
+		return messageService.show_messages(username, userToken, page, type);
 	}
 	
 	@ResponseBody
@@ -63,8 +63,8 @@ public class MessageController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/show_ownmessages", produces = "text/html;charset=UTF-8")
-	public String show_ownMessages(String nickname) {
-		return messageService.show_userOwnMessages(nickname);
+	public String show_ownMessages(String nickname, int page) {
+		return messageService.show_userOwnMessages(nickname, page);
 	}
 	
 	@AuthPass

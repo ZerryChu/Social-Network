@@ -56,22 +56,24 @@ public class MessageServiceImpl implements MessageService {
 		}
 	}
 
-	public String show_messages(String username, String userToken, int type) {
+	public String show_messages(String username, String userToken, int page, int type) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/show";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("username", username);
 		paramsMap.put("userToken", userToken);
+		paramsMap.put("page", String.valueOf(page));
 		paramsMap.put("type", String.valueOf(type));
 		//List<Message> messages = JSON.parseArray(fetchURLTool.doPost(url, paramsMap), Message.class);
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 
-	public String show_userOwnMessages(String nickname) {
+	public String show_userOwnMessages(String nickname, int page) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/show_ownmessages";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("nickname", nickname);
+		paramsMap.put("page", String.valueOf(page));
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 

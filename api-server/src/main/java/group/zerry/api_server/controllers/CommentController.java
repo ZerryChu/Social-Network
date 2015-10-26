@@ -30,11 +30,17 @@ public class CommentController {
 
 	private static Logger                  logger = Logger.getLogger(CommentController.class);
 	
+	/**
+	 * 
+	 * @param id
+	 * @分页 pagesize=10
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/show", produces = "text/html;charset=UTF-8")
-	public String show_comments(int id) {
+	public String show_comments(int id, int page) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
-		Comment[] comments = commentService.showComments(id);
+		Comment[] comments = commentService.showComments(id, page);
 		if(null == comments) {
 			regMsg.append(CommentStatusEnum.CNF.getValue());
 			regMsg.append("}");

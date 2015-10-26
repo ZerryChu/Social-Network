@@ -1,13 +1,14 @@
 /**
  * Created by zhuzirui on 10/12/15.
  */
-function show_comments(message_id) {
+function show_comments(message_id, pageNumber) {
 	$
 			.ajax({
 				type : "post",
 				url : "comment/show",
 				data : {
-					id : message_id
+					id : message_id,
+					page : pageNumber
 				},
 				dataType : "json",
 				success : function(data) {

@@ -1,5 +1,7 @@
 package group.zerry.api_server.service.impl;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import group.zerry.api_server.entity.Count;
 import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
+import group.zerry.api_server.interceptors.PageHelperInterceptor;
+import group.zerry.api_server.interceptors.PageHelperInterceptor.Page;
 import group.zerry.api_server.service.MessageService;
 
 /**
@@ -67,8 +71,9 @@ public class MessageServiceImpl implements MessageService {
 
 	//分页
 	@Override
-	public Message[] show_messages(String username, int type) {
+	public Message[] show_messages(String username, int page, int type) {
 		// TODO Auto-generated method stub
+		int pageSize = 10;
 		Message[] message = null;
 		try {
 			String[] friend = null;
@@ -76,7 +81,11 @@ public class MessageServiceImpl implements MessageService {
 			if(null == friend || 0 == friend.length) {
 				return null;
 			}
+			PageHelperInterceptor.startPage(page, pageSize);
 			message = messageDao.getMessages(friend);
+			Page<Message> myPage = PageHelperInterceptor.endPage();
+			List<Message> list = myPage.getResult();
+			message = (Message[]) list.toArray(new Message[list.size()]);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;
@@ -136,12 +145,17 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public Message[] show_ownMessages(String nickname) {
+	public Message[] show_ownMessages(String nickname, int page) {
 		// TODO Auto-generated method stub
+		int pageSize = 10;
 		Message[] message = null;
 		try {
 			//User user = userDao.selectUserByUsername(username);
+			PageHelperInterceptor.startPage(page, pageSize);
 			message = messageDao.getOwnMessages(nickname);
+			Page<Message> myPage = PageHelperInterceptor.endPage();
+			List<Message> list = myPage.getResult();
+			message = (Message[]) list.toArray(new Message[list.size()]);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;
