@@ -39,14 +39,14 @@
 						<!-- 验证码 -->
 						<div class="checknum">
 							<div class="checknum_returnmsg"></div>
-							<input align="left" type="text" class="checknumText" style="width: 30%">
-							<span class="checknumholder">验证码</span>
-							<img class="checknumPic" src="getChecknum"
-								alt="checknum" onClick="this.src='getChecknum?' + Math.random()" />
+							<input align="left" type="text" class="checknumText"
+								style="width: 30%"> <span class="checknumholder">验证码</span>
+							<img class="checknumPic" src="getChecknum" alt="checknum"
+								onClick="this.src='getChecknum?' + Math.random()" />
 						</div>
 						<!-- password -->
 						<div class="sub">
-							<input type="button" value="登 录" id="login" onclick="login()" />
+							<input type="button" value="登 录" id="login" onclick="login(1);" />
 							<div class="auto">
 								<a href="javascript:void(0);" id="checkbtn"></a><label>下次自动登录</label>
 							</div>
@@ -68,5 +68,20 @@
 </body>
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="plugins/jquery.cookie.min.js" type="text/javascript"></script>
+<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 <script src="scripts/login.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				var username = $.cookie('username');
+				var password = $.cookie('password');
+				if (username != undefined
+						&& password != undefined) {
+					$(".un input").val(username);
+					$(".pwd input").val(password);
+					login(0);
+				}
+			});
+</script>
 </html>

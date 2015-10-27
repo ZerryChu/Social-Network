@@ -72,10 +72,12 @@ $(document).ready(function() {
 	// });
 });
 
-function login() {
+function login(flag) {
+	
 	var un = $(".un input").val();
 	var pwd = $(".pwd input").val();
 	var _checknum = $(".checknum input").val();
+	/*
 	var flag = 0;
 	if (un == undefined || un =="") {
 		$(".un_returnmsg").text("请输入账号");
@@ -116,21 +118,25 @@ function login() {
 	if(flag == 1) {
 		return;
 	}
+	*/
+	if(flag == 0) {
 	$.ajax({
 		type : "post",
-		url : "user/login",
+		url : "user/login", //cookies 登录， 略过验证码
 		data : {
 			username : un,
 			password : pwd,
-			checknum : _checknum
+			//checknum : _checknum
 		},
 		dataType : "json",
 		success : function(data) {
 			$.each(data, function() {
+				/*
 				if(data.msg == -1) {
 					$(".checknum_returnmsg").text("验证码错误");
 				}
-				else if (data.msg != 0) {
+				else */
+				if (data.msg != 0) {
 					//...add content
 					alert("succeed");
 					var forward = "window.location=\"main?username="
@@ -143,4 +149,36 @@ function login() {
 			});
 		}
 	});
+	}
+	else {
+		$.ajax({
+			type : "post",
+			url : "user/login1",  // 普通登录， 需要验证码
+			data : {
+				username : un,
+				password : pwd,
+				checknum : _checknum
+			},
+			dataType : "json",
+			success : function(data) {
+				$.each(data, function() {
+					
+					if(data.msg == -1) {
+						$(".checknum_returnmsg").text("验证码错误");
+					}
+					else 
+					if (data.msg != 0) {
+						//...add content
+						alert("succeed");
+						var forward = "window.location=\"main?username="
+								+ $(".un input").val() + "&userToken=" + data.msg
+								+ "\"";
+						setTimeout(forward, 2000);
+					} else {
+						$(".pwd_returnmsg").text("密码错误");
+					}
+				});
+			}
+		});
+	}
 }
