@@ -97,28 +97,29 @@ public class MessageServiceImpl implements MessageService {
 	public MessageStatusEnum addRepost(String username, int id) {
 		// TODO Auto-generated method stub
 		try {
-			messageDao.addRepostTimes(id);
+			User user = userDao.selectUserByUsername(username);
 			Message message = messageDao.getMessageById(id);
-			message.setAuthor(username);
+			message.setAuthor(user.getNickname());
+			message.setType(2);
 			messageDao.addMessage(message);
+			messageDao.addRepostTimes(id);
 		} catch(Exception e) {
 			return MessageStatusEnum.OF;
 		}
 		return MessageStatusEnum.RS;
 	}
 
-	//check
 	@Override
 	public MessageStatusEnum addComment(String username, String content, int id) {
 		// TODO Auto-generated method stub
 		try {
-			messageDao.addCommentTimes(id);
 			String nickname = userDao.selectUserByUsername(username).getNickname();
 			Comment comment = new Comment();
 			comment.setNickname(nickname);
 			comment.setContent(content);
 			comment.setMessage_id(id);
 			commentDao.addComment(comment);
+			messageDao.addCommentTimes(id);
 		} catch(Exception e) {
 			return MessageStatusEnum.OF;
 		}
@@ -135,8 +136,8 @@ public class MessageServiceImpl implements MessageService {
 			}
 			else if(num == 1)
 				return MessageStatusEnum.HAS;
-			messageDao.addSupportTimes(id);
 			messageDao.addSupportInfo(id, username);
+			messageDao.addSupportTimes(id);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;
@@ -155,8 +156,8 @@ public class MessageServiceImpl implements MessageService {
 			}
 			if(num > 1 || num < 0)
 				return MessageStatusEnum.OF;
-			messageDao.decreaseSupportTimes(id);
 			messageDao.decreaseSupportInfo(id, username);
+			messageDao.decreaseSupportTimes(id);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;

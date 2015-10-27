@@ -35,7 +35,8 @@ public class MessageController {
 	private static Logger logger = Logger.getLogger(MessageController.class);
 
 	/*
-	 * 
+	 * 发送微博
+	 * @return type: 1 普通微博 2： 转发的微博
 	 */
 	@AuthPass
 	@ResponseBody
@@ -60,7 +61,7 @@ public class MessageController {
 	}
 
 	/*
-	 * type 2: 转发的微博
+	 * @param type 2: 转发的微博
 	 * 分页 pagesize=10
 	 */
 	@AuthPass

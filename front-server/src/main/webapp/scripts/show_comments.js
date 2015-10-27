@@ -30,7 +30,9 @@ function show_comments(message_id, pageNumber) {
 																	+ "</span><div class=\"info\"><span class=\"comment_time\">" 
 																	+ data.returndata[i].create_time
 																	+ "</span></div>"
-																	+"</div></div></li>");
+																	+"</div><img class=\"delete_cmt\" align=\"right\" style=\"width: 10px; height: 10px;\" src=\"images/delete.jpg\" onclick=\"delete_comment(" +
+																	+ message_id
+																	+ ")\"></div></li>");
 											i++;
 										}
 										/*$(target)

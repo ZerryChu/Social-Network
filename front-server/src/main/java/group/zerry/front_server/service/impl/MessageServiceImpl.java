@@ -150,4 +150,18 @@ public class MessageServiceImpl implements MessageService {
 			return false;
 	}
 
+	public boolean add_repost(String username, String userToken, int id) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/repost";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("id", String.valueOf(id));
+		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		if (returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.RS.getValue())) {
+			return true;
+		} else
+			return false;
+	}
+
 }

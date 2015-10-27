@@ -95,4 +95,14 @@ public class MessageController {
 		else 
 			return "{\"msg\" : 0}";
 	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/repost", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String repost_message(String username, String userToken, int id) {
+		if(messageService.add_repost(username, userToken, id))
+			return "{\"msg\" : 1}";
+		else 
+			return "{\"msg\" : 0}";
+	}
 }

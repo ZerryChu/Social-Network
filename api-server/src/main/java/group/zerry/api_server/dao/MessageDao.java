@@ -19,6 +19,7 @@ public interface MessageDao {
 	
 	public void deleteMessageById(int id);
 	
+	public void addRepost(Message message);
 	public void addRepostTimes(int id);
 
 	public void addCommentTimes(int id);
