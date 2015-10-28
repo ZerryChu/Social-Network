@@ -46,7 +46,7 @@
 					<br> <select class="type" name="type">
 						<option value="2">暂无</option>
 						<option value="1" selected="selected">好友可见</option>
-					</select> <input type="button" value="发送" onclick="send_message();">
+					</select> <input type="button" value="发送" onclick="send_messages();">
 				</form>
 			</div>
 			<div id="messages">
