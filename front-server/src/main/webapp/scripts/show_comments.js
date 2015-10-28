@@ -1,14 +1,15 @@
 /**
  * Created by zhuzirui on 10/12/15.
  */
-function show_comments(message_id, pageNumber) {
+function show_comments(message_id, pageNumber, _flag) {
 	$
 			.ajax({
 				type : "post",
 				url : "comment/show",
 				data : {
 					id : message_id,
-					page : pageNumber
+					page : pageNumber,
+					flag : _flag
 				},
 				dataType : "json",
 				success : function(data) {
@@ -50,9 +51,5 @@ function show_comments(message_id, pageNumber) {
 				*/}
 			});
 }
-// {"returndata":[{"content":"good","create_time":"2015-10-07
-// 19:18:50.0","nickname":"zerrychu"},{"content":"very
-// good","create_time":"2015-10-08
-// 19:19:25.0","nickname":"zerrychu"},{"content":"good good
-// good","create_time":"2015-10-01 19:20:01.0","nickname":"lucy"}]}
+
 

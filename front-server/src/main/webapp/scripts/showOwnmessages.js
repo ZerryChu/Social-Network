@@ -2,7 +2,7 @@
  * Created by zhuzirui on 10/13/15.
  */
 var userNickname; // 当前登录用户的昵称
-function showOwnmessages(target, pageNumber) {
+function showOwnmessages(target, pageNumber, _flag) {
 	userNickname = target;
 	$
 			.ajax({
@@ -10,7 +10,8 @@ function showOwnmessages(target, pageNumber) {
 				type : 'post',
 				data : {
 					nickname : userNickname,
-					page : pageNumber
+					page : pageNumber,
+					flag : _flag
 				},
 				dataType : 'json', // 返回值类型 一般设置为json
 				success : function(data, status) // 服务器成功响应处理函数
@@ -62,7 +63,7 @@ function deleteOwnmessage(message_id) {
 			if(data.msg == 1) {
 				var num = $("#message_num").text(); 
 				$("#message_num").text(Number.parseInt(num) - 1); // 广播数-1
-				showOwnmessages(userNickname, 1);
+				showOwnmessages(userNickname, 1, 1);
 			}
 			else {
 				alert("fail");

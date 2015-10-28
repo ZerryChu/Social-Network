@@ -67,13 +67,13 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show", produces = "text/html;charset=UTF-8")
-	public String show_messages(String username, String userToken, int page, int type) {
+	public String show_messages(String username, String userToken, int page) {
 		//page--;
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
 		//Message[] messagesInUse;
 		try {
-			messages = messageService.show_messages(username, page, type);
+			messages = messageService.show_messages(username, page);
 			/*
 			messagesInUse = new Message[10];
 			int index = 0;

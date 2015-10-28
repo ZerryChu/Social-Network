@@ -8,7 +8,7 @@ public interface MessageService {
 	
 	public MessageStatusEnum delete_message(String username, int id);
 	
-	public Message[] show_messages(String username, int page, int type);
+	public Message[] show_messages(String username, int page);
 	
 	public Message[] show_ownMessages(String nickname, int page);
 

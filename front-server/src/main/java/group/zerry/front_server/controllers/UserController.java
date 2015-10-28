@@ -1,5 +1,7 @@
 package group.zerry.front_server.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import group.zerry.front_server.utils.CookiesData;
 import group.zerry.front_server.utils.EncodeTools;
 import group.zerry.front_server.annotation.AuthPass;
 import group.zerry.front_server.entity.User;
@@ -23,6 +26,9 @@ public class UserController {
 		
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CookiesData cookiesData;
 	
 	private static Logger logger = Logger.getLogger(UserController.class);
 	
@@ -82,18 +88,10 @@ public class UserController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/logout", produces = "text/html;charset=UTF-8")
-	public String logout(HttpServletResponse response, String username, String userToken) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, String username, String userToken) {
 		if(userService.logout(username, userToken)) {
 			// cookie
-			Cookie cookie = new Cookie("username", null);
-			cookie.setMaxAge(0);
-			cookie.setPath("/");
-			response.addCookie(cookie);
-			cookie = new Cookie("password", null);
-			cookie.setMaxAge(0);
-			cookie.setPath("/");
-			response.addCookie(cookie);
-			
+			cookiesData.deleteAllCookies(request, response);
 			return "{\"msg\" : 1}";
 		}
 		else
@@ -113,8 +111,24 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getinfo", produces = "text/html;charset=UTF-8")
-	public String showUserInfo(String username) {
-		return userService.showUserInfo(username);
+	public String showUserInfo(HttpServletRequest request, HttpServletResponse response, String username, int flag) throws UnsupportedEncodingException {
+		if (flag == 0) {
+			Cookie cookie;
+			if (null == (cookie = cookiesData.getCookie(request, "userinfo"))) {
+				String returnMsg = userService.showUserInfo(username);
+				cookiesData.safe(request, response, "userinfo", returnMsg);
+				return returnMsg;
+			} else {
+				String returnMsg = cookie.getValue();
+				returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
+				return returnMsg;
+			}
+		} // 无更新查询
+		else {
+			String returnMsg = userService.showUserInfo(username);
+			cookiesData.safe(request, response, "userinfo", returnMsg);
+			return returnMsg;
+		}
 	}
 	
 	@ResponseBody

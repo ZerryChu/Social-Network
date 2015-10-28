@@ -11,4 +11,6 @@
 
 	<bean id="fetchURLTool" class="group.zerry.front_server.utils.HttpClientTools"
 		init-method="init" />
+
+	<bean id="cookiesData" class="group.zerry.front_server.utils.CookiesData" />
 </beans>

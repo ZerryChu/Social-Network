@@ -1,12 +1,13 @@
 /**
  * Created by zhuzirui on 10/11/15.
  */
-function showUserInfo() {
+function showUserInfo(_flag) {
 	$.ajax({
 		type : "post",
 		url : "user/getinfo",
 		data : {
-			username : $.query.get("username")
+			username : $.query.get("username"),
+			flag : _flag
 		},
 		dataType : "json",
 		success : function(data) {

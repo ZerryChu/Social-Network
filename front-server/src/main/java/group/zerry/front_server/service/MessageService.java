@@ -15,7 +15,7 @@ public interface MessageService {
 	public int addSupportTimes(String username, String userToken, int id);
 	public int decreaseSupportTimes(String username, String userToken, int id);
 	
-	public String show_messages(String username, String userToken, int page, int type);
+	public String show_messages(String username, String userToken, int page);
 	
 	public String show_userOwnMessages(String nickname, int page);
 	

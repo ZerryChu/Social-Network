@@ -1,7 +1,8 @@
 /**
  * Created by zhuzirui on 10/12/15.
  */
-function show_messages(pageNumber) {
+// flag ：0 缓存show 1 非缓存show
+function show_messages(pageNumber, _flag) {
 	$
 			.ajax({
 				type : "post",
@@ -10,7 +11,7 @@ function show_messages(pageNumber) {
 					username : $.query.get("username"),
 					userToken : $.query.get("userToken"),
 					page : pageNumber,
-					type : 1
+					flag : _flag
 				},
 				dataType : "json",
 				success : function(data) {

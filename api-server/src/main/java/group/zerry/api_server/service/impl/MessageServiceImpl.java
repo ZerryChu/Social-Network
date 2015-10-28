@@ -71,7 +71,7 @@ public class MessageServiceImpl implements MessageService {
 
 	//分页
 	@Override
-	public Message[] show_messages(String username, int page, int type) {
+	public Message[] show_messages(String username, int page) {
 		// TODO Auto-generated method stub
 		int pageSize = 10;
 		Message[] message = null;

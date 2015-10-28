@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.zerry.api_server.dao.MessageDao">
+
+	<resultMap id="MessageMap" type="Message">
+		<result property="id" column="id" />
+		<result property="type" column="type" />
+		<result property="author" column="author" />
+		<result property="content" column="content" />
+		<result property="create_time" column="create_time" />
+		<result property="repost_times" column="repost_times" />
+		<result property="comment_times" column="comment_times" />
+		<result property="support_times" column="support_times" />
+	</resultMap>
+
+	<resultMap id="CountMap" type="Count">
+		<result property="number" column="number" />
+	</resultMap>
+
+	<select id="getOwnMessages" parameterType="string" resultType="Message">
+		select
+		*
+		from message_inf
+		where author = #{nickname}
+		ORDER BY
+		create_time
+		DESC
+	</select>
+
+	<select id="getAnnouncements" resultType="Message">
+		SELECT
+		message_inf.id as
+		id,
+		author,
+		content,
+		create_time
+		FROM
+		message_inf,
+		user_inf
+		WHERE
+		user_inf.type = 2
+		AND author = nickname
+		ORDER BY
+		create_time
+		DESC
+	</select>
+
+	<select id="getMessages" resultType="Message">
+		SELECT
+		*
+		FROM
+		message_inf
+		WHERE
+		<foreach collection="array" item="friend" index="index" open=" "
+			close=" " separator=" or ">
+			author=#{friend}
+		</foreach>
+		AND create_time &lt; now()
+		ORDER BY
+		create_time DESC
+	</select>
+
+	<delete id="deleteMessageById" parameterType="int">
+		DELETE
+		FROM
+		message_inf
+		WHERE
+		id = #{id}
+	</delete>
+
+	<insert id="addMessage" parameterType="Message"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO message_inf (
+		type,
+		author,
+		content,
+		create_time,
+		repost_times,
+		comment_times,
+		support_times
+		)
+		VALUES
+		(
+		#{type}, #{author}, #{content},
+		now(),
+		0,
+		0,
+		0
+		)
+	</insert>
+
+	<!-- 增加点赞信息 -->
+	<insert id="addSupportInfo">
+		INSERT INTO support_inf (message_id, username)
+		VALUES
+		(#{0}, #{1})
+	</insert>
+
+	<delete id="decreaseSupportInfo">
+		DELETE
+		FROM
+		support_inf
+		WHERE
+		message_id = #{0}
+		and
+		username = #{1}
+	</delete>
+
+	<update id="addRepostTimes" parameterType="int">
+		UPDATE message_inf
+		SET
+		repost_times = repost_times + 1
+		WHERE
+		id = #{id}
+	</update>
+
+	<!-- 点赞次数+1 -->
+	<update id="addSupportTimes" parameterType="int">
+		UPDATE message_inf
+		SET support_times = support_times + 1
+		WHERE
+		id = #{id}
+	</update>
+
+	<update id="decreaseSupportTimes" parameterType="int">
+		UPDATE message_inf
+		SET support_times = support_times - 1
+		WHERE
+		id = #{id}
+	</update>
+	
+	<update id="addCommentTimes" parameterType="int">
+		UPDATE message_inf
+		SET comment_times = comment_times + 1
+		WHERE
+		id = #{id}
+	</update>
+
+	<select id="searchMessagesLikeContent" parameterType="string"
+		resultType="Message">
+		SELECT
+		*
+		FROM
+		message_inf
+		WHERE
+		content LIKE #{%content%}
+		AND
+		type = 1
+	</select>
+
+	<select id="findIfSupportedByUsername" resultType="Count">
+		SELECT
+		count(id) as number
+		FROM
+		support_inf
+		WHERE
+		username = #{0}
+		AND message_id =
+		#{1}
+	</select>
+</mapper>

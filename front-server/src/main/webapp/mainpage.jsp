@@ -52,7 +52,7 @@
 			<div id="messages">
 				<div class="messages_class">
 					<ul>
-						<li id="friend_messages" class="on">好友广播</li>
+						<li id="friend_messages" class="on">广播</li>
 						<li id="all_messages">公告</li>
 						<li>敬请期待</li>
 					</ul>
@@ -147,8 +147,8 @@
 					});
 				});
 				
-				showUserInfo();
-				show_messages(1);
+				showUserInfo(0);
+				show_messages(1, 1);
 			});
 
 			$(".icon").live('click', function() {
@@ -162,7 +162,7 @@
 			$(".comment").live('click', function() {
 				var message_id = $(this).parents("li").attr("id");
 				message_id = message_id.substr(6);
-				show_comments(message_id, 1);
+				show_comments(message_id, 1, 0);
 				$(this).parents("li").find(".comtxt").slideToggle();
 			}); // 查看评论
 			
@@ -176,7 +176,7 @@
 			}); //发送评论
 			
 			$("#all_messages").click(function() {
-				show_announcements();
+				show_announcements(0);
 			});// 显示公告
 			
 			$(".zan").live('click', function() {
@@ -191,7 +191,7 @@
 			});
 			
 			$("#friend_messages").click(function() {
-				show_messages(1);
+				show_messages(1, 1);
 			});// 好友广播
 			
 			$(".logout").click(function() {
@@ -200,7 +200,7 @@
 			
 			$("#messages_count").live('click', function() {
 				var nickname = $("#nickname").text();
-				showOwnmessages(nickname, 1);
+				showOwnmessages(nickname, 1, 0);
 			});
 		</script>
 				<!--<jsp:include page="copyright.jsp"></jsp:include>-->

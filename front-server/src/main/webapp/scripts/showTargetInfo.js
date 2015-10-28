@@ -1,11 +1,11 @@
 /**
  * Created by zhuzirui on 10/11/15.
  */
-function showTargetInfo() {
+function showTargetInfo(_flag) {
 	$.ajax({
         type: "post",
         url: "user/getTargetinfo",
-        data: { nickname : $.query.get("targetNickname") },
+        data: { nickname : $.query.get("targetNickname"), flag : _flag },
         dataType: "json",
         success : function(data){
             $.each(data,function(){

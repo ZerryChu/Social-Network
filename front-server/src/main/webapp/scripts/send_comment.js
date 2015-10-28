@@ -18,7 +18,7 @@ function send_comment(message_id, comment_content) {
 					var weibo = "#weibo_" + message_id;
 					var num = $(weibo).find(".comment").find(".num").text();
 					$(weibo).find(".comment").find(".num").text(Number.parseInt(num) + 1); // 评论数+1
-					show_comments(message_id, 1);
+					show_comments(message_id, 1, 1);
 				} else {
 					//...tell fail
 					alert("fail");
