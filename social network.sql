@@ -11,7 +11,7 @@
  Target Server Version : 50624
  File Encoding         : utf-8
 
- Date: 10/26/2015 00:48:14 AM
+ Date: 10/30/2015 17:56:18 PM
 */
 
 SET NAMES utf8;
@@ -28,13 +28,25 @@ CREATE TABLE `comment_inf` (
   `content` varchar(255) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+delimiter ;;
+CREATE TRIGGER `after_insertComment` AFTER INSERT ON `comment_inf` FOR EACH ROW begin 
+	update message_inf set comment_times = comment_times + 1 where id = NEW.message_id;
+end;
+ ;;
+delimiter ;
+delimiter ;;
+CREATE TRIGGER `after_deleteComment` AFTER DELETE ON `comment_inf` FOR EACH ROW begin 
+	update message_inf set comment_times = comment_times - 1 where id = OLD.message_id;
+end;
+ ;;
+delimiter ;
 
 -- ----------------------------
 --  Records of `comment_inf`
 -- ----------------------------
 BEGIN;
-INSERT INTO `comment_inf` VALUES ('1', '2', 'zerrychu', 'd', '2015-10-07 19:18:50'), ('2', '5', 'zerrychu', 'very good', '2015-10-08 19:19:25'), ('3', '2', 'lucy', 'good good good', '2015-10-01 19:20:01'), ('11', '8', 'zerrychu', '666!', '2015-10-25 15:59:46'), ('12', '8', 'zerrychu', '666666...', '2015-10-25 23:03:41'), ('13', '8', 'zerrychu', 'very good!', '2015-10-25 23:12:13'), ('14', '8', 'zerrychu', '5', '2015-10-25 23:14:30'), ('15', '8', 'zerrychu', 'haha', '2015-10-25 23:18:49'), ('16', '8', 'zerrychu', 'sass', '2015-10-25 23:20:13');
+INSERT INTO `comment_inf` VALUES ('15', '7', 'zerrychu', 'aaa', '2015-10-30 16:49:34'), ('16', '2', 'zerrychu', 'haha', '2015-10-30 16:49:47'), ('18', '2', 'zerrychu', 'aaa', '2015-10-30 17:01:18');
 COMMIT;
 
 -- ----------------------------
@@ -80,13 +92,25 @@ CREATE TABLE `message_inf` (
   `comment_times` int(11) DEFAULT NULL,
   `support_times` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+delimiter ;;
+CREATE TRIGGER `after_insertMessage` AFTER INSERT ON `message_inf` FOR EACH ROW BEGIN
+	update user_inf set message_num = message_num + 1 where nickname = NEW.author;
+END;
+ ;;
+delimiter ;
+delimiter ;;
+CREATE TRIGGER `after_deleteMessage` AFTER DELETE ON `message_inf` FOR EACH ROW BEGIN
+	update user_inf set message_num = message_num - 1 where nickname = OLD.author;
+END;
+ ;;
+delimiter ;
 
 -- ----------------------------
 --  Records of `message_inf`
 -- ----------------------------
 BEGIN;
-INSERT INTO `message_inf` VALUES ('1', '1', 'zerrychu', '今天去爬了二龙山，好累啊', '2015-10-02 22:15:13', '0', '0', '1'), ('2', '1', 'lucy', '今天去爬了二龙山，好累啊', '2015-10-05 22:15:13', '0', '2', '1'), ('5', '1', 'lucy', '今天去爬了二龙山，好累啊', '2015-10-03 22:15:13', '0', '1', '0'), ('6', '1', 'lucy', '今天去爬了二龙山，好累啊', '2015-10-05 22:15:13', '0', '0', '0'), ('7', '1', '周周', '今天爬了泰山', '2015-10-21 09:27:22', '0', '0', '0'), ('8', '1', '周周', '考试100分！', '2015-10-20 09:28:29', '0', '6', '0'), ('9', '1', 'admin', '请大家随意测试', '2015-10-21 23:48:27', '0', '0', '0');
+INSERT INTO `message_inf` VALUES ('2', '1', 'lucy', '今天去爬了二龙山，好累啊', '2015-10-05 22:15:13', '0', '2', '1'), ('5', '1', 'lucy', '今天去爬了二龙山，好累啊', '2015-10-03 22:15:13', '0', '0', '1'), ('6', '1', 'lucy', '今天去爬了二龙山，好累啊', '2015-10-05 22:15:13', '0', '0', '0'), ('7', '1', '周周', '今天爬了泰山', '2015-10-21 09:27:22', '0', '1', '1'), ('8', '1', '周周', '考试100分！', '2015-10-20 09:28:29', '0', '0', '0'), ('9', '1', 'admin', '请大家随意测试', '2015-10-21 23:48:27', '0', '0', '0'), ('10', '1', 'lucy', '今天去爬了二龙山，好累啊', '2015-10-05 22:15:13', '0', '0', '1'), ('11', '1', 'lucy', '今天去爬了二龙山，好累啊', '2015-10-03 22:15:13', '0', '0', '1'), ('12', '1', 'lucy', '今天去爬了二龙山，好累啊', '2015-10-05 22:15:13', '0', '0', '0'), ('79', '1', 'zerrychu', 'df', '2015-10-29 21:50:30', '0', '0', '0');
 COMMIT;
 
 -- ----------------------------
@@ -98,13 +122,25 @@ CREATE TABLE `support_inf` (
   `message_id` int(11) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
+delimiter ;;
+CREATE TRIGGER `after_insertSupport` AFTER INSERT ON `support_inf` FOR EACH ROW begin 
+	update message_inf set support_times = support_times + 1 where id = NEW.message_id;
+end;
+ ;;
+delimiter ;
+delimiter ;;
+CREATE TRIGGER `after_deleteSupport` AFTER DELETE ON `support_inf` FOR EACH ROW begin 
+	update message_inf set support_times = support_times - 1 where id = OLD.message_id;
+end;
+ ;;
+delimiter ;
 
 -- ----------------------------
 --  Records of `support_inf`
 -- ----------------------------
 BEGIN;
-INSERT INTO `support_inf` VALUES ('1', '1', 'zerry'), ('2', '2', 'zerry');
+INSERT INTO `support_inf` VALUES ('3', '5', 'zerry'), ('60', '11', 'zerry'), ('62', '2', 'zerry'), ('65', '7', 'zerry'), ('67', '10', 'zerry');
 COMMIT;
 
 -- ----------------------------

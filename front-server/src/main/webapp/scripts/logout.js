@@ -7,6 +7,7 @@ function logout() {
         url: "user/logout",
         data: { username : $.query.get("username"), userToken : $.query.get("userToken") },
         dataType: "json",
+		async : false,
         success : function(data){
             $.each(data,function(){
                 if (data.msg == 1) {

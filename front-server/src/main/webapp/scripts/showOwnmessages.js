@@ -52,6 +52,7 @@ function deleteOwnmessage(message_id) {
 	.ajax({
 		url : 'message/delete', // 用于文件上传的服务器端请求地址
 		type : 'post',
+		async : false,
 		data : {
 			username : $.query.get("username"),
 			userToken : $.query.get("userToken"),
@@ -73,11 +74,12 @@ function deleteOwnmessage(message_id) {
 }
 
 $(".delete_msg").live('click', function() {
-	var ret = confirm("确认删除？");
+	var ret = confirm("确认删除?");
 	if(ret == true) {
 		var message_id = $(this).parents("li").attr("id");
 		message_id = message_id.substr(6);
 		deleteOwnmessage(message_id);
+		showUserInfo(1);
 	}
-});// 点赞
+});
 

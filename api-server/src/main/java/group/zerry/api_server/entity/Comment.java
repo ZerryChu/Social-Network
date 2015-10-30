@@ -15,7 +15,7 @@ public class Comment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int id() {
+	public int getId() {
 		return id;
 	}
 	public String getNickname() {

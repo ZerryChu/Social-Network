@@ -22,13 +22,15 @@ public interface MessageDao {
 	public void addRepost(Message message);
 	public void addRepostTimes(int id);
 
-	public void addCommentTimes(int id);
+	//public void addCommentTimes(int id);
 	
-	public void addSupportTimes(int id);
+	//public void addSupportTimes(int id);
 	public void addSupportInfo(int id, String username);
 	
-	public void decreaseSupportTimes(int id);
+	//public void decreaseSupportTimes(int id);
 	public void decreaseSupportInfo(int id, String username);
+	
+	//public void decreaseCommentTimes(int id);
 	
 	/**
 	 * 

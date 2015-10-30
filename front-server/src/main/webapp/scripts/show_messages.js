@@ -46,7 +46,7 @@ function show_messages(pageNumber, _flag) {
 											
 											$("#weibo")
 													.append(
-															"<li id=\"weibo_"
+															"<li  class=\"weibo_message\" id=\"weibo_"
 																	+ data.returndata[i].id
 																	+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><a href=\""
 																	+ "userinfo.jsp?targetNickname="

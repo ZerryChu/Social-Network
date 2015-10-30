@@ -6,6 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
+
+import group.zerry.front_server.dto.ReturnMsgDto;
+import group.zerry.front_server.enumtypes.CommentStatusEnum;
 import group.zerry.front_server.service.CommentService;
 import group.zerry.front_server.utils.FetchUrlTools;
 import group.zerry.front_server.utils.HttpTarget;
@@ -14,12 +18,12 @@ import group.zerry.front_server.utils.HttpTarget;
 public class CommentServiceImpl implements CommentService{
 
 	@Autowired
-	HttpTarget httpTarget;
+	HttpTarget    httpTarget;
 	
 	@Autowired
 	FetchUrlTools fetchUrlTool;
 	
-	public String show_message(int id, int page) {
+	public String show_comments(int id, int page) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "comment/show";
 		Map<String, String> paramsMap = new HashMap<String, String>();
@@ -28,6 +32,21 @@ public class CommentServiceImpl implements CommentService{
 		return fetchUrlTool.doPost(url, paramsMap);
 	}
 	
+	public boolean delete_comment(String username, String userToken, String nickname, int message_id, int id) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "comment/delete";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("nickname", nickname);
+		paramsMap.put("message_id", String.valueOf(message_id));
+		paramsMap.put("id", String.valueOf(id));
+		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchUrlTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		if(returnMsgDto.getReturnMsg().trim().equals(CommentStatusEnum.OS.getValue())) {
+			return true;
+		} else
+			return false;
+	}
+	
 	//评论点赞
-	//删除评论
 }

@@ -15,4 +15,6 @@ public interface CommentDao {
 	public Comment[] selectCommentsByMessageId(int id);
 	
 	public void addComment(Comment comment);
+	
+	public void deleteComment(String nickname, int id);
 }

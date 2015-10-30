@@ -48,7 +48,7 @@ public class MessageServiceImpl implements MessageService {
 		message.setType(type);
 		try {
 			messageDao.addMessage(message);
-			userDao.addMessage_numByUsername(username); //发微博数+1
+			//userDao.addMessage_numByUsername(username); //发微博数+1
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.AMF;
@@ -61,7 +61,7 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		try {
 			messageDao.deleteMessageById(id);
-			userDao.decreaseMessage_numByUsername(username);
+			//userDao.decreaseMessage_numByUsername(username);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return MessageStatusEnum.DMF;
@@ -119,7 +119,7 @@ public class MessageServiceImpl implements MessageService {
 			comment.setContent(content);
 			comment.setMessage_id(id);
 			commentDao.addComment(comment);
-			messageDao.addCommentTimes(id);
+			//messageDao.addCommentTimes(id);
 		} catch(Exception e) {
 			return MessageStatusEnum.OF;
 		}
@@ -137,7 +137,7 @@ public class MessageServiceImpl implements MessageService {
 			else if(num == 1)
 				return MessageStatusEnum.HAS;
 			messageDao.addSupportInfo(id, username);
-			messageDao.addSupportTimes(id);
+			//messageDao.addSupportTimes(id);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;
@@ -157,7 +157,7 @@ public class MessageServiceImpl implements MessageService {
 			if(num > 1 || num < 0)
 				return MessageStatusEnum.OF;
 			messageDao.decreaseSupportInfo(id, username);
-			messageDao.decreaseSupportTimes(id);
+			//messageDao.decreaseSupportTimes(id);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;

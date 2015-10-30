@@ -35,4 +35,15 @@
 		(#{message_id},
 		#{nickname}, #{content}, now())
 	</insert>
+	
+	<delete id="deleteComment">
+		DELETE
+		FROM
+		comment_inf
+		WHERE
+		id = #{1}
+		and
+		nickname = #{0}
+	</delete>
+
 </mapper>

@@ -6,7 +6,9 @@ import java.util.Map;
 public enum CommentStatusEnum {
 
 	CNF("COMMENT_NOT_FOUND", "帖子不存在"),
-	OS("OPERATION_SUCCEED", "操作成功");
+	OS("OPERATION_SUCCEED", "操作成功"),
+	DCF("DELETE_COMMENT_FAIL", "评论删除失败"),
+	UAF("USER_AUTHENTICATE_FAIL", "用户验证失败");
 	
 	private static Map<String, CommentStatusEnum> valueMap = new HashMap<String, CommentStatusEnum>();
 

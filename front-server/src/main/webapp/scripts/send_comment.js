@@ -5,6 +5,7 @@ function send_comment(message_id, comment_content) {
 	$.ajax({
 		type : "post",
 		url : "message/comment",
+		async : false, //发帖同步执行
 		data : {
 			username : $.query.get("username"),
 			userToken : $.query.get("userToken"),

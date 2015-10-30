@@ -15,8 +15,8 @@
 			<li>敬请期待</li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
-				<input type="text" class="search_text" /> <select class="search_type"
-					name="type">
+				<input type="text" class="search_text" /> <select
+					class="search_type" name="type">
 					<option value="2">搜微博</option>
 					<option value="1" selected="selected">搜昵称</option>
 				</select> <input type="button" value="搜索" onclick="search()">
@@ -28,7 +28,7 @@
 			<div id="userinfo">
 				<div id="nickname"></div>
 				<img id="user_icon" src="pic/${param.username}.jpg"
-					onerror="this.src='images/no_found.png'" onclick=""/> <br>
+					onerror="this.src='images/no_found.png'" onclick="" /> <br>
 				<div class="logout">登出</div>
 				<ul class="user_account">
 					<li id="friends_count" class="text"><span>好友：</span> <span
@@ -126,7 +126,6 @@
 		<script src="scripts/show_friends.js" type="text/javascript"></script>
 		<script src="scripts/showOwnmessages.js" type="text/javascript"></script>
 		<script src="scripts/show_announcements.js" type="text/javascript"></script>
-		<script src="scripts/delete_message.js" type="text/javascript"></script>
 		<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
 		<script src="scripts/search.js" type="text/javascript"></script>
 		<script type="text/javascript">
@@ -203,6 +202,6 @@
 				showOwnmessages(nickname, 1, 0);
 			});
 		</script>
-				<!--<jsp:include page="copyright.jsp"></jsp:include>-->
+		<!--<jsp:include page="copyright.jsp"></jsp:include>-->
 </body>
 </html>
