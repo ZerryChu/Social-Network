@@ -40,11 +40,11 @@
 			<div id="heated_topic">
 				<div class="sub_title">热门话题</div>
 				<ul class="heated_subtitle">
-					<li id="topic_1">旅游</li>
-					<li id="topic_2">游戏</li>
-					<li id="topic_3">美食</li>
-					<li id="topic_4">电影</li>
-					<li id="topic_5">动漫</li>
+					<li class="heated_topic" id="topic_1">旅游<span class="val" id="val_1">0<!--  热度 --></span></li>
+					<li class="heated_topic" id="topic_2">游戏<span class="val" id="val_2">0<!--  热度 --></span></li>
+					<li class="heated_topic" id="topic_3">美食<span class="val" id="val_3">0<!--  热度 --></span></li>
+					<li class="heated_topic" id="topic_4">电影<span class="val" id="val_4">0<!--  热度 --></span></li>
+					<li class="heated_topic" id="topic_5">动漫<span class="val" id="val_5">0<!--  热度 --></span></li>
 				</ul>
 			</div>
 			<div id="friend_recommand">
@@ -59,8 +59,10 @@
 			<div id="chat">
 				<div class="chat_room">聊天室</div>
 				<ul class="group">
-					<li id="rec_1"><span class="cls1">好友分组1</span> <br>
-					<li id="rec_2"><span class="cls2">好友分组2</span> <br>
+				<!--
+					<li id="rec_1"><div class="cls1" onclick="">好友分组1</div><div class="friendlist></div><li>
+					<li id="rec_2"><span class="cls2">好友分组2</span></li>
+				-->
 				</ul>
 			</div>
 		</div>
@@ -154,6 +156,7 @@
 				
 				showUserInfo(0);
 				show_messages(1, 1);
+				showGroups(0);
 			});
 
 			$(".icon").live('click', function() {

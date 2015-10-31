@@ -33,7 +33,7 @@ public class UserController {
 
 	private static SimplePropertyPreFilter userFilter   = new SimplePropertyPreFilter(User.class, "username", "nickname",
             "age", "type", "habit", "friend_num", "message_num");
-	
+		
     private static Logger                  logger = Logger.getLogger(UserController.class);
 
     

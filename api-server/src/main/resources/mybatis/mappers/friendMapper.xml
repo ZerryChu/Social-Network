@@ -21,8 +21,41 @@
 		friend,
 		user_inf
 		WHERE
-		id = user_id
+		id =
+		user_id
 		AND nickname = #{nickname}
 	</select>
 
+	<select id="selectFriendsByGroupname" parameterType="string"
+		resultType="string">
+		SELECT
+		nickname
+		FROM
+		user_inf
+		WHERE
+		id IN (
+		SELECT
+		friend_id
+		FROM
+		friend,
+		user_inf
+		WHERE
+		username = #{0}
+		AND user_id = id
+		AND groupname = #{1}
+		)
+	</select>
+
+	<select id="selectGroupsByUsername" parameterType="string"
+		resultType="string">
+		SELECT DISTINCT
+		groupname
+		FROM
+		friend,
+		user_inf
+		WHERE
+		username =
+		#{0}
+		AND user_id = id
+	</select>
 </mapper>

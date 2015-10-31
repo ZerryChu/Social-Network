@@ -338,6 +338,21 @@
 	font-weight: bold;
 }
 
+.cls {
+	cursor: pointer;
+}
+
+.val {
+	margin-left: 120px;	
+	color: gray;
+}
+
+.friend_list {
+	float: right;
+	border: 1px solid #786F66;
+	width: 70%;
+}
+
 .otherCom .msgBox .comer_name:hover, .otherCom .msgBox .comer_name:active
 	{
 	text-decoration: underline;

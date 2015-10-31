@@ -65,7 +65,7 @@ function userlogin(flag) {
 					$(".checknum_returnmsg").text("验证码错误");
 				}
 				else */
-				if (data.msg != 0) {
+				if (data.msg != "0") {
 					//...add content
 					alert("succeed");
 					var forward = "window.location=\"main?username="
@@ -92,11 +92,11 @@ function userlogin(flag) {
 			success : function(data) {
 				$.each(data, function() {
 					
-					if(data.msg == -1) {
+					if(data.msg == "-1") {
 						$(".checknum_returnmsg").text("验证码错误");
 					}
 					else 
-					if (data.msg != 0) {
+					if (data.msg != "0") {
 						//...add content
 						alert("succeed");
 						var forward = "window.location=\"main?username="

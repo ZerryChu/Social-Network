@@ -3,7 +3,7 @@ package group.zerry.api_server.entity;
 public class Friend {
 	private String user_id;
 	private String friend_id;
-	private String group;
+	private String groupname;
 	
 	public String getUser_id() {
 		return user_id;
@@ -17,10 +17,10 @@ public class Friend {
 	public void setFriend_id(String friend_id) {
 		this.friend_id = friend_id;
 	}
-	public String getGroup() {
-		return group;
+	public String getGroupname() {
+		return groupname;
 	}
-	public void setGroup(String group) {
-		this.group = group;
+	public void setGroupname(String groupname) {
+		this.groupname = groupname;
 	}
 }

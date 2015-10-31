@@ -52,7 +52,7 @@ public class UserController {
 			//返回userToken
 		}
 		else
-			return "{\"msg\" : 0}";
+			return "{\"msg\" : \"0\"}";
 	}
 	
 	@ResponseBody
@@ -60,7 +60,7 @@ public class UserController {
 	public String login1(HttpServletRequest request, HttpServletResponse response, String username, String password, String checknum) {
 		String num = (String) request.getSession().getAttribute("getNum");
 		if(!num.equals(checknum)) {
-			return "{\"msg\" : -1}";
+			return "{\"msg\" : \"-1\"}";
 		}
 		UUID uuid = UUID.randomUUID();
 		logger.error(uuid.toString());
@@ -83,7 +83,7 @@ public class UserController {
 			//返回userToken
 		}
 		else
-			return "{\"msg\" : 0}";
+			return "{\"msg\" : \"0\"}";
 	}
 	
 	@AuthPass
