@@ -23,36 +23,36 @@
 					<div class="logintitle">
 						<span>登&nbsp;&nbsp;录</span>
 					</div>
-					<!-- 					<form id="form"> -->
-					<div class="loginbox">
-						<div class="un">
-							<div class="un_returnmsg"></div>
-							<input type="text" name="username" /> <span class="unholder">用户名</span>
-							<span class="tip"></span>
-						</div>
-						<!-- username -->
-						<div class="pwd">
-							<div class="pwd_returnmsg"></div>
-							<input type="password" name="password" /> <span
-								class="pwdholder">密码</span> <span class="tip"></span>
-						</div>
-						<!-- 验证码 -->
-						<div class="checknum">
-							<div class="checknum_returnmsg"></div>
-							<input align="left" type="text" class="checknumText"
-								style="width: 30%"> <span class="checknumholder">验证码</span>
-							<img class="checknumPic" src="getChecknum" alt="checknum"
-								onClick="this.src='getChecknum?' + Math.random()" />
-						</div>
-						<!-- password -->
-						<div class="sub">
-							<input type="button" value="登 录" id="login" onclick="login(1);" />
-							<div class="auto">
-								<a href="javascript:void(0);" id="checkbtn"></a><label>下次自动登录</label>
+					<form id="form">
+						<div class="loginbox">
+							<div class="un">
+								<div class="tip"></div>
+								<input type="text" name="username" /> <span class="holder">用户名</span>
+							</div>
+							<!-- username -->
+							<div class="pwd">
+								<div class="tip"></div>
+								<input type="password" name="password" /> <span
+									class="holder">密码</span>
+							</div>
+							<!-- password -->
+							<div class="checknum">
+								<div class="tip"></div>
+								<input align="left" type="text" class="checknumText" style="width: 30%">
+								<span class="holder">验证码</span>
+								<img class="checknumPic" src="getChecknum"
+									alt="checknum" onClick="this.src='getChecknum?' + Math.random()" />
+								<div class="patch"></div>
+							</div>
+							<!-- 验证码 -->
+							<div class="sub">
+								<input type="button" value="登 录" id="login" onclick="userlogin(1)" />
+								<div class="auto">
+									<a href="javascript:void(0);" id="checkbtn"></a><label>下次自动登录</label>
+								</div>
 							</div>
 						</div>
-					</div>
-					<!-- 					</form> -->
+					</form>
 					<div class="loginfooter">
 						<ul>
 							<li><a href="javascript:void(0);">立即注册</a></li>
@@ -70,6 +70,7 @@
 <script src="plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script src="plugins/jquery.cookie.min.js" type="text/javascript"></script>
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
+<script src="plugins/jquery.validate-1.13.1.js" type="text/javascript"></script>
 <script src="scripts/login.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(
@@ -80,7 +81,7 @@
 						&& password != undefined) {
 					$(".un input").val(username);
 					$(".pwd input").val(password);
-					login(0);
+					userlogin(0);
 				}
 			});
 </script>

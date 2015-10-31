@@ -149,8 +149,25 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/judge_ifsupport", produces = "text/html;charset=UTF-8")
-	public String judgeIfSupported(String username, int message_id, String userToken) {
-		return messageService.judgeIfSupport(username, message_id, userToken);
+	public String judgeIfSupported(HttpServletRequest request, HttpServletResponse response, String username, int message_id, String userToken, int flag) throws UnsupportedEncodingException {
+		String cookieName = "ifSupport" + message_id;
+		if (flag == 0) {
+			Cookie cookie;
+			if (null == (cookie = cookiesData.getCookie(request, cookieName))) {
+				String returnMsg = messageService.judgeIfSupport(username, message_id, userToken);
+				cookiesData.safe(request, response, cookieName, returnMsg);
+				return returnMsg;
+			} else {
+				String returnMsg = cookie.getValue();
+				returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
+				return returnMsg;
+			}
+		} // 无更新查询
+		else {
+			String returnMsg = messageService.judgeIfSupport(username, message_id, userToken);
+			cookiesData.safe(request, response, cookieName, returnMsg);
+			return returnMsg;
+		}
 	}
 
 	@AuthPass

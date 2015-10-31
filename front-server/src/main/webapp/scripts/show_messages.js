@@ -43,7 +43,7 @@ function show_messages(pageNumber, _flag) {
 														}
 													});
 											// ////////////////////////////////////////
-											
+
 											$("#weibo")
 													.append(
 															"<li  class=\"weibo_message\" id=\"weibo_"
@@ -72,12 +72,13 @@ function show_messages(pageNumber, _flag) {
 																	+ data.returndata[i].support_times
 																	+ "</span>)</span></div><div class=\"comtxt\" style=\"display: none\"><textarea class=\"comarea_"
 																	+ data.returndata[i].id
-																	+ "\" name=\"content\"></textarea><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"btn\">评论</button></div>" 
+																	+ "\" name=\"content\"></textarea><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"btn\">评论</button></div>"
 																	+ "<ul class=\"otherCom\" id=\"comment_"
 																	+ data.returndata[i].id
 																	+ "\" style=\"\"></ul>"
-																	+ "</div></div></div></li>")
-											judgeIfSupport(data.returndata[i].id); // 引入 judgeIfSupport.js
+																	+ "</div></div></div></li>");
+											judgeIfSupport(
+													data.returndata[i].id, 0); // 引入 judgeIfSupport.js
 											i++;
 										}
 									});

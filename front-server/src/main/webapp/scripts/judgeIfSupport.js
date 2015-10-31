@@ -2,24 +2,23 @@
  * @author zerrychu
  * @time 2015.10.23
  */
-function judgeIfSupport(message_id) {
+function judgeIfSupport(message_id, _flag) {
 	$.ajax({
 		type : "post",
 		url : "message/judge_ifsupport",
 		data : {
 			username : $.query.get("username"),
 			message_id : message_id,
-			userToken : $.query.get("userToken")
+			userToken : $.query.get("userToken"),
+			flag : _flag
 		},
 		dataType : "json",
 		success : function(data) {
 			$.each(data, function() {
 				if (data.msg == 1) {
 					//可点赞
-					//var message = "#weibo_" + message_id;
-					//$(message).find(".zan").attr("src", "images/1.png");
-					//addSupport($.query.get("username"), message_id);
 					var message = "#weibo_" + message_id;
+					$(message).find(".zan").attr("src", "images/2.png");
 					var val = "support(" + message_id + ", 0);"; // 点赞
 					$(message).find(".zan").attr("onclick", val);
 				} else {
@@ -35,6 +34,8 @@ function judgeIfSupport(message_id) {
 	});
 }
 
+
+//把部分代码替换成judge if support
 function support(message_id, flag) {
 	if (flag == 1) {
 		$.ajax({
@@ -48,10 +49,11 @@ function support(message_id, flag) {
 			dataType : "json",
 			success : function(data) {
 				if (data.msg == 1) {
-					var message = "#weibo_" + message_id;
-					$(message).find(".zan").attr("src", "images/2.png");
-					var val = "support(" + message_id + ", 0);";
-					$(message).find(".zan").attr("onclick", val);
+					//var message = "#weibo_" + message_id;
+					//$(message).find(".zan").attr("src", "images/2.png");
+					//var val = "support(" + message_id + ", 0);";
+					//$(message).find(".zan").attr("onclick", val);
+					judgeIfSupport(message_id, 1);
 					var weibo = "#weibo_" + message_id;
 					var num = $(weibo).find(".support").find(".num").text();
 					$(weibo).find(".support").find(".num").text(Number.parseInt(num) - 1); // 点赞数-1
@@ -81,10 +83,11 @@ function support(message_id, flag) {
 			dataType : "json",
 			success : function(data) {
 				if (data.msg == 1) {
-					var message = "#weibo_" + message_id;
-					$(message).find(".zan").attr("src", "images/1.png");
-					var val = "support(" + message_id + ", 1);";
-					$(message).find(".zan").attr("onclick", val);
+					//var message = "#weibo_" + message_id;
+					//$(message).find(".zan").attr("src", "images/1.png");
+					//var val = "support(" + message_id + ", 1);";
+					//$(message).find(".zan").attr("onclick", val);
+					judgeIfSupport(message_id, 1);
 					var weibo = "#weibo_" + message_id;
 					var num = $(weibo).find(".support").find(".num").text();
 					$(weibo).find(".support").find(".num").text(Number.parseInt(num) + 1); // 点赞数+1

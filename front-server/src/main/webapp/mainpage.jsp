@@ -37,6 +37,32 @@
 						id="message_num">0</span></li>
 				</ul>
 			</div>
+			<div id="heated_topic">
+				<div class="sub_title">热门话题</div>
+				<ul class="heated_subtitle">
+					<li id="topic_1">旅游</li>
+					<li id="topic_2">游戏</li>
+					<li id="topic_3">美食</li>
+					<li id="topic_4">电影</li>
+					<li id="topic_5">动漫</li>
+				</ul>
+			</div>
+			<div id="friend_recommand">
+				<div class="sub_title">好友推荐</div>
+				<ul class="rec_content">
+					<li id="rec1"><span class="rec_nickname">nickname</span> <br>
+						<span>原因</span></li>
+					<li id="rec2"><span class="rec_nickname">nickname</span> <br>
+						<span>原因</span></li>
+				</ul>
+			</div>
+			<div id="chat">
+				<div class="chat_room">聊天室</div>
+				<ul class="group">
+					<li id="rec_1"><span class="cls1">好友分组1</span> <br>
+					<li id="rec_2"><span class="cls2">好友分组2</span> <br>
+				</ul>
+			</div>
 		</div>
 		<div class="left_content">
 			<div class="post_message">
@@ -46,7 +72,7 @@
 					<br> <select class="type" name="type">
 						<option value="2">暂无</option>
 						<option value="1" selected="selected">好友可见</option>
-					</select> <input type="button" value="发送" onclick="send_messages();">
+					</select> <input class="send_button" type="button" value="推送广播" onclick="send_messages();">
 				</form>
 			</div>
 			<div id="messages">
@@ -90,45 +116,25 @@
 					</ul>
 				</div>
 			</div>
-			<!--  
-			<div>
-				<div class="heated_topic">
-					<div class="sub_title">热门话题</div>
-					<ul class="topic">
-						<li id="topic_1">旅游</li>
-						<li id="topic_2">游戏</li>
-						<li id="topic_3">美食</li>
-						<li id="topic_4">电影</li>
-						<li id="topic_5">动漫</li>
-					</ul>
-				</div>
-				<div class="friend_recommand">
-					<div class="sub_title">好友推荐</div>
-					<ul class="rec_content">
-						<li id="rec_1"><span class="rec_nickname">nickname</span> <br>
-							<span>原因</span></li>
-					</ul>
-				</div>
-			</div>
 		</div>
-		-->
-		</div>
-		<script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-		<script src="plugins/jquery-migrate-1.2.1.min.js"
-			type="text/javascript"></script>
-		<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
-		<script src="scripts/logout.js" type="text/javascript"></script>
-		<script src="scripts/showUserInfo.js" type="text/javascript"></script>
-		<script src="scripts/show_messages.js" type="text/javascript"></script>
-		<script src="scripts/show_comments.js" type="text/javascript"></script>
-		<script src="scripts/send_comment.js" type="text/javascript"></script>
-		<script src="scripts/send_message.js" type="text/javascript"></script>
-		<script src="scripts/show_friends.js" type="text/javascript"></script>
-		<script src="scripts/showOwnmessages.js" type="text/javascript"></script>
-		<script src="scripts/show_announcements.js" type="text/javascript"></script>
-		<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
-		<script src="scripts/search.js" type="text/javascript"></script>
-		<script type="text/javascript">
+	</div>
+
+	<script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<script src="plugins/jquery-migrate-1.2.1.min.js"
+		type="text/javascript"></script>
+	<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
+	<script src="scripts/logout.js" type="text/javascript"></script>
+	<script src="scripts/showUserInfo.js" type="text/javascript"></script>
+	<script src="scripts/show_messages.js" type="text/javascript"></script>
+	<script src="scripts/show_comments.js" type="text/javascript"></script>
+	<script src="scripts/send_comment.js" type="text/javascript"></script>
+	<script src="scripts/send_message.js" type="text/javascript"></script>
+	<script src="scripts/show_friends.js" type="text/javascript"></script>
+	<script src="scripts/showOwnmessages.js" type="text/javascript"></script>
+	<script src="scripts/show_announcements.js" type="text/javascript"></script>
+	<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
+	<script src="scripts/search.js" type="text/javascript"></script>
+	<script type="text/javascript">
 			$(document).ready(function() {
 
 				$(".messages_class li").each(function(index) {
@@ -178,12 +184,6 @@
 				show_announcements(0);
 			});// 显示公告
 			
-			$(".zan").live('click', function() {
-				var message_id = $(this).parents("li").attr("id");
-				message_id = message_id.substr(6);
-				judgeIfSupport(message_id);
-			});// 点赞
-			
 			$("#friends_count").click(function() {
 				//show_friends();
 
@@ -202,6 +202,6 @@
 				showOwnmessages(nickname, 1, 0);
 			});
 		</script>
-		<!--<jsp:include page="copyright.jsp"></jsp:include>-->
+	<!--<jsp:include page="copyright.jsp"></jsp:include>-->
 </body>
 </html>

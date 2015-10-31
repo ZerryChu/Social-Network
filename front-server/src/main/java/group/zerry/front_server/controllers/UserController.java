@@ -2,6 +2,7 @@ package group.zerry.front_server.controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -138,10 +139,29 @@ public class UserController {
 	}
 	
 	//显示目标用户的信息
+	/**
+	 * 注意nickname与username一一对应
+	 * @param request
+	 * @param response
+	 * @param nickname
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/getTargetinfo", produces = "text/html;charset=UTF-8")
-	public String showTargetInfoByNickname(String nickname) {
-		return userService.showTargetInfoByNickname(nickname);
+	public String showTargetInfoByNickname(HttpServletRequest request, HttpServletResponse response, String nickname) throws UnsupportedEncodingException {
+		Cookie cookie;
+		nickname = URLEncoder.encode(nickname, "UTF-8");
+		if (null == (cookie = cookiesData.getCookie(request, nickname))) {
+			String returnMsg = userService.showTargetInfoByNickname(URLDecoder.decode(nickname, "UTF-8"));
+			logger.error("getTargetInfo: " + returnMsg);
+			cookiesData.safe(request, response, nickname, returnMsg);
+			return returnMsg;
+		} else {
+			String returnMsg = cookie.getValue();
+			returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
+			return returnMsg;
+		}
 	}
 	
 	// 考虑验证好友请求
