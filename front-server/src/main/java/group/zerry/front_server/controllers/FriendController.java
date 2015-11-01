@@ -31,20 +31,19 @@ public class FriendController {
 	public String showFriendsByGroupname(HttpServletRequest request, HttpServletResponse response, String username, String groupname, int flag) throws UnsupportedEncodingException {
 		if (flag == 0) {
 			Cookie cookie;
-			groupname = URLEncoder.encode(groupname, "UTF-8");
-			if (null == (cookie = cookiesData.getCookie(request, groupname))) {
-				String returnMsg = friendService.showFriendsByGroupname(username, URLDecoder.decode(groupname, "UTF-8"));
-				cookiesData.safe(request, response, groupname, returnMsg);
+			if (null == (cookie = cookiesData.getCookie(request, URLEncoder.encode(groupname, "UTF-8")))) {
+				String returnMsg = friendService.showFriendsByGroupname(username, groupname);
+				cookiesData.save(request, response, URLEncoder.encode(groupname, "UTF-8"), URLEncoder.encode(returnMsg, "UTF-8"));
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
-				//returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
+				returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
 				return returnMsg;
 			}
 		} // 无更新查询
 		else {
 			String returnMsg = friendService.showFriendsByGroupname(username, groupname);
-			cookiesData.safe(request, response, groupname, returnMsg);
+			cookiesData.save(request, response, URLEncoder.encode(groupname, "UTF-8"), URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}
@@ -56,17 +55,17 @@ public class FriendController {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, "group"))) {
 				String returnMsg = friendService.showGroupsByUsername(username);
-				cookiesData.safe(request, response, "group", returnMsg);
+				cookiesData.save(request, response, "group", URLEncoder.encode(returnMsg, "UTF-8"));
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
-				//returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
+				returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
 				return returnMsg;
 			}
 		} // 无更新查询
 		else {
 			String returnMsg = friendService.showGroupsByUsername(username);
-			cookiesData.safe(request, response, "group", returnMsg);
+			cookiesData.save(request, response, "group", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}

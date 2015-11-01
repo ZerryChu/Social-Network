@@ -364,3 +364,11 @@
 	overflow: hidden;
 	clear: both;
 }
+
+.new_msg {
+	display: none;
+	padding-left: 15%;
+	height: 20px;
+	border: 1px dashed #e4e4e4;
+	background: #FAEBD7;
+}

@@ -2,52 +2,10 @@
  * Created by zhangfurui on 10/11/15.
  */
 function userlogin(flag) {
-	
 	var un = $(".un input").val();
 	var pwd = $(".pwd input").val();
 	var _checknum = $(".checknum input").val();
-	/*
-	var flag = 0;
-	if (un == undefined || un =="") {
-		$(".un_returnmsg").text("请输入账号");
-		flag = 1;
-	}
-	//账号过短
-	else if (un.length < 4) {
-		$(".un_returnmsg").text("账号过短");
-		flag = 1;
-	}
-	else {
-		$(".un_returnmsg").text("");
-	}
-	if (pwd == undefined || pwd == "") {
-		$(".pwd_returnmsg").text("请输入密码");
-		flag = 1;
-	}
-	//密码过短
-	else if (pwd.length < 4) {
-		$(".pwd_returnmsg").text("密码过短");
-		flag = 1;
-	}
-	else {
-		$(".pwd_returnmsg").text("");
-	}
-	if (_checknum == undefined || _checknum == "") {
-		$(".checknum_returnmsg").text("请输入验证码");
-		flag = 1;
-	}
-	//验证码过短
-	else if (_checknum.length < 4) {
-		$(".checknum_returnmsg").text("验证码过短");
-		flag = 1;
-	}
-	else {
-		$(".checknum_returnmsg").text("");
-	}
-	if(flag == 1) {
-		return;
-	}
-	*/
+	
 	if(flag == 0) {
 	$.ajax({
 		type : "post",
@@ -174,7 +132,6 @@ $(document).ready(function() {
 	})
 
 	$("#form").validate({
-		debug:true,
 		rules:{
 			username:{
 				required:true,

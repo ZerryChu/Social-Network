@@ -117,7 +117,7 @@ public class UserController {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, "userinfo"))) {
 				String returnMsg = userService.showUserInfo(username);
-				cookiesData.safe(request, response, "userinfo", returnMsg);
+				cookiesData.save(request, response, "userinfo", returnMsg);
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
@@ -127,7 +127,7 @@ public class UserController {
 		} // 无更新查询
 		else {
 			String returnMsg = userService.showUserInfo(username);
-			cookiesData.safe(request, response, "userinfo", returnMsg);
+			cookiesData.save(request, response, "userinfo", returnMsg);
 			return returnMsg;
 		}
 	}
@@ -155,7 +155,7 @@ public class UserController {
 		if (null == (cookie = cookiesData.getCookie(request, nickname))) {
 			String returnMsg = userService.showTargetInfoByNickname(URLDecoder.decode(nickname, "UTF-8"));
 			logger.error("getTargetInfo: " + returnMsg);
-			cookiesData.safe(request, response, nickname, returnMsg);
+			cookiesData.save(request, response, nickname, returnMsg);
 			return returnMsg;
 		} else {
 			String returnMsg = cookie.getValue();

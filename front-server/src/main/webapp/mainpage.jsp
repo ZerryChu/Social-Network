@@ -78,6 +78,7 @@
 				</form>
 			</div>
 			<div id="messages">
+				<div class="new_msg">您有未接受消息...请点击此处或者刷新页面接收</div>
 				<div class="messages_class">
 					<ul>
 						<li id="friend_messages" class="on">广播</li>
@@ -136,6 +137,7 @@
 	<script src="scripts/show_announcements.js" type="text/javascript"></script>
 	<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
 	<script src="scripts/search.js" type="text/javascript"></script>
+	<script src="scripts/update.js" type="text/javascript"></script>
 	<script type="text/javascript">
 			$(document).ready(function() {
 
@@ -157,6 +159,7 @@
 				showUserInfo(0);
 				show_messages(1, 1);
 				showGroups(0);
+				setInterval("update()", 30000);
 			});
 
 			$(".icon").live('click', function() {
@@ -170,7 +173,7 @@
 			$(".comment").live('click', function() {
 				var message_id = $(this).parents("li").attr("id");
 				message_id = message_id.substr(6);
-				show_comments(message_id, 1, 0);
+				show_comments(message_id, 1, 1);
 				$(this).parents("li").find(".comtxt").slideToggle();
 			}); // 查看评论
 			

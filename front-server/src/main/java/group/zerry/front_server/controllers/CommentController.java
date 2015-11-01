@@ -41,17 +41,16 @@ public class CommentController {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, cookieName))) {
 				String returnMsg = commentService.show_comments(id, page);
-				cookiesData.safe(request, response, cookieName, returnMsg);
+				cookiesData.save(request, response, cookieName, returnMsg);
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
-				returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
 				return returnMsg;
 			}
 		} // 无更新查询
 		else {
 			String returnMsg = commentService.show_comments(id, page);
-			cookiesData.safe(request, response, cookieName, returnMsg);
+			// cookiesData.save(request, response, cookieName, returnMsg); 若不使用缓存，不需要设置
 			return returnMsg;
 		}
 	}

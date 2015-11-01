@@ -87,7 +87,7 @@ public class MessageController {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, "messages"))) {
 				String returnMsg = messageService.show_messages(username, userToken, page);
-				cookiesData.safe(request, response, "messages", returnMsg);
+				cookiesData.save(request, response, "messages", URLEncoder.encode(returnMsg, "UTF-8"));
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
@@ -97,7 +97,8 @@ public class MessageController {
 		} // 无更新查询
 		else {
 			String returnMsg = messageService.show_messages(username, userToken, page);
-			cookiesData.safe(request, response, "message", returnMsg);
+			if (page == 1) 
+				cookiesData.save(request, response, "messages", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}
@@ -109,7 +110,7 @@ public class MessageController {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, "announcements"))) {
 				String returnMsg = messageService.show_announcement();
-				cookiesData.safe(request, response, "announcements", returnMsg);
+				cookiesData.save(request, response, "announcements", URLEncoder.encode(returnMsg, "UTF-8"));
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
@@ -119,7 +120,7 @@ public class MessageController {
 		} // 无更新查询
 		else {
 			String returnMsg = messageService.show_announcement();
-			cookiesData.safe(request, response, "announcements", returnMsg);
+			cookiesData.save(request, response, "announcements", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}
@@ -131,7 +132,7 @@ public class MessageController {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, "ownmessages"))) {
 				String returnMsg = messageService.show_userOwnMessages(nickname, page);
-				cookiesData.safe(request, response, "ownmessages", returnMsg);
+				cookiesData.save(request, response, "ownmessages", URLEncoder.encode(returnMsg, "UTF-8"));
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
@@ -141,7 +142,7 @@ public class MessageController {
 		} // 无更新查询
 		else {
 			String returnMsg = messageService.show_userOwnMessages(nickname, page);
-			cookiesData.safe(request, response, "ownmessages", returnMsg);
+			cookiesData.save(request, response, "ownmessages", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}
@@ -155,7 +156,7 @@ public class MessageController {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, cookieName))) {
 				String returnMsg = messageService.judgeIfSupport(username, message_id, userToken);
-				cookiesData.safe(request, response, cookieName, returnMsg);
+				cookiesData.save(request, response, cookieName, URLEncoder.encode(returnMsg, "UTF-8"));
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
@@ -165,7 +166,7 @@ public class MessageController {
 		} // 无更新查询
 		else {
 			String returnMsg = messageService.judgeIfSupport(username, message_id, userToken);
-			cookiesData.safe(request, response, cookieName, returnMsg);
+			cookiesData.save(request, response, cookieName, URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}

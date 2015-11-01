@@ -29,8 +29,8 @@ public class CookiesData {
 		}
 	}
 
-	public void safe(HttpServletRequest request, HttpServletResponse response, String cookieName, String newData) throws UnsupportedEncodingException {
-		newData = URLEncoder.encode(newData, "UTF-8"); //转码
+	public void save(HttpServletRequest request, HttpServletResponse response, String cookieName, String newData) throws UnsupportedEncodingException {
+		//newData = URLEncoder.encode(newData, "UTF-8"); //转码
 		Cookie cookie = new Cookie(cookieName, newData);
 		cookie.setMaxAge(1200);
 		cookie.setPath("/");
