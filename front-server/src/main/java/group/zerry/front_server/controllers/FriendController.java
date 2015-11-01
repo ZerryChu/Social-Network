@@ -2,6 +2,7 @@ package group.zerry.front_server.controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -30,13 +31,14 @@ public class FriendController {
 	public String showFriendsByGroupname(HttpServletRequest request, HttpServletResponse response, String username, String groupname, int flag) throws UnsupportedEncodingException {
 		if (flag == 0) {
 			Cookie cookie;
+			groupname = URLEncoder.encode(groupname, "UTF-8");
 			if (null == (cookie = cookiesData.getCookie(request, groupname))) {
-				String returnMsg = friendService.showFriendsByGroupname(username, groupname);
+				String returnMsg = friendService.showFriendsByGroupname(username, URLDecoder.decode(groupname, "UTF-8"));
 				cookiesData.safe(request, response, groupname, returnMsg);
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
-				returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
+				//returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
 				return returnMsg;
 			}
 		} // 无更新查询
@@ -58,7 +60,7 @@ public class FriendController {
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
-				returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
+				//returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
 				return returnMsg;
 			}
 		} // 无更新查询
