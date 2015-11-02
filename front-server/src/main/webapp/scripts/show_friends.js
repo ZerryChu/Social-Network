@@ -8,6 +8,7 @@ function showGroups(_flag) {
 				url : "friend/show/groups",
 				data : {
 					username : $.query.get("username"),
+					userToken : $.query.get("userToken"),
 					flag : _flag
 				},
 				dataType : "json",
@@ -43,6 +44,7 @@ function showFriends(rec_id, _group, _flag) {
 		url : "friend/show/friends",
 		data : {
 			username : $.query.get("username"),
+			userToken : $.query.get("userToken"),
 			groupname : _group,
 			flag : _flag
 		},

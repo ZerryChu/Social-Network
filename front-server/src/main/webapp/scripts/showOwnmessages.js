@@ -31,14 +31,14 @@ function showOwnmessages(target, pageNumber, _flag) {
 																	+ data.returndata[i].content
 																	+ "</div><div class=\"info\"><span class=\"create_time\">"
 																	+ data.returndata[i].create_time
-																	+ "</span> <span class=\"repost_times\"></span> <span class=\"support_times\"></span><span class=\"comment\">评论("
+																	+ "</span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=\"comment\">评论("
 																	+ data.returndata[i].comment_times
-																	+ ")</span><span class=\"repost\">转发("
+																	+ ")</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"repost\">转发("
 																	+ data.returndata[i].repost_times
-																	+ ")</span><span class=\"support\">赞("
+																	+ ")</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\">赞("
 																	+ data.returndata[i].support_times
-																	+ ")</span></div>"
-																	+ "<img align=\"right\" class=\"delete_msg\" style=\"width:10px; height:10px;\" src=\"images/delete.jpg\"></li>"
+																	+ ")</span><img align=\"right\" class=\"delete_msg\" style=\"width:10px; height:10px;\" src=\"images/delete.jpg\"></div>"
+																	+ "</li>"
 
 													)
 											i++;

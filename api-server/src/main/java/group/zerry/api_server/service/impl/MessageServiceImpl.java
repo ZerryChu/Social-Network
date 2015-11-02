@@ -73,7 +73,7 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public Message[] show_messages(String username, int page) {
 		// TODO Auto-generated method stub
-		int pageSize = 10;
+		int pageSize = 5;
 		Message[] message = null;
 		try {
 			String[] friend = null;

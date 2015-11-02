@@ -85,6 +85,7 @@
 	text-align: center;
 	font-size: 20px;
 	font-family: "Microsoft YaHei";
+	border-radius: 5px 5px 0px 0px;
 }
 
 .loginbox{
@@ -120,7 +121,7 @@
 
 .loginbox div input{
 	width: 265px;
-	padding: 10px 5px;
+	padding: 10px 10px;
 	height: 25px;
 	line-height: 25px;
 	text-indent: 2em;
@@ -128,6 +129,11 @@
 	background-image: url(../images/icon.png);
 	background-repeat: no-repeat;
 	background-position: 0 0;
+}
+
+.checknumPic {
+	margin-left: 50px;
+	margin-top: 5px;
 }
 
 .holder{
@@ -191,6 +197,10 @@
 	height: 18px;
 	margin:10px 5px;
 	background: url(../images/icon.png) no-repeat -74px -163px;
+}
+
+.loginfooter {
+	border-radius: 0px 0px 5px 5px;
 }
 
 .loginfooter li{

@@ -62,7 +62,7 @@ public class MessageController {
 
 	/*
 	 * @param type 2: 转发的微博
-	 * 分页 pagesize=10
+	 * 分页 pagesize=5
 	 */
 	@AuthPass
 	@ResponseBody

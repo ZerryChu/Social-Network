@@ -3,6 +3,12 @@
 	padding: 0px;
 }
 
+.ad {
+	margin-top: 0px;
+	border-radius: 5px 0 0 5px;
+	overflow: hidden;
+}
+
 .main {
 	width: 1000px;
 	margin: 0px auto;
@@ -53,16 +59,24 @@
 .left_content {
 	display: inline-block;
 	float: left;
-	border: 1px solid #786F66;
+	border-top: 2px solid #786F66;
+	border-left: 4px solid #786F66;
+	border-bottom: 2px solid #786F66;
 	width: 69%;
 	border-radius: 5px 0px 0px 5px;
 	background: #fff;
 }
 
+.num_info {
+	padding-left: 40%;
+}
+
 .right_content {
 	display: inline-block;
 	float: right;
-	border: 1px solid #786F66;
+	border-top: 2px solid #786F66;
+	border-right: 4px solid #786F66;
+	border-bottom: 2px solid #786F66;
 	width: 30%;
 	border-radius: 0px 5px 5px 0px;
 	background: #c9f1ff;
@@ -95,7 +109,7 @@
 
 #userinfo {
 	width: 92%;
-	margin: 5px 3%;
+	margin: 30px 3%;
 }
 
 #userinfo img {
@@ -143,15 +157,15 @@
 
 .user_account {
 	margin-top: 5px;
-	border-top: 1px solid #ccc;
+	border-top: 4px solid #5da8eb;
 	height: 40px;
-	/*    background: #b6dfef;*/
+	background: #b5d6f3;
 	padding-top: 3px;
-	padding-left: 30px;
+	padding-left: 20px;
 }
 
 .user_account li {
-	width: 80px;
+	width: 100px;
 	height: 36px;
 	float: left;
 	text-align: center;
@@ -163,8 +177,12 @@
 	cursor: pointer;
 }
 
-#friend_num:hover, #message_num:hover {
+#friends_count:hover, #messages_count:hover {
 	text-decoration: underline;
+}
+
+.delete_cmt, .delete_msg {
+	padding-top: 10px;
 }
 
 .heated_subtitle, .rec_content, .group {
@@ -253,7 +271,7 @@
 }
 
 .msgBox {
-	width: 515px;
+	width: 535px;
 	float: left;
 	padding-top: 10px;
 }
@@ -265,12 +283,12 @@
 
 .msgBox .username a {
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 15px;
 }
 
 .msgBox .txt {
 	line-height: 30px;
-	font-size: 16px;
+	font-size: 17px;
 }
 
 .msgBox .info {
@@ -319,6 +337,7 @@
 .msgBox .comment_btn button {
 	float: right;
 	margin-right: 2%;
+	cursor: pointer;
 }
 
 .otherCom {
@@ -343,7 +362,7 @@
 }
 
 .val {
-	margin-left: 120px;	
+	margin-left: 120px;
 	color: gray;
 }
 

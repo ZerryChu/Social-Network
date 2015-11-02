@@ -31,24 +31,29 @@
 					onerror="this.src='images/no_found.png'" onclick="" /> <br>
 				<div class="logout">登出</div>
 				<ul class="user_account">
-					<li id="friends_count" class="text"><span>好友：</span> <span
+					<li class="user_friend_text"><span id="friends_count">好友：</span> <span
 						id="friend_num">0</span></li>
-					<li id="messages_count" class="text"><span>广播：</span> <span
+					<li class="user_message_text"><span id="messages_count">广播：</span> <span
 						id="message_num">0</span></li>
 				</ul>
 			</div>
 			<div id="heated_topic">
-				<div class="sub_title">热门话题</div>
+				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门话题</div>
 				<ul class="heated_subtitle">
-					<li class="heated_topic" id="topic_1">旅游<span class="val" id="val_1">0<!--  热度 --></span></li>
-					<li class="heated_topic" id="topic_2">游戏<span class="val" id="val_2">0<!--  热度 --></span></li>
-					<li class="heated_topic" id="topic_3">美食<span class="val" id="val_3">0<!--  热度 --></span></li>
-					<li class="heated_topic" id="topic_4">电影<span class="val" id="val_4">0<!--  热度 --></span></li>
-					<li class="heated_topic" id="topic_5">动漫<span class="val" id="val_5">0<!--  热度 --></span></li>
+					<li class="heated_topic" id="topic_1">旅游<span class="val"
+						id="val_1">0<!--  热度 --></span></li>
+					<li class="heated_topic" id="topic_2">游戏<span class="val"
+						id="val_2">0<!--  热度 --></span></li>
+					<li class="heated_topic" id="topic_3">美食<span class="val"
+						id="val_3">0<!--  热度 --></span></li>
+					<li class="heated_topic" id="topic_4">电影<span class="val"
+						id="val_4">0<!--  热度 --></span></li>
+					<li class="heated_topic" id="topic_5">动漫<span class="val"
+						id="val_5">0<!--  热度 --></span></li>
 				</ul>
 			</div>
 			<div id="friend_recommand">
-				<div class="sub_title">好友推荐</div>
+				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">好友推荐</div>
 				<ul class="rec_content">
 					<li id="rec1"><span class="rec_nickname">nickname</span> <br>
 						<span>原因</span></li>
@@ -57,9 +62,9 @@
 				</ul>
 			</div>
 			<div id="chat">
-				<div class="chat_room">聊天室</div>
+				<div class="chat_room" style="padding-left: 20px; font-size: 20px;">聊天室</div>
 				<ul class="group">
-				<!--
+					<!--
 					<li id="rec_1"><div class="cls1" onclick="">好友分组1</div><div class="friendlist></div><li>
 					<li id="rec_2"><span class="cls2">好友分组2</span></li>
 				-->
@@ -67,14 +72,37 @@
 			</div>
 		</div>
 		<div class="left_content">
+			<div class="ad">
+				<div id="boxID">
+					<!--焦点图盒子-->
+					<div class="loading">
+						<img src="images/loading.gif" alt="请稍候..." />
+					</div>
+					<!--载入画面(可删除)-->
+					<div class="pic">
+						<!--内容列表(li数目可随意增减)-->
+						<ul>
+							<li><a href=""><img src="images/pic1.jpg" thumb=""
+									alt="" text="详细描述2" /></a></li>
+							<li><a href=""><img src="images/pic2.jpg" thumb=""
+									alt="" text="详细描述3" /></a></li>
+							<li><a href=""><img src="images/pic3.jpg" thumb=""
+									alt="" text="详细描述4" /></a></li>
+							<li><a href=""><img src="images/pic4.jpg" thumb=""
+									alt="" text="详细描述5" /></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
 			<div class="post_message">
 				<form>
-					<h2>说点什么吧~</h2>
+					<h2 style="font-size: 20px; color: #999; padding-top: 10px;">说点什么吧~</h2>
 					<textarea class="message_content" name="content"></textarea>
 					<br> <select class="type" name="type">
 						<option value="2">暂无</option>
 						<option value="1" selected="selected">好友可见</option>
-					</select> <input class="send_button" type="button" value="推送广播" onclick="send_messages();">
+					</select> <input class="send_button" type="button" value="推送广播"
+						onclick="send_messages();">
 				</form>
 			</div>
 			<div id="messages">
@@ -138,76 +166,91 @@
 	<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
 	<script src="scripts/search.js" type="text/javascript"></script>
 	<script src="scripts/update.js" type="text/javascript"></script>
+	<script type="text/javascript" src="plugins/setHomeSetFav.js"></script>
+	<script type="text/javascript" src="plugins/myfocus-2.0.1.min.js"
+		charset="utf-8"></script>
+	<!--引入myFocus库-->
 	<script type="text/javascript">
-			$(document).ready(function() {
+		myFocus.set({
+			id : 'boxID',//焦点图盒子ID
+			pattern : 'mF_fancy',//风格应用的名称
+			time : 3,//切换时间间隔(秒)
+			trigger : 'click',//触发切换模式:'click'(点击)/'mouseover'(悬停)
+			width : 700,//设置图片区域宽度(像素)
+			height : 120,//设置图片区域高度(像素)
+			txtHeight : 'default'//文字层高度设置(像素),'default'为默认高度，0为隐藏
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
 
-				$(".messages_class li").each(function(index) {
-					var $this = $(this);
-					$this.hover(function() {
-						$(this).addClass("hover");
-					}, function() {
-						$(this).removeClass("hover");
-					});
-					$this.click(function() {
-						if (!($(this).hasClass("on"))) {
-							$(".on").removeClass("on");
-							$(this).addClass("on");
-						}
-					});
+			$(".messages_class li").each(function(index) {
+				var $this = $(this);
+				$this.hover(function() {
+					$(this).addClass("hover");
+				}, function() {
+					$(this).removeClass("hover");
 				});
-				
-				showUserInfo(0);
-				show_messages(1, 1);
-				showGroups(0);
-				setInterval("update()", 30000);
+				$this.click(function() {
+					if (!($(this).hasClass("on"))) {
+						$(".on").removeClass("on");
+						$(this).addClass("on");
+					}
+				});
 			});
 
-			$(".icon").live('click', function() {
-				var classUsername = $(this).parents("li").find("name");
-				var tag_a = classUsername.children("a");
-				var targetNickname = tag_a.text();
-				window.location = "userinfo.jsp?targetNickname=" + targetNickname; //+ "&userToken=" + $.query.get("userToken");
-			})// 更换头像
-			
-			//$("li[id^='weibo_']").live('click', function() {
-			$(".comment").live('click', function() {
-				var message_id = $(this).parents("li").attr("id");
-				message_id = message_id.substr(6);
-				show_comments(message_id, 1, 1);
-				$(this).parents("li").find(".comtxt").slideToggle();
-			}); // 查看评论
-			
-			$(".btn").live('click', function() {
-				var message_id = $(this).parents("li").attr("id");
-				message_id = message_id.substr(6);
-				comarea = ".comarea_" + message_id;
-				content = $(comarea).val();
-				send_comment(message_id, content);
-				$(comarea).val(""); // 清空输入框
-			}); //发送评论
-			
-			$("#all_messages").click(function() {
-				show_announcements(0);
-			});// 显示公告
-			
-			$("#friends_count").click(function() {
-				//show_friends();
+			showUserInfo(0);
+			show_messages(1, 1);
+			showGroups(0);
+			setInterval("update()", 30000);
+		});
 
-			});
-			
-			$("#friend_messages").click(function() {
-				show_messages(1, 1);
-			});// 好友广播
-			
-			$(".logout").click(function() {
-				logout();
-			});// 登出
-			
-			$("#messages_count").live('click', function() {
-				var nickname = $("#nickname").text();
-				showOwnmessages(nickname, 1, 0);
-			});
-		</script>
+		$(".icon").live('click', function() {
+			var classUsername = $(this).parents("li").find("name");
+			var tag_a = classUsername.children("a");
+			var targetNickname = tag_a.text();
+			window.location = "userinfo.jsp?targetNickname=" + targetNickname; //+ "&userToken=" + $.query.get("userToken");
+		})// 更换头像
+
+		//$("li[id^='weibo_']").live('click', function() {
+		$(".comment").live('click', function() {
+			var message_id = $(this).parents("li").attr("id");
+			message_id = message_id.substr(6);
+			show_comments(message_id, 1, 1);
+			$(this).parents("li").find(".comtxt").slideToggle();
+		}); // 查看评论
+
+		$(".btn").live('click', function() {
+			var message_id = $(this).parents("li").attr("id");
+			message_id = message_id.substr(6);
+			comarea = ".comarea_" + message_id;
+			content = $(comarea).val();
+			send_comment(message_id, content);
+			$(comarea).val(""); // 清空输入框
+		}); //发送评论
+
+		$("#all_messages").click(function() {
+			show_announcements(0);
+		});// 显示公告
+
+		$("#friends_count").click(function() {
+			//show_friends();
+
+		});
+
+		$("#friend_messages").click(function() {
+			show_messages(1, 1);
+		});// 好友广播
+
+		$(".logout").click(function() {
+			logout();
+		});// 登出
+
+		$("#messages_count").live('click', function() {
+			var nickname = $("#nickname").text();
+			showOwnmessages(nickname, 1, 0);
+		});
+	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->
 </body>
 </html>

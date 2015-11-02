@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
+import group.zerry.front_server.annotation.AuthPass;
 import group.zerry.front_server.dto.ReturnDataDto;
 import group.zerry.front_server.entity.Message;
 import group.zerry.front_server.service.MessageService;

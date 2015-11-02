@@ -20,21 +20,23 @@ public class FriendServiceImpl implements FriendService{
 	FetchUrlTools fetchUrlTool;
 	
 	@Override
-	public String showFriendsByGroupname(String username, String groupname) {
+	public String showFriendsByGroupname(String username, String userToken, String groupname) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "friend/show/friends";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
 		paramsMap.put("groupname", groupname);
 		return fetchUrlTool.doPost(url, paramsMap);
 	}
 
 	@Override
-	public String showGroupsByUsername(String username) {
+	public String showGroupsByUsername(String username, String userToken) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "friend/show/groups";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
 		return fetchUrlTool.doPost(url, paramsMap);
 	}
 

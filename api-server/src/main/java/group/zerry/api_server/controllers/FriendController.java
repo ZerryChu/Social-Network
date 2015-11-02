@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
+import group.zerry.api_server.annotation.AuthPass;
 import group.zerry.api_server.enumtypes.FriendStatusEnum;
 import group.zerry.api_server.service.FriendService;
 
@@ -20,9 +21,10 @@ public class FriendController {
 	
 	private Logger logger = Logger.getLogger(FriendController.class);
 
+	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show/groups ", produces = "text/html;charset=UTF-8")
-	public String showGroupsByUsername(String username) {
+	public String showGroupsByUsername(String username, String userToken) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
 		String[] groupnames = friendService.showGroupsByUsername(username);
 		if (null == groupnames) {
@@ -36,9 +38,10 @@ public class FriendController {
 	}
 	
 	//没采用分页
+	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show/friends", produces = "text/html;charset=UTF-8")
-	public String showFriendsByGroupname(String username, String groupname) {
+	public String showFriendsByGroupname(String username, String userToken, String groupname) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
 		String[] friendnames = friendService.showFriendsByGroupname(username, groupname);
 		if (null == friendnames) {
