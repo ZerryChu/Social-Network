@@ -62,15 +62,15 @@ function show_messages(pageNumber, _flag) {
 																	+ data.returndata[i].author
 																	+ "</a></div><div class=\"txt\">"
 																	+ data.returndata[i].content
-																	+ "</div><div class=\"info\"><span class=\"create_time\">"
+																	+ "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
 																	+ data.returndata[i].create_time
-																	+ "</span><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
+																	+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 																	+ data.returndata[i].comment_times
 																	+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"repost\">转发(<span class=\"num\">"
 																	+ data.returndata[i].repost_times
 																	+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:3%; height:50%;\" src=\"images/2.png\" onclick=\"\">(<span class=\"num\">"
 																	+ data.returndata[i].support_times
-																	+ "</span>)</span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea class=\"comarea_"
+																	+ "</span>)</span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
 																	+ data.returndata[i].id
 																	+ "\" name=\"content\" style=\"width: 451px, height: 36px;\"></textarea><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"btn\">评论</button></div>"
 																	+ "<ul class=\"otherCom\" id=\"comment_"
@@ -78,10 +78,13 @@ function show_messages(pageNumber, _flag) {
 																	+ "\" style=\"\"></ul>"
 																	+ "</div></div></div></li>");
 											judgeIfSupport(
-													data.returndata[i].id, 0); // 引入 judgeIfSupport.js
+													data.returndata[i].id, 0); // 引入 judgeIfSupport.js	
+												
 											i++;
 										}
 									});
+					$(".timeago").timeago();
 				}
 			});
+	
 }

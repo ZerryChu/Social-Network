@@ -5,7 +5,7 @@
 
 .ad {
 	margin-top: 0px;
-	border-radius: 5px 0 0 5px;
+	border-radius: 5px 0 0 0px;
 	overflow: hidden;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .num_info {
-	padding-left: 40%;
+	margin-left: 55%;
 }
 
 .right_content {
@@ -93,7 +93,7 @@
 }
 
 .post_message {
-	border-bottom: 1px solid #786F66;
+	/*border-bottom: 1px solid #786F66;*/
 	padding: 0 30px 10px;
 }
 
@@ -181,8 +181,16 @@
 	text-decoration: underline;
 }
 
-.delete_cmt, .delete_msg {
+.delete_msg, .delete_cmt {
+	cursor: pointer;
+}
+
+.delete_cmt {
 	padding-top: 10px;
+}
+
+.delete_msg {
+	padding-top: 20px;
 }
 
 .heated_subtitle, .rec_content, .group {
@@ -274,6 +282,10 @@
 	width: 535px;
 	float: left;
 	padding-top: 10px;
+}
+
+#own_msg {
+	padding-left: 50px;	
 }
 
 .msgBox .username {

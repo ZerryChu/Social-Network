@@ -54,4 +54,12 @@ public class FriendController {
 		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/ifchat", produces = "text/html;charset=UTF-8")
+	public String ifAllowChat(String username, String userToken, String friendNickname) {
+		//暂时无逻辑代码
+		return "{returnmsg: 1}";
+	}
 }

@@ -151,6 +151,7 @@
 	</div>
 
 	<script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<script src="plugins/timeago.js" type="text/javascript"></script>
 	<script src="plugins/jquery-migrate-1.2.1.min.js"
 		type="text/javascript"></script>
 	<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
@@ -182,6 +183,7 @@
 		});
 	</script>
 	<script type="text/javascript">
+		//$('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
 		$(document).ready(function() {
 
 			$(".messages_class li").each(function(index) {
@@ -198,11 +200,11 @@
 					}
 				});
 			});
-
 			showUserInfo(0);
 			show_messages(1, 1);
 			showGroups(0);
 			setInterval("update()", 30000);
+			//$('body').timeago();
 		});
 
 		$(".icon").live('click', function() {

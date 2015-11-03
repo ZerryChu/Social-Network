@@ -67,17 +67,14 @@ function show_comments(message_id, pageNumber, _flag) {
 																	+ data.returndata[i].nickname
 																	+ "', "
 																	+ message_id
-																	+ ")\"><span class=\"comment_time\">" 
+																	+ ")\"><time class=\"timeago\" datetime=\"" 
 																	+ data.returndata[i].create_time
-																	+ "</span></div>"
+																	+ "\"></time></span></div>"
 																	+ "</div></div></li>");
 											i++;
 										}
-										/*$(target)
-												.append(
-														"<div><form class=\"send_comment\"><textarea style=\"width: 60%; height: 48%;\" name=\"content\"></textarea><input type=\"button\" value=\"发送\" onclick=\"send_comment()\"></form></div>");
-									*/
-										});
+										$(".timeago").timeago();
+									});
 				},
 				error : function(data) {
 					var target = "#comment_" + message_id;

@@ -25,9 +25,9 @@ function show_announcements(_flag) {
 																	+ data.returndata[i].id
 																	+ "\" class=\"msgBox\"><div class=\"txt\">"
 																	+ data.returndata[i].content
-																	+ "</div><div class=\"info\"><span class=\"create_time\">"
+																	+ "</div><div class=\"info\"><span class=\"timeago\" datetime=\">"
 																	+ data.returndata[i].create_time
-																	+ "</span></div>"
+																	+ "\"></span></div>"
 
 													)
 													i++;
