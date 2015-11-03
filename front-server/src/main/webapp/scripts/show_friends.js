@@ -24,11 +24,11 @@ function showGroups(_flag) {
 													.append(
 															"<li id=\"rec_"
 																	+ i
-																	+ "\"><span class=\"cls\" onclick=\"openFriendList("
+																	+ "\"><div class=\"cls\" onclick=\"openFriendList("
 																	+ i
 																	+ ")\">"
 																	+ data.returndata[i]
-																	+ "</span><br><span class=\"friend_list\" style=\"display: none\"></span></li>");
+																	+ "</div><div class=\"friend_list\" style=\"display: none\"></div></li>");
 											showFriends(i, data.returndata[i],
 													0); // 补充friend_list信息
 											i++;
@@ -53,7 +53,7 @@ function showFriends(rec_id, _group, _flag) {
 			var i = 0;
 			while (data.returndata[i] != undefined) {
 				var li = "#rec_" + rec_id + " .friend_list";
-				$(li).append("<span>" + data.returndata[i] + "</span><br>");
+				$(li).append("<span class=\"friend\">" + data.returndata[i] + "</span><br>");
 				i++;
 			}
 		}

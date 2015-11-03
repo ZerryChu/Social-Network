@@ -6,6 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
+
+import group.zerry.front_server.dto.ReturnMsgDto;
 import group.zerry.front_server.service.FriendService;
 import group.zerry.front_server.utils.FetchUrlTools;
 import group.zerry.front_server.utils.HttpTarget;
@@ -38,6 +41,22 @@ public class FriendServiceImpl implements FriendService{
 		paramsMap.put("username", username);
 		paramsMap.put("userToken", userToken);
 		return fetchUrlTool.doPost(url, paramsMap);
+	}
+	
+	//check api
+	@Override
+	public boolean ifAllowChat(String username, String userToken, String friendNickname) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "ifchat";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("friendNickname", friendNickname);
+		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchUrlTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		if (returnMsgDto.getReturnMsg().trim().equals("1"))
+			return true;
+		else
+			return false;
 	}
 
 }

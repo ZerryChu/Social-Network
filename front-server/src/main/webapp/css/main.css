@@ -68,7 +68,7 @@
 }
 
 .num_info {
-	margin-left: 55%;
+	float: right;
 }
 
 .right_content {
@@ -308,6 +308,7 @@
 	line-height: 30px;
 	font-size: 14px;
 	color: #759aad;
+	
 }
 
 .msgBox .info a {
@@ -371,6 +372,7 @@
 
 .cls {
 	cursor: pointer;
+	color: #006a92;
 }
 
 .val {
@@ -379,9 +381,10 @@
 }
 
 .friend_list {
-	float: right;
-	border: 1px solid #786F66;
-	width: 70%;
+	float: left;
+	/*border: 1px solid #786F66;*/
+	width: 100%;
+	padding-left: 50px;
 }
 
 .otherCom .msgBox .comer_name:hover, .otherCom .msgBox .comer_name:active
@@ -402,4 +405,10 @@
 	height: 20px;
 	border: 1px dashed #e4e4e4;
 	background: #FAEBD7;
+}
+
+.friend {
+	font-size: 15px;
+	cursor: pointer;
+	color: gray;
 }

@@ -5,4 +5,6 @@ public interface FriendService {
 	
 	public String showGroupsByUsername(String username, String userToken);
 	
+	public boolean ifAllowChat(String username, String usertoken, String friendNickname);
+
 }

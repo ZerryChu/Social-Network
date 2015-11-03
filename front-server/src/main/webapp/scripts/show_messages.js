@@ -68,7 +68,7 @@ function show_messages(pageNumber, _flag) {
 																	+ data.returndata[i].comment_times
 																	+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"repost\">转发(<span class=\"num\">"
 																	+ data.returndata[i].repost_times
-																	+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:3%; height:50%;\" src=\"images/2.png\" onclick=\"\">(<span class=\"num\">"
+																	+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"images/2.png\" onclick=\"\">(<span class=\"num\">"
 																	+ data.returndata[i].support_times
 																	+ "</span>)</span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
 																	+ data.returndata[i].id
