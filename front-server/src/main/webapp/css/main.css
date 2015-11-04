@@ -288,12 +288,12 @@
 	padding-left: 50px;	
 }
 
-.msgBox .username {
+.username {
 	height: 25px;
 	/*    line-height: 30px;*/
 }
 
-.msgBox .username a {
+.username a {
 	font-weight: bold;
 	font-size: 15px;
 }
@@ -347,7 +347,7 @@
 	vertical-align: middle;
 }
 
-.msgBox .comment_btn button {
+.msgBox .comment_btn, .repost_btn button {
 	float: right;
 	margin-right: 2%;
 	cursor: pointer;
@@ -405,6 +405,13 @@
 	height: 20px;
 	border: 1px dashed #e4e4e4;
 	background: #FAEBD7;
+}
+
+.repostInfo {
+	background: #e9e8ea none repeat scroll 0 0;
+	border: 1px solid #dee3e3;
+	padding: 30px;
+	cursor: pointer;
 }
 
 .friend {

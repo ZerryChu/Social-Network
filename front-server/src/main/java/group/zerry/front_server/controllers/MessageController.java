@@ -26,7 +26,7 @@ public class MessageController {
 	MessageService messageService;
 
 	@Autowired
-	CookiesData    cookiesData;
+	CookiesData cookiesData;
 
 	@AuthPass
 	@ResponseBody
@@ -74,7 +74,9 @@ public class MessageController {
 
 	/**
 	 * 有缓存show
-	 * @param flag：0 无更新查询 1 有更新查询
+	 * 
+	 * @param flag：0
+	 *            无更新查询 1 有更新查询
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
@@ -97,7 +99,7 @@ public class MessageController {
 		} // 无更新查询
 		else {
 			String returnMsg = messageService.show_messages(username, userToken, page);
-			if (page == 1) 
+			if (page == 1)
 				cookiesData.save(request, response, "messages", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
@@ -105,7 +107,8 @@ public class MessageController {
 
 	@ResponseBody
 	@RequestMapping(value = "/show_announcements", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String show_announcements(HttpServletRequest request, HttpServletResponse response, int flag) throws UnsupportedEncodingException {
+	public String show_announcements(HttpServletRequest request, HttpServletResponse response, int flag)
+			throws UnsupportedEncodingException {
 		if (flag == 0) {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, "announcements"))) {
@@ -127,7 +130,8 @@ public class MessageController {
 
 	@ResponseBody
 	@RequestMapping(value = "/show_ownmessages", produces = "text/html;charset=UTF-8")
-	public String show_ownMessages(HttpServletRequest request, HttpServletResponse response, String nickname, int page, int flag) throws UnsupportedEncodingException {
+	public String show_ownMessages(HttpServletRequest request, HttpServletResponse response, String nickname, int page,
+			int flag) throws UnsupportedEncodingException {
 		if (flag == 0) {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, "ownmessages"))) {
@@ -150,7 +154,8 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/judge_ifsupport", produces = "text/html;charset=UTF-8")
-	public String judgeIfSupported(HttpServletRequest request, HttpServletResponse response, String username, int message_id, String userToken, int flag) throws UnsupportedEncodingException {
+	public String judgeIfSupported(HttpServletRequest request, HttpServletResponse response, String username,
+			int message_id, String userToken, int flag) throws UnsupportedEncodingException {
 		String cookieName = "ifSupport" + message_id;
 		if (flag == 0) {
 			Cookie cookie;
@@ -184,10 +189,34 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/repost", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String repost_message(String username, String userToken, int id) {
-		if (messageService.add_repost(username, userToken, id))
+	public String repost_message(String username, String userToken, String content, int id) {
+		if (messageService.add_repost(username, userToken, content, id))
 			return "{\"msg\" : 1}";
 		else
 			return "{\"msg\" : 0}";
+	}
+
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/show_message", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String show_messageById(HttpServletRequest request, HttpServletResponse response, String username, String userToken, int message_id, int flag) throws UnsupportedEncodingException {
+		String cookieName = "MessageInfoById" + message_id;
+		if (flag == 0) {
+			Cookie cookie;
+			if (null == (cookie = cookiesData.getCookie(request, cookieName))) {
+				String returnMsg = messageService.show_messageById(username, userToken, message_id);
+				cookiesData.save(request, response, cookieName, URLEncoder.encode(returnMsg, "UTF-8"));
+				return returnMsg;
+			} else {
+				String returnMsg = cookie.getValue();
+				returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
+				return returnMsg;
+			}
+		} // 无更新查询
+		else {
+			String returnMsg = messageService.show_messageById(username, userToken, message_id);
+			//cookiesData.save(request, response, cookieName, URLEncoder.encode(returnMsg, "UTF-8"));
+			return returnMsg;
+		}
 	}
 }

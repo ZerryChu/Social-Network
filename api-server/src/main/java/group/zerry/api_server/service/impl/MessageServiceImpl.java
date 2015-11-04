@@ -93,22 +93,37 @@ public class MessageServiceImpl implements MessageService {
 		return message;
 	}
 
+	/**
+	 *  转发微博
+	 *  message.content: 用户说的话；原微博id
+	 */
 	@Override
-	public MessageStatusEnum addRepost(String username, int id) {
+	public MessageStatusEnum addRepost(String username, String _content, int id) {
 		// TODO Auto-generated method stub
 		try {
 			User user = userDao.selectUserByUsername(username);
 			Message message = messageDao.getMessageById(id);
-			message.setAuthor(user.getNickname());
-			message.setType(2);
+			if(message.getType() == 1) {
+				message.setContent(_content + ";" + id);
+				message.setAuthor(user.getNickname());
+				//setPic()
+				message.setType(2);
+			} else {
+				message.setContent( _content + " || " + message.getAuthor() + ":"  + message.getContent());
+				message.setAuthor(user.getNickname());
+			}
 			messageDao.addMessage(message);
 			messageDao.addRepostTimes(id);
 		} catch(Exception e) {
+			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;
 		}
 		return MessageStatusEnum.RS;
 	}
 
+	/**
+	 *  评论
+	 */
 	@Override
 	public MessageStatusEnum addComment(String username, String content, int id) {
 		// TODO Auto-generated method stub
@@ -212,6 +227,12 @@ public class MessageServiceImpl implements MessageService {
 		if(num > 1 || num < 0 || num == 1)
 			return false;
 		return true;
+	}
+
+	@Override
+	public Message show_messageById(int message_id) {
+		// TODO Auto-generated method stub
+		return messageDao.getMessageById(message_id);
 	}
 
 }

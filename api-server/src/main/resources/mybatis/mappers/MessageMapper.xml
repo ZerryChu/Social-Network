@@ -19,6 +19,13 @@
 		<result property="number" column="number" />
 	</resultMap>
 
+	<select id="getMessageById" resultType="Message">
+		select
+		*
+		from message_inf
+		where id = #{id}
+	</select>
+	
 	<select id="getOwnMessages" parameterType="string" resultType="Message">
 		select
 		*

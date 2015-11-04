@@ -14,9 +14,11 @@ public interface MessageService {
 
 	public Message[] show_announcements();
 
+	public Message show_messageById(int message_id);
+	
 	public boolean judgeIfSupport(String username, int id);
 	
-	public MessageStatusEnum addRepost(String username, int id);  //转发
+	public MessageStatusEnum addRepost(String username, String _content, int id);  //转发
 	
 	public MessageStatusEnum addComment(String username, String content, int id); //评论
 	

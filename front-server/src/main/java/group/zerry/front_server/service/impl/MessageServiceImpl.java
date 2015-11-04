@@ -146,18 +146,30 @@ public class MessageServiceImpl implements MessageService {
 			return false;
 	}
 
-	public boolean add_repost(String username, String userToken, int id) {
+	public boolean add_repost(String username, String userToken, String content, int id) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/repost";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("username", username);
 		paramsMap.put("userToken", userToken);
+		paramsMap.put("content", content);
 		paramsMap.put("id", String.valueOf(id));
 		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
 		if (returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.RS.getValue())) {
 			return true;
 		} else
 			return false;
+	}
+
+	@Override
+	public String show_messageById(String username, String userToken, int message_id) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/show_message";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("message_id", String.valueOf(message_id));
+		return fetchURLTool.doPost(url, paramsMap);
 	}
 
 }

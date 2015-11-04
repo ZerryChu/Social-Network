@@ -29,8 +29,8 @@ public class MessageController {
 	@Autowired
 	MessageService messageService;
 
-	private static SimplePropertyPreFilter messageFilter = new SimplePropertyPreFilter(Message.class, "id", "author",
-			"content", "create_time", "repost_times", "comment_times", "support_times");
+	private static SimplePropertyPreFilter messageFilter = new SimplePropertyPreFilter(Message.class, "id", "type", "author",
+			"content", "create_time", "repost_times", "comment_times", "support_times"); // 全部属性都需要
 
 	private static Logger logger = Logger.getLogger(MessageController.class);
 
@@ -98,12 +98,32 @@ public class MessageController {
 	
 	@AuthPass
 	@ResponseBody
+	@RequestMapping(value = "/show_message", produces = "text/html;charset=UTF-8")
+	public String show_messageById(String username, String userToken, int message_id) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
+		Message message;
+		try {
+			message = messageService.show_messageById(message_id);
+		} catch (Exception e) {
+			regMsg.append(MessageStatusEnum.SMF);
+			regMsg.append("}");
+			return regMsg.toString();
+		}
+		regMsg.append(JSON.toJSONString(message, messageFilter));
+		regMsg.append("}");
+		logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
+	
+	@AuthPass
+	@ResponseBody
 	@RequestMapping(value = "/repost", produces = "text/html;charset=UTF-8")
-	public String repost_message(String username, String userToken, int id) {
+	public String repost_message(String username, String userToken, String content, int id) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-		MessageStatusEnum status = messageService.addRepost(username, id);
+		MessageStatusEnum status = messageService.addRepost(username, content, id);
 		regMsg.append(status.getValue());
 		regMsg.append("\"}");
+		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 	

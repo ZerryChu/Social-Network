@@ -161,6 +161,7 @@
 	<script src="scripts/show_comments.js" type="text/javascript"></script>
 	<script src="scripts/send_comment.js" type="text/javascript"></script>
 	<script src="scripts/send_message.js" type="text/javascript"></script>
+	<script src="scripts/repost_message.js" type="text/javascript"></script>
 	<script src="scripts/show_friends.js" type="text/javascript"></script>
 	<script src="scripts/showOwnmessages.js" type="text/javascript"></script>
 	<script src="scripts/show_announcements.js" type="text/javascript"></script>
@@ -221,8 +222,21 @@
 			show_comments(message_id, 1, 1);
 			$(this).parents("li").find(".comtxt").slideToggle();
 		}); // 查看评论
-
-		$(".btn").live('click', function() {
+		
+		$(".repost").live('click', function() {
+			$(this).parents("li").find(".rpt").slideToggle();
+		});
+		
+		$(".repost_button").live('click', function() {
+			var message_id = $(this).parents("li").attr("id");
+			message_id = message_id.substr(6);
+			var textarea = ".rptarea_" + message_id;
+			var content = $(textarea).val();
+			repost_message(content, message_id);
+			$(textarea).val("");
+		}); // 转发微博
+		
+		$(".comment_button").live('click', function() {
 			var message_id = $(this).parents("li").attr("id");
 			message_id = message_id.substr(6);
 			comarea = ".comarea_" + message_id;
@@ -250,7 +264,7 @@
 
 		$("#messages_count").live('click', function() {
 			var nickname = $("#nickname").text();
-			showOwnmessages(nickname, 1, 0);
+			showOwnmessages(nickname, 1, 0, true);
 		});
 	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->
