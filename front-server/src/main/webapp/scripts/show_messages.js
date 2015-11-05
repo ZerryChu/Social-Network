@@ -53,7 +53,7 @@ function show_messages(pageNumber, _flag) {
 													+ "pic/"
 													+ username
 													+ ".jpg"
-													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"username\"><a href=\""
+													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"weibo_username\"><a href=\""
 													+ "userinfo.jsp?targetNickname="
 													+ data.returndata[i].author
 													+ "\">"
@@ -152,7 +152,7 @@ function show_sourceMessage(id, _id, _flag) {
 						var repostInfo = $(weiboId).find(".repostInfo");
 						$(repostInfo)
 								.append(
-										"<div class=\"username\"><a href=\""
+										"<div class=\"weibo_username\"><a href=\""
 												+ "userinfo.jsp?targetNickname="
 												+ data.returndata.author
 												+ "\">"

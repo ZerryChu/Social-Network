@@ -147,6 +147,7 @@
 					</ul>
 				</div>
 			</div>
+		    <div class="getPageNum" align="center"><span class="prePage">上一页</span><span class="nextPage">下一页</span><form style="display: inline-block;">第<input style="width: 30px;" class="pageNum" type="number">页<input type="button" value="跳转" onclick="goToPage()"></form></from></div>	
 		</div>
 	</div>
 
@@ -185,6 +186,10 @@
 	</script>
 	<script type="text/javascript">
 		//$('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
+		
+		var flag = 1; // 1: 微博跳转 2: 用户自己发得微博的跳转
+		var pageNum = 1;
+
 		$(document).ready(function() {
 
 			$(".messages_class li").each(function(index) {
@@ -247,6 +252,7 @@
 
 		$("#all_messages").click(function() {
 			show_announcements(0);
+			flag = 2;
 		});// 显示公告
 
 		$("#friends_count").click(function() {
@@ -256,6 +262,8 @@
 
 		$("#friend_messages").click(function() {
 			show_messages(1, 1);
+			flag = 1;
+			pageNum = 1;
 		});// 好友广播
 
 		$(".logout").click(function() {
@@ -265,7 +273,50 @@
 		$("#messages_count").live('click', function() {
 			var nickname = $("#nickname").text();
 			showOwnmessages(nickname, 1, 0, true);
+			flag = 2;
+			pageNum = 1;
 		});
+		
+		$(".prePage").click(function() {
+			pageNum--;
+			if(pageNum < 0) {
+				pageNum = 0;
+			}
+			if(flag == 1)
+				show_messages(pageNum, 1);
+			else {
+				var nickname = $("#nickname").text();
+				showOwnmessages(nickname, pageNum, 0, true);
+			}
+			$(window).scrollTop(0);
+		});// 跳转上一页
+		
+		$(".nextPage").click(function() {
+			pageNum++;
+			if(flag == 1)
+				show_messages(pageNum, 1);
+			else {
+				var nickname = $("#nickname").text();
+				showOwnmessages(nickname, pageNum, 0, true);			
+			}
+			$(window).scrollTop(0);
+		});// 跳转下一页
+		
+		function goToPage() {
+			var num = $(".pageNum").val();
+			if(num == "" || isNaN(num)) {
+				return;
+			}
+			if(flag == 1)
+				show_messages(num, 1);
+			else {
+				var nickname = $("#nickname").text();
+				showOwnmessages(nickname, num, 0, true);			
+			}
+			$(window).scrollTop(0);
+		} // 跳转指定页面
+
+
 	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->
 </body>

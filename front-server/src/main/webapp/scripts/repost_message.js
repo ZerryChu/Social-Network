@@ -17,8 +17,7 @@ function repost_message(_content, message_id) {
 			$.each(data, function() {
 				if (data.msg == 1) {
 					//...add content
-					alert("succeed");
-					
+					alert("succeed");					
 					// 数据更新
 					showUserInfo(1);
 					var nickname = $("#nickname").text();
