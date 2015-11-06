@@ -74,19 +74,41 @@
 			data : {
 				username : $.query.get("username"),
 				userToken : $.query.get("userToken"),
-				message_id : $.query.get("userToken"),
+				message_id : $.query.get("id"),
 				flag : 1
 			},
 			dataType : "json",
-			success : function(data) {
+			success : function(data) {		
 				if (data.returndata != undefined) {
+					// ///////////////////////////////////////
+					var username;
+					var targetNickname = data.returndata.author;
+					$
+							.ajax({
+								type : "post",
+								url : "user/getTargetinfo",
+								data : {
+									nickname : targetNickname
+								},
+								dataType : "json",
+								success : function(data) {
+									$
+											.each(
+													data,
+													function() {
+														username = data.returndata.username;
+													});
+								}
+							});
+					// ////////////////////////////////////////
+					
 					$(".timeago").attr("datetime", data.returndata.create_time);
 					$(".repost").find(".num").text(data.returndata.repost_times);
 					$(".comment").find(".num").text(data.returndata.comment_times);
 					$(".support").find(".num").text(data.returndata.support_times);
 					$(".repostInfo").text(data.returndata.content);
 					$(".userPic a").attr("href", "userinfo.jsp?targetNickname=" + data.returndata.author);
-					//$(".userPic a").attr("src", "images/" + data.returndata.name + ".jpg");
+					$(".userPic a").attr("src", "images/" + username + ".jpg");
 					$(".weibo_username a").attr("href", "userinfo.jsp?targetNickname=" + data.returndata.author);
 					$(".weibo_username a").text(data.returndata.author);
 

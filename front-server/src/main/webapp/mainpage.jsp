@@ -288,8 +288,7 @@
 		
 		$(".repostInfo").live('click', function() {
 			 var param = "username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&id=" + $(this).attr("id");
-			 //name
-			 window.open("message.jsp?" + param, "message", param);
+			 window.open("message.jsp?" + param);
 		});
 		
 		$(".prePage").click(function() {
