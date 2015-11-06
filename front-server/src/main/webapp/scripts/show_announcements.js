@@ -4,7 +4,7 @@
 function show_announcements(_flag) {
 	$
 			.ajax({
-				url : 'message/show_announcements', // 用于文件上传的服务器端请求地址
+				url : 'message/show_announcements',
 				type : 'post',
 				data : {
 					flag : _flag
@@ -19,19 +19,22 @@ function show_announcements(_flag) {
 										var i = 0;
 										$("#weibo").empty();
 										while (data.returndata[i] != undefined) {
-											$("#weibo")
-													.append(
-															"<li id=\"weibo_"
-																	+ data.returndata[i].id
-																	+ "\" class=\"msgBox\"><div class=\"txt\">"
-																	+ data.returndata[i].content
-																	+ "</div><div class=\"info\"><span class=\"timeago\" datetime=\">"
-																	+ data.returndata[i].create_time
-																	+ "\"></span></div>"
-
-													)
-													i++;
+											var message = "<li id=\"weibo_"
+													+ data.returndata[i].id
+													+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><img src=\""
+													+ "pic/"
+													+ data.returndata[i].author
+													+ ".jpg"
+													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></div><div class=\"msgBox\"><div class=\"txt\">";
+											message += data.returndata[i].content
+													+ "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
+													+ data.returndata[i].create_time
+													+ "\"></time></div>"
+													+ "</div></div></li>";
+											$("#weibo").append(message);
+											i++;
 										}
+										$(".timeago").timeago();
 									})
 				}
 			})

@@ -47,9 +47,8 @@ public class CommentServiceImpl implements CommentService {
 			Page<Comment> myPage = PageHelperInterceptor.endPage();
 			List<Comment> list = myPage.getResult();
 			comments = (Comment[]) list.toArray(new Comment[list.size()]);
-			if(null == comments || comments.length == 0)
-				return null;
 		} catch(Exception e) {
+			System.out.println(e.getMessage());
 			return null;
 		}
 		return comments;

@@ -8,7 +8,7 @@ function delete_comment(comment_id, _nickname, _message_id) {
 	$.ajax({
 		type : "post",
 		url : "comment/delete",
-		async : false, //发帖同步执行
+		async : false, // 发帖同步执行
 		data : {
 			username : $.query.get("username"),
 			userToken : $.query.get("userToken"),
@@ -39,6 +39,7 @@ function show_comments(message_id, pageNumber, _flag) {
 			.ajax({
 				type : "post",
 				url : "comment/show",
+				async : false, //发帖同步执行
 				data : {
 					id : message_id,
 					page : pageNumber,
@@ -73,19 +74,39 @@ function show_comments(message_id, pageNumber, _flag) {
 																	+ "</div></div></li>");
 											i++;
 										}
+										$(target)
+												.append(
+														"<div class=\"cmt_getPageNum\" align=\"center\"><span class=\"cmt_prePage\" onclick=\"cmt_prePage("
+														+ message_id
+														+ ")\">上一页</span><span class=\"cmt_nextPage\" onclick=\"cmt_nextPage("
+														+ message_id
+														+ ")\">下一页</span><span class=\"pageNum\"></span></div>");
 										$(".timeago").timeago();
 									});
 				},
 				error : function(data) {
 					var target = "#comment_" + message_id;
 					$(target).empty();
-					/*$(target)
-							.append(
-									"<div><form class=\"send_comment\"><textarea style=\"width: 60%; height: 48%;\" name=\"content\"></textarea><input type=\"button\" value=\"发送\" onclick=\"send_comment()\"></form></div>");
-					 */
 
 				}
 			});
 }
 
-//"<div class=\"getPageNum\" align=\"center\"><span class=\"cmt_prePage\">上一页</span><span class=\"cmt_nextPage\">下一页</span><form style=\"display: inline-block;\">第<input style=\"width: 30px;\" class=\"cmt_pageNum\" type=\"number\">页<input type=\"button\" value=\"跳转\" onclick=\"cmt_goToPage()\"></form></div>"
+function cmt_prePage(message_id) {
+	var target = "#comment_" + message_id;
+	pageNum = $(target).find(".pageNum").text();
+	pageNum--;
+	if(pageNum < 1) {
+		pageNum = 1;
+	}
+	show_comments(message_id, pageNum, 1);
+	$(target).find(".pageNum").text(pageNum);
+} // 跳转上一页
+
+function cmt_nextPage(message_id) {
+	var target = "#comment_" + message_id;
+	pageNum = $(target).find(".pageNum").text();
+	pageNum++;
+	show_comments(message_id, pageNum, 1);
+	$(target).find(".pageNum").text(pageNum);
+} // 跳转下一页

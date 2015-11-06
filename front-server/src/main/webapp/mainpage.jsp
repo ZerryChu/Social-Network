@@ -29,7 +29,7 @@
 				<div id="nickname"></div>
 				<img id="user_icon" src="pic/${param.username}.jpg"
 					onerror="this.src='images/no_found.png'" onclick="" /> <br>
-				<div class="logout">登出</div>
+				<div class="logout" style="color: blue;">登出</div>
 				<ul class="user_account">
 					<li class="user_friend_text"><span id="friends_count">好友：</span> <span
 						id="friend_num">0</span></li>
@@ -147,7 +147,7 @@
 					</ul>
 				</div>
 			</div>
-		    <div class="getPageNum" align="center"><span class="prePage">上一页</span><span class="nextPage">下一页</span><form style="display: inline-block;">第<input style="width: 30px;" class="pageNum" type="number">页<input type="button" value="跳转" onclick="goToPage()"></form></from></div>	
+		    <div class="getPageNum" align="center"><span class="prePage">上一页</span><span class="nextPage">下一页</span><form style="display: inline-block;">第<input style="width: 30px;" class="pageNum" type="number">页<input type="button" class="btn" value="跳转" onclick="goToPage()"></form></from></div>	
 		</div>
 	</div>
 
@@ -224,8 +224,15 @@
 		$(".comment").live('click', function() {
 			var message_id = $(this).parents("li").attr("id");
 			message_id = message_id.substr(6);
-			show_comments(message_id, 1, 1);
-			$(this).parents("li").find(".comtxt").slideToggle();
+			var comtxt = $(this).parents("li").find(".comtxt");
+			if (comtxt.css("display") == "none") {
+				show_comments(message_id, 1, 1);
+				comtxt.slideToggle();
+				$(this).parents("li").find(".pageNum").text("1");
+			} else {
+				comtxt.slideToggle();
+			}
+
 		}); // 查看评论
 		
 		$(".repost").live('click', function() {
@@ -264,6 +271,7 @@
 			show_messages(1, 1);
 			flag = 1;
 			pageNum = 1;
+			$(".pageNum").val(pageNum);
 		});// 好友广播
 
 		$(".logout").click(function() {
@@ -275,12 +283,19 @@
 			showOwnmessages(nickname, 1, 0, true);
 			flag = 2;
 			pageNum = 1;
+			$(".pageNum").val(pageNum);
+		});
+		
+		$(".repostInfo").live('click', function() {
+			 var param = "username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&id=" + $(this).attr("id");
+			 //name
+			 window.open("message.jsp?" + param, "message", param);
 		});
 		
 		$(".prePage").click(function() {
 			pageNum--;
-			if(pageNum < 0) {
-				pageNum = 0;
+			if(pageNum < 1) {
+				pageNum = 1;
 			}
 			if(flag == 1)
 				show_messages(pageNum, 1);
@@ -289,6 +304,7 @@
 				showOwnmessages(nickname, pageNum, 0, true);
 			}
 			$(window).scrollTop(0);
+			$(".pageNum").val(pageNum);
 		});// 跳转上一页
 		
 		$(".nextPage").click(function() {
@@ -300,6 +316,7 @@
 				showOwnmessages(nickname, pageNum, 0, true);			
 			}
 			$(window).scrollTop(0);
+			$(".pageNum").val(pageNum);
 		});// 跳转下一页
 		
 		function goToPage() {
@@ -316,7 +333,7 @@
 			$(window).scrollTop(0);
 		} // 跳转指定页面
 
-
+	
 	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->
 </body>

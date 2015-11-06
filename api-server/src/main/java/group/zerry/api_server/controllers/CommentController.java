@@ -34,7 +34,7 @@ public class CommentController {
 	/**
 	 * 
 	 * @param id
-	 * @分页 pagesize=10
+	 * @分页 pagesize=5
 	 * @return
 	 */
 	@ResponseBody
@@ -42,13 +42,14 @@ public class CommentController {
 	public String show_comments(int id, int page) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
 		Comment[] comments = commentService.showComments(id, page);
-		if (null == comments) {
+		/*if (null == comments) {
 			regMsg.append(CommentStatusEnum.CNF.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
-		}
+		}*/
 		regMsg.append(JSON.toJSONString(comments, commentFilter));
 		regMsg.append("}");
+		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 

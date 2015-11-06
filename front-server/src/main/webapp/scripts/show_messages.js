@@ -150,6 +150,7 @@ function show_sourceMessage(id, _id, _flag) {
 					if (data.returndata != undefined) {
 						var weiboId = "#weibo_" + _id;
 						var repostInfo = $(weiboId).find(".repostInfo");
+						repostInfo.attr("id", id);
 						$(repostInfo)
 								.append(
 										"<div class=\"weibo_username\"><a href=\""
@@ -162,11 +163,11 @@ function show_sourceMessage(id, _id, _flag) {
 												+ "</div>"
 												+ "<div class=\"info\"><time class=\"timeago\" datetime=\""
 												+ data.returndata.create_time
-												+ "\"></time><span class=\"num_info\"><span>评论(<span class=\"num\">"
+												+ "\"></time><span class=\"num_info\"><span>评论(<span class=\"comment_num\">"
 												+ data.returndata.comment_times
-												+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转发(<span class=\"num\">"
+												+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转发(<span class=\"repost_num\">"
 												+ data.returndata.repost_times
-												+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>点赞(<span class=\"num\">"
+												+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>点赞(<span class=\"support_num\">"
 												+ data.returndata.support_times
 												+ "</span>)</span></span></div>"
 								);

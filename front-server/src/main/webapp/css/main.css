@@ -116,6 +116,8 @@
 	width: 100px;
 	height: 100px;
 	margin-left: 25px;
+	border-top: 2px solid #adacae;
+	border-left: 2px solid #adacae;
 }
 
 #nickname {
@@ -158,7 +160,7 @@
 .user_account {
 	margin-top: 5px;
 	border-top: 4px solid #5da8eb;
-	border-right: 3px solid #5da8eb;
+	border-left: 2px solid #5da8eb;
 	height: 40px;
 	background: #b5d6f3;
 	padding-top: 3px;
@@ -256,12 +258,12 @@
 	border-bottom: 1px dashed #e4e4e4;
 }
 
-.weibolist .weiboinfo {
+.weiboinfo {
 	clear: both;
 	overflow: hidden;
 }
 
-.weibolist .weiboinfo .userPic {
+.weiboinfo .userPic {
 	width: 60px;
 	height: 60px;
 	float: left;
@@ -269,7 +271,7 @@
 	padding: 10px 20px 20px 20px;
 }
 
-.weibolist .weiboinfo .userPic img {
+.weiboinfo .userPic img {
 	width: 60px;
 	height: 60px;
 	background: #ccc;
@@ -286,7 +288,7 @@
 }
 
 #own_msg {
-	padding-left: 50px;	
+	padding-left: 50px;
 }
 
 .username {
@@ -309,7 +311,6 @@
 	line-height: 30px;
 	font-size: 14px;
 	color: #759aad;
-	
 }
 
 .msgBox .info a {
@@ -346,6 +347,11 @@
 	margin-right: -2px;
 	margin-bottom: 2px;
 	vertical-align: middle;
+}
+
+
+.btn {
+	cursor: pointer;
 }
 
 .msgBox .comment_btn, .repost_btn button {
@@ -418,7 +424,7 @@
 	cursor: pointer;
 }
 
-.weibo_username a{
+.weibo_username a {
 	color: gray;
 	font-size: 18px;
 	text-decoration: none;
@@ -438,7 +444,27 @@
 
 .prePage, .nextPage {
 	color: gray;
-	padding-left: 20px;
-	padding-right: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
 	cursor: pointer;
+	font-size: 15px;
+}
+
+.cmt_prePage, .cmt_nextPage {
+	cursor: pointer;
+	color: gray;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 13px;
+}
+
+.pageNum {
+	background: #e9e8ea none repeat scroll 0 0;
+	margin: 5px;
+	padding: 2px;
+}
+
+.cmt_getPageNum {
+	padding-top: 5px;
+	padding-bottom: 8px;
 }
