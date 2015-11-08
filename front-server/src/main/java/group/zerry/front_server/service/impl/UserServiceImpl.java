@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	//文件存储路径
-	private String path = "/Users/zhuzirui/Documents/workspace/front-server/src/main/webapp/pic/";
+	private String path = "/Users/zhuzirui/GitHub/Social-Network/front-server/src/main/webapp/pic/";
 	
 	/**
 	 * 用户头像上传，只开放jpg，pic，png文件的接口
@@ -108,6 +108,7 @@ public class UserServiceImpl implements UserService {
 			upload.setHeaderEncoding("utf-8");
 			if (!ServletFileUpload.isMultipartContent(request)) {
 				// 按照传统方式获取数据
+				logger.error("ServletFileUpload.isMultipartContent(request) == false");
 				return false;
 			}
 			List<FileItem> list = upload.parseRequest(request);

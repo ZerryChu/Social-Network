@@ -203,7 +203,12 @@ $(document).ready(function(){
 			confir_reg_pwd:{
 				required:true,
 				equalTo:"#reg_pwd"
+			},
+			reg_nickname:{
+				required:true,
+				reangelength:[4,10]
 			}
+			//不允许符号
 		},
 		messages:{
 			reg_name:{
@@ -217,7 +222,12 @@ $(document).ready(function(){
 			confir_reg_pwd:{
 				required:"请确认密码",
 				equalTo:"两次输入密码不一致"
+			},
+			reg_nickname:{
+				required:"请输入昵称",
+				ranglength:"昵称长度在4-10之间"
 			}
+			
 		},
 		errorPlacement:function(error, element){
 			error.appendTo($(element).nextAll(".tip"));

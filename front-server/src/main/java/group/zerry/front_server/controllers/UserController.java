@@ -102,7 +102,6 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/reg", produces = "text/html;charset=UTF-8")
 	public String reg(User user) {
-		//for AJAX
 		if(userService.reg(user)) {
 			return "{\"msg\" : 1}";
 		}
@@ -117,7 +116,7 @@ public class UserController {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, "userinfo"))) {
 				String returnMsg = userService.showUserInfo(username);
-				cookiesData.save(request, response, "userinfo", returnMsg);
+				cookiesData.save(request, response, "userinfo", URLEncoder.encode(returnMsg, "UTF-8"));
 				return returnMsg;
 			} else {
 				String returnMsg = cookie.getValue();
@@ -127,7 +126,7 @@ public class UserController {
 		} // 无更新查询
 		else {
 			String returnMsg = userService.showUserInfo(username);
-			cookiesData.save(request, response, "userinfo", returnMsg);
+			cookiesData.save(request, response, "userinfo", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}

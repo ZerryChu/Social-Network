@@ -43,6 +43,7 @@
 	height: 15px;
 	width: 15px;
 	display: block;
+	cursor: pointer;
 }
 
 .registerbox .logintitle{
@@ -50,7 +51,7 @@
 	background: #fff;
 }
 
-.registerbox .reg_un,.registerbox .reg_pwd,.registerbox .reg_c_pwd,.registerbox .reg_btn{
+.registerbox .reg_un,.registerbox .reg_pwd,.registerbox .reg_c_pwd,.registerbox .reg_btn, .registerbox .reg_ni{
 	width: 70%;
 	margin: 30px auto;
 	position:relative;

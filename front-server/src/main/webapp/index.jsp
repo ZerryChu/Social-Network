@@ -89,6 +89,11 @@
 					<span class="holder">确认密码</span>
 					<div class="tip"></div>
 				</div>
+				<div class="reg_ni">
+					<input type="text" name="reg_nickname" id="reg_nickname" />
+					<span class="holder">昵称</span>
+					<div class="tip"></div>
+				</div>
 				<div class="reg_btn">
 					<button id="reg_btn">注&nbsp;&nbsp;&nbsp;册</button>
 				</div>
@@ -102,6 +107,7 @@
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 <script src="plugins/jquery.validate-1.13.1.js" type="text/javascript"></script>
 <script src="scripts/login.js" type="text/javascript"></script>
+<script src="scripts/reg.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(
 			function() {
@@ -114,5 +120,14 @@
 					userlogin(0);
 				}
 			});
+	
+	$(".reg_btn").click(function() {
+		// pwd 两个需先验证是否一致
+		var username = $(".reg_un input").val();
+		var password = $(".reg_pwd input").val();
+		var nickname = $(".reg_ni input").val();
+
+		reg(username, password, nickname);
+	});
 </script>
 </html>
