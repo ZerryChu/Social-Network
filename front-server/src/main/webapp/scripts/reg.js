@@ -12,12 +12,10 @@ function reg(un, pwd, ni) {
 		},
 		dataType : "json",
 		success : function(data) {
-
 			if (data.msg == "1") {
-				//show msg
-				alert("succeed");
+				$(".reg_success").slideDown();
 			} else {
-				//show msg
+				//
 				alert("fail");
 			}
 		}

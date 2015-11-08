@@ -26,27 +26,27 @@
 					<form id="form">
 						<div class="loginbox">
 							<div class="un">
-								<input type="text" name="username"/> <span class="holder">用户名</span>
+								<input type="text" name="username" /> <span class="holder">用户名</span>
 								<div class="tip"></div>
 							</div>
 							<!-- username -->
-							<div class="pwd">	
-								<input type="password" name="password" /> <span
-									class="holder">密码</span>
-									<div class="tip"></div>
+							<div class="pwd">
+								<input type="password" name="password" /> <span class="holder">密码</span>
+								<div class="tip"></div>
 							</div>
 							<!-- password -->
-							<div class="checknum">							
-								<input align="left" type="text" class="checknumText" name="checknum"style="width: 30%">
-								<span class="holder">验证码</span>
-								<img class="checknumPic" src="getChecknum"
-									alt="checknum" onClick="this.src='getChecknum?' + Math.random()" />
+							<div class="checknum">
+								<input align="left" type="text" class="checknumText"
+									name="checknum" style="width: 30%"> <span
+									class="holder">验证码</span> <img class="checknumPic"
+									src="getChecknum" alt="checknum"
+									onClick="this.src='getChecknum?' + Math.random()" />
 								<div class="patch"></div>
 								<div class="tip"></div>
 							</div>
 							<!-- 验证码 -->
 							<div class="sub">
-								<input type="button" value="登 录" id="login" onclick="userlogin(1)" />
+								<input type="button" value="登 录" id="login"/>
 								<div class="auto">
 									<a href="javascript:void(0);" id="checkbtn"></a><label>下次自动登录</label>
 								</div>
@@ -65,39 +65,39 @@
 		</div>
 		<div class="f"></div>
 	</div>
-	<div class="reg_wraper" style="display:none;">
-		<div class="reg_bg">
-		</div>
+	<div class="reg_wraper" style="display: none;">
+		<div class="reg_bg"></div>
 		<div class="registerbox">
 			<div class="logintitle">
 				<span>注&nbsp;&nbsp;册</span>
 				<div id="close"></div>
 			</div>
-		 	<form id="form_reg" autocomplete="off">
-		 		<div class="reg_un">
-		 			<input type="text" name="reg_name" id="reg_name"/>
-		 			<span class="holder">用户名</span>
+			<div style="display: none" class="reg_success">注册成功！</div>
+			<form id="form_reg" autocomplete="off">
+				<div class="reg_un">
+					<input type="text" name="reg_name" id="reg_name" /> <span
+						class="holder">用户名</span>
 					<div class="tip"></div>
-		 		</div>		 		
+				</div>
 				<div class="reg_pwd">
-					<input type="password" name="reg_pwd" id="reg_pwd" />
-					<span class="holder">密码</span>
+					<input type="password" name="reg_pwd" id="reg_pwd" /> <span
+						class="holder">密码</span>
 					<div class="tip"></div>
 				</div>
 				<div class="reg_c_pwd">
-					<input type="password" name="confir_reg_pwd"/>
-					<span class="holder">确认密码</span>
+					<input type="password" name="confir_reg_pwd" /> <span
+						class="holder">确认密码</span>
 					<div class="tip"></div>
 				</div>
 				<div class="reg_ni">
-					<input type="text" name="reg_nickname" id="reg_nickname" />
-					<span class="holder">昵称</span>
+					<input type="text" name="reg_nickname" id="reg_nickname" /> <span
+						class="holder">昵称</span>
 					<div class="tip"></div>
 				</div>
 				<div class="reg_btn">
-					<button id="reg_btn">注&nbsp;&nbsp;&nbsp;册</button>
+					<input type="button" value="注&nbsp;&nbsp;&nbsp;册" id="reg_btn"/>
 				</div>
-		 	</form>
+			</form>
 		</div>
 	</div>
 </body>
@@ -122,12 +122,14 @@
 			});
 	
 	$(".reg_btn").click(function() {
-		// pwd 两个需先验证是否一致
-		var username = $(".reg_un input").val();
-		var password = $(".reg_pwd input").val();
-		var nickname = $(".reg_ni input").val();
-
-		reg(username, password, nickname);
+		if($("#form_reg").valid()){
+			//$(".reg_success").slideUp(); 不好使
+			var username = $(".reg_un input").val();
+			var password = $(".reg_pwd input").val();
+			var nickname = $(".reg_ni input").val();
+	
+			reg(username, password, nickname);
+		}
 	});
 </script>
 </html>

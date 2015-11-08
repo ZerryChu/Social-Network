@@ -40,21 +40,55 @@
 	</ul>
 	<div class="options">
 		<form>
-			<input type="button" value="添加好友">
+			<input type="button" value="关注" onclick="">
+			<input type="button" value="取消关注" onclick="">
 		</form>
 	</div>
 </body>
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
-<script src="scripts/login.js" type="text/javascript"></script>
 <script src="scripts/showOwnmessages.js" type="text/javascript"></script>
 <script src="scripts/showTargetInfo.js" type="text/javascript"></script>
+<script src="scripts/show_friends.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		showTargetInfo();
+		showTargetInfo(1); //不缓存
+		judgeIfFriend(0);
 		var target = $.query.get("targetNickname");
-		showOwnmessages(target);
+		//showOwnmessages(target);
 	});
+	
+	function addFriend(_friendUsername, _group) {
+		$.ajax({
+			type : "post",
+			url : "user/addfriend",
+			data : {
+				username : $.query.get("username"),
+				userToken : $.query.get("userToken"),
+				friendUsername : _friendUsername,
+				group : _group
+			},
+			dataType : "json",
+			success : function(data) {
+				$.each(data, function() {
+					if (data.msg == 1) {
+						//...add content
+						alert("succeed");
+						
+						// 更新数据
+						showUserInfo(1, false);
+					} else {
+						//...tell fail
+						alert("fail");
+					}
+				});
+			}
+		});
+	} //关注
+	
+	function deleteFriend() {
+		
+	} //取消关注
 </script>
 </html>

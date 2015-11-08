@@ -117,6 +117,7 @@ $(".delete_msg").live('click', function() {
 		var message_id = $(this).parents("li").attr("id");
 		message_id = message_id.substr(6);
 		deleteOwnmessage(message_id);
-		showUserInfo(1);
+		showUserInfo(1, true);
 	}
 });
+

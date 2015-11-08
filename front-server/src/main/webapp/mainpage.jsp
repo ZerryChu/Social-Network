@@ -31,7 +31,7 @@
 					onerror="this.src='images/no_found.png'" onclick="" /> <br>
 				<img class="logout" src="images/sign-out.png" alt="sign-out" style="width:20px; height:20px;">
 				<ul class="user_account">
-					<li class="user_friend_text"><span id="friends_count" style="font-weight: bold;">好友：</span> <span
+					<li class="user_friend_text"><span id="friends_count" style="font-weight: bold;">粉丝：</span> <span
 						id="friend_num">0</span></li>
 					<li class="user_message_text"><span id="messages_count" style="font-weight: bold;">广播：</span> <span
 						id="message_num">0</span></li>
@@ -53,7 +53,7 @@
 				</ul>
 			</div>
 			<div id="friend_recommand">
-				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">好友推荐</div>
+				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">推荐收听</div>
 				<ul class="rec_content">
 					<li id="rec1"><span class="rec_nickname">nickname</span>
 						<span style="color: gray;">原因</span></li>
@@ -207,7 +207,7 @@
 					}
 				});
 			});
-			showUserInfo(0);
+			showUserInfo(0, true);
 			show_messages(1, 1);
 			showGroups(0);
 			setInterval("update()", 30000);
@@ -285,11 +285,6 @@
 			flag = 2;
 			pageNum = 1;
 			$(".pageNum").val(pageNum);
-		});
-		
-		$(".repostInfo").live('click', function() {
-			 var param = "username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&id=" + $(this).attr("id");
-			 window.open("message.jsp?" + param);
 		});
 		
 		$(".prePage").click(function() {

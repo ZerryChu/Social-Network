@@ -22,18 +22,20 @@
 	background-color: black;
 	opacity: 0.7;
 	position: absolute;
-	z-index: -1;
+	z-index: 1;
 }
 .reg_wraper .registerbox{
 	width: 25%;
 /*	height: 500px;*/
 	min-width: 400px;
-	margin: 100px auto;
+	margin: 50px auto;
 	background: #fff;
 	opacity: 1;
 /*	padding: 0px 20px 10px;*/
 	border: 1px solid #ccc;
 	border-radius: 5px;
+	position:relative;
+	z-index:2;
 }
 #close{
 	margin-top: 15px;
@@ -84,7 +86,7 @@
 	width: 100%;
 	position: fixed;
 /*	top: -100px;*/
-	z-index: -1;
+	z-index:-1;
 }
 
 .bg img{
@@ -184,7 +186,7 @@
 	margin-bottom: 20px;
 }
 /**/
-.loginbox div input,.registerbox input{
+.loginbox div input,.registerbox .reg_un input,.registerbox .reg_pwd input,.registerbox .reg_c_pwd input,.registerbox .reg_ni input{
 	width: 265px;
 	padding: 10px 5px;
 	height: 25px;
@@ -309,3 +311,6 @@
 	color: red;
 }
 
+.reg_success {
+	background-color: #fcffc3;
+}

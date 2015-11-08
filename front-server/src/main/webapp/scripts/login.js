@@ -26,7 +26,6 @@ function userlogin(flag) {
 				else */
 				if (data.msg != "0") {
 					//...add content
-					alert("succeed");
 					var forward = "window.location=\"main?username="
 							+ $(".un input").val() + "&userToken=" + data.msg
 							+ "\"";
@@ -142,12 +141,14 @@ $(document).ready(function(){
 	}).blur(function(){
 		$(".checknum div:last").removeClass("patchonfoc");	
 	});
+	
 	//复选框效果实现
-//	$("#login").click(function(){
-//		if($("#form").valid()){
-//			userlogin(1);
-//		}
-//	});
+	$("#login").click(function(){
+		if($("#form").valid()){
+			userlogin(1);
+		}
+	});
+	
 	$(".auto").click(function(){
 		var $check = $("#checkbtn");
 		if($check.hasClass("click")){
@@ -206,7 +207,7 @@ $(document).ready(function(){
 			},
 			reg_nickname:{
 				required:true,
-				reangelength:[4,10]
+				rangelength:[4,10]
 			}
 			//不允许符号
 		},

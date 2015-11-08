@@ -21,7 +21,7 @@ function send_messages() {
 					
 					// 更新数据
 					$(".message_content").val("")
-					showUserInfo(1);
+					showUserInfo(1, true);
 					var nickname = $("#nickname").text();
 					showOwnmessages(nickname, 1, 1, true);
 				} else {

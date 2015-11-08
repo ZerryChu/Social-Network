@@ -1,7 +1,7 @@
 /**
  * Created by zhuzirui on 10/11/15.
  */
-function showUserInfo(_flag) {
+function showUserInfo(_flag, ifshow) {
 	$.ajax({
 		type : "post",
 		url : "user/getinfo",
@@ -11,6 +11,8 @@ function showUserInfo(_flag) {
 		},
 		dataType : "json",
 		success : function(data) {
+			if(!ifshow)
+				return;
 			$.each(data, function() {
 				if (data.returndata != null) {
 					$("#nickname").text(data.returndata.nickname);

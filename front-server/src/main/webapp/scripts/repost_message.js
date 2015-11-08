@@ -19,7 +19,7 @@ function repost_message(_content, message_id) {
 					//...add content
 					alert("succeed");					
 					// 数据更新
-					showUserInfo(1);
+					showUserInfo(1, true);
 					var nickname = $("#nickname").text();
 					showOwnmessages(nickname, 1, 1, false);
 					var textarea = ".rptarea_" + message_id;
@@ -35,3 +35,8 @@ function repost_message(_content, message_id) {
 		}
 	});
 }
+
+$(".repostInfo").live('click', function() {
+	 var param = "username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&id=" + $(this).attr("id");
+	 window.open("message.jsp?" + param);
+});
