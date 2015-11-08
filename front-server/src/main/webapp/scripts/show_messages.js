@@ -32,6 +32,7 @@ function show_messages(pageNumber, _flag) {
 														data : {
 															nickname : targetNickname
 														},
+														async : false,
 														dataType : "json",
 														success : function(data) {
 															$
@@ -81,7 +82,7 @@ function show_messages(pageNumber, _flag) {
 														+ data.returndata[i].id
 														+ "\" name=\"\" style=\"height: 40px; width: 498px;\"></textarea><div class=\"repost_btn\"><button class=\"repost_button\">转发</button></div></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
 														+ data.returndata[i].id
-														+ "\" name=\"content\" style=\"width: 451px, height: 36px;\"></textarea><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"comment_button\">评论</button></div>"
+														+ "\" name=\"content\"></textarea><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"comment_button\">评论</button></div>"
 														+ "<ul class=\"otherCom\" id=\"comment_"
 														+ data.returndata[i].id
 														+ "\" style=\"\"></ul>"
@@ -153,12 +154,9 @@ function show_sourceMessage(id, _id, _flag) {
 						repostInfo.attr("id", id);
 						$(repostInfo)
 								.append(
-										"<div class=\"weibo_username\"><a href=\""
-												+ "userinfo.jsp?targetNickname="
+										"<div class=\"weibo_username\"><span style=\"color: #006a92;\">"
 												+ data.returndata.author
-												+ "\">"
-												+ data.returndata.author
-												+ "</a></div><div class=\"txt\">"
+												+ "</span></div><div class=\"txt\">"
 												+ data.returndata.content
 												+ "</div>"
 												+ "<div class=\"info\"><time class=\"timeago\" datetime=\""
@@ -169,8 +167,7 @@ function show_sourceMessage(id, _id, _flag) {
 												+ data.returndata.repost_times
 												+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>点赞(<span class=\"support_num\">"
 												+ data.returndata.support_times
-												+ "</span>)</span></span></div>"
-								);
+												+ "</span>)</span></span></div>");
 						$(".timeago").timeago();
 					}
 				}

@@ -2,10 +2,11 @@
  * Created by zhangfurui on 10/11/15.
  */
 function userlogin(flag) {
+	
 	var un = $(".un input").val();
 	var pwd = $(".pwd input").val();
 	var _checknum = $(".checknum input").val();
-	
+	$("#form").valid();
 	if(flag == 0) {
 	$.ajax({
 		type : "post",
@@ -51,7 +52,7 @@ function userlogin(flag) {
 				$.each(data, function() {
 					
 					if(data.msg == "-1") {
-						$(".checknum_returnmsg").text("验证码错误");
+						$(".checknum .tip").text("验证码错误");
 					}
 					else 
 					if (data.msg != "0") {
@@ -62,7 +63,7 @@ function userlogin(flag) {
 								+ "\"";
 						setTimeout(forward, 2000);
 					} else {
-						$(".pwd_returnmsg").text("密码错误");
+						$(".pwd .tip").text("密码错误");
 					}
 				});
 			}
@@ -71,21 +72,28 @@ function userlogin(flag) {
 }
 
 
-$(document).ready(function() {
+
+$(document).ready(function(){
 	// body...
 	//回车确认
 	// $(document).keydown(function(e){
 	// });
-	
+	//针对保存账号密码的bug处理
+	//bug！
+	$("#a").click(function(){
+		$("#form").valid();
+	});
 	if($("#username").val() != ""){
-	        $("#username").next().hide();
+		$("#username").next().hide();
 	}
 	if($("#pwd").val() != ""){
-	        $("#pwd").next().hide();
+		$("#pwd").next().hide();
 	}
-	
+
 	$(".holder").click(function(){
-		$(this).prev().focus();
+		 //if (!flag) {
+			$(this).prev().focus();
+		 //}
 	});
 
 	$("input").each(function(index){
@@ -116,12 +124,30 @@ $(document).ready(function() {
 			});
 		}
 	});
+	//注册
+	$(".register").click(function(){
+		$(".reg_wraper").show();
+	});
+	$("#close").click(function(){
+		$(this).parents(".reg_wraper").hide();
+	});
+	$("#reg_btn").hover(function(){
+		$(this).css("background-color","#8adf23");
+	},function(){
+		$(this).css("background-color","#7ec92c");
+	});
+
 	$(".checknum input").focus(function(){
 		$(".checknum div:last").addClass("patchonfoc");
 	}).blur(function(){
 		$(".checknum div:last").removeClass("patchonfoc");	
 	});
 	//复选框效果实现
+//	$("#login").click(function(){
+//		if($("#form").valid()){
+//			userlogin(1);
+//		}
+//	});
 	$(".auto").click(function(){
 		var $check = $("#checkbtn");
 		if($check.hasClass("click")){
@@ -130,7 +156,7 @@ $(document).ready(function() {
 			$check.addClass("click");
 		}
 	})
-
+	
 	$("#form").validate({
 		rules:{
 			username:{
@@ -160,7 +186,44 @@ $(document).ready(function() {
 		},
 		errorPlacement:function(error, element){
 			error.appendTo($(element).nextAll(".tip"));
+			// error.appendTo(".tip");
+//			error.appendTo("#sss")
 		}
 	});
+	$("#form_reg").validate({
+		rules:{
+			reg_name:{
+				required:true,
+				rangelength:[4,10]
+			},
+			reg_pwd:{
+				required:true,
+				rangelength:[4,10]
+			},
+			confir_reg_pwd:{
+				required:true,
+				equalTo:"#reg_pwd"
+			}
+		},
+		messages:{
+			reg_name:{
+				required:"请填写用户名",
+				rangelength:"用户名长度在4-10之间"
+			},
+			reg_pwd:{
+				required:"请填写密码",
+				rangelength:"密码长度在4-10之间"
+			},
+			confir_reg_pwd:{
+				required:"请确认密码",
+				equalTo:"两次输入密码不一致"
+			}
+		},
+		errorPlacement:function(error, element){
+			error.appendTo($(element).nextAll(".tip"));
+			// error.appendTo(".tip");
+		}
+	});
+
 });
 

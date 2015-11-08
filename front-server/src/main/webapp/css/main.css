@@ -3,6 +3,10 @@
 	padding: 0px;
 }
 
+body{
+    background-color: #73cff1;
+}
+
 .ad {
 	margin-top: 0px;
 	border-radius: 5px 0 0 0px;
@@ -16,13 +20,13 @@
 	padding-top: 10px;
 }
 
-.bg {
-	width: 100%;
-	height: 100%;
-	/*background: url(../image/bg1_m.jpg) repeat-y;*/
-	background-color: #70bdef;
-	position: fixed;
-	z-index: -1;
+.bg{
+    width: 100%;
+    height: 100%;
+    background: url(../images/bg1_m.jpg) center top no-repeat;
+    position: absolute;
+    top: 0px;
+    z-index: -1;
 }
 
 .top {
@@ -32,6 +36,8 @@
 	position: fixed;
 	top: 0;
 	left: 0;
+	z-index: 5;
+	opacity: 0.85;	
 }
 
 .top_content {
@@ -112,22 +118,24 @@
 	margin: 30px 3%;
 }
 
-#userinfo img {
-	width: 100px;
-	height: 100px;
-	margin-left: 25px;
+#user_icon {
+	width: 120px;
+	height: 120px;
+	margin-left: 10px;
+	margin-bottom: 30px;
 	border-top: 2px solid #adacae;
 	border-left: 2px solid #adacae;
 }
 
 #nickname {
-	font-size: 20px;
+	font-size: 25px;
 	float: right;
 	width: 100px;
 	text-align: center;
 	height: 27px;
 	line-height: 27px;
 	margin-right: 40px;
+	font-weight: bold;
 }
 
 #nickname a, .msgBox .username a {
@@ -147,6 +155,7 @@
 
 .comment, .repost, .support {
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .send_button {
@@ -203,6 +212,10 @@
 	padding-left: 50px;
 }
 
+.sub_title {
+	font-weight: bold;
+}
+
 #messages {
 	/*    height: 500px;*/
 	
@@ -253,6 +266,12 @@
 	padding: 0px 20px;
 }
 
+.weibo {
+	list-style: none;
+	padding: 0px 20%;
+	
+}
+
 .weibolist ul li {
 	padding: 10px 0;
 	border-bottom: 1px dashed #e4e4e4;
@@ -291,16 +310,6 @@
 	padding-left: 50px;
 }
 
-.username {
-	height: 25px;
-	/*    line-height: 30px;*/
-}
-
-.username a {
-	font-weight: bold;
-	font-size: 15px;
-}
-
 .msgBox .txt {
 	line-height: 30px;
 	font-size: 17px;
@@ -328,6 +337,10 @@
 	width: 98%;
 	height: 50px;
 	overflow-y: hidden;
+}
+
+.comment_button {
+	cursor: pointer;	
 }
 
 .msgBox .comment_btn {
@@ -363,6 +376,7 @@
 .otherCom {
 	border: 1px solid #dee3e3;
 	width: 460px;
+	list-style: none;
 }
 
 .otherCom .msgBox .txt {
@@ -422,12 +436,14 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 	cursor: pointer;
+	width: 440px;
 }
 
 .weibo_username a {
 	color: gray;
 	font-size: 18px;
 	text-decoration: none;
+	font-weight: bold;
 }
 
 .friend {

@@ -10,7 +10,7 @@
 <body>
 	<div class="bg"></div>
 	<div class="top">
-		<ul class="top_content">
+		<ul class="top_content" style="font-weight: bold;">
 			<li>首页</li>
 			<li>敬请期待</li>
 			<!--  at    好友    私信 -->
@@ -29,11 +29,11 @@
 				<div id="nickname"></div>
 				<img id="user_icon" src="pic/${param.username}.jpg"
 					onerror="this.src='images/no_found.png'" onclick="" /> <br>
-				<div class="logout" style="color: blue;">登出</div>
+				<img class="logout" src="images/sign-out.png" alt="sign-out" style="width:20px; height:20px;">
 				<ul class="user_account">
-					<li class="user_friend_text"><span id="friends_count">好友：</span> <span
+					<li class="user_friend_text"><span id="friends_count" style="font-weight: bold;">好友：</span> <span
 						id="friend_num">0</span></li>
-					<li class="user_message_text"><span id="messages_count">广播：</span> <span
+					<li class="user_message_text"><span id="messages_count" style="font-weight: bold;">广播：</span> <span
 						id="message_num">0</span></li>
 				</ul>
 			</div>
@@ -55,14 +55,14 @@
 			<div id="friend_recommand">
 				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">好友推荐</div>
 				<ul class="rec_content">
-					<li id="rec1"><span class="rec_nickname">nickname</span> <br>
-						<span>原因</span></li>
-					<li id="rec2"><span class="rec_nickname">nickname</span> <br>
-						<span>原因</span></li>
+					<li id="rec1"><span class="rec_nickname">nickname</span>
+						<span style="color: gray;">原因</span></li>
+					<li id="rec2"><span class="rec_nickname">nickname</span>
+						<span style="color: gray;">原因</span></li>
 				</ul>
 			</div>
 			<div id="chat">
-				<div class="chat_room" style="padding-left: 20px; font-size: 20px;">聊天室</div>
+				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">聊天室</div>
 				<ul class="group">
 					<!--
 					<li id="rec_1"><div class="cls1" onclick="">好友分组1</div><div class="friendlist></div><li>
@@ -72,6 +72,18 @@
 			</div>
 		</div>
 		<div class="left_content">
+			
+			<div class="post_message">
+				<form>
+					<h2 style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
+					<textarea class="message_content" name="content"></textarea>
+					<br> <select class="type" name="type">
+						<option value="2">暂无</option>
+						<option value="1" selected="selected">好友可见</option>
+					</select> <input class="send_button" type="button" value="推送广播"
+						onclick="send_messages();">
+				</form>
+			</div>
 			<div class="ad">
 				<div id="boxID">
 					<!--焦点图盒子-->
@@ -94,23 +106,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="post_message">
-				<form>
-					<h2 style="font-size: 20px; color: #999; padding-top: 10px;">说点什么吧~</h2>
-					<textarea class="message_content" name="content"></textarea>
-					<br> <select class="type" name="type">
-						<option value="2">暂无</option>
-						<option value="1" selected="selected">好友可见</option>
-					</select> <input class="send_button" type="button" value="推送广播"
-						onclick="send_messages();">
-				</form>
-			</div>
 			<div id="messages">
 				<div class="new_msg">您有未接受消息...请点击此处或者刷新页面接收</div>
 				<div class="messages_class">
 					<ul>
-						<li id="friend_messages" class="on">广播</li>
-						<li id="all_messages">公告</li>
+						<li id="friend_messages" class="on" style="font-weight: bold;">广播</li>
+						<li id="all_messages" style="font-weight: bold;">公告</li>
 						<li>敬请期待</li>
 					</ul>
 				</div>
@@ -147,7 +148,7 @@
 					</ul>
 				</div>
 			</div>
-		    <div class="getPageNum" align="center"><span class="prePage">上一页</span><span class="nextPage">下一页</span><form style="display: inline-block;">第<input style="width: 30px;" class="pageNum" type="number">页<input type="button" class="btn" value="跳转" onclick="goToPage()"></form></from></div>	
+		    <div class="getPageNum" align="center"><span style="font-weight: bold;" class="prePage">上一页</span><span style="font-weight: bold;" class="nextPage">下一页</span><form style="display: inline-block;">第<input style="width: 30px;" class="pageNum" type="number">页<input type="button" class="btn" value="跳转" onclick="goToPage()"></form></from></div>	
 		</div>
 	</div>
 
@@ -292,11 +293,14 @@
 		});
 		
 		$(".prePage").click(function() {
+			if (pageNum == 1)
+				return;
 			pageNum--;
-			if(pageNum < 1) {
+			if (pageNum < 1) {
 				pageNum = 1;
 			}
-			if(flag == 1)
+
+			if (flag == 1)
 				show_messages(pageNum, 1);
 			else {
 				var nickname = $("#nickname").text();
@@ -308,7 +312,7 @@
 		
 		$(".nextPage").click(function() {
 			pageNum++;
-			if(flag == 1)
+			if (flag == 1)
 				show_messages(pageNum, 1);
 			else {
 				var nickname = $("#nickname").text();
@@ -320,10 +324,10 @@
 		
 		function goToPage() {
 			var num = $(".pageNum").val();
-			if(num == "" || isNaN(num)) {
+			if (num == "" || isNaN(num)) {
 				return;
 			}
-			if(flag == 1)
+			if (flag == 1)
 				show_messages(num, 1);
 			else {
 				var nickname = $("#nickname").text();

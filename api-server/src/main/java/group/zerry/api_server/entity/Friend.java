@@ -4,6 +4,15 @@ public class Friend {
 	private String user_id;
 	private String friend_id;
 	private String groupname;
+	private boolean isOnLine;
+	
+	public boolean isOnLine() {
+		return isOnLine;
+	}
+	
+	public void setOnLine(boolean isOnLine) {
+		this.isOnLine = isOnLine;
+	}
 	
 	public String getUser_id() {
 		return user_id;

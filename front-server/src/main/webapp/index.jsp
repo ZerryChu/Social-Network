@@ -26,23 +26,23 @@
 					<form id="form">
 						<div class="loginbox">
 							<div class="un">
+								<input type="text" name="username"/> <span class="holder">用户名</span>
 								<div class="tip"></div>
-								<input type="text" name="username" /> <span class="holder">用户名</span>
 							</div>
 							<!-- username -->
-							<div class="pwd">
-								<div class="tip"></div>
+							<div class="pwd">	
 								<input type="password" name="password" /> <span
 									class="holder">密码</span>
+									<div class="tip"></div>
 							</div>
 							<!-- password -->
-							<div class="checknum">
-								<div class="tip"></div>
-								<input align="left" type="text" class="checknumText" style="width: 30%">
+							<div class="checknum">							
+								<input align="left" type="text" class="checknumText" name="checknum"style="width: 30%">
 								<span class="holder">验证码</span>
 								<img class="checknumPic" src="getChecknum"
 									alt="checknum" onClick="this.src='getChecknum?' + Math.random()" />
 								<div class="patch"></div>
+								<div class="tip"></div>
 							</div>
 							<!-- 验证码 -->
 							<div class="sub">
@@ -55,7 +55,7 @@
 					</form>
 					<div class="loginfooter">
 						<ul>
-							<li><a href="javascript:void(0);">立即注册</a></li>
+							<li><a href="javascript:void(0);" class="register">立即注册</a></li>
 							<li><a href="javascript:void(0);">忘记密码？</a></li>
 						</ul>
 					</div>
@@ -64,6 +64,36 @@
 			<!-- bodyright -->
 		</div>
 		<div class="f"></div>
+	</div>
+	<div class="reg_wraper" style="display:none;">
+		<div class="reg_bg">
+		</div>
+		<div class="registerbox">
+			<div class="logintitle">
+				<span>注&nbsp;&nbsp;册</span>
+				<div id="close"></div>
+			</div>
+		 	<form id="form_reg" autocomplete="off">
+		 		<div class="reg_un">
+		 			<input type="text" name="reg_name" id="reg_name"/>
+		 			<span class="holder">用户名</span>
+					<div class="tip"></div>
+		 		</div>		 		
+				<div class="reg_pwd">
+					<input type="password" name="reg_pwd" id="reg_pwd" />
+					<span class="holder">密码</span>
+					<div class="tip"></div>
+				</div>
+				<div class="reg_c_pwd">
+					<input type="password" name="confir_reg_pwd"/>
+					<span class="holder">确认密码</span>
+					<div class="tip"></div>
+				</div>
+				<div class="reg_btn">
+					<button id="reg_btn">注&nbsp;&nbsp;&nbsp;册</button>
+				</div>
+		 	</form>
+		</div>
 	</div>
 </body>
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>

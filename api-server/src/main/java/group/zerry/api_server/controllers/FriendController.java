@@ -11,13 +11,14 @@ import com.alibaba.fastjson.JSON;
 import group.zerry.api_server.annotation.AuthPass;
 import group.zerry.api_server.enumtypes.FriendStatusEnum;
 import group.zerry.api_server.service.FriendService;
+import group.zerry.api_server.utils.CacheTools;
 
 @Controller
 @RequestMapping("/friend")
 public class FriendController {
 	
 	@Autowired
-	FriendService friendService;
+	FriendService  friendService;
 	
 	private Logger logger = Logger.getLogger(FriendController.class);
 

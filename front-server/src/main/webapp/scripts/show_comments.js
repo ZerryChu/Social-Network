@@ -95,8 +95,10 @@ function show_comments(message_id, pageNumber, _flag) {
 function cmt_prePage(message_id) {
 	var target = "#comment_" + message_id;
 	pageNum = $(target).find(".pageNum").text();
+	if (pageNum == 1)
+		return;
 	pageNum--;
-	if(pageNum < 1) {
+	if (pageNum < 1) {
 		pageNum = 1;
 	}
 	show_comments(message_id, pageNum, 1);
