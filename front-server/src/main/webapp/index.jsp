@@ -123,7 +123,7 @@
 	
 	$(".reg_btn").click(function() {
 		if($("#form_reg").valid()){
-			//$(".reg_success").slideUp(); 不好使
+			$(".reg_success").css("display", "none");
 			var username = $(".reg_un input").val();
 			var password = $(".reg_pwd input").val();
 			var nickname = $(".reg_ni input").val();

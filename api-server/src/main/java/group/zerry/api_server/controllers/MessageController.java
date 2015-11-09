@@ -138,6 +138,13 @@ public class MessageController {
 		return regMsg.toString();
 	}
 	
+	/**
+	 * @content 点赞
+	 * @param   username
+	 * @param   userToken
+	 * @param   id
+	 * @return
+	 */
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/support", produces = "text/html;charset=UTF-8")
@@ -149,6 +156,13 @@ public class MessageController {
 		return regMsg.toString();
 	}
 
+	/**
+	 * @content 取消点赞
+	 * @param   username
+	 * @param   userToken
+	 * @param   id
+	 * @return
+	 */
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/_support", produces = "text/html;charset=UTF-8")
@@ -161,8 +175,8 @@ public class MessageController {
 	}
 	
 	/**
-	 * 获取目标对象发的微博
-	 * @分页 pagesize=10
+	 * 获取目好友发的微博
+	 * @每页显示的页数： pagesize=10
 	 * @return
 	 */
 	@ResponseBody
@@ -224,11 +238,12 @@ public class MessageController {
 		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
+	
 	/**
-	 * 
-	 * @param username
-	 * @param id
-	 * @return 1: 允许点赞 0: 不允许点赞
+	 * @content 判断是否允许点赞（用户只可对单个微博点赞一次）
+	 * @param   username
+	 * @param   id
+	 * @return  1: 允许点赞 0: 不允许点赞
 	 */
 	@AuthPass
 	@ResponseBody

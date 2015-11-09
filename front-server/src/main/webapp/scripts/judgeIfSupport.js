@@ -1,6 +1,7 @@
 /**
- * @author zerrychu
- * @time 2015.10.23
+ * @content 判断是否可以进行点赞（一个用户对单条微博只可以点赞一次）
+ * @author  zerrychu
+ * @time    2015.10.23
  */
 function judgeIfSupport(message_id, _flag) {
 	$.ajax({
@@ -35,7 +36,12 @@ function judgeIfSupport(message_id, _flag) {
 }
 
 
-//把部分代码替换成judge if support
+/**
+ * 
+ * @content 点赞相关操作
+ * @param   message_id
+ * @param   flag  1： 取消点赞  0： 点赞
+ */
 function support(message_id, flag) {
 	if (flag == 1) {
 		$.ajax({

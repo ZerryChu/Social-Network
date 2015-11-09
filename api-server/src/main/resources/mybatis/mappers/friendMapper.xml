@@ -8,8 +8,12 @@
 		<result property="user_id" column="user_id" />
 		<result property="friend_id" column="friend_id" />
 		<result property="group_id" column="group_id" />
-
 	</resultMap>
+
+	<resultMap id="CountMap" type="Count">
+		<result property="number" column="number" />
+	</resultMap>
+
 
 	<select id="selectFriendsByNickname" parameterType="string"
 		resultType="Friend">
@@ -42,7 +46,8 @@
 		WHERE
 		username = #{0}
 		AND user_id = id
-		AND groupname = #{1}
+		AND groupname =
+		#{1}
 		)
 	</select>
 
@@ -57,5 +62,15 @@
 		username =
 		#{0}
 		AND user_id = id
+	</select>
+
+	<select id="judgeIfFriendsOrNot" resultType="Count">
+		SELECT
+		COUNT(*) as number
+		FROM
+		friend
+		WHERE
+		user_id = #{0}
+		AND friend_id = #{1}
 	</select>
 </mapper>

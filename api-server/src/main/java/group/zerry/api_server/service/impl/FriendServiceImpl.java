@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import group.zerry.api_server.dao.FriendDao;
+import group.zerry.api_server.dao.UserDao;
+import group.zerry.api_server.entity.Count;
 import group.zerry.api_server.entity.Friend;
 import group.zerry.api_server.entity.Message;
+import group.zerry.api_server.entity.User;
 import group.zerry.api_server.service.FriendService;
 import group.zerry.api_server.utils.CacheTools;
 
@@ -16,8 +19,10 @@ import group.zerry.api_server.utils.CacheTools;
 public class FriendServiceImpl implements FriendService {
 
 	@Autowired
-	FriendDao friendDao;
+	FriendDao  friendDao;
 
+	@Autowired
+	UserDao    userDao;
 	@Autowired
 	CacheTools cacheTools;
 
@@ -64,6 +69,19 @@ public class FriendServiceImpl implements FriendService {
 			logger.error(e.getMessage());
 			return null;
 		}
+	}
+
+	// 判断双方是否好友关系
+	@Override
+	public boolean judgeIfFriendsOrNot(String username, String targetUsername) {
+		// TODO Auto-generated method stub
+		System.out.println(username + targetUsername);
+		User user = userDao.selectUserByUsername(username);
+		User target = userDao.selectUserByUsername(targetUsername);
+		if(friendDao.judgeIfFriendsOrNot(user.getId(), target.getId()).getNumber() > 0)
+			return true;
+		else
+			return false;
 	}
 
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ * @content 转发微博
  */
 function repost_message(_content, message_id) {
 	$.ajax({
@@ -18,7 +18,7 @@ function repost_message(_content, message_id) {
 				if (data.msg == 1) {
 					//...add content
 					alert("succeed");					
-					// 数据更新
+					// 页面数据更新
 					showUserInfo(1, true);
 					var nickname = $("#nickname").text();
 					showOwnmessages(nickname, 1, 1, false);

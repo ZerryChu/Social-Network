@@ -1,5 +1,10 @@
-/**
+/*
  * Created by zhuzirui on 10/12/15.
+ */
+
+
+/**
+ * @content 评论微博
  */
 function send_comment(message_id, comment_content) {
 	$.ajax({

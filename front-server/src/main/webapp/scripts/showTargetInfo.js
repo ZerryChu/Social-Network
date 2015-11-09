@@ -17,6 +17,7 @@ function showTargetInfo(_flag) {
                 	$(".age div").text(data.returndata.age);
                 	$(".habit div").text(data.returndata.habit);
             		$("img").attr("src", "pic/" + data.returndata.username + ".jpg");
+            		judgeIfFriend($(".targetUsername div").text(), 0); //判断是否可以点赞
                 } else {
                 	$(".targetUsername div").text("null");
                 	$(".targetNickname div").text("null");
@@ -30,4 +31,3 @@ function showTargetInfo(_flag) {
         }
     });
 }
-//{"returnmsg":"{"age":20,"habit":"旅游、打各种球、编程","nickname":"zerrychu","type":2}"}

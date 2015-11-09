@@ -1,11 +1,14 @@
 /**
  * 
  */
-
 function searchUsersByNickname(nickname) {
 	
 }
 
+/**
+ * @content 首页条按内容搜索微博功能
+ * @param   search_content
+ */
 function searchMessagesByContent(search_content) {
 	alert(search_content);
 	$
@@ -26,34 +29,6 @@ function searchMessagesByContent(search_content) {
 								while (data.returndata[i] != undefined) {
 									$("#weibo")
 											.append(
-													/*
-													 * "<li
-													 * id=\"weibo_" +
-													 * data.returndata[i].id +
-													 * "\"><br><img
-													 * class=\"weibo_icon\"
-													 * src=\"pic/" +
-													 * $.query
-													 * .get("username") +
-													 * ".jpg\"
-													 * onerror=\"javascript:this.src='images/no_user_icon.png'\">" + "<span
-													 * class=\"weibo_name\">" +
-													 * data.returndata[i].author + "</span><span
-													 * class=\"create_time\">" +
-													 * data.returndata[i].create_time + "</span><br><span
-													 * class=\"content\">" +
-													 * data.returndata[i].content + "</span><br>转发<span
-													 * class=\"repost_times\">" +
-													 * data.returndata[i].repost_times + "</span>评论<span
-													 * class=\"comment_times\">" +
-													 * data.returndata[i].comment_times + "</span>赞<span
-													 * class=\"support_times\">" +
-													 * data.returndata[i].support_times //
-													 * 获取评论模块 + "</span><div
-													 * id=\"comment_" +
-													 * data.returndata[i].id +
-													 * "\"></div>" + "</li>");
-													 */
 													"<li id=\"weibo_"
 															+ data.returndata[i].id
 															+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><a href=\"javascript:void(0);\"><img src=\"\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"username\"><a href=\"javascript:void(0);\">"

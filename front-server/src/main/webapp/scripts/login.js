@@ -56,7 +56,6 @@ function userlogin(flag) {
 					else 
 					if (data.msg != "0") {
 						//...add content
-						alert("succeed");
 						var forward = "window.location=\"main?username="
 								+ $(".un input").val() + "&userToken=" + data.msg
 								+ "\"";

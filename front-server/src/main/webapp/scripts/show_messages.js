@@ -1,6 +1,7 @@
-/**
+/*
  * Created by zhuzirui on 10/12/15.
  */
+
 // flag ：0 缓存show 1 非缓存show
 function show_messages(pageNumber, _flag) {
 	$
@@ -48,7 +49,9 @@ function show_messages(pageNumber, _flag) {
 											var message = "<li  class=\"weibo_message\" id=\"weibo_"
 													+ data.returndata[i].id
 													+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><a href=\""
-													+ "userinfo.jsp?targetNickname="
+													+ "userinfo.jsp?username="
+													+ $.query.get("username")
+													+ "&targetNickname="
 													+ data.returndata[i].author
 													+ "\"><img src=\""
 													+ "pic/"
@@ -60,7 +63,7 @@ function show_messages(pageNumber, _flag) {
 													+ "\">"
 													+ data.returndata[i].author
 													+ "</a></div><div class=\"txt\">";
-											if (data.returndata[i].type == 2) {
+											if (data.returndata[i].type == 2) { // 属于转发的微博
 												var content = data.returndata[i].content;
 												var authorWords = content
 														.substr(0, content
@@ -91,7 +94,7 @@ function show_messages(pageNumber, _flag) {
 												show_sourceMessage(id,
 														data.returndata[i].id,
 														1);
-											} else {
+											} else { //原创微博
 												message += data.returndata[i].content
 														+ "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
 														+ data.returndata[i].create_time
@@ -127,12 +130,10 @@ function show_messages(pageNumber, _flag) {
 }
 
 /**
- * 
- * @param id
- *            原微博id
- * @param _id
- *            转发者id
- * @param _flag
+ * @content       显示指定的被转发的微博 
+ * @param id      原微博id
+ * @param _id     转发者id
+ * @param _flag   是否缓存
  */
 function show_sourceMessage(id, _id, _flag) {
 	$

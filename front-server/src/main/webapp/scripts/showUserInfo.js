@@ -32,4 +32,3 @@ function showUserInfo(_flag, ifshow) {
 		}
 	});
 }
-//{"returnmsg":"{"age":20,"habit":"旅游、打各种球、编程","nickname":"zerrychu","type":2}"}

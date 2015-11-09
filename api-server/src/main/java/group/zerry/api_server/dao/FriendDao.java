@@ -1,5 +1,6 @@
 package group.zerry.api_server.dao;
 
+import group.zerry.api_server.entity.Count;
 import group.zerry.api_server.entity.Friend;
 
 public interface FriendDao {
@@ -8,5 +9,6 @@ public interface FriendDao {
 	public String[] selectFriendsByGroupname(String username, String group);
 	
 	public String[] selectGroupsByUsername(String username);
-	
+
+	public Count    judgeIfFriendsOrNot(int userId, int targetUserId);
 }

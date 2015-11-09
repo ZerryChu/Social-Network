@@ -37,6 +37,11 @@
 	position:relative;
 	z-index:2;
 }
+
+.reg_success {
+	padding-left: 50px;
+}
+
 #close{
 	margin-top: 15px;
 	float: right;

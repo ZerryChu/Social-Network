@@ -1,5 +1,9 @@
-/**
+/*
  * Created by zhuzirui on 10/12/15.
+ */
+
+/**
+ * @content 删除评论
  */
 function delete_comment(comment_id, _nickname, _message_id) {
 	var ret = confirm("确认删除?");

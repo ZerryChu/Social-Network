@@ -1,5 +1,9 @@
-/**
+/*
  * Created by zhuzirui on 10/12/15.
+ */
+
+/**
+ * @content 发送微博
  */
 function send_messages() {
 	$.ajax({
@@ -16,8 +20,7 @@ function send_messages() {
 		success : function(data) {
 			$.each(data, function() {
 				if (data.msg == 1) {
-					//...add content
-					alert("succeed");
+					//...是否需要在页面显示反馈信息？
 					
 					// 更新数据
 					$(".message_content").val("")

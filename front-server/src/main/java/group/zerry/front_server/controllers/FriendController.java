@@ -73,4 +73,38 @@ public class FriendController {
 		}
 	}
 	
+	/**
+	 * @return 1: 双方是朋友 0: 双方不是朋友
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/iffriends", produces = "text/html;charset=UTF-8")
+	public String judgeIfFriendsOrNot(HttpServletRequest request, HttpServletResponse response, String username, String targetUsername, int flag) throws UnsupportedEncodingException {
+		String cookieName = "ifFriend_" + targetUsername;
+		if (flag == 0) {
+			Cookie cookie;
+			if (null == (cookie = cookiesData.getCookie(request, URLEncoder.encode(cookieName, "UTF-8")))) {
+				boolean returnMsg = friendService.judgeIfFriendsOrNot(username, targetUsername);
+				if(returnMsg == true) {
+					cookiesData.save(request, response, URLEncoder.encode(cookieName, "UTF-8"), "1");
+					return "1";
+				} else {
+					cookiesData.save(request, response, URLEncoder.encode(cookieName, "UTF-8"), "0");
+					return "0";
+				}
+			} else {
+				String returnMsg = cookie.getValue();
+				return returnMsg;
+			}
+		} // 无更新查询
+		else {
+			boolean returnMsg = friendService.judgeIfFriendsOrNot(username, targetUsername);
+			if(returnMsg == true) {
+				cookiesData.save(request, response, URLEncoder.encode(cookieName, "UTF-8"), "1");
+				return "1";
+			} else {
+				cookiesData.save(request, response, URLEncoder.encode(cookieName, "UTF-8"), "0");
+				return "0";
+			}
+		}
+	}
 }

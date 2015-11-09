@@ -63,4 +63,18 @@ public class FriendController {
 		//暂时无逻辑代码
 		return "{returnmsg: 1}";
 	}
+	
+	/**
+	 * @content 判断两者是否好友关系
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/iffriends", produces = "text/html;charset=UTF-8")
+	public String judgeIfFriendsOrNot(String username, String targetUsername) {
+		if(true == friendService.judgeIfFriendsOrNot(username, targetUsername)) {
+			return "{returnmsg: 1}";
+		} else {
+			return "{returnmsg: 0}";
+		}
+	}
+	
 }

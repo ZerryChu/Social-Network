@@ -74,7 +74,6 @@ public class UserController {
 	
 	/*
 	 * type: 1 普通用户 2 管理员
-	 * 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/reg", produces = "text/html;charset=UTF-8")

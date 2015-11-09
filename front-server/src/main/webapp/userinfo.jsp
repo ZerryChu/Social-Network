@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${param.targetNickname}</title>
+<title>targetinfo</title>
 </head>
 <body>
 	<div class="userinfo">
@@ -38,10 +38,10 @@
 	</div>
 	<ul id="weibo">
 	</ul>
-	<div class="options">
-		<form>
-			<input type="button" value="关注" onclick="">
-			<input type="button" value="取消关注" onclick="">
+	<div>
+		<form class="options">
+			<input type="button" id="focus" value="关注" onclick="">
+			<input type="button" id="unfocus" value="取消关注" onclick="deleteFriend()">
 		</form>
 	</div>
 </body>
@@ -54,9 +54,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		showTargetInfo(1); //不缓存
-		judgeIfFriend(0);
-		var target = $.query.get("targetNickname");
-		//showOwnmessages(target);
 	});
 	
 	function addFriend(_friendUsername, _group) {
@@ -75,7 +72,7 @@
 					if (data.msg == 1) {
 						//...add content
 						alert("succeed");
-						
+						judgeIfFriend(_friendUsername, 1);
 						// 更新数据
 						showUserInfo(1, false);
 					} else {
@@ -87,8 +84,9 @@
 		});
 	} //关注
 	
-	function deleteFriend() {
-		
+	function deleteFriend(_friendUsername) {
+		_friendUsername = $(".targetUsername div").text();
+		//...
 	} //取消关注
 </script>
 </html>

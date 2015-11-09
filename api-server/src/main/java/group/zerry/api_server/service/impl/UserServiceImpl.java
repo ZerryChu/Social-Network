@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	//待考量：优化Dao层及数据库
 	@Override
 	public UserStatusEnum addFriend(String username, String friendUsername, String group) {
 		// TODO Auto-generated method stub
@@ -75,7 +74,7 @@ public class UserServiceImpl implements UserService {
 		else {
 			try {
 				userDao.addFriend(user1.getId(), user2.getId(), group);
-				userDao.addFriend(user2.getId(), user1.getId(), group);
+				//userDao.addFriend(user2.getId(), user1.getId(), group);
 			} catch (Exception e) {
 				return UserStatusEnum.AFE;
 			}

@@ -1,7 +1,7 @@
 /**
+ * 上传文件至本地
  * Created by zhuzirui on 10/13/15.
  */
-
 function ajaxFileUpload() {
 	$.ajaxFileUpload({
 		url : 'user/insert_icon', //用于文件上传的服务器端请求地址
@@ -15,7 +15,7 @@ function ajaxFileUpload() {
 		dataType : 'json', //返回值类型 一般设置为json
 		success : function(data, status) //服务器成功响应处理函数
 		{
-			$("#upload_success").show();
+			$("#upload_success").show(); //check
 			if (typeof (data.error) != 'undefined') {
 				if (data.error != '') {
 					alert(data.error);

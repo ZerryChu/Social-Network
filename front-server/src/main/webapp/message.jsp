@@ -186,6 +186,11 @@
 			send_comment(message_id, content);
 			$(comarea).val(""); // 清空输入框
 		}); //发送评论
+		
+		// 显示好友分组
+		function showGroupList() {
+			
+		}
 	</script>
 </body>
 </html>

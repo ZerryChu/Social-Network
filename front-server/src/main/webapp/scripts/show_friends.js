@@ -1,5 +1,5 @@
 /**
- * 
+ * @content 显示用户分组
  */
 function showGroups(_flag) {
 	$
@@ -38,6 +38,12 @@ function showGroups(_flag) {
 			});
 }
 
+/**
+ * @content 显示当前分组下的在线好友
+ * @param   rec_id
+ * @param   _group
+ * @param   _flag
+ */
 function showFriends(rec_id, _group, _flag) {
 	$.ajax({
 		type : "post",
@@ -63,4 +69,30 @@ function showFriends(rec_id, _group, _flag) {
 function openFriendList(i) {
 	var li = "#rec_" + i;
 	$(li).find(".friend_list").slideToggle();
+}
+
+/**
+ * @content 判断目标用户是否已被关注
+ */
+function judgeIfFriend(TargetUsername, _flag) {
+	$.ajax({
+		type : "post",
+		url : "friend/iffriends",
+		data : {
+			username : $.query.get("username"),
+			targetUsername : TargetUsername,
+			flag : _flag
+		},
+		//dataType : "json",
+		success : function(data) {
+			var i = 0;
+			if (data == "1") {
+				$("#focus").attr("disabled", false);
+				$("#unfocus").attr("disabled", true);
+			} else {
+				$("#focus").attr("disabled", true);
+				$("#unfocus").attr("disabled", false);
+			}
+		}
+	});
 }

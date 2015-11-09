@@ -1,12 +1,15 @@
-/**
+/*
  * Created by zhuzirui on 10/13/15.
  * 
- * @param: _flag : true 使用缓存 ifShow ：true 显示用户信息页面
  */
+
 var userNickname; // 当前登录用户的昵称
+/**
+ *  @param: _flag : true 使用缓存 
+ *  ifShow ：true 显示用户信息页面 false 不显示，仅更新cookies
+ */
 function showOwnmessages(target, pageNumber, _flag, ifShow) {
 	userNickname = target;
-
 	$
 			.ajax({
 				url : 'message/show_ownmessages', // 用于文件上传的服务器端请求地址
@@ -87,6 +90,10 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 			});
 }
 
+/**
+ * @content 删除用户发出的微博
+ * @param   message_id
+ */
 function deleteOwnmessage(message_id) {
 	$.ajax({
 		url : 'message/delete', // 用于文件上传的服务器端请求地址

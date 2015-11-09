@@ -59,4 +59,18 @@ public class FriendServiceImpl implements FriendService{
 			return false;
 	}
 
+	@Override
+	public boolean judgeIfFriendsOrNot(String username, String targetUsername) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "friend/iffriends";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("targetUsername", targetUsername);
+		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchUrlTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		if (returnMsgDto.getReturnMsg().trim().equals("1")) {
+			return true;
+		} else
+			return false;
+	}
+
 }

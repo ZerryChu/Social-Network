@@ -1,6 +1,10 @@
-/**
+/*
  * Created by zhuzirui on 10/13/15.
  */
+
+ /**
+  * @content 接收系统公告（管理员发的微博）
+  */
 function show_announcements(_flag) {
 	$
 			.ajax({

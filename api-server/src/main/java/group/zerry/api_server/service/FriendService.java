@@ -5,4 +5,5 @@ public interface FriendService {
 	
 	public String[] showGroupsByUsername(String username);
 		
+	public boolean  judgeIfFriendsOrNot(String username, String targetUsername);
 }
