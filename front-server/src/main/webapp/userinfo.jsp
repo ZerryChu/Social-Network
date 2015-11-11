@@ -6,6 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>targetinfo</title>
 </head>
+<style type="text/css">
+	#focus, #unfocus {
+		width: 70px;
+	}
+</style>
 <body>
 	<div class="userinfo">
 		<img style="width:100px; height:100px;"src="" onerror="this.src='images/no_found.png'">
@@ -40,7 +45,7 @@
 	</ul>
 	<div>
 		<form class="options">
-			<input type="button" id="focus" value="关注" onclick="">
+			<input type="button" id="focus" value="关注" onclick="openFriendList()">
 			<input type="button" id="unfocus" value="取消关注" onclick="deleteFriend()">
 		</form>
 	</div>
@@ -51,10 +56,17 @@
 <script src="scripts/showOwnmessages.js" type="text/javascript"></script>
 <script src="scripts/showTargetInfo.js" type="text/javascript"></script>
 <script src="scripts/show_friends.js" type="text/javascript"></script>
+<script src="scripts/QQFace.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		showTargetInfo(1); //不缓存
 	});
+	
+	function openFriendList() {
+		//$(li).find(".friend_list").slideToggle();
+		addFriend($(".targetUsername div").text(), "normal"); /*测试接口*/
+	}
 	
 	function addFriend(_friendUsername, _group) {
 		$.ajax({

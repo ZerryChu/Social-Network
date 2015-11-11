@@ -19,14 +19,20 @@ function judgeIfSupport(message_id, _flag) {
 				if (data.msg == 1) {
 					//可点赞
 					var message = "#weibo_" + message_id;
-					$(message).find(".zan").attr("src", "images/2.png");
+					var zan = $(message).find(".zan");
+					zan.hide();
+					zan.attr("src", "images/2.png");
+					zan.fadeIn();
 					var val = "support(" + message_id + ", 0);"; // 点赞
 					$(message).find(".zan").attr("onclick", val);
 				} else {
 					//不可点赞
 					//alert("不可以点赞");
 					var message = "#weibo_" + message_id;
-					$(message).find(".zan").attr("src", "images/1.png"); // 红色的赞
+					var zan = $(message).find(".zan");
+					zan.hide();
+					zan.attr("src", "images/1.png");
+					zan.fadeIn(); // 红色的赞
 					var val = "support(" + message_id + ", 1);"; // 取消点赞
 					$(message).find(".zan").attr("onclick", val);
 				}

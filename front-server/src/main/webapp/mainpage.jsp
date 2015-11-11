@@ -6,6 +6,40 @@
 <meta charset="UTF-8">
 <title>主页</title>
 <link rel="stylesheet" type="text/css" href="css/main.css">
+<style type="text/css">
+
+.msg_emotion, .cmt_emotion, .rpt_emotion {
+	width: 42px;
+	height: 20px;
+	background: url(face/icon.gif) no-repeat 2px 2px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 3px;	
+	cursor: pointer
+}
+
+.msg_emotion:hover, .cmt_emotion:hover, .rpt_emotion:hover {
+	background-position: 2px -28px
+}
+
+.qqFace {
+	margin-top: 4px;
+}
+
+.qqFace table td {
+	padding: 0px;
+}
+
+.qqFace table td img {
+	cursor: pointer;
+	border: 1px #fff solid;
+}
+
+.qqFace table td img:hover {
+	border: 1px #0066cc solid;
+}
+
+</style>
 </head>
 <body>
 	<div class="bg"></div>
@@ -28,13 +62,14 @@
 			<div id="userinfo">
 				<div id="nickname"></div>
 				<img id="user_icon" src="pic/${param.username}.jpg"
-					onerror="this.src='images/no_found.png'" onclick="" /> <br>
-				<img class="logout" src="images/sign-out.png" alt="sign-out" style="width:20px; height:20px;">
+					onerror="this.src='images/no_found.png'" onclick="" /> <br> <img
+					class="logout" src="images/sign-out.png" alt="sign-out"
+					style="width: 20px; height: 20px;">
 				<ul class="user_account">
-					<li class="user_friend_text"><span id="friends_count" style="font-weight: bold;">粉丝：</span> <span
-						id="friend_num">0</span></li>
-					<li class="user_message_text"><span id="messages_count" style="font-weight: bold;">广播：</span> <span
-						id="message_num">0</span></li>
+					<li class="user_friend_text"><span id="friends_count"
+						style="font-weight: bold;">粉丝：</span> <span id="friend_num">0</span></li>
+					<li class="user_message_text"><span id="messages_count"
+						style="font-weight: bold;">广播：</span> <span id="message_num">0</span></li>
 				</ul>
 			</div>
 			<div id="heated_topic">
@@ -55,10 +90,10 @@
 			<div id="friend_recommand">
 				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">推荐收听</div>
 				<ul class="rec_content">
-					<li id="rec1"><span class="rec_nickname">nickname</span>
-						<span style="color: gray;">原因</span></li>
-					<li id="rec2"><span class="rec_nickname">nickname</span>
-						<span style="color: gray;">原因</span></li>
+					<li id="rec1"><span class="rec_nickname">nickname</span> <span
+						style="color: gray;">原因</span></li>
+					<li id="rec2"><span class="rec_nickname">nickname</span> <span
+						style="color: gray;">原因</span></li>
 				</ul>
 			</div>
 			<div id="chat">
@@ -72,16 +107,18 @@
 			</div>
 		</div>
 		<div class="left_content">
-			
+
 			<div class="post_message">
 				<form>
-					<h2 style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
-					<textarea class="message_content" name="content"></textarea>
-					<br> <select class="type" name="type">
+					<h2
+						style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
+					<textarea class="message_content" id="content" name="content"></textarea>
+					<br> <span id="msg_emotion" class="msg_emotion"></span>
+					<select class="type" name="type">
 						<option value="2">暂无</option>
 						<option value="1" selected="selected">好友可见</option>
-					</select> <input class="send_button" type="button" value="推送广播"
-						onclick="send_messages();">
+					</select> <input style="float: right;" class="send_button"
+						type="button" value="推送广播" onclick="send_messages();">
 				</form>
 			</div>
 			<div class="ad">
@@ -148,7 +185,15 @@
 					</ul>
 				</div>
 			</div>
-		    <div class="getPageNum" align="center"><span style="font-weight: bold;" class="prePage">上一页</span><span style="font-weight: bold;" class="nextPage">下一页</span><form style="display: inline-block;">第<input style="width: 30px;" class="pageNum" type="number">页<input type="button" class="btn" value="跳转" onclick="goToPage()"></form></from></div>	
+			<div class="getPageNum" align="center">
+				<span style="font-weight: bold;" class="prePage">上一页</span><span
+					style="font-weight: bold;" class="nextPage">下一页</span>
+				<form style="display: inline-block;">
+					第<input style="width: 30px;" class="pageNum" type="number">页<input
+						type="button" class="btn" value="跳转" onclick="goToPage()">
+				</form>
+				</from>
+			</div>
 		</div>
 	</div>
 
@@ -170,6 +215,8 @@
 	<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
 	<script src="scripts/search.js" type="text/javascript"></script>
 	<script src="scripts/update.js" type="text/javascript"></script>
+	<script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
+	<script src="scripts/QQFace.js" type="text/javascript"></script>
 	<script type="text/javascript" src="plugins/setHomeSetFav.js"></script>
 	<script type="text/javascript" src="plugins/myfocus-2.0.1.min.js"
 		charset="utf-8"></script>
@@ -184,15 +231,26 @@
 			height : 120,//设置图片区域高度(像素)
 			txtHeight : 'default'//文字层高度设置(像素),'default'为默认高度，0为隐藏
 		});
+
 	</script>
 	<script type="text/javascript">
 		//$('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
-		
+
 		var flag = 1; // 1: 微博跳转 2: 用户自己发得微博的跳转
 		var pageNum = 1;
 
 		$(document).ready(function() {
+			/////////////      表情包        /////////////////////////////////////////////////////////////
+			
+			$(function() {
+				$('#msg_emotion').qqFace({
+					assign : '#content', //给输入框赋值 
+					path : 'face/' //表情图片存放的路径 
+				});
 
+			});
+			//////////////////////////////////////////////////////////////////////////////////////////
+			
 			$(".messages_class li").each(function(index) {
 				var $this = $(this);
 				$this.hover(function() {
@@ -233,13 +291,12 @@
 			} else {
 				comtxt.slideToggle();
 			}
-
 		}); // 查看评论
-		
+
 		$(".repost").live('click', function() {
 			$(this).parents("li").find(".rpt").slideToggle();
 		});
-		
+
 		$(".repost_button").live('click', function() {
 			var message_id = $(this).parents("li").attr("id");
 			message_id = message_id.substr(6);
@@ -248,7 +305,7 @@
 			repost_message(content, message_id);
 			$(textarea).val("");
 		}); // 转发微博
-		
+
 		$(".comment_button").live('click', function() {
 			var message_id = $(this).parents("li").attr("id");
 			message_id = message_id.substr(6);
@@ -286,7 +343,7 @@
 			pageNum = 1;
 			$(".pageNum").val(pageNum);
 		});
-		
+
 		$(".prePage").click(function() {
 			if (pageNum == 1)
 				return;
@@ -304,19 +361,19 @@
 			$(window).scrollTop(0);
 			$(".pageNum").val(pageNum);
 		});// 跳转上一页
-		
+
 		$(".nextPage").click(function() {
 			pageNum++;
 			if (flag == 1)
 				show_messages(pageNum, 1);
 			else {
 				var nickname = $("#nickname").text();
-				showOwnmessages(nickname, pageNum, 0, true);			
+				showOwnmessages(nickname, pageNum, 0, true);
 			}
 			$(window).scrollTop(0);
 			$(".pageNum").val(pageNum);
 		});// 跳转下一页
-		
+
 		function goToPage() {
 			var num = $(".pageNum").val();
 			if (num == "" || isNaN(num)) {
@@ -326,12 +383,10 @@
 				show_messages(num, 1);
 			else {
 				var nickname = $("#nickname").text();
-				showOwnmessages(nickname, num, 0, true);			
+				showOwnmessages(nickname, num, 0, true);
 			}
 			$(window).scrollTop(0);
 		} // 跳转指定页面
-
-	
 	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->
 </body>

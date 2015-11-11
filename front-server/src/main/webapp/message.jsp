@@ -66,6 +66,7 @@
 	<script src="scripts/send_message.js" type="text/javascript"></script>
 	<script src="scripts/repost_message.js" type="text/javascript"></script>
 	<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
+	<script src="scripts/QQFace.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document)
 				.ready(

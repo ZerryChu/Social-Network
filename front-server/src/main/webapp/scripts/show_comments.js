@@ -59,13 +59,14 @@ function show_comments(message_id, pageNumber, _flag) {
 										var target = "#comment_" + message_id;
 										$(target).empty();
 										while (data.returndata[i] != undefined) {
+											var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
 											$(target)
 													.append(
 															"<li><div class=\"msgBox\" style=\"width:100%;\"><div class=\"txt\">"
 																	+ "<a href=\"javascript:void(0);\" class=\"comer_name\">"
 																	+ data.returndata[i].nickname
 																	+ "</a>:<span class=\"content\">"
-																	+ data.returndata[i].content
+																	+ return_content
 																	+ "</span><div class=\"info\"><img class=\"delete_cmt\" align=\"right\" style=\"width: 10px; height: 10px;\" src=\"images/delete.jpg\" onclick=\"delete_comment("
 																	+ data.returndata[i].id
 																	+ ", '"

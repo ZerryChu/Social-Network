@@ -86,12 +86,12 @@ function judgeIfFriend(TargetUsername, _flag) {
 		//dataType : "json",
 		success : function(data) {
 			var i = 0;
-			if (data == "1") {
-				$("#focus").attr("disabled", false);
-				$("#unfocus").attr("disabled", true);
-			} else {
+			if (data == "1") { // 两者是好友关系， 关注按钮失效
 				$("#focus").attr("disabled", true);
 				$("#unfocus").attr("disabled", false);
+			} else { // 两者不是好友关系， 取消关注按钮失效
+				$("#focus").attr("disabled", false);
+				$("#unfocus").attr("disabled", true);
 			}
 		}
 	});

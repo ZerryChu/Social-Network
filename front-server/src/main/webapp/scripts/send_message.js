@@ -6,6 +6,8 @@
  * @content 发送微博
  */
 function send_messages() {
+	//var str = $("#content").val();
+	//$("#content").val(replace_em(str)); 将QQ表情解析成img标签写进content
 	$.ajax({
 		type : "post",
 		url : "message/send",
