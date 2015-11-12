@@ -1,5 +1,7 @@
 package group.zerry.front_server.entity;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @author  ZerryChu
  * @version 2.0
@@ -7,15 +9,22 @@ package group.zerry.front_server.entity;
  * 
  */
 public class Message {
-	private int    id;
-	private String author;
-	private String content;
-	private int    type;
-	private String create_time;
-	private int    repost_times;  //转发量
-	private int    comment_times; //评论量
-	private int    support_times; //点赞量
+	private int           id;
+	private String        author;
+	private String        content;
+	private int           type;
+	private String        create_time;
+	private int           repost_times;  //转发量
+	private int           comment_times; //评论量
+	private int           support_times; //点赞量
+	private MultipartFile pic;
 	
+	public MultipartFile getPic() {
+		return pic;
+	}
+	public void setPic(MultipartFile pic) {
+		this.pic = pic;
+	}
 	public int getRepost_times() {
 		return repost_times;
 	}

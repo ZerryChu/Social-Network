@@ -1,10 +1,19 @@
 package group.zerry.front_server.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.Consts;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 
@@ -23,15 +32,19 @@ public class MessageServiceImpl implements MessageService {
 	@Autowired
 	FetchUrlTools fetchURLTool;
 
-	public boolean send_message(String username, String userToken, String content, int type) {
+	public boolean send_message(String username, String userToken, String content, int type, @RequestParam("fileOnLoad")MultipartFile pic) throws IOException {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/send";
-		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("username", username);
-		paramsMap.put("userToken", userToken);
-		paramsMap.put("content", content);
-		paramsMap.put("type", String.valueOf(type));
-		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		Map<String, ContentBody> paramsMap = new HashMap<String, ContentBody>();
+		paramsMap.put("username", new StringBody(username, ContentType.create("text/plain", Consts.UTF_8)));
+		paramsMap.put("userToken", new StringBody(userToken, ContentType.create("text/plain", Consts.UTF_8)));
+		paramsMap.put("content", new StringBody(content, ContentType.create("text/plain", Consts.UTF_8)));
+		paramsMap.put("type", new StringBody(String.valueOf(type), ContentType.create("text/plain", Consts.UTF_8)));
+		File file = new File("pic");
+		pic.transferTo(file);
+		paramsMap.put("pic", new FileBody(file));
+		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPostMulti(url, paramsMap), ReturnMsgDto.class);
+		
 		if (returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.AMS.getValue())) {
 			return true;
 		} else

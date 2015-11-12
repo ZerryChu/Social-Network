@@ -1,5 +1,6 @@
 package group.zerry.front_server.controllers;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import group.zerry.front_server.annotation.AuthPass;
 import group.zerry.front_server.service.MessageService;
@@ -31,8 +33,9 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/send", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String post_message(String username, String userToken, String content, int type) {
-		if (messageService.send_message(username, userToken, content, type))
+	public String post_message(String username, String userToken, String content, int type, MultipartFile pic) throws IOException {
+		// 加入判断文件大小，后缀的逻辑
+		if (messageService.send_message(username, userToken, content, type, pic))
 			return "{\"msg\" : 1}";
 		else
 			return "{\"msg\" : 0}";

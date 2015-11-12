@@ -7,14 +7,13 @@
 <title>主页</title>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <style type="text/css">
-
 .msg_emotion, .cmt_emotion, .rpt_emotion {
 	width: 42px;
 	height: 20px;
 	background: url(face/icon.gif) no-repeat 2px 2px;
 	padding-left: 20px;
 	padding-right: 20px;
-	padding-top: 3px;	
+	padding-top: 3px;
 	cursor: pointer
 }
 
@@ -38,7 +37,6 @@
 .qqFace table td img:hover {
 	border: 1px #0066cc solid;
 }
-
 </style>
 </head>
 <body>
@@ -109,17 +107,36 @@
 		<div class="left_content">
 
 			<div class="post_message">
+				<form action="message/send" method="post"
+					enctype="multipart/form-data" target="upframe">
+					<h2
+						style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
+					<textarea class="message_content" id="content" name="content"></textarea>
+					<br> <span id="msg_emotion" class="msg_emotion"></span> <input
+						type="file" class="fileOnLoad" name="pic" value="图片"> <select
+						class="type" name="type">
+						<option value="2">暂无</option>
+						<option value="1" selected="selected">好友可见</option>
+						<input type="hidden" name="username" value="${param.username}">
+						<input type="hidden" name="userToken" value="${param.userToken}">
+					</select> <input style="float: right;" class="send_button" type="submit"
+						value="推送广播" onclick="">
+				</form>
+
+				<!-- 
 				<form>
 					<h2
 						style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
 					<textarea class="message_content" id="content" name="content"></textarea>
 					<br> <span id="msg_emotion" class="msg_emotion"></span>
+					<input type="file" id="fileOnLoad" value="图片">
 					<select class="type" name="type">
 						<option value="2">暂无</option>
 						<option value="1" selected="selected">好友可见</option>
 					</select> <input style="float: right;" class="send_button"
 						type="button" value="推送广播" onclick="send_messages();">
 				</form>
+				 -->
 			</div>
 			<div class="ad">
 				<div id="boxID">
@@ -197,7 +214,12 @@
 		</div>
 	</div>
 
+	<iframe id="upframe" name="upframe" src="" style="display: none;">
+	</iframe>
+
+
 	<script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<script src="plugins/ajaxfileupload.js" type="text/javascript"></script>
 	<script src="plugins/timeago.js" type="text/javascript"></script>
 	<script src="plugins/jquery-migrate-1.2.1.min.js"
 		type="text/javascript"></script>
@@ -231,7 +253,6 @@
 			height : 120,//设置图片区域高度(像素)
 			txtHeight : 'default'//文字层高度设置(像素),'default'为默认高度，0为隐藏
 		});
-
 	</script>
 	<script type="text/javascript">
 		//$('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
@@ -241,7 +262,7 @@
 
 		$(document).ready(function() {
 			/////////////      表情包        /////////////////////////////////////////////////////////////
-			
+
 			$(function() {
 				$('#msg_emotion').qqFace({
 					assign : '#content', //给输入框赋值 
@@ -250,7 +271,7 @@
 
 			});
 			//////////////////////////////////////////////////////////////////////////////////////////
-			
+
 			$(".messages_class li").each(function(index) {
 				var $this = $(this);
 				$this.hover(function() {
