@@ -33,6 +33,12 @@
 		</property>
 	</bean>
 
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1048576" />
+		<property name="maxInMemorySize" value="10240" />
+	</bean>
+
 	<!-- 多方法 -->
 	<bean id="paramMethodResolver"
 		class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
@@ -44,11 +50,5 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/"></property>
 		<property name="suffix" value=".jsp"></property>
-	</bean>
-
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="1048576" />
-		<property name="maxInMemorySize" value="10240" />
 	</bean>
 </beans>

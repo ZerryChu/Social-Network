@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
@@ -18,8 +19,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -182,55 +181,5 @@ public class HttpClientTools implements FetchUrlTools {
         return responseContent;
 
     }
-    
-    /**
-	 * @version 旭神同事版本
-	 * @param   contentbody： filebody 传文件 stringbody 一般参数
-     */
-    public String doPostMulti(String url, Map<String, ContentBody> params) {
 
-        String responseContent = null;
-
-        HttpPost httpPost = new HttpPost(url);
-        try {
-        	RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(TIMEOUT).setConnectTimeout(TIMEOUT)
-                    .setConnectionRequestTimeout(TIMEOUT).build();
-            httpPost.setConfig(requestConfig);
-
-            MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
-            for (Map.Entry<String, ContentBody> entry : params.entrySet()) {
-                multipartEntityBuilder.addPart(entry.getKey(), entry.getValue());
-            }
-
-            HttpEntity reqEntity = multipartEntityBuilder.build();
-
-            httpPost.setEntity(reqEntity);
-            CloseableHttpResponse response = httpClient.execute(httpPost);
-            try {
-                // 执行POST请求
-                HttpEntity entity = response.getEntity(); // 获取响应实体
-                try {
-                    if (null != entity) {
-                        responseContent = EntityUtils.toString(entity, Consts.UTF_8);
-                    }
-                } finally {
-                    if (entity != null) {
-                        entity.getContent().close();
-                    }
-                }
-            } finally {
-                if (response != null) {
-                    response.close();
-                }
-            }
-        } catch (ClientProtocolException e) {
-            logger.error("ClientProtocolException", e);
-        } catch (IOException e) {
-            logger.error("IOException", e);
-        } finally {
-            httpPost.releaseConnection();
-        }
-        return responseContent;
-
-    }
 }

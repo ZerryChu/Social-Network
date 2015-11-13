@@ -1,6 +1,5 @@
 package group.zerry.front_server.controllers;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -29,13 +28,12 @@ public class MessageController {
 
 	@Autowired
 	CookiesData cookiesData;
-
+	
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/send", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String post_message(String username, String userToken, String content, int type, MultipartFile pic) throws IOException {
-		// 加入判断文件大小，后缀的逻辑
-		if (messageService.send_message(username, userToken, content, type, pic))
+	public String post_message(HttpServletRequest request, String username, String userToken, String content, int type, MultipartFile pic) {
+		if (messageService.send_message(request, username, userToken, content, type, pic))
 			return "{\"msg\" : 1}";
 		else
 			return "{\"msg\" : 0}";

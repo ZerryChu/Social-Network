@@ -2,10 +2,12 @@
  * Created by zhuzirui on 10/12/15.
  */
 
+
 /**
  * @content 发送微博
+ * @notice  暂时启用ajax版本
  */
-function send_messages() {
+function _send_messages() {
 	//var str = $("#content").val();
 	//$("#content").val(replace_em(str)); 将QQ表情解析成img标签写进content
 	$.ajax({

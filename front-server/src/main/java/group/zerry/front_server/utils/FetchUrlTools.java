@@ -2,8 +2,6 @@ package group.zerry.front_server.utils;
 
 import java.util.Map;
 
-import org.apache.http.entity.mime.content.ContentBody;
-
 /**
  * 类HttpClientTools.java的实现描述：HttpClient工具类
  * 
@@ -27,10 +25,4 @@ public interface FetchUrlTools {
      * @return
      */
     public String doPost(String url, Map<String, String> requestParametersMap);
-    
-    /**
-  	 * @version 旭神同事版本
-  	 * @说明     contentbody： filebody 传文件 stringbody 一般参数
-     */
-    public String doPostMulti(String url, Map<String, ContentBody> params);
 }

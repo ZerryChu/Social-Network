@@ -107,8 +107,8 @@
 		<div class="left_content">
 
 			<div class="post_message">
-				<form action="message/send" method="post"
-					enctype="multipart/form-data" target="upframe">
+				<form id="MsgForm" action="message/send" method="post"
+					target="upframe" enctype="multipart/form-data">
 					<h2
 						style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
 					<textarea class="message_content" id="content" name="content"></textarea>
@@ -117,26 +117,11 @@
 						class="type" name="type">
 						<option value="2">暂无</option>
 						<option value="1" selected="selected">好友可见</option>
-						<input type="hidden" name="username" value="${param.username}">
-						<input type="hidden" name="userToken" value="${param.userToken}">
-					</select> <input style="float: right;" class="send_button" type="submit"
-						value="推送广播" onclick="">
+					</select> <input type="hidden" name="username" value="${param.username}">
+					<input type="hidden" name="userToken" value="${param.userToken}"><input
+						style="float: right;" class="send_button" type="submit"
+						value="推送广播">
 				</form>
-
-				<!-- 
-				<form>
-					<h2
-						style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
-					<textarea class="message_content" id="content" name="content"></textarea>
-					<br> <span id="msg_emotion" class="msg_emotion"></span>
-					<input type="file" id="fileOnLoad" value="图片">
-					<select class="type" name="type">
-						<option value="2">暂无</option>
-						<option value="1" selected="selected">好友可见</option>
-					</select> <input style="float: right;" class="send_button"
-						type="button" value="推送广播" onclick="send_messages();">
-				</form>
-				 -->
 			</div>
 			<div class="ad">
 				<div id="boxID">
@@ -213,13 +198,10 @@
 			</div>
 		</div>
 	</div>
-
 	<iframe id="upframe" name="upframe" src="" style="display: none;">
 	</iframe>
 
-
 	<script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-	<script src="plugins/ajaxfileupload.js" type="text/javascript"></script>
 	<script src="plugins/timeago.js" type="text/javascript"></script>
 	<script src="plugins/jquery-migrate-1.2.1.min.js"
 		type="text/javascript"></script>
@@ -253,6 +235,7 @@
 			height : 120,//设置图片区域高度(像素)
 			txtHeight : 'default'//文字层高度设置(像素),'default'为默认高度，0为隐藏
 		});
+
 	</script>
 	<script type="text/javascript">
 		//$('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
@@ -262,7 +245,7 @@
 
 		$(document).ready(function() {
 			/////////////      表情包        /////////////////////////////////////////////////////////////
-
+			
 			$(function() {
 				$('#msg_emotion').qqFace({
 					assign : '#content', //给输入框赋值 
@@ -271,7 +254,18 @@
 
 			});
 			//////////////////////////////////////////////////////////////////////////////////////////
+			
+			$("#MsgForm").submit(function() {
+				$(".message_content").val("")
+				//showUserInfo(1, true);
+				//var nickname = $("#nickname").text();
+				//showOwnmessages(nickname, 1, 1, false);
+				var num = $("#message_num").text();
+				$("#message_num").text(Number.parseInt(num) + 1); // 广播数+1
 
+				
+			})
+			
 			$(".messages_class li").each(function(index) {
 				var $this = $(this);
 				$this.hover(function() {
@@ -286,7 +280,7 @@
 					}
 				});
 			});
-			showUserInfo(0, true);
+			showUserInfo(1, true);
 			show_messages(1, 1);
 			showGroups(0);
 			setInterval("update()", 30000);
@@ -359,7 +353,7 @@
 
 		$("#messages_count").live('click', function() {
 			var nickname = $("#nickname").text();
-			showOwnmessages(nickname, 1, 0, true);
+			showOwnmessages(nickname, 1, 1, true);
 			flag = 2;
 			pageNum = 1;
 			$(".pageNum").val(pageNum);
