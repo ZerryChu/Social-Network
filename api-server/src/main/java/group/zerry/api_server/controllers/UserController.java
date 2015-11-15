@@ -60,13 +60,29 @@ public class UserController {
         }
 	}
 	
-	// 考虑验证好友请求
+	/**
+	 * 关注
+	 */
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/addfriend", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String addFriend(String username, String userToken, String friendUsername, String group) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-		regMsg.append(userService.addFriend(username, friendUsername, group));
+		regMsg.append(userService.addFriend(username, friendUsername, group).getValue());
+		regMsg.append("\"}");
+		logger.info(regMsg.toString());
+		return regMsg.toString();
+	}
+	
+	/**
+	 * 取消关注
+	 */
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/deletefriend", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String deleteFriend(String username, String userToken, String friendUsername) {
+		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
+		regMsg.append(userService.deleteFriend(username, friendUsername).getValue());
 		regMsg.append("\"}");
 		logger.info(regMsg.toString());
 		return regMsg.toString();
@@ -136,7 +152,7 @@ public class UserController {
 		return regMsg.toString();
 	}
 	
-	//check
+	/*
 	@ResponseBody
 	@RequestMapping(value = "/showfriends", produces = "text/html;charset=UTF-8")
 	public String showFriendsByNickname(String nickname) {
@@ -151,4 +167,5 @@ public class UserController {
 		regMsg.append("}");
 		return regMsg.toString();
 	}
+	*/
 }

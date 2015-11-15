@@ -29,6 +29,12 @@ body{
     z-index: -1;
 }
 
+.msg_pic {
+	width: 100px;
+	height: 100px;	
+	color: red;
+}
+
 .top {
 	width: 100%;
 	height: 27px;
@@ -315,14 +321,14 @@ body{
 	font-size: 17px;
 }
 
-.msgBox .info {
+.info {
 	height: 30px;
 	line-height: 30px;
 	font-size: 14px;
 	color: #759aad;
 }
 
-.msgBox .info a {
+.info a {
 	color: #759aad;
 	text-decoration: none;
 }

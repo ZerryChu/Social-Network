@@ -32,8 +32,8 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/send", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String post_message(HttpServletRequest request, String username, String userToken, String content, int type, MultipartFile pic) {
-		if (messageService.send_message(request, username, userToken, content, type, pic))
+	public String post_message(String username, String userToken, String content, int type, MultipartFile pic) {
+		if (messageService.send_message(username, userToken, content, type, pic))
 			return "{\"msg\" : 1}";
 		else
 			return "{\"msg\" : 0}";
@@ -97,7 +97,7 @@ public class MessageController {
 				returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
 				return returnMsg;
 			}
-		} // 无更新查询
+		} // 无cookies更新查询
 		else {
 			String returnMsg = messageService.show_messages(username, userToken, page);
 			if (page == 1)
@@ -147,7 +147,7 @@ public class MessageController {
 		} // 无更新查询
 		else {
 			String returnMsg = messageService.show_userOwnMessages(nickname, page);
-			cookiesData.save(request, response, "ownmessages", URLEncoder.encode(returnMsg, "UTF-8"));
+			//cookiesData.save(request, response, "ownmessages", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}

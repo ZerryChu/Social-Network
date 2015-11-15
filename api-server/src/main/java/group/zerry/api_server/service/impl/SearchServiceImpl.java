@@ -21,6 +21,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public Message[] searchMessagesLikeContent(String content) {
 		// TODO Auto-generated method stub
+		content = '%' + content + '%';
 		return messageDao.searchMessagesLikeContent(content);
 	}
 

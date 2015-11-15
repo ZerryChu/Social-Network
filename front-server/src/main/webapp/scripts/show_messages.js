@@ -54,6 +54,8 @@ function show_messages(pageNumber, _flag) {
 													+ $.query.get("username")
 													+ "&targetNickname="
 													+ data.returndata[i].author
+													+ "&userToken="
+													+ $.query.get("userToken")
 													+ "\"><img src=\""
 													+ "pic/"
 													+ username
@@ -61,9 +63,14 @@ function show_messages(pageNumber, _flag) {
 													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"weibo_username\"><a href=\""
 													+ "userinfo.jsp?targetNickname="
 													+ data.returndata[i].author
+													+ "&username="
+													+ $.query.get("username")
+													+ "&userToken="
+													+ $.query.get("userToken")
 													+ "\">"
 													+ data.returndata[i].author
-													+ "</a></div><div class=\"txt\">";
+													+ "</a></div>";
+							
 											if (data.returndata[i].type == 2) { // 属于转发的微博
 												var content = return_content;
 												var authorWords = content
@@ -73,8 +80,7 @@ function show_messages(pageNumber, _flag) {
 														.indexOf(';') + 1); // 原微博id
 												message += authorWords
 														+ "<div class=\"repostInfo\">"
-														+ "</div></div>"
-														+ "<div class=\"info\"><time class=\"timeago\" datetime=\""
+														+ "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
 														+ data.returndata[i].create_time
 														+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 														+ data.returndata[i].comment_times
@@ -93,15 +99,22 @@ function show_messages(pageNumber, _flag) {
 														+ "\"></span><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"comment_button\">评论</button></div>"
 														+ "<ul class=\"otherCom\" id=\"comment_"
 														+ data.returndata[i].id
-														+ "\" style=\"\"></ul>"
+														+ "\" style=\"\"></div>"
+														+ "</ul>"
 														+ "</div></div></div></li>";
 												$("#weibo").append(message);
 												show_sourceMessage(id,
 														data.returndata[i].id,
 														1);
 											} else { // 原创微博
-												message += return_content
-														+ "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
+												message += return_content;
+												if (data.returndata[i].pic != undefined
+														&& data.returndata[i].pic != "")
+													message += "<img class=\"msg_pic\" src=\"message/"
+															+ data.returndata[i].pic
+															+ ".jpg\">";
+												message += "<div class=\"txt\">";
+												message += "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
 														+ data.returndata[i].create_time
 														+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 														+ data.returndata[i].comment_times

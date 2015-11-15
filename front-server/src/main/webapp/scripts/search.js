@@ -7,7 +7,8 @@ function searchUsersByNickname(nickname) {
 
 /**
  * @content 首页条按内容搜索微博功能
- * @param search_content
+ * @param   search_content
+ * @notice  弃用
  */
 function searchMessagesByContent(search_content) {
 	$
@@ -132,11 +133,16 @@ function searchMessagesByContent(search_content) {
 
 }
 
+/**
+ * type=1 搜人 type=2 搜微博
+ */
 function search() {
 	var search_text = $(".search_text").val();
 	if ($(".search_type").val() == 1) {
-		searchUsersByNickname(search_text);
+		//searchUsersByNickname(search_text);
+		window.location = "searchfriend.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&content=" + search_text + "type=1";
 	} else {
-		searchMessagesByContent(search_text)
+		//searchMessagesByContent(search_text)
+		window.location = "searchfriend.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&content=" + search_text + "type=2";
 	}
 }

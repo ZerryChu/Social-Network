@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 
 import group.zerry.api_server.annotation.AuthPass;
+import group.zerry.api_server.entity.Target;
 import group.zerry.api_server.enumtypes.FriendStatusEnum;
 import group.zerry.api_server.service.FriendService;
 import group.zerry.api_server.utils.CacheTools;
@@ -38,7 +39,9 @@ public class FriendController {
 		return regMsg.toString();
 	}
 	
-	//没采用分页
+	/**
+	 * 待分页
+	 */
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show/friends", produces = "text/html;charset=UTF-8")
@@ -51,6 +54,48 @@ public class FriendController {
 			return regMsg.toString();
 		}
 		regMsg.append(JSON.toJSONString(friendnames));
+		regMsg.append("}");
+		logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
+	
+	/**
+	 * @content 获取关注的用户昵称
+	 * 分页      15个一页
+	 */
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/favorites", produces = "text/html;charset=UTF-8")
+	public String showFavorites(String username, String userToken, int page) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
+		Target[] favorites = friendService.showFavorites(username, page);
+		if (null == favorites) {
+			regMsg.append(FriendStatusEnum.NFE.getValue());
+			regMsg.append("}");
+			return regMsg.toString();
+		}
+		regMsg.append(JSON.toJSONString(favorites));
+		regMsg.append("}");
+		logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
+	
+	/**
+	 * @content 获取粉丝的昵称
+	 * 分页      15个一页
+	 */
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/followers", produces = "text/html;charset=UTF-8")
+	public String showFollowers(String username, String userToken, int page) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
+		Target[] followers = friendService.showFollowers(username, page);
+		if (null == followers) {
+			regMsg.append(FriendStatusEnum.NFE.getValue());
+			regMsg.append("}");
+			return regMsg.toString();
+		}
+		regMsg.append(JSON.toJSONString(followers));
 		regMsg.append("}");
 		logger.error(regMsg.toString());
 		return regMsg.toString();

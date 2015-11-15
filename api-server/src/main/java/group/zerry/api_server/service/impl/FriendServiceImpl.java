@@ -1,6 +1,7 @@
 package group.zerry.api_server.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,10 @@ import group.zerry.api_server.dao.UserDao;
 import group.zerry.api_server.entity.Count;
 import group.zerry.api_server.entity.Friend;
 import group.zerry.api_server.entity.Message;
+import group.zerry.api_server.entity.Target;
 import group.zerry.api_server.entity.User;
+import group.zerry.api_server.interceptors.PageHelperInterceptor;
+import group.zerry.api_server.interceptors.PageHelperInterceptor.Page;
 import group.zerry.api_server.service.FriendService;
 import group.zerry.api_server.utils.CacheTools;
 
@@ -75,13 +79,44 @@ public class FriendServiceImpl implements FriendService {
 	@Override
 	public boolean judgeIfFriendsOrNot(String username, String targetUsername) {
 		// TODO Auto-generated method stub
-		System.out.println(username + targetUsername);
 		User user = userDao.selectUserByUsername(username);
 		User target = userDao.selectUserByUsername(targetUsername);
 		if(friendDao.judgeIfFriendsOrNot(user.getId(), target.getId()).getNumber() > 0)
 			return true;
 		else
 			return false;
+	}
+
+	/**
+	 * 分页  15人一页
+	 */
+	@Override
+	public Target[] showFavorites(String username, int page) {
+		// TODO Auto-generated method stub
+		int pageSize = 15;
+		Target[] favorites = null;
+		PageHelperInterceptor.startPage(page, pageSize);
+		favorites = friendDao.selectFavorites(username);
+		Page<Target> myPage = PageHelperInterceptor.endPage();
+		List<Target> list = myPage.getResult();
+		favorites = (Target[]) list.toArray(new Target[list.size()]);
+		return favorites;
+	}
+	
+	/**
+	 * 分页  15人一页
+	 */
+	@Override
+	public Target[] showFollowers(String username, int page) {
+		// TODO Auto-generated method stub
+		int pageSize = 15;
+		Target[] followers = null;
+		PageHelperInterceptor.startPage(page, pageSize);
+		followers = friendDao.selectFollowers(username);
+		Page<Target> myPage = PageHelperInterceptor.endPage();
+		List<Target> list = myPage.getResult();
+		followers = (Target[]) list.toArray(new Target[list.size()]);
+		return followers;
 	}
 
 }

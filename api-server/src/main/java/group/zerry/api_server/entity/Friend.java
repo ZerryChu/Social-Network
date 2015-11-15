@@ -1,5 +1,9 @@
 package group.zerry.api_server.entity;
 
+/*
+ * 朋友关系实体
+ * 弃用
+ */
 public class Friend {
 	private String user_id;
 	private String friend_id;

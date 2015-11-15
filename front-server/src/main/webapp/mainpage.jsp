@@ -107,18 +107,19 @@
 		<div class="left_content">
 
 			<div class="post_message">
-				<form id="MsgForm" action="message/send" method="post"
+				<form id="MsgForm" action="message/send?type=1" method="post"
 					target="upframe" enctype="multipart/form-data">
 					<h2
 						style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
 					<textarea class="message_content" id="content" name="content"></textarea>
 					<br> <span id="msg_emotion" class="msg_emotion"></span> <input
-						type="file" class="fileOnLoad" name="pic" value="图片"> <select
+						type="file" class="fileOnLoad" name="pic" value="图片"><!-- <select
 						class="type" name="type">
 						<option value="2">暂无</option>
 						<option value="1" selected="selected">好友可见</option>
-					</select> <input type="hidden" name="username" value="${param.username}">
+					</select> --><input type="hidden" name="username" value="${param.username}">
 					<input type="hidden" name="userToken" value="${param.userToken}"><input
+						style="float: right;" type="reset"><input
 						style="float: right;" class="send_button" type="submit"
 						value="推送广播">
 				</form>
@@ -235,7 +236,6 @@
 			height : 120,//设置图片区域高度(像素)
 			txtHeight : 'default'//文字层高度设置(像素),'default'为默认高度，0为隐藏
 		});
-
 	</script>
 	<script type="text/javascript">
 		//$('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
@@ -245,7 +245,7 @@
 
 		$(document).ready(function() {
 			/////////////      表情包        /////////////////////////////////////////////////////////////
-			
+
 			$(function() {
 				$('#msg_emotion').qqFace({
 					assign : '#content', //给输入框赋值 
@@ -254,18 +254,17 @@
 
 			});
 			//////////////////////////////////////////////////////////////////////////////////////////
-			
+
 			$("#MsgForm").submit(function() {
-				$(".message_content").val("")
+				//$(".message_content").val("")
 				//showUserInfo(1, true);
 				//var nickname = $("#nickname").text();
 				//showOwnmessages(nickname, 1, 1, false);
 				var num = $("#message_num").text();
 				$("#message_num").text(Number.parseInt(num) + 1); // 广播数+1
 
-				
 			})
-			
+
 			$(".messages_class li").each(function(index) {
 				var $this = $(this);
 				$this.hover(function() {
@@ -317,7 +316,7 @@
 			message_id = message_id.substr(6);
 			var textarea = ".rptarea_" + message_id;
 			var content = $(textarea).val();
-			repost_message(content, message_id);
+			repost_message(content, message_id, 1);
 			$(textarea).val("");
 		}); // 转发微博
 
@@ -336,7 +335,7 @@
 		});// 显示公告
 
 		$("#friends_count").click(function() {
-			//show_friends();
+			window.open("friendlist.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken"));
 
 		});
 

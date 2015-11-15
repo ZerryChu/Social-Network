@@ -189,4 +189,19 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public boolean deleteFriend(String username, String userToken, String friendUsername) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "user/deletefriend";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("friendUsername", friendUsername);
+		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		if (returnMsgDto.getReturnMsg().equals(UserStatusEnum.DFS.getValue()))
+			return true;
+		else
+			return false;
+	}
+
 }

@@ -15,7 +15,14 @@ public class Message {
 	private int    repost_times;  //转发量
 	private int    comment_times; //评论量
 	private int    support_times; //点赞量
+	private String pic;           //uuid值，图片名，暂定一微博只能存一张图片
 	
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
 	public int getRepost_times() {
 		return repost_times;
 	}

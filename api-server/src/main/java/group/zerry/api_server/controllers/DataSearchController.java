@@ -1,5 +1,6 @@
 package group.zerry.api_server.controllers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,8 @@ public class DataSearchController {
 	
 	@Autowired
 	SearchService                          searchService;
+	
+	Logger 								   logger = Logger.getLogger(DataSearchController.class);
 	
 	private static SimplePropertyPreFilter userFilter   = new SimplePropertyPreFilter(User.class, "nickname",
             "age", "type", "habit", "friend_num", "message_num");
@@ -59,12 +62,14 @@ public class DataSearchController {
 			messages = searchService.searchMessagesLikeContent(content);
 
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			regMsg.append(MessageStatusEnum.SMF.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
 		}
 		regMsg.append(JSON.toJSONString(messages, messageFilter));
 		regMsg.append("}");
+		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 }

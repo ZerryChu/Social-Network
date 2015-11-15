@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import group.zerry.api_server.dao.CommentDao;
 import group.zerry.api_server.dao.MessageDao;
@@ -39,11 +40,16 @@ public class MessageServiceImpl implements MessageService {
 	private Logger logger = Logger.getLogger(MessageServiceImpl.class);
 	
 	@Override
-	public MessageStatusEnum send_message(String username, String content, int type) {
+	public MessageStatusEnum send_message(String username, String content, int type, String pic) {
 		// TODO Auto-generated method stub
 		User user = userDao.selectUserByUsername(username);
 		Message message = new Message();
 		message.setAuthor(user.getNickname());
+		if(pic != null) {
+			message.setPic(pic);
+		} else {
+			message.setPic("");
+		}
 		message.setContent(content);
 		message.setType(type);
 		try {

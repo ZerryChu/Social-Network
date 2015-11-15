@@ -13,6 +13,7 @@
 		<result property="repost_times" column="repost_times" />
 		<result property="comment_times" column="comment_times" />
 		<result property="support_times" column="support_times" />
+		<result property="pic" column="pic" />
 	</resultMap>
 
 	<resultMap id="CountMap" type="Count">
@@ -86,7 +87,8 @@
 		create_time,
 		repost_times,
 		comment_times,
-		support_times
+		support_times,
+		pic
 		)
 		VALUES
 		(
@@ -94,7 +96,8 @@
 		now(),
 		0,
 		0,
-		0
+		0,
+		#{pic}
 		)
 	</insert>
 
@@ -122,7 +125,7 @@
 		FROM
 		message_inf
 		WHERE
-		content LIKE #{%content%}
+		content LIKE #{content}
 		AND
 		type = 1
 	</select>

@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserStatusEnum Reg(User user) {
 		// TODO Auto-generated method stub
-		// habit 中文乱码
 		if (user == null)
 			return UserStatusEnum.UNV;
 		else {
@@ -67,7 +66,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserStatusEnum addFriend(String username, String friendUsername, String group) {
 		// TODO Auto-generated method stub
-		User user1 = userDao.selectUserByUsername(friendUsername.trim());
+		User user1 = userDao.selectUserByUsername(username.trim());
 		User user2 = userDao.selectUserByUsername(friendUsername.trim());
 		if (user1 == null || user2 == null || user1 == user2)
 			return UserStatusEnum.PNV;
@@ -76,6 +75,7 @@ public class UserServiceImpl implements UserService {
 				userDao.addFriend(user1.getId(), user2.getId(), group);
 				//userDao.addFriend(user2.getId(), user1.getId(), group);
 			} catch (Exception e) {
+				System.out.println(e.getMessage());
 				return UserStatusEnum.AFE;
 			}
 			return UserStatusEnum.AFS;
@@ -110,6 +110,26 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public UserStatusEnum deleteFriend(String username, String friendUsername) {
+		// TODO Auto-generated method stub
+		User user1 = userDao.selectUserByUsername(username.trim());
+		User user2 = userDao.selectUserByUsername(friendUsername.trim());
+		if (user1 == null || user2 == null || user1 == user2)
+			return UserStatusEnum.PNV;
+		else {
+			try {
+				userDao.deleteFriend(user1.getId(), user2.getId());
+				//userDao.addFriend(user2.getId(), user1.getId(), group);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				return UserStatusEnum.DFE;
+			}
+			return UserStatusEnum.DFS;
+		}
+	}
+
+	/*
+	@Override
 	public Friend[] showFriendsByNickname(String nickname) {
 		// TODO Auto-generated method stub
 		Friend[] friends = null;
@@ -121,4 +141,5 @@ public class UserServiceImpl implements UserService {
 		}
 		return friends;
 	}
+	*/
 }

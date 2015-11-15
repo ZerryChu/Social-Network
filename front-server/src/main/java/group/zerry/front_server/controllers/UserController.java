@@ -90,13 +90,11 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/logout", produces = "text/html;charset=UTF-8")
 	public String logout(HttpServletRequest request, HttpServletResponse response, String username, String userToken) {
-		if(userService.logout(username, userToken)) {
-			// cookie
-			cookiesData.deleteAllCookies(request, response);
-			return "{\"msg\" : 1}";
-		}
-		else
-			return "{\"msg\" : 0}";
+		if (userService.logout(username, userToken))
+			logger.error("delete userToken error...");
+		// cookie
+		cookiesData.deleteAllCookies(request, response);
+		return "{\"msg\" : 1}";
 	}
 	
 	@ResponseBody
@@ -131,11 +129,13 @@ public class UserController {
 		}
 	}
 	
+	/*
 	@ResponseBody
 	@RequestMapping(value = "/showfriends", produces = "text/html;charset=UTF-8")
 	public String showFriendsByNickname(String nickname) {
 		return userService.showFriendsByNickname(nickname);
 	}
+	*/
 	
 	//显示目标用户的信息
 	/**
@@ -163,11 +163,27 @@ public class UserController {
 		}
 	}
 	
-	// 考虑验证好友请求
+	/**
+	 * 关注
+	 */
 	@AuthPass
+	@ResponseBody
 	@RequestMapping(value = "/addfriend", produces = "text/html;charset=UTF-8")
 	public String addFriend(String username, String userToken, String friendUsername, String group) {
 		if(userService.addFriend(username, userToken, friendUsername, group))
+			return "{\"msg\" : 1}";
+		else
+			return "{\"msg\" : 0}";
+	}
+	
+	/**
+	 * 取消关注
+	 */
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/deletefriend", produces = "text/html;charset=UTF-8")
+	public String deleteFriend(String username, String userToken, String friendUsername) {
+		if(userService.deleteFriend(username, userToken, friendUsername))
 			return "{\"msg\" : 1}";
 		else
 			return "{\"msg\" : 0}";

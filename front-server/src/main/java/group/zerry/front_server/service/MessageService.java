@@ -1,13 +1,11 @@
 package group.zerry.front_server.service;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.multipart.MultipartFile;
 
 
 public interface MessageService {
 	
-	public boolean send_message(HttpServletRequest request, String username, String userToken, String content, int type, MultipartFile pic);
+	public boolean send_message(String username, String userToken, String content, int type, MultipartFile pic);
 	
 	public boolean send_comment(String username, String userToken, int id, String content);
 	

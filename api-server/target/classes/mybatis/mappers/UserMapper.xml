@@ -16,6 +16,16 @@
 
 	</resultMap>
 
+	<select id="searchUsersLikeNickname" parameterType="string"
+		resultType="User">
+		SELECT
+		*
+		FROM
+		user_inf
+		WHERE
+		nickname LIKE #{nickname}
+	</select>
+
 	<select id="selectUserByUsername" parameterType="string"
 		resultType="User">
 		SELECT
@@ -60,16 +70,6 @@
 		)
 	</select>
 
-	<select id="searchUsersLikeNickname" parameterType="string"
-		resultType="User">
-		SELECT
-		*
-		FROM
-		user_inf
-		WHERE
-		nickname LIKE #{%nickname%}
-	</select>
-
 	<insert id="addUser" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		INTO user_inf (
@@ -90,11 +90,18 @@
 		)
 	</insert>
 
-	<insert id="addFriend" parameterType="string" useGeneratedKeys="true"
-		keyProperty="id">
+	<insert id="addFriend">
 		INSERT INTO friend
 		VALUES
-		(#{1}, #{2}, #{3})
+		(#{0}, #{1}, #{2})
+	</insert>
+
+	<insert id="deleteFriend">
+		DELETE from
+		friend
+		WHERE
+		user_id = #{0}
+		AND friend_id = #{1}
 	</insert>
 
 	<update id="addMessage_numByUsername" parameterType="string">

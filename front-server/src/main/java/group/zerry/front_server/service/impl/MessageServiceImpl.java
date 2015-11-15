@@ -1,27 +1,17 @@
 package group.zerry.front_server.service.impl;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUpload;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.FloatArraySerializer;
 
 import group.zerry.front_server.dto.ReturnMsgDto;
 import group.zerry.front_server.enumtypes.MessageStatusEnum;
@@ -62,10 +52,12 @@ public class MessageServiceImpl implements MessageService {
 		return true;
 	}
 
-	public boolean send_message(HttpServletRequest request, String username, String userToken, String content, int type,
+	public boolean send_message(String username, String userToken, String content, int type,
 			MultipartFile pic) {
 		// TODO Auto-generated method stub
 		try {
+			logger.error("content: " + content);
+			System.out.println("content:" + content);
 			UUID uuid = UUID.randomUUID();
 			String url = httpTarget.getHostname() + httpTarget.getPath() + "message/send";
 			Map<String, String> paramsMap = new HashMap<String, String>();
@@ -85,6 +77,7 @@ public class MessageServiceImpl implements MessageService {
 
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
+			logger.error(e.getMessage());
 			e.printStackTrace();
 			return false;
 		}

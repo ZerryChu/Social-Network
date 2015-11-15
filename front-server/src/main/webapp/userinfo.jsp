@@ -32,11 +32,11 @@
 			<div></div>
 		</div>
 		<div class="message_num">
-			广播数：
+			广播：
 			<div></div>
 		</div>
 		<div class="friend_num">
-			好友数：
+			粉丝：
 			<div></div>
 		</div>
 
@@ -45,7 +45,8 @@
 	</ul>
 	<div>
 		<form class="options">
-			<input type="button" id="focus" value="关注" onclick="openFriendList()">
+			<!--  暂时不设分组 -->
+			<input type="button" id="focus" value="关注" onclick="addFriend('normal')">
 			<input type="button" id="unfocus" value="取消关注" onclick="deleteFriend()">
 		</form>
 	</div>
@@ -63,19 +64,21 @@
 		showTargetInfo(1); //不缓存
 	});
 	
+	/*
 	function openFriendList() {
 		//$(li).find(".friend_list").slideToggle();
-		addFriend($(".targetUsername div").text(), "normal"); /*测试接口*/
+		addFriend($(".targetUsername div").text(), "normal");
 	}
+	*/
 	
-	function addFriend(_friendUsername, _group) {
+	function addFriend(_group) {
 		$.ajax({
 			type : "post",
 			url : "user/addfriend",
 			data : {
 				username : $.query.get("username"),
 				userToken : $.query.get("userToken"),
-				friendUsername : _friendUsername,
+				friendUsername : $(".targetUsername div").text(),
 				group : _group
 			},
 			dataType : "json",
@@ -83,10 +86,8 @@
 				$.each(data, function() {
 					if (data.msg == 1) {
 						//...add content
-						alert("succeed");
-						judgeIfFriend(_friendUsername, 1);
+						judgeIfFriend($(".targetUsername div").text(), 1);
 						// 更新数据
-						showUserInfo(1, false);
 					} else {
 						//...tell fail
 						alert("fail");
@@ -96,9 +97,29 @@
 		});
 	} //关注
 	
-	function deleteFriend(_friendUsername) {
-		_friendUsername = $(".targetUsername div").text();
-		//...
+	function deleteFriend() {
+		$.ajax({
+			type : "post",
+			url : "user/deletefriend",
+			data : {
+				username : $.query.get("username"),
+				userToken : $.query.get("userToken"),
+				friendUsername : $(".targetUsername div").text(),
+			},
+			dataType : "json",
+			success : function(data) {
+				$.each(data, function() {
+					if (data.msg == 1) {
+						//...add content
+						judgeIfFriend($(".targetUsername div").text(), 1);
+						// 更新数据
+					} else {
+						//...tell fail
+						alert("fail");
+					}
+				});
+			}
+		});
 	} //取消关注
 </script>
 </html>

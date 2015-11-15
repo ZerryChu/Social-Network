@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
@@ -30,7 +32,7 @@ public class MessageController {
 	MessageService messageService;
 
 	private static SimplePropertyPreFilter messageFilter = new SimplePropertyPreFilter(Message.class, "id", "type", "author",
-			"content", "create_time", "repost_times", "comment_times", "support_times"); // 全部属性都需要
+			"content", "create_time", "repost_times", "comment_times", "support_times", "pic"); // 全部属性都需要
 
 	private static Logger logger = Logger.getLogger(MessageController.class);
 
@@ -41,11 +43,11 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/send", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String post_message(String username, String userToken, String content, int type) {
+	public String post_message(String username, String userToken, String content, int type, String pic) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-		regMsg.append(messageService.send_message(username, content, type).getValue());
+		regMsg.append(messageService.send_message(username, content, type, pic).getValue());
 		regMsg.append("\"}");
-		logger.error(regMsg.toString());
+		//logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 
@@ -92,7 +94,7 @@ public class MessageController {
 		//regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
 		regMsg.append(JSON.toJSONString(messages, messageFilter));
 		regMsg.append("}");
-		logger.error(regMsg.toString());
+		//logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 	

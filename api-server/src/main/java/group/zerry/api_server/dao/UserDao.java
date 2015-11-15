@@ -16,6 +16,8 @@ public interface UserDao {
 		
 	public void addFriend(int id, int friendId, String group);
 	
+	public void deleteFriend(int id, int friendId);
+	
 	public String[] selectFriendsNicknameByUsername(String nickname);
 	
 	public void addMessage_numByUsername(String username);

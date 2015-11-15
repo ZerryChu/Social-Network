@@ -1,7 +1,8 @@
 /**
  * @content 转发微博
+ * flag = 0: 不更新userinfo
  */
-function repost_message(_content, message_id) {
+function repost_message(_content, message_id, flag) {
 	$.ajax({
 		type : "post",
 		url : "message/repost",
@@ -19,9 +20,10 @@ function repost_message(_content, message_id) {
 					//...add content
 					alert("succeed");					
 					// 页面数据更新
-					showUserInfo(1, true);
+					if (flag == 1)
+						showUserInfo(1, true);
 					var nickname = $("#nickname").text();
-					showOwnmessages(nickname, 1, 1, false);
+					//showOwnmessages(nickname, 1, 1, false);
 					var textarea = ".rptarea_" + message_id;
 					$(textarea).val("");
 					var weibo = "#weibo_" + message_id;

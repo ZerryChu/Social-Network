@@ -20,6 +20,8 @@ public interface UserService {
 	
 	public boolean addFriend(String username, String userToken, String friendUsername, String group);
 	
+	public boolean deleteFriend(String username, String userToken, String friendUsername);
+	
 	public boolean fileUpload(HttpServletRequest request, String username);
 	
 }

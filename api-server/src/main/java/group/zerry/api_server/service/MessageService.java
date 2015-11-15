@@ -4,7 +4,7 @@ import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 
 public interface MessageService {
-	public MessageStatusEnum send_message(String username, String content, int type);
+	public MessageStatusEnum send_message(String username, String content, int type, String pic);
 	
 	public MessageStatusEnum delete_message(String username, int id);
 	

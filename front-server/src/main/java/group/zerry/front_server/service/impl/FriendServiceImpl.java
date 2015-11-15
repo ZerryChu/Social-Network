@@ -73,4 +73,26 @@ public class FriendServiceImpl implements FriendService{
 			return false;
 	}
 
+	@Override
+	public String showFavoritesNickname(String username, String userToken, int page) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "friend/favorites";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("page", String.valueOf(page));
+		return fetchUrlTool.doPost(url, paramsMap);	
+	}
+
+	@Override
+	public String showFollowersNickname(String username, String userToken, int page) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "friend/followers";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("page", String.valueOf(page));
+		return fetchUrlTool.doPost(url, paramsMap);
+	}
+
 }

@@ -14,8 +14,10 @@ public enum UserStatusEnum {
 	ANE("AUTHORITY_NOT_ENOUGH", "权限不够"),
 	UNE("USERNAME_OR_FRIEND_NOT_EXIST", "用户不存在"),
 	PNV("PARAM_NOT_VALID", "参数无效"),
-	AFE("ADD_FRIEND_ERROR", "添加好友失败"),
-	AFS("ADD_FRIEND_SUCCEED", "添加好友成功"),
+	AFE("ADD_FRIEND_ERROR", "添加关注失败"),
+	DFE("DELETE_FRIEND_ERROR", "取消关注失败"),
+	AFS("ADD_FRIEND_SUCCEED", "添加关注成功"),
+	DFS("DELETE_FRIEND_SUCCEED", "取消关注成功"),
 	LOS("LOGOUT_SUCCEED", "下线成功"),
 	LOF("LOGOUT_FAIL", "下线失败");
 	
