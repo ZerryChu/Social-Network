@@ -37,8 +37,3 @@ function repost_message(_content, message_id, flag) {
 		}
 	});
 }
-
-$(".repostInfo").live('click', function() {
-	 var param = "username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&id=" + $(this).attr("id");
-	 window.open("message.jsp?" + param);
-});

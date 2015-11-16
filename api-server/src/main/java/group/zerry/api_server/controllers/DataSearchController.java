@@ -1,5 +1,7 @@
 package group.zerry.api_server.controllers;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,39 +12,46 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 
 import group.zerry.api_server.entity.Message;
+import group.zerry.api_server.entity.Target;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.enumtypes.UserStatusEnum;
+import group.zerry.api_server.interceptors.PageHelperInterceptor;
+import group.zerry.api_server.interceptors.PageHelperInterceptor.Page;
 import group.zerry.api_server.service.SearchService;
 
 /**
- * @author  ZerryChu
- * @since   2015 10 19
+ * @author ZerryChu
+ * @since 2015 10 19
  * @content 数据库检索
  */
 @Controller
-@RequestMapping(value="/search")
+@RequestMapping(value = "/search")
 public class DataSearchController {
-	
+
 	@Autowired
-	SearchService                          searchService;
-	
-	Logger 								   logger = Logger.getLogger(DataSearchController.class);
-	
-	private static SimplePropertyPreFilter userFilter   = new SimplePropertyPreFilter(User.class, "nickname",
-            "age", "type", "habit", "friend_num", "message_num");
-	
+	SearchService searchService;
+
+	Logger logger = Logger.getLogger(DataSearchController.class);
+
+	private static SimplePropertyPreFilter userFilter = new SimplePropertyPreFilter(User.class, "nickname", "username",
+			"age", "type", "habit", "friend_num", "message_num");
+
 	private static SimplePropertyPreFilter messageFilter = new SimplePropertyPreFilter(Message.class, "id", "author",
 			"content", "create_time", "repost_times", "comment_times", "support_times");
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/users", produces = "text/html;charset=UTF-8")
-	public String searchUsersLikeNickname(String nickname) {
+	public String searchUsersLikeNickname(String nickname, int page) {
+		int pageSize = 15;
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		User[] users = null;
 		try {
+			PageHelperInterceptor.startPage(page, pageSize);
 			users = searchService.searchUsersLikeNickname(nickname);
-
+			Page<User> myPage = PageHelperInterceptor.endPage();
+			List<User> list = myPage.getResult();
+			users = (User[]) list.toArray(new User[list.size()]);
 		} catch (Exception e) {
 			regMsg.append(UserStatusEnum.UNE.getValue());
 			regMsg.append("}");
@@ -52,15 +61,19 @@ public class DataSearchController {
 		regMsg.append("}");
 		return regMsg.toString();
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/messages", produces = "text/html;charset=UTF-8")
-	public String searchMessagesLikeContent(String content) {
+	public String searchMessagesLikeContent(String content, int page) {
+		int pageSize = 4;
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
 		try {
+			PageHelperInterceptor.startPage(page, pageSize);
 			messages = searchService.searchMessagesLikeContent(content);
-
+			Page<Message> myPage = PageHelperInterceptor.endPage();
+			List<Message> list = myPage.getResult();
+			messages = (Message[]) list.toArray(new Message[list.size()]);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			regMsg.append(MessageStatusEnum.SMF.getValue());

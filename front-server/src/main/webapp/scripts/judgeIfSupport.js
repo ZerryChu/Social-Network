@@ -27,7 +27,6 @@ function judgeIfSupport(message_id, _flag) {
 					$(message).find(".zan").attr("onclick", val);
 				} else {
 					//不可点赞
-					//alert("不可以点赞");
 					var message = "#weibo_" + message_id;
 					var zan = $(message).find(".zan");
 					zan.hide();

@@ -219,3 +219,8 @@ function show_sourceMessage(id, _id, _flag) {
 				}
 			});
 }
+
+$(".repostInfo").live('click', function() {
+	 var param = "username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&id=" + $(this).attr("id");
+	 window.open("message.jsp?" + param);
+});

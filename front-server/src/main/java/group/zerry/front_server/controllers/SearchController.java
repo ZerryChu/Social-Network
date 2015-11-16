@@ -16,13 +16,13 @@ public class SearchController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/users", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String searchUsersLikeNickname(String nickname) {
-		return searchService.searchUsersLikeNickname(nickname);
+	public String searchUsersLikeNickname(String nickname, int page) {
+		return searchService.searchUsersLikeNickname(nickname, page);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/messages", produces = "text/html;charset=UTF-8")
-	public String searchMessagesLikeContent(String content) {
-		return searchService.searchMessagesLikeContent(content);
+	public String searchMessagesLikeContent(String content, int page) {
+		return searchService.searchMessagesLikeContent(content, page);
 	}
 }

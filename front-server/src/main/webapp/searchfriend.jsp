@@ -75,8 +75,8 @@ body {
 	float: left;
 	width: 210px;
 	height: 80px;
-	margin-left: 25px;
-	margin-right: 25px;
+	margin-left: 15px;
+	margin-right: 15px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	border: 1px solid grey;
@@ -84,9 +84,13 @@ body {
 	cursor: pointer;
 }
 
+#weibo {
+	margin-left: 50px;
+}
+
 .title {
 	border-bottom: 2px solid grey;
-	margin-top: 70px;
+	margin-top: 50px;
 	margin-left: 40px;
 	margin-right: 40px;
 }
@@ -131,6 +135,15 @@ body {
 .btn {
 	cursor: pointer;
 }
+
+#weibo li {
+	margin: 20px 65px;
+	background: white;
+}
+
+.weiboinfo {
+	margin: 5px 10px;
+}
 </style>
 
 </head>
@@ -162,39 +175,133 @@ body {
 				<span style="font-weight: bold;" class="prePage">上一页</span><span
 					style="font-weight: bold;" class="nextPage">下一页</span>
 			</div>
-			<table class="friend_list">
-
-			</table>
+			<div class="search_result"></div>
 		</div>
 	</div>
 </body>
-</html>
 <!--  一页15好友  -->
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="plugins/timeago.js" type="text/javascript"></script>
+<script src="plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var pageNum = 1;
-	var flag; // 1 我的听众 2 我的收听 
+	var flag; // 1 搜人 2 搜微博
+	var content;
+	$(document).ready(function() {
+		content = $.query.get("content");
+		if ($.query.get("type") == 1) {
+			searchUsers(content, 1);
+		} else {
+			if ($.query.get("type") == 2) {
+				searchMessages(content, 1);
+			}
+		}
 
-	
+	});
 
-	function getfollowers(_page) {
-		$(".title").text("我的听众");
+	function search() {
+		content = $(".search_text").val();
+		var type = $(".search_type").val();
+		if (type == 1) {
+			searchUsers(content, 1);
+		} else {
+			searchMessages(content, 1);
+		}
+	}
+
+	function searchMessages(_content, _page) {
 		flag = 2;
 		$
 				.ajax({
 					type : "post",
 					// async : false,
-					url : "friend/followers",
+					url : "search/messages",
 					data : {
-						username : $.query.get("username"),
-						userToken : $.query.get("userToken"),
+						content : _content,
+						page : _page
+					},
+					dataType : "json",
+					success : function(data) {
+						if (data.returndata != undefined) {
+							$(".search_result").empty();
+							var message = "<ul id=\"weibo\">";
+							var i = 0;
+							while (data.returndata[i] != undefined) {
+								// ///////////////////////////////////////
+								var username;
+								var targetNickname = data.returndata[i].author;
+								$
+										.ajax({
+											type : "post",
+											url : "user/getTargetinfo",
+											data : {
+												nickname : targetNickname
+											},
+											async : false,
+											dataType : "json",
+											success : function(data) {
+												$
+														.each(
+																data,
+																function() {
+																	username = data.returndata.username;
+																});
+											}
+										});
+								// ////////////////////////////////////////
+								var weiboId = "weibo_" + data.returndata[i].id;
+								message += "<li id=\"" + weiboId + "\"><div class=\"weiboinfo\" id=\"" 
+										+ data.returndata[i].id 
+										+ "\">";
+								message += "<div class=\"weibo_username\"><span style=\"color: #006a92;\">"
+										+ data.returndata[i].author
+										+ "</span><img style=\"width:50px; height: 50px;\" src=\""
+									+ "pic/"
+									+ username
+									+ ".jpg"
+									+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></div><div class=\"txt\">"
+										+ data.returndata[i].content
+										+ "</div>"
+										+ "<div class=\"info\"><time class=\"timeago\" datetime=\""
+											+ data.returndata[i].create_time
+											+ "\"></time><span class=\"num_info\"><span>评论(<span class=\"comment_num\">"
+										+ data.returndata[i].comment_times
+										+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转发(<span class=\"repost_num\">"
+										+ data.returndata[i].repost_times
+										+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>点赞(<span class=\"support_num\">"
+										+ data.returndata[i].support_times
+										+ "</span>)</span></span></div>";
+								message += "</div></li>";
+								i++;
+							}
+							message += "</ul>";
+							$(".search_result").append(message);
+							$(".timeago").timeago();
+
+						}
+					}
+				});
+	}
+
+	function searchUsers(_nickname, _page) {
+		flag = 1;
+		$
+				.ajax({
+					type : "post",
+					// async : false,
+					url : "search/users",
+					data : {
+						nickname : _nickname,
 						page : _page
 					},
 					dataType : "json",
 					success : function(data) {
 						var i = 0;
 						if (data.returndata != undefined) {
+							$(".search_result").empty();
+							$(".search_result").append(
+									"<table class=\"friend_list\">");
 							var index = 0;
 							var message = "";
 							while (data.returndata[i] != undefined) {
@@ -206,7 +313,6 @@ body {
 								if (index == 1) {
 									message += "<tr>";
 								}
-								$(".friend_list")
 								message += "<td><div class=\"friend_info\" onclick=\"goTo('"
 										+ data.returndata[i].nickname
 										+ "')\"><img src=\"pic/" 
@@ -219,8 +325,8 @@ body {
 								i++;
 							}
 							message += "</tr>";
-							$(".friend_list").empty();
 							$(".friend_list").append(message);
+							$(".search_result").append("</table>");
 						}
 					}
 				});
@@ -233,29 +339,38 @@ body {
 		if (pageNum < 1) {
 			pageNum = 1;
 		}
-	alert(pageNum);
 		if (flag == 1)
-			getfavorites(pageNum);
+			searchUsers(content, pageNum);
 		else {
-			getfollowers(pageNum);
+			searchMessages(content, pageNum);
 		}
 
 	});// 跳转上一页
 
 	$(".nextPage").click(function() {
 		pageNum++;
-		alert(pageNum);
 
 		if (flag == 1)
-			getfavorites(pageNum);
+			searchUsers(content, pageNum);
 		else {
-			getfollowers(pageNum);
+			searchMessages(content, pageNum);
 		}
 	}); // 跳转下一页
-	
+
 	function goTo(targetNickname) {
-		window.location = "userinfo.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&targetNickname=" + targetNickname; 
+		window.location = "userinfo.jsp?username=" + $.query.get("username")
+				+ "&userToken=" + $.query.get("userToken") + "&targetNickname="
+				+ targetNickname;
 
 	}
-</script>
 
+	$(".weiboinfo").live(
+			'click',
+			function() {
+				var param = "username=" + $.query.get("username")
+						+ "&userToken=" + $.query.get("userToken") + "&id="
+						+ $(this).attr("id");
+				window.open("message.jsp?" + param);
+			});
+</script>
+</html>

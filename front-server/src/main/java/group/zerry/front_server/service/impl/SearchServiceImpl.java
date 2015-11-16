@@ -21,19 +21,21 @@ public class SearchServiceImpl implements SearchService{
 	@Autowired
 	FetchUrlTools fetchURLTool;
 	
-	public String searchUsersLikeNickname(String nickname) {
+	public String searchUsersLikeNickname(String nickname, int page) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "search/users";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("nickname", nickname);		
+		paramsMap.put("page", String.valueOf(page));
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 
-	public String searchMessagesLikeContent(String content) {
+	public String searchMessagesLikeContent(String content, int page) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "search/messages";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("content", content);
+		paramsMap.put("page", String.valueOf(page));
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 

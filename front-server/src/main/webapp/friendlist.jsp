@@ -75,8 +75,8 @@ body {
 	float: left;
 	width: 210px;
 	height: 80px;
-	margin-left: 25px;
-	margin-right: 25px;
+	margin-left: 15px;
+	margin-right: 15px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	border: 1px solid grey;
@@ -162,7 +162,7 @@ body {
 		</div>
 	</div>
 </body>
-</html>
+
 <!--  一页15好友  -->
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
@@ -198,7 +198,6 @@ body {
 								if (index == 1) {
 									message += "<tr>";
 								}
-								$(".friend_list")
 								message += "<td><div class=\"friend_info\" onclick=\"goTo('"
 									+ data.returndata[i].nickname
 									+ "')\"><img src=\"pic/" 
@@ -246,7 +245,6 @@ body {
 								if (index == 1) {
 									message += "<tr>";
 								}
-								$(".friend_list")
 								message += "<td><div class=\"friend_info\" onclick=\"goTo('"
 										+ data.returndata[i].nickname
 										+ "')\"><img src=\"pic/" 
@@ -273,7 +271,6 @@ body {
 		if (pageNum < 1) {
 			pageNum = 1;
 		}
-	alert(pageNum);
 		if (flag == 1)
 			getfavorites(pageNum);
 		else {
@@ -284,7 +281,6 @@ body {
 
 	$(".nextPage").click(function() {
 		pageNum++;
-		alert(pageNum);
 
 		if (flag == 1)
 			getfavorites(pageNum);
@@ -298,4 +294,4 @@ body {
 
 	}
 </script>
-
+</html>
