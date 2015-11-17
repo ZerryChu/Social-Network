@@ -152,7 +152,7 @@ body {
 	<div class="bg"></div>
 	<div class="top">
 		<ul class="top_content" style="font-weight: bold;">
-			<li><a href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
+			<li><a class="link" href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
 			<li>敬请期待</li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
@@ -373,5 +373,13 @@ body {
 						+ $(this).attr("id");
 				window.open("message.jsp?" + param);
 			});
+	
+	$(".top_content li").mouseover(function() {
+		this.style.background = "snow";
+	});
+
+	$(".top_content li").mouseout(function() {
+		this.style.background = "";
+	});
 </script>
 </html>

@@ -44,9 +44,8 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 	cursor: pointer;
-	width: 440px;	
+	width: 440px;
 }
-
 </style>
 <title>微博</title>
 <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -118,7 +117,7 @@
 	<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document)
-				.ready(
+				.ready(	
 						function() {
 							$(function() {
 								$('#cmt_emotion').qqFace({

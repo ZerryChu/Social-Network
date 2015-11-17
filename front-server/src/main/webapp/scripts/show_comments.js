@@ -67,7 +67,7 @@ function show_comments(message_id, pageNumber, _flag) {
 																	+ data.returndata[i].nickname
 																	+ "</a>:<span class=\"content\">"
 																	+ return_content
-																	+ "</span><div class=\"info\"><img class=\"delete_cmt\" align=\"right\" style=\"width: 10px; height: 10px;\" src=\"images/delete.jpg\" onclick=\"delete_comment("
+																	+ "</span><div class=\"info\"><img class=\"delete_cmt\" align=\"right\" style=\"margin-right: 30px; width: 10px; height: 10px;\" src=\"images/delete.jpg\" onclick=\"delete_comment("
 																	+ data.returndata[i].id
 																	+ ", '"
 																	+ data.returndata[i].nickname

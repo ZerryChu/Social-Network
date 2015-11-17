@@ -12,8 +12,8 @@ function showTargetInfo(_flag) {
                 if (data.returndata != null) {
                 	$(".targetNickname div").text($.query.get("targetNickname"));
                 	$(".targetUsername div").text(data.returndata.username);
-                	$(".friend_num div").text(data.returndata.friend_num);
-                	$(".message_num div").text(data.returndata.message_num);
+                	$(".friend_num span").text(data.returndata.friend_num);
+                	$(".message_num span").text(data.returndata.message_num);
                 	$(".age div").text(data.returndata.age);
                 	$(".habit div").text(data.returndata.habit);
             		$("img").attr("src", "pic/" + data.returndata.username + ".jpg");
@@ -21,8 +21,8 @@ function showTargetInfo(_flag) {
                 } else {
                 	$(".targetUsername div").text($.query.get("targetNickname"));
                 	$(".targetNickname div").text("null");
-                	$(".friend_num div").text("0");
-                	$(".message_num div").text("0");
+                	$(".friend_num span").text("0");
+                	$(".message_num span").text("0");
                 	$(".age div").text("0");
                 	$(".habit div").text("null");
                 	//

@@ -43,7 +43,8 @@
 	<div class="bg"></div>
 	<div class="top">
 		<ul class="top_content" style="font-weight: bold;">
-			<li><a class="link" href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
+			<li><a class="link"
+				href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
 			<li>敬请期待</li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
@@ -113,11 +114,13 @@
 						style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
 					<textarea class="message_content" id="content" name="content"></textarea>
 					<br> <span id="msg_emotion" class="msg_emotion"></span> <input
-						type="file" class="fileOnLoad" name="pic"><!-- <select
+						type="file" class="fileOnLoad" name="pic">
+					<!-- <select
 						class="type" name="type">
 						<option value="2">暂无</option>
 						<option value="1" selected="selected">好友可见</option>
-					</select> --><input type="hidden" name="username" value="${param.username}">
+					</select> -->
+					<input type="hidden" name="username" value="${param.username}">
 					<input type="hidden" name="userToken" value="${param.userToken}"><input
 						style="float: right;" type="reset"><input
 						style="float: right;" class="send_button" type="submit"
@@ -135,13 +138,13 @@
 						<!--内容列表(li数目可随意增减)-->
 						<ul>
 							<li><a href=""><img src="images/pic1.jpg" thumb=""
-									alt="" text="详细描述2" /></a></li>
+									alt="" text="" /></a></li>
 							<li><a href=""><img src="images/pic2.jpg" thumb=""
-									alt="" text="详细描述3" /></a></li>
+									alt="" text="" /></a></li>
 							<li><a href=""><img src="images/pic3.jpg" thumb=""
-									alt="" text="详细描述4" /></a></li>
+									alt="" text="" /></a></li>
 							<li><a href=""><img src="images/pic4.jpg" thumb=""
-									alt="" text="详细描述5" /></a></li>
+									alt="" text="" /></a></li>
 						</ul>
 					</div>
 				</div>
@@ -233,7 +236,7 @@
 			time : 3,//切换时间间隔(秒)
 			trigger : 'click',//触发切换模式:'click'(点击)/'mouseover'(悬停)
 			width : 700,//设置图片区域宽度(像素)
-			height : 120,//设置图片区域高度(像素)
+			height : 160,//设置图片区域高度(像素)
 			txtHeight : 'default'//文字层高度设置(像素),'default'为默认高度，0为隐藏
 		});
 	</script>
@@ -242,18 +245,18 @@
 
 		var flag = 1; // 1: 微博跳转 2: 用户自己发得微博的跳转
 		var pageNum = 1;
-		
-		$(".top_content li").mouseover(function() {
-			 this.style.background="snow";
-		});
-		
-		$(".top_content li").mouseout(function() {
-			 this.style.background="";
-		});
-		
-		$(document).ready(function() {
-			/////////////      表情包        /////////////////////////////////////////////////////////////
 
+		$(".top_content li").mouseover(function() {
+			this.style.background = "snow";
+		});
+
+		$(".top_content li").mouseout(function() {
+			this.style.background = "";
+		});
+
+		$(document).ready(function() {
+
+			/////////////      表情包        /////////////////////////////////////////////////////////////
 			$(function() {
 				$('#msg_emotion').qqFace({
 					assign : '#content', //给输入框赋值 
@@ -291,8 +294,14 @@
 			show_messages(1, 1);
 			showGroups(0);
 			setInterval("update()", 30000);
+			setTimeout('adjustHeight()', 100);
+			setTimeout('adjustHeight()', 5000);
 			//$('body').timeago();
 		});
+
+		function adjustHeight() {
+			$(".right_content").css("height", $(".left_content").height());
+		}
 
 		$(".icon").live('click', function() {
 			var classUsername = $(this).parents("li").find("name");
@@ -342,10 +351,13 @@
 			flag = 2;
 		});// 显示公告
 
-		$("#friends_count").click(function() {
-			window.open("friendlist.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken"));
+		$("#friends_count").click(
+				function() {
+					window.open("friendlist.jsp?username="
+							+ $.query.get("username") + "&userToken="
+							+ $.query.get("userToken"));
 
-		});
+				});
 
 		$("#friend_messages").click(function() {
 			show_messages(1, 1);
@@ -381,6 +393,7 @@
 				showOwnmessages(nickname, pageNum, 0, true);
 			}
 			$(window).scrollTop(0);
+			setTimeout('adjustHeight()', 100);
 			$(".pageNum").val(pageNum);
 		});// 跳转上一页
 
@@ -393,6 +406,7 @@
 				showOwnmessages(nickname, pageNum, 0, true);
 			}
 			$(window).scrollTop(0);
+			setTimeout('adjustHeight()', 100);
 			$(".pageNum").val(pageNum);
 		});// 跳转下一页
 
@@ -401,6 +415,7 @@
 			if (num == "" || isNaN(num)) {
 				return;
 			}
+			pageNum = num;
 			if (flag == 1)
 				show_messages(num, 1);
 			else {
@@ -408,6 +423,7 @@
 				showOwnmessages(nickname, num, 0, true);
 			}
 			$(window).scrollTop(0);
+			setTimeout('adjustHeight()', 100);
 		} // 跳转指定页面
 	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->
