@@ -50,7 +50,8 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 																	.indexOf(';') + 1); // 原微博id
 													message += authorWords
 															+ "<div class=\"repostInfo\">"
-															+ "</div></div><div class=\"info\"><time class=\"timeago\" datetime=\""
+															+ "</div></div>";
+													message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
 															+ data.returndata[i].create_time
 															+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 															+ data.returndata[i].comment_times
@@ -79,7 +80,13 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 												} else {
 
 													message += return_content
-															+ "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
+															+ "</div>";
+													if (data.returndata[i].pic != undefined
+															&& data.returndata[i].pic != "")
+														message += "<br><img class=\"msg_pic\" src=\"message/"
+																+ data.returndata[i].pic
+																+ ".jpg\">";	
+													message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
 															+ data.returndata[i].create_time
 															+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 															+ data.returndata[i].comment_times

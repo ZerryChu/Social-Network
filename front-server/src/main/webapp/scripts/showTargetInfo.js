@@ -10,7 +10,7 @@ function showTargetInfo(_flag) {
         success : function(data){
             $.each(data,function(){
                 if (data.returndata != null) {
-                	$(".targetNickname div").text(data.returndata.nickname);
+                	$(".targetNickname div").text($.query.get("targetNickname"));
                 	$(".targetUsername div").text(data.returndata.username);
                 	$(".friend_num div").text(data.returndata.friend_num);
                 	$(".message_num div").text(data.returndata.message_num);
@@ -19,7 +19,7 @@ function showTargetInfo(_flag) {
             		$("img").attr("src", "pic/" + data.returndata.username + ".jpg");
             		judgeIfFriend($(".targetUsername div").text(), 0); //判断是否可以点赞
                 } else {
-                	$(".targetUsername div").text("null");
+                	$(".targetUsername div").text($.query.get("targetNickname"));
                 	$(".targetNickname div").text("null");
                 	$(".friend_num div").text("0");
                 	$(".message_num div").text("0");

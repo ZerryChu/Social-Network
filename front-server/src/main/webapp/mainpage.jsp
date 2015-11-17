@@ -113,7 +113,7 @@
 						style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
 					<textarea class="message_content" id="content" name="content"></textarea>
 					<br> <span id="msg_emotion" class="msg_emotion"></span> <input
-						type="file" class="fileOnLoad" name="pic" value="图片"><!-- <select
+						type="file" class="fileOnLoad" name="pic"><!-- <select
 						class="type" name="type">
 						<option value="2">暂无</option>
 						<option value="1" selected="selected">好友可见</option>

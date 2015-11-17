@@ -70,7 +70,7 @@ function show_messages(pageNumber, _flag) {
 													+ "\">"
 													+ data.returndata[i].author
 													+ "</a></div>";
-							
+
 											if (data.returndata[i].type == 2) { // 属于转发的微博
 												var content = return_content;
 												var authorWords = content
@@ -80,7 +80,8 @@ function show_messages(pageNumber, _flag) {
 														.indexOf(';') + 1); // 原微博id
 												message += authorWords
 														+ "<div class=\"repostInfo\">"
-														+ "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
+														+ "</div>";
+												message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
 														+ data.returndata[i].create_time
 														+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 														+ data.returndata[i].comment_times
@@ -110,11 +111,10 @@ function show_messages(pageNumber, _flag) {
 												message += return_content;
 												if (data.returndata[i].pic != undefined
 														&& data.returndata[i].pic != "")
-													message += "<img class=\"msg_pic\" src=\"message/"
+													message += "<br><img class=\"msg_pic\" src=\"message/"
 															+ data.returndata[i].pic
 															+ ".jpg\">";
-												message += "<div class=\"txt\">";
-												message += "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
+												message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
 														+ data.returndata[i].create_time
 														+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 														+ data.returndata[i].comment_times
@@ -198,29 +198,34 @@ function show_sourceMessage(id, _id, _flag) {
 						var weiboId = "#weibo_" + _id;
 						var repostInfo = $(weiboId).find(".repostInfo");
 						repostInfo.attr("id", id);
-						$(repostInfo)
-								.append(
-										"<div class=\"weibo_username\"><span style=\"color: #006a92;\">"
-												+ data.returndata.author
-												+ "</span></div><div class=\"txt\">"
-												+ data.returndata.content
-												+ "</div>"
-												+ "<div class=\"info\"><time class=\"timeago\" datetime=\""
-												+ data.returndata.create_time
-												+ "\"></time><span class=\"num_info\"><span>评论(<span class=\"comment_num\">"
-												+ data.returndata.comment_times
-												+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转发(<span class=\"repost_num\">"
-												+ data.returndata.repost_times
-												+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>点赞(<span class=\"support_num\">"
-												+ data.returndata.support_times
-												+ "</span>)</span></span></div>");
+						var message = "<div class=\"weibo_username\"><span style=\"color: #006a92;\">"
+								+ data.returndata.author
+								+ "</span></div><div class=\"txt\">"
+								+ data.returndata.content + "</div>";
+						if (data.returndata.pic != undefined
+								&& data.returndata.pic != "")
+							message += "<img class=\"msg_pic\" src=\"message/"
+									+ data.returndata.pic + ".jpg\">";
+						message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
+								+ data.returndata.create_time
+								+ "\"></time><span class=\"num_info\"><span>评论(<span class=\"comment_num\">"
+								+ data.returndata.comment_times
+								+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转发(<span class=\"repost_num\">"
+								+ data.returndata.repost_times
+								+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>点赞(<span class=\"support_num\">"
+								+ data.returndata.support_times
+								+ "</span>)</span></span></div>";
+						$(repostInfo).append(message);
 						$(".timeago").timeago();
 					}
 				}
 			});
 }
 
-$(".repostInfo").live('click', function() {
-	 var param = "username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&id=" + $(this).attr("id");
-	 window.open("message.jsp?" + param);
-});
+$(".repostInfo").live(
+		'click',
+		function() {
+			var param = "username=" + $.query.get("username") + "&userToken="
+					+ $.query.get("userToken") + "&id=" + $(this).attr("id");
+			window.open("message.jsp?" + param);
+		});

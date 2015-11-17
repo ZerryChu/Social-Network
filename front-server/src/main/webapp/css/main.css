@@ -55,12 +55,13 @@ body{
 .top_content li {
 	float: left;
 	list-style-image: url(../images/arrow.jpg);
-	width: 100px;
+	width: 80px;
 	margin-right: 20px;
 }
 
 .link {
-		text-decoration: none;
+	color: black;	
+	text-decoration: none;
 	
 }
 

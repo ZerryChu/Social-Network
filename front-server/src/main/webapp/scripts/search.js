@@ -140,9 +140,9 @@ function search() {
 	var search_text = $(".search_text").val();
 	if ($(".search_type").val() == 1) {
 		//searchUsersByNickname(search_text);
-		window.location = "searchfriend.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&content=" + search_text + "&type=1";
+		window.open("searchfriend.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&content=" + search_text + "&type=1");
 	} else {
 		//searchMessagesByContent(search_text)
-		window.location = "searchfriend.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&content=" + search_text + "&type=2";
+		window.open("searchfriend.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&content=" + search_text + "&type=2");
 	}
 }

@@ -36,6 +36,17 @@
 	border: 1px #0066cc solid;
 }
 
+.textInfo {
+	background: #e9e8ea none repeat scroll 0 0;
+	border: 1px solid #dee3e3;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	cursor: pointer;
+	width: 440px;	
+}
+
 </style>
 <title>微博</title>
 <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -54,7 +65,7 @@
 							<a href=""></a>
 						</div>
 						<div class="txt">
-							<div class="repostInfo"></div>
+							<div class="textInfo"></div>
 						</div>
 						<div class="info">
 							<time class="timeago" datetime=""></time>
@@ -116,7 +127,7 @@
 								});
 
 							});
-							
+
 							$(function() {
 								$('#rpt_emotion').qqFace({
 									assign : '.rptarea', //给输入框赋值 
@@ -124,7 +135,7 @@
 								});
 
 							});
-							
+
 							$
 									.ajax({
 										type : "post",
@@ -163,7 +174,6 @@
 															}
 														});
 												// ////////////////////////////////////////
-
 												$(".timeago")
 														.attr(
 																"datetime",
@@ -180,10 +190,13 @@
 														.find(".num")
 														.text(
 																data.returndata.support_times);
-												$(".repostInfo")
+												$(".textInfo")
 														.text(
 																data.returndata.content);
-
+												if(data.returndata.pic != undefined
+														&& data.returndata.pic != "")
+													$(".textInfo").append("<br><img class=\"msg_pic\" src=\"message/"
+															+ data.returndata.pic + ".jpg\">");	
 												$(".userPic a")
 														.attr(
 																"href",
