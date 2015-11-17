@@ -55,7 +55,13 @@ body{
 .top_content li {
 	float: left;
 	list-style-image: url(../images/arrow.jpg);
-	width: 90px;
+	width: 100px;
+	margin-right: 20px;
+}
+
+.link {
+		text-decoration: none;
+	
 }
 
 .search_text {
@@ -131,6 +137,7 @@ body{
 	margin-bottom: 30px;
 	border-top: 2px solid #adacae;
 	border-left: 2px solid #adacae;
+	cursor: pointer;
 }
 
 #nickname {

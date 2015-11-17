@@ -143,6 +143,7 @@ body {
 
 .weiboinfo {
 	margin: 5px 10px;
+	cursor: pointer;
 }
 </style>
 
@@ -151,7 +152,7 @@ body {
 	<div class="bg"></div>
 	<div class="top">
 		<ul class="top_content" style="font-weight: bold;">
-			<li>首页</li>
+			<li><a href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
 			<li>敬请期待</li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
