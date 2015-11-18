@@ -77,9 +77,10 @@ body{
 .left_content {
 	display: inline-block;
 	float: left;
-	border-top: 2px solid #786F66;
-	border-left: 4px solid #786F66;
-	border-bottom: 2px solid #786F66;
+	border-top: 2px solid snow;
+	border-left: 4px solid snow;
+	border-right: 2px solid snow;	
+	border-bottom: 2px solid snow;
 	width: 69%;
 	border-radius: 5px 0px 0px 5px;
 	background: #fff;
@@ -92,9 +93,10 @@ body{
 .right_content {
 	display: inline-block;
 	float: right;
-	border-top: 2px solid #786F66;
-	border-right: 4px solid #786F66;
-	border-bottom: 2px solid #786F66;
+	border-top: 2px solid snow;
+	border-left: 1px solid snow;	
+	border-right: 4px solid snow;	
+	border-bottom: 2px solid snow;
 	width: 30%;
 	border-radius: 0px 5px 5px 0px;
 	background: #c9f1ff;
@@ -182,7 +184,6 @@ body{
 .user_account {
 	margin-top: 5px;
 	border-top: 4px solid #5da8eb;
-	border-left: 2px solid #5da8eb;
 	height: 40px;
 	background: #b5d6f3;
 	padding-top: 3px;

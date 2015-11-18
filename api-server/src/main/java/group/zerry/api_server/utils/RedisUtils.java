@@ -61,7 +61,7 @@ public class RedisUtils implements CacheTools {
 		Jedis jedis = pool.getResource();
 		try {
 			jedis.set(key, value);
-			jedis.expire(key, 20 * 60);
+			jedis.expire(key, 30 * 60);
 		} finally {
 			pool.returnResource(jedis);
 		}

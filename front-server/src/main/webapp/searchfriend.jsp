@@ -48,9 +48,9 @@ body {
 .left_content {
 	display: inline-block;
 	float: left;
-	border-top: 2px solid #786F66;
-	border-left: 4px solid #786F66;
-	border-bottom: 2px solid #786F66;
+	border-top: 2px solid snow;
+	border-left: 4px solid snow;
+	border-bottom: 2px solid snow;
 	border-right: 2px solid gray;
 	width: 20%;
 	height: 600px;
@@ -61,13 +61,13 @@ body {
 .right_content {
 	display: inline-block;
 	float: left;
-	border-top: 2px solid #786F66;
-	border-right: 4px solid #786F66;
-	border-bottom: 2px solid #786F66;
+	border-top: 2px solid snow;
+	border-right: 4px solid snow;
+	border-bottom: 2px solid snow;
 	width: 79%;
 	height: 600px;
 	border-radius: 0px 5px 5px 0px;
-	background: snow;
+	background: white;
 }
 
 .friend_info {
@@ -93,6 +93,7 @@ body {
 	margin-top: 50px;
 	margin-left: 40px;
 	margin-right: 40px;
+	background: silver;
 }
 
 .friend_info div {

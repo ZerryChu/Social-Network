@@ -294,7 +294,7 @@
 			show_messages(1, 1);
 			showGroups(0);
 			setInterval("update()", 30000);
-			setTimeout('adjustHeight()', 100);
+			setTimeout('adjustHeight()', 300);
 			setTimeout('adjustHeight()', 5000);
 			//$('body').timeago();
 		});
@@ -364,6 +364,7 @@
 			flag = 1;
 			pageNum = 1;
 			$(".pageNum").val(pageNum);
+			setTimeout('adjustHeight()', 300);
 		});// 好友广播
 
 		$(".logout").click(function() {
@@ -376,6 +377,8 @@
 			flag = 2;
 			pageNum = 1;
 			$(".pageNum").val(pageNum);
+			setTimeout('adjustHeight()', 300);
+
 		});
 
 		$(".prePage").click(function() {
@@ -393,7 +396,7 @@
 				showOwnmessages(nickname, pageNum, 0, true);
 			}
 			$(window).scrollTop(0);
-			setTimeout('adjustHeight()', 100);
+			setTimeout('adjustHeight()', 300);
 			$(".pageNum").val(pageNum);
 		});// 跳转上一页
 
@@ -406,7 +409,7 @@
 				showOwnmessages(nickname, pageNum, 0, true);
 			}
 			$(window).scrollTop(0);
-			setTimeout('adjustHeight()', 100);
+			setTimeout('adjustHeight()', 300);
 			$(".pageNum").val(pageNum);
 		});// 跳转下一页
 
@@ -423,7 +426,7 @@
 				showOwnmessages(nickname, num, 0, true);
 			}
 			$(window).scrollTop(0);
-			setTimeout('adjustHeight()', 100);
+			setTimeout('adjustHeight()', 300);
 		} // 跳转指定页面
 	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->

@@ -67,8 +67,8 @@ body {
 .left_content {
 	display: inline-block;
 	float: left;
-	border-left: 1px solid #786F66;
-	border-bottom: 2px solid #786F66;
+	border-left: 1px solid snow;
+	border-bottom: 2px solid snow;
 	width: 69%;
 	background: #fff;
 }
@@ -76,8 +76,8 @@ body {
 .right_content {
 	display: inline-block;
 	float: right;
-	border-right: 1px solid #786F66;
-	border-bottom: 2px solid #786F66;
+	border-right: 1px solid snow;
+	border-bottom: 2px solid snow;
 	width: 30%;
 	background: #fff;
 }

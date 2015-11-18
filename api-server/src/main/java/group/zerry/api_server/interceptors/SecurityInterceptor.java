@@ -63,8 +63,10 @@ public class SecurityInterceptor implements HandlerInterceptor {
 					response.getWriter().write(regMsg.toString());
 					System.out.println("authpass fail2.");
 					return false;
-				} else
+				} else {
+					cacheTools.put(username, userToken);   // 覆盖
 					return true;
+				}
 			}
 		} else
 			return true;
