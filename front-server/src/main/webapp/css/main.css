@@ -43,7 +43,7 @@ body{
 	top: 0;
 	left: 0;
 	z-index: 5;
-	opacity: 0.85;	
+	opacity: 0.45;	
 }
 
 .top_content {
@@ -78,8 +78,8 @@ body{
 	display: inline-block;
 	float: left;
 	border-top: 2px solid snow;
-	border-left: 4px solid snow;
-	border-right: 2px solid snow;	
+	border-left: 1px solid snow;
+	border-right: 4px solid snow;	
 	border-bottom: 2px solid snow;
 	width: 69%;
 	border-radius: 5px 0px 0px 5px;
@@ -94,8 +94,8 @@ body{
 	display: inline-block;
 	float: right;
 	border-top: 2px solid snow;
-	border-left: 1px solid snow;	
-	border-right: 4px solid snow;	
+	border-left: 4px solid snow;	
+	border-right: 1px solid snow;	
 	border-bottom: 2px solid snow;
 	width: 30%;
 	border-radius: 0px 5px 5px 0px;
@@ -142,6 +142,11 @@ body{
 	cursor: pointer;
 }
 
+.send_success {
+	padding-left: 50px;
+	background-color: #fcffc3;	
+}
+
 #nickname {
 	font-size: 25px;
 	float: right;
@@ -151,6 +156,7 @@ body{
 	line-height: 27px;
 	margin-right: 40px;
 	font-weight: bold;
+	color: #3597fa;
 }
 
 #nickname a, .msgBox .username a {
@@ -243,9 +249,11 @@ body{
 
 .messages_class ul {
 	height: 30px;
+	margin-top: 10px;
 }
 /*é€‰é¡¹å¡*/
 .messages_class li {
+	background: snow;
 	width: 70px;
 	height: 30px;
 	float: left;
@@ -454,7 +462,7 @@ body{
 }
 
 .weibo_username a {
-	color: gray;
+	color: #5c7cf5;
 	font-size: 18px;
 	text-decoration: none;
 	font-weight: bold;

@@ -162,7 +162,7 @@ function deleteOwnmessage(message_id) {
 		{
 			if (data.msg == 1) {
 				var num = $("#message_num").text();
-				$("#message_num").text(Number.parseInt(num) - 1); // 广播数-1
+				$("#message_num").text(parseInt(num, 10) - 1); // 广播数-1
 				showOwnmessages(userNickname, 1, 1, true);
 			} else {
 				alert("fail");

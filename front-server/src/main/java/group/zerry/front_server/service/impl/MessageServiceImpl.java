@@ -33,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
 	/**
 	 * @content 图片存储位置
 	 */
-	private String path = "/Users/zhuzirui/GitHub/Social-Network/front-server/src/main/webapp/message/";
+	private String path = "/root/apache-tomcat-7.0.65/webapps/weibo/message/";
 
 	private boolean fileUpload(MultipartFile pic, UUID uuid) {
 		// 图片大小，像素等的处理

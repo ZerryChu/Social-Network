@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>主页</title>
 <link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
 <style type="text/css">
 .msg_emotion, .cmt_emotion, .rpt_emotion {
 	width: 42px;
@@ -127,6 +129,7 @@
 						value="推送广播">
 				</form>
 			</div>
+			<div style="display: none" style="" class="send_success">发送成功，可点击广播查看个人广播...</div>
 			<div class="ad">
 				<div id="boxID">
 					<!--焦点图盒子-->
@@ -209,6 +212,7 @@
 	<script src="plugins/timeago.js" type="text/javascript"></script>
 	<script src="plugins/jquery-migrate-1.2.1.min.js"
 		type="text/javascript"></script>
+	<script src="scripts/jquery-bigic.js" type="text/javascript"></script>
 	<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 	<script src="scripts/logout.js" type="text/javascript"></script>
 	<script src="scripts/showUserInfo.js" type="text/javascript"></script>
@@ -239,9 +243,6 @@
 			height : 160,//设置图片区域高度(像素)
 			txtHeight : 'default'//文字层高度设置(像素),'default'为默认高度，0为隐藏
 		});
-	</script>
-	<script type="text/javascript">
-		//$('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
 
 		var flag = 1; // 1: 微博跳转 2: 用户自己发得微博的跳转
 		var pageNum = 1;
@@ -272,7 +273,9 @@
 				//var nickname = $("#nickname").text();
 				//showOwnmessages(nickname, 1, 1, false);
 				var num = $("#message_num").text();
-				$("#message_num").text(Number.parseInt(num) + 1); // 广播数+1
+				$("#message_num").text(parseInt(num, 10) + 1); // 广播数+1
+				$(".send_success").slideDown();
+				setTimeout('$("#MsgForm")[0].reset();$(".send_success").slideUp()', 3000);
 
 			})
 
@@ -294,8 +297,8 @@
 			show_messages(1, 1);
 			showGroups(0);
 			setInterval("update()", 30000);
-			setTimeout('adjustHeight()', 300);
-			setTimeout('adjustHeight()', 5000);
+			//setTimeout('adjustHeight()', 300);
+			//setTimeout('adjustHeight()', 5000);
 			//$('body').timeago();
 		});
 
@@ -364,7 +367,7 @@
 			flag = 1;
 			pageNum = 1;
 			$(".pageNum").val(pageNum);
-			setTimeout('adjustHeight()', 300);
+			//setTimeout('adjustHeight()', 300);
 		});// 好友广播
 
 		$(".logout").click(function() {
@@ -377,7 +380,7 @@
 			flag = 2;
 			pageNum = 1;
 			$(".pageNum").val(pageNum);
-			setTimeout('adjustHeight()', 300);
+			//setTimeout('adjustHeight()', 300);
 
 		});
 
@@ -396,7 +399,7 @@
 				showOwnmessages(nickname, pageNum, 0, true);
 			}
 			$(window).scrollTop(0);
-			setTimeout('adjustHeight()', 300);
+			//setTimeout('adjustHeight()', 300);
 			$(".pageNum").val(pageNum);
 		});// 跳转上一页
 
@@ -409,7 +412,7 @@
 				showOwnmessages(nickname, pageNum, 0, true);
 			}
 			$(window).scrollTop(0);
-			setTimeout('adjustHeight()', 300);
+			//setTimeout('adjustHeight()', 300);
 			$(".pageNum").val(pageNum);
 		});// 跳转下一页
 
@@ -426,7 +429,7 @@
 				showOwnmessages(nickname, num, 0, true);
 			}
 			$(window).scrollTop(0);
-			setTimeout('adjustHeight()', 300);
+			//setTimeout('adjustHeight()', 300);
 		} // 跳转指定页面
 	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->

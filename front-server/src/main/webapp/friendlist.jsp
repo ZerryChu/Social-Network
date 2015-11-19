@@ -38,6 +38,8 @@ body {
 }
 
 .options li {
+	font-weight: bold;
+	color: #5c7cf5;
 	cursor: pointer;
 	margin-top: 20px;
 	margin-left: 20px;
@@ -49,9 +51,9 @@ body {
 	display: inline-block;
 	float: left;
 	border-top: 2px solid white;
-	border-left: 4px solid white;
+	border-left: 2px solid white;
 	border-bottom: 2px solid white;
-	border-right: 2px solid gray;
+	border-right: 1px solid gray;
 	width: 20%;
 	height: 600px;
 	border-radius: 5px 0px 0px 5px;
@@ -62,7 +64,7 @@ body {
 	display: inline-block;
 	float: left;
 	border-top: 2px solid white;
-	border-right: 4px solid white;
+	border-right: 2px solid white;
 	border-bottom: 2px solid white;
 	width: 79%;
 	height: 600px;

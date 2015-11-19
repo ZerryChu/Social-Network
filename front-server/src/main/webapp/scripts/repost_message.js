@@ -28,7 +28,7 @@ function repost_message(_content, message_id, flag) {
 					$(textarea).val("");
 					var weibo = "#weibo_" + message_id;
 					var num = $(weibo).find(".repost").find(".num").text();
-					$(weibo).find(".repost").find(".num").text(Number.parseInt(num) + 1); // 评论数+1
+					$(weibo).find(".repost").find(".num").text(parseInt(num, 10) + 1); // 评论数+1
 				} else {
 					//...tell fail
 					alert("fail");

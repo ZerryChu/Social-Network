@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	//文件存储路径
-	private String path = "/Users/zhuzirui/GitHub/Social-Network/front-server/src/main/webapp/pic/";
+	private String path = "/root/apache-tomcat-7.0.65/webapps/weibo/pic/";
 	
 	/**
 	 * 用户头像上传，只开放jpg，pic，png文件的接口

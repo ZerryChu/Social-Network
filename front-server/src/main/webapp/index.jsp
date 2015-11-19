@@ -25,6 +25,7 @@
 					</div>
 					<form id="form">
 						<div class="loginbox">
+						<div style="display: none" style="" class="login_success">登陆成功，2s后跳转...</div>
 							<div class="un">
 								<input type="text" name="username" /> <span class="holder">用户名</span>
 								<div class="tip"></div>
@@ -123,13 +124,15 @@
 	
 	$(".reg_btn").click(function() {
 		if($("#form_reg").valid()){
-			$(".reg_success").css("display", "none");
 			var username = $(".reg_un input").val();
 			var password = $(".reg_pwd input").val();
 			var nickname = $(".reg_ni input").val();
-	
 			reg(username, password, nickname);
 		}
+	});
+	
+	$(".register").click(function() {
+		$(".reg_success").slideUp();
 	});
 </script>
 </html>

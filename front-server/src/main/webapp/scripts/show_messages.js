@@ -166,6 +166,7 @@ function show_messages(pageNumber, _flag) {
 										}
 									});
 					$(".timeago").timeago();
+					$(".msg_pic").bigic();
 				}
 			});
 }

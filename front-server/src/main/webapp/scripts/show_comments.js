@@ -28,7 +28,7 @@ function delete_comment(comment_id, _nickname, _message_id) {
 					var weibo = "#weibo_" + _message_id;
 					var num = $(weibo).find(".comment").find(".num").text();
 					$(weibo).find(".comment").find(".num").text(
-							Number.parseInt(num) - 1); // 评论数-1
+							parseInt(num, 10) - 1); // 评论数-1
 					show_comments(_message_id, 1, 1);
 				} else {
 					alert("fail.");
@@ -43,7 +43,7 @@ function show_comments(message_id, pageNumber, _flag) {
 			.ajax({
 				type : "post",
 				url : "comment/show",
-				async : false, //发帖同步执行
+				async : false, // 发帖同步执行
 				data : {
 					id : message_id,
 					page : pageNumber,
@@ -82,10 +82,10 @@ function show_comments(message_id, pageNumber, _flag) {
 										$(target)
 												.append(
 														"<div class=\"cmt_getPageNum\" align=\"center\"><span class=\"cmt_prePage\" onclick=\"cmt_prePage("
-														+ message_id
-														+ ")\">上一页</span><span class=\"cmt_nextPage\" onclick=\"cmt_nextPage("
-														+ message_id
-														+ ")\">下一页</span><span class=\"pageNum\"></span></div>");
+																+ message_id
+																+ ")\">上一页</span><span class=\"cmt_nextPage\" onclick=\"cmt_nextPage("
+																+ message_id
+																+ ")\">下一页</span><span class=\"pageNum\"></span></div>");
 										$(".timeago").timeago();
 									});
 				},

@@ -25,6 +25,7 @@ function userlogin(flag) {
 				}
 				else */
 				if (data.msg != "0") {
+					$(".login_success").slideDown();
 					//...add content
 					var forward = "window.location=\"main?username="
 							+ $(".un input").val() + "&userToken=" + data.msg
@@ -56,6 +57,7 @@ function userlogin(flag) {
 					else 
 					if (data.msg != "0") {
 						//...add content
+						$(".login_success").slideDown();
 						var forward = "window.location=\"main?username="
 								+ $(".un input").val() + "&userToken=" + data.msg
 								+ "\"";

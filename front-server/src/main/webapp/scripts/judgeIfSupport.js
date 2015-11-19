@@ -67,7 +67,7 @@ function support(message_id, flag) {
 					judgeIfSupport(message_id, 1);
 					var weibo = "#weibo_" + message_id;
 					var num = $(weibo).find(".support").find(".num").text();
-					$(weibo).find(".support").find(".num").text(Number.parseInt(num) - 1); // 点赞数-1
+					$(weibo).find(".support").find(".num").text(parseInt(num, 10) - 1); // 点赞数-1
 					// -1
 				} else if (data.msg == 2) {
 					//没点过赞
@@ -101,7 +101,7 @@ function support(message_id, flag) {
 					judgeIfSupport(message_id, 1);
 					var weibo = "#weibo_" + message_id;
 					var num = $(weibo).find(".support").find(".num").text();
-					$(weibo).find(".support").find(".num").text(Number.parseInt(num) + 1); // 点赞数+1
+					$(weibo).find(".support").find(".num").text(parseInt(num, 10) + 1); // 点赞数+1
 				} else if (data.msg == 2) {
 					//已点过赞
 					alert("has supported.");
