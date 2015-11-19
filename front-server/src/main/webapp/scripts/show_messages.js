@@ -111,7 +111,7 @@ function show_messages(pageNumber, _flag) {
 												message += return_content;
 												if (data.returndata[i].pic != undefined
 														&& data.returndata[i].pic != "")
-													message += "<br><img class=\"msg_pic\" src=\"message/"
+													message += "<br><img class=\"msg_pic\" alt=\"点击显示原图\" src=\"message/"
 															+ data.returndata[i].pic
 															+ ".jpg\">";
 												message += "<div class=\"info\"><time class=\"timeago\" datetime=\""

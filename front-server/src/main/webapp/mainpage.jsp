@@ -7,6 +7,7 @@
 <title>主页</title>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/ad.css">
 
 <style type="text/css">
 .msg_emotion, .cmt_emotion, .rpt_emotion {
@@ -130,26 +131,14 @@
 				</form>
 			</div>
 			<div style="display: none" style="" class="send_success">发送成功，可点击广播查看个人广播...</div>
-			<div class="ad">
-				<div id="boxID">
-					<!--焦点图盒子-->
-					<div class="loading">
-						<img src="images/loading.gif" alt="请稍候..." />
-					</div>
-					<!--载入画面(可删除)-->
-					<div class="pic">
-						<!--内容列表(li数目可随意增减)-->
-						<ul>
-							<li><a href=""><img src="images/pic1.jpg" thumb=""
-									alt="" text="" /></a></li>
-							<li><a href=""><img src="images/pic2.jpg" thumb=""
-									alt="" text="" /></a></li>
-							<li><a href=""><img src="images/pic3.jpg" thumb=""
-									alt="" text="" /></a></li>
-							<li><a href=""><img src="images/pic4.jpg" thumb=""
-									alt="" text="" /></a></li>
-						</ul>
-					</div>
+			<div id="box_ad">
+				<div class="list">
+					<ul>
+						<li><img src="images/pic1.jpg" width="650" height="170" /></li>
+						<li><img src="images/pic2.jpg" width="650" height="170" /></li>
+						<li><img src="images/pic3.jpg" width="650" height="170" /></li>
+						<li><img src="images/pic4.jpg" width="650" height="170" /></li>
+					</ul>
 				</div>
 			</div>
 			<div id="messages">
@@ -229,32 +218,27 @@
 	<script src="scripts/update.js" type="text/javascript"></script>
 	<script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
 	<script src="scripts/QQFace.js" type="text/javascript"></script>
-	<script type="text/javascript" src="plugins/setHomeSetFav.js"></script>
-	<script type="text/javascript" src="plugins/myfocus-2.0.1.min.js"
-		charset="utf-8"></script>
-	<!--引入myFocus库-->
+	<script src="scripts/ad.js" type="text/javascript"></script>
 	<script type="text/javascript">
-		myFocus.set({
-			id : 'boxID',//焦点图盒子ID
-			pattern : 'mF_fancy',//风格应用的名称
-			time : 3,//切换时间间隔(秒)
-			trigger : 'click',//触发切换模式:'click'(点击)/'mouseover'(悬停)
-			width : 700,//设置图片区域宽度(像素)
-			height : 160,//设置图片区域高度(像素)
-			txtHeight : 'default'//文字层高度设置(像素),'default'为默认高度，0为隐藏
-		});
-
 		var flag = 1; // 1: 微博跳转 2: 用户自己发得微博的跳转
 		var pageNum = 1;
 
-		$(".top_content li").mouseover(function() {
-			this.style.background = "snow";
-		});
+		$("#MsgForm")
+				.submit(
+						function() {
+							//$(".message_content").val("")
+							//showUserInfo(1, true);
+							//var nickname = $("#nickname").text();
+							//showOwnmessages(nickname, 1, 1, false);
+							var num = $("#message_num").text();
+							$("#message_num").text(parseInt(num, 10) + 1); // 广播数+1
+							$(".send_success").slideDown();
+							setTimeout(
+									'$("#MsgForm")[0].reset();$(".send_success").slideUp()',
+									3000);
 
-		$(".top_content li").mouseout(function() {
-			this.style.background = "";
-		});
-
+						})
+						
 		$(document).ready(function() {
 
 			/////////////      表情包        /////////////////////////////////////////////////////////////
@@ -266,18 +250,6 @@
 
 			});
 			//////////////////////////////////////////////////////////////////////////////////////////
-
-			$("#MsgForm").submit(function() {
-				//$(".message_content").val("")
-				//showUserInfo(1, true);
-				//var nickname = $("#nickname").text();
-				//showOwnmessages(nickname, 1, 1, false);
-				var num = $("#message_num").text();
-				$("#message_num").text(parseInt(num, 10) + 1); // 广播数+1
-				$(".send_success").slideDown();
-				setTimeout('$("#MsgForm")[0].reset();$(".send_success").slideUp()', 3000);
-
-			})
 
 			$(".messages_class li").each(function(index) {
 				var $this = $(this);
@@ -299,9 +271,16 @@
 			setInterval("update()", 30000);
 			//setTimeout('adjustHeight()', 300);
 			//setTimeout('adjustHeight()', 5000);
-			//$('body').timeago();
 		});
 
+		$(".top_content li").mouseover(function() {
+			this.style.background = "snow";
+		});
+
+		$(".top_content li").mouseout(function() {
+			this.style.background = "";
+		});
+		
 		function adjustHeight() {
 			$(".right_content").css("height", $(".left_content").height());
 		}
