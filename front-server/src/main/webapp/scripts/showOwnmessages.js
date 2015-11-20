@@ -83,7 +83,7 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 															+ "</div>";
 													if (data.returndata[i].pic != undefined
 															&& data.returndata[i].pic != "")
-														message += "<br><img class=\"msg_pic\" src=\"message/"
+														message += "<br><img class=\"msg_pic\" alt=\"点击显示原图\" src=\"message/"
 																+ data.returndata[i].pic
 																+ ".jpg\">";	
 													message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
@@ -137,6 +137,7 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 											}
 										})
 						$(".timeago").timeago();
+						$(".msg_pic").bigic();
 					}
 
 				}

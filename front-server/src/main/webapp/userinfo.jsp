@@ -142,12 +142,12 @@ body {
 				onerror="this.src='images/no_found.png'">
 			<div class="targetNickname">
 				昵称：
-				<div></div>
+				<div style="color: #006a92; font-weight: bold;"></div>
 			</div>
 			<br>
 			<div class="targetUsername">
 				用户名：
-				<div></div>
+				<div style="margin-left: 10px; color: #006a92; font-weight: bold;"></div>
 			</div>
 			<br> <br>
 			<form class="options">
@@ -156,8 +156,8 @@ body {
 					onclick="addFriend('normal')"> <input type="button"
 					id="unfocus" value="取消关注" onclick="deleteFriend()">
 			</form>
-			<span class="message_num"> 广播： <span></span>
-			</span> <span class="friend_num"> 粉丝： <span></span>
+			<span class="message_num"> 广播： <span style="color: #006a92; font-weight: bold;"></span>
+			</span> <span class="friend_num"> 粉丝： <span style="color: #006a92; font-weight: bold;"></span>
 			</span>
 		</div>
 		<div class="left_content">

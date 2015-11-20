@@ -1,7 +1,6 @@
 .popup-bigic {
 	position: absolute;
 	left: 0;
-	top: 0;
 	background: #eee;
 	overflow: hidden;
 	z-index: 9999;

@@ -4,7 +4,7 @@
 */
 (function ($) {
     $.fn.bigic = function () {
-
+    	
         /*
          * 构造函数 @Bigic
          * 定义基础变量，初始化对象事件
@@ -32,8 +32,7 @@
          */
         Bigic.prototype.init = function(){
             var oThis = this,
-                timer = null;
-
+                timer = null;         
             // 为图片绑定点击事件
             this.$obj.off('.bigic').on('click.bigic', function(){
                 var sTagName = this.tagName.toLowerCase();
@@ -63,7 +62,6 @@
         Bigic.prototype.show = function(){
             var oThis = this,
                 oImg = new Image();
-
             oThis.popup();   // 显示弹窗
 
             // 图片加载
@@ -96,6 +94,7 @@
                   +     '<img id="LoadingBigic" class="loading-bigic" src="images/preloader.gif" />'
                   +  '</div>';
             $('body').append(sHtml);
+            $(".popup-bigic").css("top", $(window).scrollTop());
             oThis.$popup = $('#popupBigic');
             
             // 事件绑定 - 关闭弹窗

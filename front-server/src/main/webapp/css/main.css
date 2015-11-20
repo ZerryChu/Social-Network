@@ -79,7 +79,7 @@ body{
 	float: left;
 	border-top: 2px solid snow;
 	border-left: 1px solid snow;
-	border-right: 4px solid snow;	
+	border-right: 2px solid snow;	
 	border-bottom: 2px solid snow;
 	width: 69%;
 	border-radius: 5px 0px 0px 5px;
@@ -94,7 +94,7 @@ body{
 	display: inline-block;
 	float: right;
 	border-top: 2px solid snow;
-	border-left: 4px solid snow;	
+	border-left: 6px solid snow;	
 	border-right: 1px solid snow;	
 	border-bottom: 2px solid snow;
 	width: 30%;
