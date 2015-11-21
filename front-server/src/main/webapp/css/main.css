@@ -6,13 +6,7 @@
 body{
     background-color: #73cff1;
 }
-/*
-.ad {
-	margin-top: 0px;
-	border-radius: 5px 0 0 0px;
-	overflow: hidden;
-}
-*/
+
 .main {
 	width: 1000px;
 	margin: 0px auto;
@@ -32,7 +26,6 @@ body{
 .msg_pic {
 	width: 100px;
 	height: 100px;	
-	color: red;
 }
 
 .top {
@@ -93,10 +86,8 @@ body{
 .right_content {
 	display: inline-block;
 	float: right;
-	border-top: 2px solid snow;
-	border-left: 6px solid snow;	
-	border-right: 1px solid snow;	
-	border-bottom: 2px solid snow;
+	border-top: 2px solid white;
+	border-left: 6px solid white;	
 	width: 30%;
 	border-radius: 0px 5px 5px 0px;
 	background: #c9f1ff;
@@ -118,31 +109,31 @@ body{
 }
 
 .message_content {
-	width: 98%;
-	height: 63px;
+	width: 99%;
+	height: 85px;
 	resize: none;
-	padding: 3px 1%;
-	overflow-y: hidden;
-	border-radius: 3px 3px 0 0;
-	border-color: #d0d0d0;
+	border: 0px;
+	padding-top: 10px;
+	padding-left: 7px;
+	background: url(../images/post_bg.png) no-repeat right center;
 }
 
 #userinfo {
-	width: 92%;
-	margin: 30px 3%;
+	width: 100%;
+	margin: 30px 0%;
 }
 
 #user_icon {
 	width: 120px;
 	height: 120px;
 	margin-left: 10px;
-	margin-bottom: 30px;
 	border-top: 2px solid #adacae;
 	border-left: 2px solid #adacae;
 	cursor: pointer;
+	border-radius: 5px;
 }
 
-.send_success {
+.send_success, .delete_confirm {
 	padding-left: 50px;
 	background-color: #fcffc3;	
 }
@@ -202,7 +193,6 @@ body{
 	float: left;
 	text-align: center;
 	list-style-type: none;
-	line-height: 36px;
 	color: #006a92;
 	/*border-right: 1px solid #000;*/
 	padding: 0px 10px;
@@ -451,7 +441,7 @@ body{
 }
 
 .repostInfo {
-	background: #e9e8ea none repeat scroll 0 0;
+	background: #f7f7f7 none repeat scroll 0 0;
 	border: 1px solid #dee3e3;
 	padding-left: 30px;
 	padding-right: 30px;

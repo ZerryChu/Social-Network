@@ -10,7 +10,7 @@
 <body>
 	<div class="main">
 		<div class="bg">
-			<img src="images/bg2.jpg" />
+			<img src="images/index_bg.jpg" />
 		</div>
 		<div class="h">
 			<img src="" />

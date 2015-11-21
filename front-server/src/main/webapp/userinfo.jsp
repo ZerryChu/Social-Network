@@ -48,7 +48,7 @@ body {
 }
 
 .repostInfo {
-	background: #e9e8ea none repeat scroll 0 0;
+	background: #f7f7f7 none repeat scroll 0 0;
 	border: 1px solid #dee3e3;
 	cursor: pointer;
 	padding: 10px 30px;

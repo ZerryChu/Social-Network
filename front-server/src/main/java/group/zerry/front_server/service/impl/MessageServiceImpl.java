@@ -37,6 +37,8 @@ public class MessageServiceImpl implements MessageService {
 
 	private boolean fileUpload(MultipartFile pic, UUID uuid) {
 		// 图片大小，像素等的处理
+		if (pic == null || pic.getSize() >= 5242880)
+			return false;
 		String filePath = path + uuid.toString() + ".jpg";
 		System.out.println(filePath);
 		File file = new File(filePath);

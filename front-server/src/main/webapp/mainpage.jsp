@@ -69,9 +69,9 @@
 					style="width: 20px; height: 20px;">
 				<ul class="user_account">
 					<li class="user_friend_text"><span id="friends_count"
-						style="font-weight: bold;">粉丝：</span> <span id="friend_num">0</span></li>
+						style="font-weight: bold;">粉丝：</span> <br><span id="friend_num">0</span></li>
 					<li class="user_message_text"><span id="messages_count"
-						style="font-weight: bold;">广播：</span> <span id="message_num">0</span></li>
+						style="font-weight: bold;">广播：</span> <br><span id="message_num">0</span></li>
 				</ul>
 			</div>
 			<div id="heated_topic">
@@ -130,7 +130,7 @@
 						value="推送广播">
 				</form>
 			</div>
-			<div style="display: none" style="" class="send_success">发送成功，可点击广播查看个人广播...</div>
+			<div style="display: none" class="send_success">发送成功，可点击广播查看个人广播...</div>
 			<div id="box_ad">
 				<div class="list">
 					<ul>

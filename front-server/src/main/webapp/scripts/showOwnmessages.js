@@ -32,7 +32,9 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 												var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
 												var message = "<li id=\"weibo_"
 														+ data.returndata[i].id
-														+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><img src=\""
+														+ "\"><div style=\"display: none; padding-left: 30%;\" class=\"delete_confirm\">确定删除吗？<button onclick=\"deleteOwnmessage('"
+														+ data.returndata[i].id 
+														+ "');showUserInfo(1, true);\">确认</button><button onclick=\"$(this).parents('.delete_confirm').slideUp();\">取消</button></div><div class=\"weiboinfo\"><div class=\"userPic\"><img src=\""
 														+ "pic/"
 														+ $.query
 																.get("username")
@@ -150,7 +152,7 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
  */
 function deleteOwnmessage(message_id) {
 	$.ajax({
-		url : 'message/delete', // 用于文件上传的服务器端请求地址
+		url : 'message/delete',
 		type : 'post',
 		async : false,
 		data : {
@@ -173,11 +175,13 @@ function deleteOwnmessage(message_id) {
 }
 
 $(".delete_msg").live('click', function() {
-	var ret = confirm("确认删除?");
+	$(this).parents("li").find(".delete_confirm").slideDown();
+
+	/*var ret = confirm("确认删除?");
 	if (ret == true) {
 		var message_id = $(this).parents("li").attr("id");
 		message_id = message_id.substr(6);
 		deleteOwnmessage(message_id);
 		showUserInfo(1, true);
-	}
+	}*/
 });

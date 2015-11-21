@@ -33,13 +33,12 @@ body {
 
 .options {
 	list-style: none;
-	padding: 0px 20px;
 	font-size: 20px;
 }
 
 .options li {
 	font-weight: bold;
-	color: #5c7cf5;
+	color: gray;
 	cursor: pointer;
 	margin-top: 20px;
 	margin-left: 20px;
@@ -57,14 +56,14 @@ body {
 	width: 20%;
 	height: 600px;
 	border-radius: 5px 0px 0px 5px;
-	background: snow;
+	background: #f9f9f9;
 }
 
 .right_content {
 	display: inline-block;
 	float: left;
 	border-top: 2px solid white;
-	border-right: 2px solid white;
+	border-right: 1px solid white;
 	border-bottom: 2px solid white;
 	width: 79%;
 	height: 600px;

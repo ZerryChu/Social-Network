@@ -5,10 +5,17 @@
 /**
  * @content 删除评论
  */
+
+function show_delete_confirm(id) {
+	var div = "#cmt_" + id;
+	$(div).find(".delete_confirm").slideDown();
+}
+
 function delete_comment(comment_id, _nickname, _message_id) {
-	var ret = confirm("确认删除?");
-	if (ret == false)
-		return;
+	/*
+	 * var ret = confirm("确认删除?"); if (ret == false) return;
+	 */
+
 	$.ajax({
 		type : "post",
 		url : "comment/delete",
@@ -24,7 +31,6 @@ function delete_comment(comment_id, _nickname, _message_id) {
 		success : function(data) {
 			$.each(data, function() {
 				if (data.msg == 1) {
-					alert("succeed.");
 					var weibo = "#weibo_" + _message_id;
 					var num = $(weibo).find(".comment").find(".num").text();
 					$(weibo).find(".comment").find(".num").text(
@@ -62,17 +68,21 @@ function show_comments(message_id, pageNumber, _flag) {
 											var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
 											$(target)
 													.append(
-															"<li><div class=\"msgBox\" style=\"width:100%;\"><div class=\"txt\">"
+															"<li><div id=\"cmt_"
+																	+ data.returndata[i].id
+																	+ "\" class=\"msgBox\" style=\"width:100%;\"><div style=\"display: none; padding-left: 30%;\" class=\"delete_confirm\">确定删除吗？<button onclick=\"delete_comment("
+																	+ data.returndata[i].id
+																	+ ",'"
+																	+ data.returndata[i].nickname
+																	+ "',"
+																	+ message_id 
+																	+ ")\">确认</button><button onclick=\"$(this).parents('.delete_confirm').slideUp();\">取消</button></div><div class=\"txt\">"
 																	+ "<a href=\"javascript:void(0);\" class=\"comer_name\">"
 																	+ data.returndata[i].nickname
 																	+ "</a>:<span class=\"content\">"
 																	+ return_content
-																	+ "</span><div class=\"info\"><img class=\"delete_cmt\" align=\"right\" style=\"margin-right: 30px; width: 10px; height: 10px;\" src=\"images/delete.jpg\" onclick=\"delete_comment("
-																	+ data.returndata[i].id
-																	+ ", '"
-																	+ data.returndata[i].nickname
-																	+ "', "
-																	+ message_id
+																	+ "</span><div class=\"info\"><img class=\"delete_cmt\" align=\"right\" style=\"margin-right: 30px; width: 10px; height: 10px;\" src=\"images/delete.jpg\" onclick=\"show_delete_confirm("
+																	+ data.returndata[i].id 
 																	+ ")\"><time class=\"timeago\" datetime=\""
 																	+ data.returndata[i].create_time
 																	+ "\"></time></span></div>"
