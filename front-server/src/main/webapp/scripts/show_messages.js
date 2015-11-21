@@ -89,7 +89,7 @@ function show_messages(pageNumber, _flag) {
 														+ data.returndata[i].repost_times
 														+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"\" onclick=\"\">(<span class=\"num\">"
 														+ data.returndata[i].support_times
-														+ "</span>)</span></span></div><div class=\"rpt\" style=\"display: none\"><textarea class=\"rptarea_"
+														+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"rpt\" style=\"display: none\"><textarea class=\"rptarea_"
 														+ data.returndata[i].id
 														+ "\" name=\"\" style=\"height: 40px; width: 498px;\"></textarea><span class=\"rpt_emotion\" id=\"rpt_emotion"
 														+ data.returndata[i].id
@@ -122,7 +122,7 @@ function show_messages(pageNumber, _flag) {
 														+ data.returndata[i].repost_times
 														+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"images/2.png\" onclick=\"\">(<span class=\"num\">"
 														+ data.returndata[i].support_times
-														+ "</span>)</span></span></div><div class=\"rpt\" style=\"display: none\"><textarea class=\"rptarea_"
+														+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"rpt\" style=\"display: none\"><textarea class=\"rptarea_"
 														+ data.returndata[i].id
 														+ "\" name=\"\" style=\"height: 40px; width: 498px;\"></textarea><span class=\"rpt_emotion\" id=\"rpt_emotion"
 														+ data.returndata[i].id

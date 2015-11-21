@@ -5,7 +5,7 @@
 
 /**
  * @content 发送微博
- * @notice  暂时启用ajax版本
+ * @notice  暂时弃用ajax版本
  */
 function _send_messages() {
 	//var str = $("#content").val();

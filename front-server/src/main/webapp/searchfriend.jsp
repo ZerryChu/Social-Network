@@ -55,7 +55,7 @@ body {
 	width: 20%;
 	height: 600px;
 	border-radius: 5px 0px 0px 5px;
-	background: snow;
+	background: #f9f9f9;
 }
 
 .right_content {
@@ -168,7 +168,7 @@ body {
 	<div class="main">
 		<div class="left_content">
 			<div class="history">
-				<div class="title">查询历史</div>
+				<div class="history_info">搜索历史模块</div>
 			</div>
 		</div>
 		<div class="right_content">

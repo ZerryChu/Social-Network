@@ -169,6 +169,10 @@ body {
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 <script type="text/javascript">
+	$(document).ready(function() {
+		getfollowers(1);
+	});
+	
 	var pageNum = 1;
 	var flag; // 1 我的听众 2 我的收听 
 

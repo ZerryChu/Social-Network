@@ -74,7 +74,9 @@
 									class="num"></span>)
 							</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="support"><img
 									class="zan" style="width: 8%; height: 50%;" src="images/2.png"
-									onclick="">(<span class="num"></span>)</span></span>
+									onclick="">(<span class="num"></span>)<i
+									class="like_plus"
+									style="color: gray; margin-top: -35px; margin-left: 65%; display: none;">+1</i></span></span>
 						</div>
 						<div class="rpt" style="display: none">
 							<textarea class="rptarea" name=""
@@ -117,7 +119,7 @@
 	<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document)
-				.ready(	
+				.ready(
 						function() {
 							$(function() {
 								$('#cmt_emotion').qqFace({
@@ -192,10 +194,12 @@
 												$(".textInfo")
 														.text(
 																data.returndata.content);
-												if(data.returndata.pic != undefined
+												if (data.returndata.pic != undefined
 														&& data.returndata.pic != "")
-													$(".textInfo").append("<br><img class=\"msg_pic\" src=\"message/"
-															+ data.returndata.pic + ".jpg\">");	
+													$(".textInfo")
+															.append(
+																	"<br><img class=\"msg_pic\" src=\"message/"
+															+ data.returndata.pic + ".jpg\">");
 												$(".userPic a")
 														.attr(
 																"href",

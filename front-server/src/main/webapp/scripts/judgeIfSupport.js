@@ -60,15 +60,13 @@ function support(message_id, flag) {
 			dataType : "json",
 			success : function(data) {
 				if (data.msg == 1) {
-					//var message = "#weibo_" + message_id;
-					//$(message).find(".zan").attr("src", "images/2.png");
-					//var val = "support(" + message_id + ", 0);";
-					//$(message).find(".zan").attr("onclick", val);
 					judgeIfSupport(message_id, 1);
 					var weibo = "#weibo_" + message_id;
 					var num = $(weibo).find(".support").find(".num").text();
 					$(weibo).find(".support").find(".num").text(parseInt(num, 10) - 1); // 点赞数-1
-					// -1
+					var like_plus = $(weibo).find(".like_plus");
+					//还原动画效果
+					like_plus.css("margin-top", -35);
 				} else if (data.msg == 2) {
 					//没点过赞
 					alert("never supported before.");
@@ -94,13 +92,17 @@ function support(message_id, flag) {
 			dataType : "json",
 			success : function(data) {
 				if (data.msg == 1) {
-					//var message = "#weibo_" + message_id;
-					//$(message).find(".zan").attr("src", "images/1.png");
-					//var val = "support(" + message_id + ", 1);";
-					//$(message).find(".zan").attr("onclick", val);
 					judgeIfSupport(message_id, 1);
 					var weibo = "#weibo_" + message_id;
 					var num = $(weibo).find(".support").find(".num").text();
+					
+					//////动画效果
+					var like_plus = $(weibo).find(".like_plus");
+					like_plus.css("display", "block");
+					like_plus.animate({marginTop: "-50px"}, 500, function() {
+						like_plus.css("display", "none");
+					});
+					
 					$(weibo).find(".support").find(".num").text(parseInt(num, 10) + 1); // 点赞数+1
 				} else if (data.msg == 2) {
 					//已点过赞
