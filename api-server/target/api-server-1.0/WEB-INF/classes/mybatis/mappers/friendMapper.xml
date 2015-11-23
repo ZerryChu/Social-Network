@@ -3,14 +3,24 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="group.zerry.api_server.dao.FriendDao">
-
+	<!-- 
 	<resultMap id="FriendMap" type="Friend">
 		<result property="user_id" column="user_id" />
 		<result property="friend_id" column="friend_id" />
 		<result property="group_id" column="group_id" />
-
+	</resultMap>
+	-->
+	<resultMap id="TargetMap" type="Target">
+		<result property="username" column="username" />
+		<result property="nickname" column="nickname" />
+		<result property="friend_num" column="friend_num" />		
+	</resultMap>
+	
+	<resultMap id="CountMap" type="Count">
+		<result property="number" column="number" />
 	</resultMap>
 
+	<!--
 	<select id="selectFriendsByNickname" parameterType="string"
 		resultType="Friend">
 		SELECT
@@ -21,8 +31,95 @@
 		friend,
 		user_inf
 		WHERE
-		id = user_id
+		id =
+		user_id
 		AND nickname = #{nickname}
 	</select>
+	-->
+	<!-- 收听的人 -->
+	<select id="selectFriendsByGroupname" parameterType="string"
+		resultType="string">
+		SELECT
+		nickname
+		FROM
+		user_inf
+		WHERE
+		id IN (
+		SELECT
+		friend_id
+		FROM
+		friend,
+		user_inf
+		WHERE
+		username = #{0}
+		AND user_id = id
+		AND groupname =
+		#{1}
+		)
+	</select>
 
+	<select id="selectFollowers" parameterType="string" resultType="Target">
+		SELECT
+		username,
+		nickname,
+		friend_num
+		FROM
+		user_inf
+		WHERE
+		id IN (
+		SELECT
+		user_id
+		FROM
+		friend,
+		user_inf
+		WHERE
+		username = #{0}
+		AND friend_id = id
+		)
+	</select>
+
+	<select id="selectFavorites" parameterType="string" resultType="Target">
+		SELECT
+		username,
+		nickname,
+		friend_num
+		FROM
+		user_inf
+		WHERE
+		id IN (
+		SELECT
+		friend_id
+		FROM
+		friend,
+		user_inf
+		WHERE
+		username =
+		#{0}
+		AND user_id = id
+		)
+	</select>
+
+	<select id="selectGroupsByUsername" parameterType="string"
+		resultType="string">
+		SELECT DISTINCT
+		groupname
+		FROM
+		friend,
+		user_inf
+		WHERE
+		username =
+		#{0}
+		AND user_id = id
+	</select>
+
+	<select id="judgeIfFriendsOrNot" resultType="Count">
+		SELECT
+		COUNT(*) as
+		number
+		FROM
+		friend
+		WHERE
+		user_id = #{0}
+		AND friend_id = #{1}
+	</select>
 </mapper>

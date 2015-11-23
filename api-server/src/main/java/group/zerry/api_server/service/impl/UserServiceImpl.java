@@ -53,6 +53,10 @@ public class UserServiceImpl implements UserService {
 			return UserStatusEnum.UNV;
 		else {
 			try {
+				User temp = userDao.selectUserByUsername(user.getUsername());
+				if(temp != null) {
+					return UserStatusEnum.UE;
+				}
 				user.setPassword(EncodeTools.encoder(user.getPassword(),EncodeTools.giveMeSalt()));
 				userDao.addUser(user);
 				return UserStatusEnum.RS;

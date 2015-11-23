@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 			return false;
 	}
 
-	public boolean reg(User user) {
+	public int reg(User user) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "user/reg";
 		Map<String, String> paramsMap = new HashMap<String, String>();
@@ -63,9 +63,12 @@ public class UserServiceImpl implements UserService {
 		paramsMap.put("type", "1");
 		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
 		if (returnMsgDto.getReturnMsg().trim().equals(UserStatusEnum.RS.getValue())) {
-			return true;
-		} else
-			return false;
+			return 1;
+		} else if(returnMsgDto.getReturnMsg().trim().equals(UserStatusEnum.UE.getValue())) {
+			return 0;
+		}
+		else
+			return -1;
 	}
 
 	public String showUserInfo(String username) {

@@ -116,6 +116,7 @@
 	<script src="scripts/send_comment.js" type="text/javascript"></script>
 	<script src="scripts/send_message.js" type="text/javascript"></script>
 	<script src="scripts/repost_message.js" type="text/javascript"></script>
+	<script src="scripts/checkSubmit.js" type="text/javascript"></script>		
 	<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document)

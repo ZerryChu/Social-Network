@@ -138,9 +138,11 @@ $(document).ready(function(){
 	});
 
 	$(".checknum input").focus(function(){
-		$(".checknum div:last").addClass("patchonfoc");
+//		$(".checknum div:last").addClass("patchonfoc");
+		$(".patch").addClass("patchonfoc");
 	}).blur(function(){
-		$(".checknum div:last").removeClass("patchonfoc");	
+//		$(".checknum div:last").removeClass("patchonfoc");	
+		$(".patch").removeClass("patchonfoc");
 	});
 	
 	//复选框效果实现
@@ -229,7 +231,6 @@ $(document).ready(function(){
 				required:"请输入昵称",
 				ranglength:"昵称长度在4-10之间"
 			}
-			
 		},
 		errorPlacement:function(error, element){
 			error.appendTo($(element).nextAll(".tip"));

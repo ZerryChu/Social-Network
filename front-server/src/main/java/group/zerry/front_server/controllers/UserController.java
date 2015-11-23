@@ -97,14 +97,14 @@ public class UserController {
 		return "{\"msg\" : 1}";
 	}
 	
+	/**
+	 * 
+	 * @return 1 :登陆成功 0 :用户名已存在 -1:注册失败
+	 */
 	@ResponseBody
 	@RequestMapping(value="/reg", produces = "text/html;charset=UTF-8")
 	public String reg(User user) {
-		if(userService.reg(user)) {
-			return "{\"msg\" : 1}";
-		}
-		else
-			return "{\"msg\" : 0}";
+		return "{\"msg\" : " + userService.reg(user) + "}";
 	}
 	
 	@ResponseBody

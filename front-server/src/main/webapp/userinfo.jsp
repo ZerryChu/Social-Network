@@ -5,10 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 
 <title></title>
 <style type="text/css">
-
 .targetUsername, .targetNickname, .friend_num, .message_num, form {
 	display: inline-block;
 }
@@ -116,7 +116,6 @@ body {
 .cmt_emotion:hover, .rpt_emotion:hover {
 	background-position: 2px -28px
 }
-
 </style>
 </head>
 <body>
@@ -156,8 +155,10 @@ body {
 					onclick="addFriend('normal')"> <input type="button"
 					id="unfocus" value="取消关注" onclick="deleteFriend()">
 			</form>
-			<span class="message_num"> 广播： <span style="color: #006a92; font-weight: bold;"></span>
-			</span> <span class="friend_num"> 粉丝： <span style="color: #006a92; font-weight: bold;"></span>
+			<span class="message_num"> 广播： <span
+				style="color: #006a92; font-weight: bold;"></span>
+			</span> <span class="friend_num"> 粉丝： <span
+				style="color: #006a92; font-weight: bold;"></span>
 			</span>
 		</div>
 		<div class="left_content">
@@ -194,6 +195,8 @@ body {
 <script src="scripts/send_message.js" type="text/javascript"></script>
 <script src="scripts/repost_message.js" type="text/javascript"></script>
 <script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
+<script src="scripts/checkSubmit.js" type="text/javascript"></script>
+<script src="scripts/jquery-bigic.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		showTargetInfo(1); //重写的js方法
@@ -209,54 +212,59 @@ body {
 	 */
 
 	function addFriend(_group) {
-		$.ajax({
-			type : "post",
-			url : "user/addfriend",
-			data : {
-				username : $.query.get("username"),
-				userToken : $.query.get("userToken"),
-				friendUsername : $(".targetUsername div").text(),
-				group : _group
-			},
-			dataType : "json",
-			success : function(data) {
-				$.each(data, function() {
-					if (data.msg == 1) {
-						//...add content
-						judgeIfFriend($(".targetUsername div").text(), 1);
-						// 更新数据
-					} else {
-						//...tell fail
-						alert("fail");
-					}
-				});
-			}
-		});
+		if (checkSubmit(500)) {
+			$.ajax({
+				type : "post",
+				url : "user/addfriend",
+				data : {
+					username : $.query.get("username"),
+					userToken : $.query.get("userToken"),
+					friendUsername : $(".targetUsername div").text(),
+					group : _group
+				},
+				dataType : "json",
+				success : function(data) {
+					$.each(data, function() {
+						if (data.msg == 1) {
+							//...add content
+							judgeIfFriend($(".targetUsername div").text(), 1);
+							// 更新数据
+						} else {
+							//...tell fail
+							alert("fail");
+						}
+					});
+				}
+			});
+		}
 	} //关注
 
 	function deleteFriend() {
-		$.ajax({
-			type : "post",
-			url : "user/deletefriend",
-			data : {
-				username : $.query.get("username"),
-				userToken : $.query.get("userToken"),
-				friendUsername : $(".targetUsername div").text(),
-			},
-			dataType : "json",
-			success : function(data) {
-				$.each(data, function() {
-					if (data.msg == 1) {
-						//...add content
-						judgeIfFriend($(".targetUsername div").text(), 1);
-						// 更新数据
-					} else {
-						//...tell fail
-						alert("fail");
-					}
-				});
-			}
-		});
+		if (checkSubmit(500)) {
+
+			$.ajax({
+				type : "post",
+				url : "user/deletefriend",
+				data : {
+					username : $.query.get("username"),
+					userToken : $.query.get("userToken"),
+					friendUsername : $(".targetUsername div").text(),
+				},
+				dataType : "json",
+				success : function(data) {
+					$.each(data, function() {
+						if (data.msg == 1) {
+							//...add content
+							judgeIfFriend($(".targetUsername div").text(), 1);
+							// 更新数据
+						} else {
+							//...tell fail
+							alert("fail");
+						}
+					});
+				}
+			});
+		}
 	} //取消关注
 
 	function showOwnmessages(pageNumber, _flag) {
@@ -383,11 +391,11 @@ body {
 											}
 										})
 						$(".timeago").timeago();
-
+						$(".msg_pic").bigic();
 					}
 				});
 	}
-	
+
 	$(".comment").live('click', function() {
 		var message_id = $(this).parents("li").attr("id");
 		message_id = message_id.substr(6);
@@ -422,7 +430,7 @@ body {
 		send_comment(message_id, content);
 		$(comarea).val(""); // 清空输入框
 	}); //发送评论
-	
+
 	$(".top_content li").mouseover(function() {
 		this.style.background = "snow";
 	});
@@ -430,11 +438,11 @@ body {
 	$(".top_content li").mouseout(function() {
 		this.style.background = "";
 	});
-	
+
 	function adjustHeight() {
 		$(".right_content").css("height", $(".left_content").height());
 	}
-	
+
 	$(".prePage").click(function() {
 		if (pageNum == 1)
 			return;
@@ -451,7 +459,7 @@ body {
 	var pageNum = 1;
 	$(".nextPage").click(function() {
 		pageNum++;
-		showOwnmessages(pageNum, 1, true);	
+		showOwnmessages(pageNum, 1, true);
 		$(window).scrollTop(0);
 		setTimeout('adjustHeight()', 300);
 		$(".pageNum").val(pageNum);
@@ -462,8 +470,12 @@ body {
 		if (num == "" || isNaN(num)) {
 			return;
 		}
-		pageNum = num;
-		showOwnmessages(pageNum, 1, true);	
+		if(num <= 1) {
+			pageNum = 1;
+			$(".pageNum").val(pageNum);
+		} else
+			pageNum = num;
+		showOwnmessages(pageNum, 1, true);
 		$(window).scrollTop(0);
 		setTimeout('adjustHeight()', 300);
 	} // 跳转指定页面

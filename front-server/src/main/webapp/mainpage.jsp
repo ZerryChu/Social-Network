@@ -219,6 +219,7 @@
 	<script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
 	<script src="scripts/QQFace.js" type="text/javascript"></script>
 	<script src="scripts/ad.js" type="text/javascript"></script>
+	<script src="scripts/checkSubmit.js" type="text/javascript"></script>	
 	<script type="text/javascript">
 		var flag = 1; // 1: 微博跳转 2: 用户自己发得微博的跳转
 		var pageNum = 1;
@@ -239,9 +240,7 @@
 
 						})
 						
-		$(document).ready(function() {
-
-			/////////////      表情包        /////////////////////////////////////////////////////////////
+		/////////////      表情包        /////////////////////////////////////////////////////////////
 			$(function() {
 				$('#msg_emotion').qqFace({
 					assign : '#content', //给输入框赋值 
@@ -249,7 +248,9 @@
 				});
 
 			});
-			//////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////
+			
+		$(document).ready(function() {
 
 			$(".messages_class li").each(function(index) {
 				var $this = $(this);
@@ -400,7 +401,12 @@
 			if (num == "" || isNaN(num)) {
 				return;
 			}
-			pageNum = num;
+			if(num <= 1) {
+				pageNum = 1;
+				$(".pageNum").val(pageNum);
+			}
+			else
+				pageNum = num;
 			if (flag == 1)
 				show_messages(num, 1);
 			else {

@@ -10,7 +10,7 @@
 <body>
 	<div class="main">
 		<div class="bg">
-			<img src="images/index_bg.jpg" />
+			<img style="heigth: 100%; width: 100%;" src="images/index_bg.jpg" />
 		</div>
 		<div class="h">
 			<img src="" />
@@ -25,7 +25,7 @@
 					</div>
 					<form id="form">
 						<div class="loginbox">
-						<div style="display: none" style="" class="login_success">登陆成功，2s后跳转...</div>
+							<div style="display: none" style="" class="login_success">登陆成功，2s后跳转...</div>
 							<div class="un">
 								<input type="text" name="username" /> <span class="holder">用户名</span>
 								<div class="tip"></div>
@@ -47,7 +47,7 @@
 							</div>
 							<!-- 验证码 -->
 							<div class="sub">
-								<input type="button" value="登 录" id="login"/>
+								<input type="button" value="登 录" id="login" />
 								<div class="auto">
 									<a href="javascript:void(0);" id="checkbtn"></a><label>下次自动登录</label>
 								</div>
@@ -73,17 +73,29 @@
 				<span>注&nbsp;&nbsp;册</span>
 				<div id="close"></div>
 			</div>
-			<div style="display: none" class="reg_success">注册成功！</div>
+			<div style="display: none" class="reg_success">注册成功！1s后回退</div>
 			<form id="form_reg" autocomplete="off">
 				<div class="reg_un">
 					<input type="text" name="reg_name" id="reg_name" /> <span
 						class="holder">用户名</span>
 					<div class="tip"></div>
+					<div class="_tip" style="display: none;">用户名已存在</div>									
 				</div>
 				<div class="reg_pwd">
-					<input type="password" name="reg_pwd" id="reg_pwd" /> <span
-						class="holder">密码</span>
+					<input type="password" name="reg_pwd" id="reg_pwd"
+						onblur="pwStrength(this.value)" onKeyUp="pwStrength(this.value)" />
+					<span class="holder">密码</span>
 					<div class="tip"></div>
+				</div>
+				<div align="center">
+					<table width="250px" style="margin-top: -20px;">
+						<tr bgcolor="#f5f5f5">
+							<td bgcolor="#fff" width="25%"><font style="font-size: 10px;">密码强度</font></td>
+							<td width="25%" id="strength_L">&nbsp;</td>
+							<td width="25%" id="strength_M">&nbsp;</td>
+							<td width="25%" id="strength_H">&nbsp;</td>
+						</tr>
+					</table>
 				</div>
 				<div class="reg_c_pwd">
 					<input type="password" name="confir_reg_pwd" /> <span
@@ -95,8 +107,13 @@
 						class="holder">昵称</span>
 					<div class="tip"></div>
 				</div>
+				<div class="reg_c_email">
+					<input type="email" name="confir_reg_email"/> <span
+						class="holder" style="display: block;">邮箱</span>
+					<div class="tip"></div>
+				</div>
 				<div class="reg_btn">
-					<input type="button" value="注&nbsp;&nbsp;&nbsp;册" id="reg_btn"/>
+					<input type="button" value="注&nbsp;&nbsp;&nbsp;册" id="reg_btn" />
 				</div>
 			</form>
 		</div>
@@ -110,29 +127,98 @@
 <script src="scripts/login.js" type="text/javascript"></script>
 <script src="scripts/reg.js" type="text/javascript"></script>
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				var username = $.cookie('username');
-				var password = $.cookie('password');
-				if (username != undefined
-						&& password != undefined) {
-					$(".un input").val(username);
-					$(".pwd input").val(password);
-					userlogin(0);
-				}
-			});
-	
+	$(document).ready(function() {
+		var username = $.cookie('username');
+		var password = $.cookie('password');
+		if (username != undefined && password != undefined) {
+			$(".un input").val(username);
+			$(".pwd input").val(password);
+			userlogin(0);
+		}
+	});
+
 	$(".reg_btn").click(function() {
-		if($("#form_reg").valid()){
+		if ($("#form_reg").valid()) {
 			var username = $(".reg_un input").val();
 			var password = $(".reg_pwd input").val();
 			var nickname = $(".reg_ni input").val();
 			reg(username, password, nickname);
 		}
 	});
-	
+
 	$(".register").click(function() {
 		$(".reg_success").slideUp();
+		$("._tip").hide();
 	});
+
+	////////////////////////////////////////////////////
+	//密码强度验证
+	//判断输入密码的类型
+	function CharMode(iN) {
+		if (iN >= 48 && iN <= 57) //数字
+			return 1;
+		if (iN >= 65 && iN <= 90) //大写
+			return 2;
+		if (iN >= 97 && iN <= 122) //小写
+			return 4;
+		else
+			return 8;
+	}
+	//bitTotal函数
+	//计算密码模式
+	function bitTotal(num) {
+		modes = 0;
+		for (i = 0; i < 4; i++) {
+			if (num & 1)
+				modes++;
+			num >>>= 1;
+		}
+		return modes;
+	}
+	//返回强度级别
+	function checkStrong(sPW) {
+		if (sPW.length <= 4)
+			return 0; //密码太短
+		Modes = 0;
+		for (i = 0; i < sPW.length; i++) {
+			//密码模式  
+			Modes |= CharMode(sPW.charCodeAt(i));
+		}
+		return bitTotal(Modes);
+	}
+
+	//显示颜色
+	function pwStrength(pwd) {
+		O_color = "#eeeeee";
+		L_color = "#FF0000";
+		M_color = "#FF9900";
+		H_color = "#33CC00";
+		if (pwd == null || pwd == '') {
+			Lcolor = Mcolor = Hcolor = O_color;
+		} else {
+			S_level = checkStrong(pwd);
+			if (pwd.length >= 6 && S_level < 3) // 强度3以下的串长度超过6则强度上升一级
+				S_level++;
+			switch (S_level) {
+			case 0:
+				Lcolor = Mcolor = Hcolor = O_color;
+			case 1:
+				Lcolor = L_color;
+				Mcolor = Hcolor = O_color;
+				break;
+			case 2:
+				Lcolor = Mcolor = M_color;
+				Hcolor = O_color;
+				break;
+			default:
+				Lcolor = Mcolor = Hcolor = H_color;
+			}
+		}
+		document.getElementById("strength_L").style.background = Lcolor;
+		document.getElementById("strength_M").style.background = Mcolor;
+		document.getElementById("strength_H").style.background = Hcolor;
+		return;
+	}
+	////////////////////////////////////////////////////
 </script>
 </html>

@@ -13,12 +13,20 @@
 		<result property="repost_times" column="repost_times" />
 		<result property="comment_times" column="comment_times" />
 		<result property="support_times" column="support_times" />
+		<result property="pic" column="pic" />
 	</resultMap>
 
 	<resultMap id="CountMap" type="Count">
 		<result property="number" column="number" />
 	</resultMap>
 
+	<select id="getMessageById" resultType="Message">
+		select
+		*
+		from message_inf
+		where id = #{id}
+	</select>
+	
 	<select id="getOwnMessages" parameterType="string" resultType="Message">
 		select
 		*
@@ -79,7 +87,8 @@
 		create_time,
 		repost_times,
 		comment_times,
-		support_times
+		support_times,
+		pic
 		)
 		VALUES
 		(
@@ -87,7 +96,8 @@
 		now(),
 		0,
 		0,
-		0
+		0,
+		#{pic}
 		)
 	</insert>
 
@@ -108,36 +118,6 @@
 		username = #{1}
 	</delete>
 
-	<update id="addRepostTimes" parameterType="int">
-		UPDATE message_inf
-		SET
-		repost_times = repost_times + 1
-		WHERE
-		id = #{id}
-	</update>
-
-	<!-- 点赞次数+1 -->
-	<update id="addSupportTimes" parameterType="int">
-		UPDATE message_inf
-		SET support_times = support_times + 1
-		WHERE
-		id = #{id}
-	</update>
-
-	<update id="decreaseSupportTimes" parameterType="int">
-		UPDATE message_inf
-		SET support_times = support_times - 1
-		WHERE
-		id = #{id}
-	</update>
-	
-	<update id="addCommentTimes" parameterType="int">
-		UPDATE message_inf
-		SET comment_times = comment_times + 1
-		WHERE
-		id = #{id}
-	</update>
-
 	<select id="searchMessagesLikeContent" parameterType="string"
 		resultType="Message">
 		SELECT
@@ -145,7 +125,7 @@
 		FROM
 		message_inf
 		WHERE
-		content LIKE #{%content%}
+		content LIKE #{content}
 		AND
 		type = 1
 	</select>
@@ -160,4 +140,43 @@
 		AND message_id =
 		#{1}
 	</select>
+	
+	<update id="addRepostTimes" parameterType="int">
+		UPDATE message_inf
+		SET
+		repost_times = repost_times + 1
+		WHERE
+		id = #{id}
+	</update>
+	
+	<!--
+	<update id="addSupportTimes" parameterType="int">
+		UPDATE message_inf
+		SET support_times = support_times + 1
+		WHERE
+		id = #{id}
+	</update>
+
+	<update id="decreaseSupportTimes" parameterType="int">
+		UPDATE
+		message_inf
+		SET support_times = support_times - 1
+		WHERE
+		id = #{id}
+	</update>
+
+	<update id="addCommentTimes" parameterType="int">
+		UPDATE message_inf
+		SET comment_times = comment_times + 1
+		WHERE
+		id = #{id}
+	</update>
+
+	<update id="decreaseCommentTimes" parameterType="int">
+		UPDATE message_inf
+		SET comment_times = comment_times - 1
+		WHERE
+		id = #{id}
+	</update>
+	-->
 </mapper>

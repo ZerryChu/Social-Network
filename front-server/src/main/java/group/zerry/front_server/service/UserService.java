@@ -10,7 +10,7 @@ public interface UserService {
 
 	public boolean logout(String username, String userToken);
 	
-	public boolean reg(User user);
+	public int reg(User user);
 
 	public String showUserInfo(String username);
 

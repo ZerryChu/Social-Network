@@ -7,6 +7,11 @@
 	outline: none;
 }
 
+.checknumPic {
+	cursor: pointer;
+	margin-left: 20px;	
+}
+
 /*注册*/
 .reg_wraper{
 	position: fixed;
@@ -28,7 +33,7 @@
 	width: 25%;
 /*	height: 500px;*/
 	min-width: 400px;
-	margin: 50px auto;
+	margin: 10px auto;
 	background: #fff;
 	opacity: 1;
 /*	padding: 0px 20px 10px;*/
@@ -59,7 +64,7 @@
 	background: #fff;
 }
 
-.registerbox .reg_un,.registerbox .reg_pwd,.registerbox .reg_c_pwd,.registerbox .reg_btn, .registerbox .reg_ni{
+.registerbox .reg_un,.registerbox .reg_pwd,.registerbox .reg_c_pwd,.registerbox .reg_btn, .registerbox .reg_ni, .reg_c_email{
 	width: 70%;
 	margin: 30px auto;
 	position:relative;
@@ -148,6 +153,7 @@
 	box-shadow:0 0 20px #ccc;
 	background-color: #fff;
 	margin: 0px auto;
+	border-radius: 10px 10px 10px 10px;
 }
 
 .logintitle{
@@ -158,6 +164,7 @@
 	background: #f2f2f2;
 	text-align: center;
 	font-size: 20px;
+	border-radius: 10px 10px 0 0;
 	font-family: "Microsoft YaHei";
 }
 
@@ -177,6 +184,7 @@
 	background: #fff;
 	padding-right: 10px;
 	padding-top: 10px;
+	border-radius: 0 0 10px 10px;
 }
 
 .loginbox .un,.loginbox .pwd,.loginbox .checknum{
@@ -192,7 +200,7 @@
 	margin-bottom: 20px;
 }
 /**/
-.loginbox div input,.registerbox .reg_un input,.registerbox .reg_pwd input,.registerbox .reg_c_pwd input,.registerbox .reg_ni input{
+.loginbox div input,.registerbox .reg_un input,.registerbox .reg_pwd input,.registerbox .reg_c_pwd input,.registerbox .reg_ni input, .reg_c_email input{
 	width: 265px;
 	padding: 10px 5px;
 	height: 25px;
@@ -220,7 +228,7 @@
 	position: absolute;
 	top: 0;
 	left: 160px;
-	width: 5px;
+	width: 10px;
 	height: 45px;
 	background-image: url(../images/icon.png);
 	background-repeat: no-repeat;
@@ -242,6 +250,11 @@
 	text-align: center;
 	background-position: 0 -90px;
 	background-repeat: no-repeat;
+}
+
+.tip, ._tip {
+	font-size: 10px;
+	color: red;	
 }
 
 .loginbox .sub .auto{
