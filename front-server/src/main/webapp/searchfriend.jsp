@@ -256,7 +256,7 @@ body {
 								var weiboId = "weibo_" + data.returndata[i].id;
 								message += "<li id=\"" + weiboId + "\"><div class=\"weiboinfo\" id=\"" 
 										+ data.returndata[i].id 
-										+ "\">";
+										+ "\" style=\"background: snow; padding: 10px;\">";
 								message += "<div class=\"weibo_username\"><span style=\"color: #006a92;\">"
 										+ data.returndata[i].author
 										+ "</span><img style=\"width:50px; height: 50px;\" src=\""
