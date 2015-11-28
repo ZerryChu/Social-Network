@@ -5,7 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
 
 <title></title>
 <style type="text/css">
@@ -116,6 +115,16 @@ body {
 .cmt_emotion:hover, .rpt_emotion:hover {
 	background-position: 2px -28px
 }
+
+.subtitle, .common_topic {
+	padding-top: 30px;
+	padding-left: 20px;
+	padding-bottom: 10px;
+}
+
+.common_friend {
+	padding-left: 20px;
+}
 </style>
 </head>
 <body>
@@ -178,35 +187,50 @@ body {
 				</from>
 			</div>
 		</div>
-		<div class="right_content">拓展模块</div>
+		<div class="right_content">
+			<div class="subtitle">共同收听<span class="num">0</span>人</div>
+			<div class="common_friend">
+				<div title="上一页" style="display: inline-block; background: gray; width: 10px; height: 60px;" class="pre"></div>
+				<span id="fri1" class="commonfriend_info"></span>
+				<span id="fri2" class="commonfriend_info"></span>
+				<span id="fri3" class="commonfriend_info"></span>
+				<div title="下一页" style="display: inline-block; background: gray; width: 10px; height: 60px;" class="next"></div>
+			</div>
+			<div class="common_topic">共同话题</div>
+		</div>
 	</div>
+	
+	<a id="gtotop" class="w-top" style="visibility: visible; opacity: 1;" hidefocus="true" href="#" title="回到顶部">回到顶部</a>	
 </body>
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script src="plugins/timeago.js" type="text/javascript"></script>
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
-<script src="scripts/showTargetInfo.js" type="text/javascript"></script>
+<script src="scripts/showUserInfo.js" type="text/javascript"></script>
 <script src="scripts/show_friends.js" type="text/javascript"></script>
 <script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
-<script src="scripts/QQFace.js" type="text/javascript"></script>
-<script src="scripts/show_comments.js" type="text/javascript"></script>
-<script src="scripts/send_comment.js" type="text/javascript"></script>
 <script src="scripts/show_messages.js" type="text/javascript"></script>
-<script src="scripts/send_message.js" type="text/javascript"></script>
-<script src="scripts/repost_message.js" type="text/javascript"></script>
-<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
+<script src="scripts/support.js" type="text/javascript"></script>
 <script src="scripts/checkSubmit.js" type="text/javascript"></script>
 <script src="scripts/jquery-bigic.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		showTargetInfo(1); //重写的js方法
-		setTimeout('showOwnmessages(1, 1, true)', 100);
-		setTimeout('adjustHeight()', 300);
 	});
 
+	$(document).scroll(function(){
+		var content = $(".subtitle");
+		if(248 <= $(window).scrollTop()) {
+			content.css("margin-top", $(window).scrollTop() - 220);
+		}
+		else {
+			content.css("margin-top", 0);
+		}
+	});
+	
 	/*
 	function openFriendList() {
-		//$(li).find(".friend_list").slideToggle();
+		if($(li).find(".friend_list").slideToggle();
 		addFriend($(".targetUsername div").text(), "normal");
 	}
 	 */
@@ -392,6 +416,7 @@ body {
 										})
 						$(".timeago").timeago();
 						$(".msg_pic").bigic();
+						showCommonFriends(1);
 					}
 				});
 	}
@@ -439,10 +464,6 @@ body {
 		this.style.background = "";
 	});
 
-	function adjustHeight() {
-		$(".right_content").css("height", $(".left_content").height());
-	}
-
 	$(".prePage").click(function() {
 		if (pageNum == 1)
 			return;
@@ -452,7 +473,7 @@ body {
 		}
 		showOwnmessages(pageNum, 1, true);
 		$(window).scrollTop(0);
-		setTimeout('adjustHeight()', 300);
+		//setTimeout('adjustHeight()', 300);
 		$(".pageNum").val(pageNum);
 	});// 跳转上一页
 
@@ -461,7 +482,7 @@ body {
 		pageNum++;
 		showOwnmessages(pageNum, 1, true);
 		$(window).scrollTop(0);
-		setTimeout('adjustHeight()', 300);
+		//setTimeout('adjustHeight()', 300);
 		$(".pageNum").val(pageNum);
 	});// 跳转下一页
 
@@ -477,7 +498,7 @@ body {
 			pageNum = num;
 		showOwnmessages(pageNum, 1, true);
 		$(window).scrollTop(0);
-		setTimeout('adjustHeight()', 300);
+		//setTimeout('adjustHeight()', 300);
 	} // 跳转指定页面
 </script>
 </html>

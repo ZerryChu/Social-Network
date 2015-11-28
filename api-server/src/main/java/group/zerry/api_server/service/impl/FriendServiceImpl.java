@@ -119,4 +119,16 @@ public class FriendServiceImpl implements FriendService {
 		return followers;
 	}
 
+	@Override
+	public Target[] showCommonFriendsByTargetUsername(String username, String targetUsername) {
+		// TODO Auto-generated method stub
+		try {
+			Target[] friends = friendDao.selectCommonFriendsByTargerUsername(username, targetUsername);
+			return friends;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
+
 }

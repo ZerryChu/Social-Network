@@ -40,9 +40,9 @@ function showGroups(_flag) {
 
 /**
  * @content 显示当前分组下的在线好友
- * @param   rec_id
- * @param   _group
- * @param   _flag
+ * @param rec_id
+ * @param _group
+ * @param _flag
  */
 function showFriends(rec_id, _group, _flag) {
 	$.ajax({
@@ -59,7 +59,9 @@ function showFriends(rec_id, _group, _flag) {
 			var i = 0;
 			while (data.returndata[i] != undefined) {
 				var li = "#rec_" + rec_id + " .friend_list";
-				$(li).append("<span class=\"friend\">" + data.returndata[i] + "</span><br>");
+				$(li).append(
+						"<span class=\"friend\">" + data.returndata[i]
+								+ "</span><br>");
 				i++;
 			}
 		}
@@ -83,7 +85,7 @@ function judgeIfFriend(TargetUsername, _flag) {
 			targetUsername : TargetUsername,
 			flag : _flag
 		},
-		//dataType : "json",
+		// dataType : "json",
 		success : function(data) {
 			var i = 0;
 			if (data == "1") { // 两者是好友关系， 关注按钮失效
@@ -95,4 +97,59 @@ function judgeIfFriend(TargetUsername, _flag) {
 			}
 		}
 	});
+}
+
+/**
+ * @content show共同好友
+ * 
+ */
+function showCommonFriends(page) {
+	$
+			.ajax({
+				type : "post",
+				url : "friend/show/common_friends",
+				data : {
+					username : $.query.get("username"),
+					userToken : $.query.get("userToken"),
+					targetUsername : $(".targetUsername div").text()
+				},
+				dataType : "json",
+				success : function(data) {
+					page--;
+					var i = 0;
+					while (data.returndata[i] != undefined) {
+						if (i == page * 3) {
+							$("#fri1").empty();
+							$("#fri1")
+									.append(
+											"<a href=\"userinfo.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&targetNickname=" + data.returndata[i].nickname + "\"><img src=\"pic/"
+													+ data.returndata[i].username
+													+ ".jpg\" onerror=\"javascript:this.src='images/no_found.png'\" style=\"width: 60px; height: 60px;\" style=\"width: 60px; height: 60px;\" title=\""
+													+ data.returndata[i].nickname
+													+ "\"></a>");
+						} else if (i == page * 3 + 1) {
+							$("#fri2").empty();
+							$("#fri2")
+							.append(
+									"<a href=\"userinfo.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&targetNickname=" + data.returndata[i].nickname + "\"><img src=\"pic/"
+											+ data.returndata[i].username
+											+ ".jpg\" onerror=\"javascript:this.src='images/no_found.png'\" style=\"width: 60px; height: 60px;\" title=\""
+											+ data.returndata[i].nickname
+											+ "\"></a>");
+						} else if (i == page * 3 + 2) {
+							$("#fri3").empty();
+							$("#fri3")
+							.append(
+									"<a href=\"userinfo.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&targetNickname=" + data.returndata[i].nickname + "\"><img src=\"pic/"
+											+ data.returndata[i].username
+											+ ".jpg\" onerror=\"javascript:this.src='images/no_found.png'\" style=\"width: 60px; height: 60px;\" style=\"width: 60px; height: 60px;\" title=\""
+											+ data.returndata[i].nickname
+											+ "\"></a>");
+						}
+						i++;
+					}
+					$(".subtitle span").text(i);
+					//adjustHeight();
+				}
+			});
 }

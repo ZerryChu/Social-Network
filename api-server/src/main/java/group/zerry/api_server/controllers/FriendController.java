@@ -12,7 +12,6 @@ import group.zerry.api_server.annotation.AuthPass;
 import group.zerry.api_server.entity.Target;
 import group.zerry.api_server.enumtypes.FriendStatusEnum;
 import group.zerry.api_server.service.FriendService;
-import group.zerry.api_server.utils.CacheTools;
 
 @Controller
 @RequestMapping("/friend")
@@ -35,6 +34,22 @@ public class FriendController {
 			return regMsg.toString();
 		}
 		regMsg.append(JSON.toJSONString(groupnames));
+		regMsg.append("}");
+		return regMsg.toString();
+	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/show/common_friends ", produces = "text/html;charset=UTF-8")
+	public String showCommonFriendsByTargetUsername(String username, String userToken, String targetUsername) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
+		Target[] friends = friendService.showCommonFriendsByTargetUsername(username, targetUsername);
+		if (null == friends) {
+			regMsg.append(FriendStatusEnum.NFE.getValue());
+			regMsg.append("}");
+			return regMsg.toString();
+		}
+		regMsg.append(JSON.toJSONString(friends));
 		regMsg.append("}");
 		return regMsg.toString();
 	}

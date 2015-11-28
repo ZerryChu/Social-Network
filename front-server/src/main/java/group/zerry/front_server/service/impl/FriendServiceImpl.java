@@ -95,4 +95,15 @@ public class FriendServiceImpl implements FriendService{
 		return fetchUrlTool.doPost(url, paramsMap);
 	}
 
+	@Override
+	public String showCommonFriendsByTargetUsername(String username, String userToken, String targetUsername) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "friend/show/common_friends";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("targetUsername", targetUsername);
+		return fetchUrlTool.doPost(url, paramsMap);
+	}
+
 }

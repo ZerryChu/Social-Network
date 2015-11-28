@@ -9,6 +9,8 @@ public interface FriendDao {
 	public String[] selectFriendsByGroupname(String username, String group);
 	
 	public String[] selectGroupsByUsername(String username);
+	
+	public Target[] selectCommonFriendsByTargerUsername(String username, String targetUsername);
 
 	public Target[] selectFavorites(String username);
 	

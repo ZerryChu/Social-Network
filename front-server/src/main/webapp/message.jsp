@@ -109,15 +109,10 @@
 	<script src="plugins/jquery-migrate-1.2.1.min.js"
 		type="text/javascript"></script>
 	<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
-	<script src="scripts/QQFace.js" type="text/javascript"></script>
 	<script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
 	<script src="scripts/show_messages.js" type="text/javascript"></script>
-	<script src="scripts/show_comments.js" type="text/javascript"></script>
-	<script src="scripts/send_comment.js" type="text/javascript"></script>
-	<script src="scripts/send_message.js" type="text/javascript"></script>
-	<script src="scripts/repost_message.js" type="text/javascript"></script>
 	<script src="scripts/checkSubmit.js" type="text/javascript"></script>		
-	<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
+	<script src="scripts/support.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document)
 				.ready(

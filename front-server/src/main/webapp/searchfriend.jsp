@@ -191,6 +191,14 @@ body {
 	var pageNum = 1;
 	var flag; // 1 搜人 2 搜微博
 	var content;
+	
+	$(".top").keypress(function(e) { 
+	    // 回车键事件 
+	       if(e.which == 13) { 
+	  			 search();
+	       } 
+	}); 
+	
 	$(document).ready(function() {
 		content = $.query.get("content");
 		if ($.query.get("type") == 1) {

@@ -49,6 +49,16 @@ public class FriendController {
 
 	@AuthPass
 	@ResponseBody
+	@RequestMapping(value = "/show/common_friends ", produces = "text/html;charset=UTF-8")
+	public String showCommonFriendsByTargetUsername(HttpServletRequest request, HttpServletResponse response, String username,
+			String userToken, String targetUsername) throws UnsupportedEncodingException {
+		String returnMsg = friendService.showCommonFriendsByTargetUsername(username, userToken, targetUsername);
+		return returnMsg;
+		
+	}
+	
+	@AuthPass
+	@ResponseBody
 	@RequestMapping(value = "/show/friends ", produces = "text/html;charset=UTF-8")
 	public String showFriendsByGroupname(HttpServletRequest request, HttpServletResponse response, String username,
 			String userToken, String groupname, int flag) throws UnsupportedEncodingException {

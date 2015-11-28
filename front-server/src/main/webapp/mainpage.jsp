@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <title>主页</title>
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/ad.css">
 
 <style type="text/css">
 .msg_emotion, .cmt_emotion, .rpt_emotion {
@@ -74,6 +72,11 @@
 						style="font-weight: bold;">广播：</span> <br><span id="message_num">0</span></li>
 				</ul>
 			</div>
+			<div class="right_info">
+			<div id="heated_message">
+				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门微博</div>
+				<div class="heated_msg_content">暂无内容</div>
+			</div>
 			<div id="heated_topic">
 				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门话题</div>
 				<ul class="heated_subtitle">
@@ -106,6 +109,7 @@
 					<li id="rec_2"><span class="cls2">好友分组2</span></li>
 				-->
 				</ul>
+			</div>
 			</div>
 		</div>
 		<div class="left_content">
@@ -152,34 +156,7 @@
 				</div>
 				<div class="weibolist">
 					<ul id="weibo">
-						<!-- <li id="weibo_1">
-							<div id="" class="weiboinfo">
-								<div class="userPic">
-									<a href="javascript:void(0);"><img src="" /></a>
-								</div>
-								<div class="msgBox">
-									<div class="username">
-										<a href="javascript:void(0);">username</a>
-									</div>
-									<div class="txt">内容</div>
-									<div class="info">
-										<span class="create_time">11年1月1日</span> <span
-											class="repost_times"></span> <span class="support_times"></span>
-										<a href="javascript:void(0);"><span class="comment">评论</span></a>
-										<a href="javascript:void(0);"><span class="repost">转发</span>
-										</a>
-										<a href="javascript:void(0);"><span class="support">赞</span>
-										</a>
-									</div>
-									<div class="comtxt">
-										<textarea class="comarea"></textarea>
-										<input type="hidden" value="0" />
-										<ul class="otherCom">
-										</ul>
-									</div>
-								</div>
-							</div>
-						</li> -->
+					
 					</ul>
 				</div>
 			</div>
@@ -194,43 +171,40 @@
 			</div>
 		</div>
 	</div>
+	<a id="gtotop" class="w-top" style="visibility: visible; opacity: 1;" hidefocus="true" href="#" title="回到顶部">回到顶部</a>
+	
 	<iframe id="upframe" name="upframe" src="" style="display: none;">
 	</iframe>
-
+	
 	<script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<script src="plugins/timeago.js" type="text/javascript"></script>
 	<script src="plugins/jquery-migrate-1.2.1.min.js"
 		type="text/javascript"></script>
 	<script src="scripts/jquery-bigic.js" type="text/javascript"></script>
 	<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
-	<script src="scripts/logout.js" type="text/javascript"></script>
 	<script src="scripts/showUserInfo.js" type="text/javascript"></script>
 	<script src="scripts/show_messages.js" type="text/javascript"></script>
-	<script src="scripts/show_comments.js" type="text/javascript"></script>
-	<script src="scripts/send_comment.js" type="text/javascript"></script>
-	<script src="scripts/send_message.js" type="text/javascript"></script>
-	<script src="scripts/repost_message.js" type="text/javascript"></script>
 	<script src="scripts/show_friends.js" type="text/javascript"></script>
-	<script src="scripts/showOwnmessages.js" type="text/javascript"></script>
-	<script src="scripts/show_announcements.js" type="text/javascript"></script>
-	<script src="scripts/judgeIfSupport.js" type="text/javascript"></script>
+	<script src="scripts/support.js" type="text/javascript"></script>
 	<script src="scripts/search.js" type="text/javascript"></script>
 	<script src="scripts/update.js" type="text/javascript"></script>
 	<script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
-	<script src="scripts/QQFace.js" type="text/javascript"></script>
 	<script src="scripts/ad.js" type="text/javascript"></script>
 	<script src="scripts/checkSubmit.js" type="text/javascript"></script>	
 	<script type="text/javascript">
 		var flag = 1; // 1: 微博跳转 2: 用户自己发得微博的跳转
 		var pageNum = 1;
 
+		$(".top").keypress(function(e) { 
+		    // 回车键事件 
+		       if(e.which == 13) { 
+		  			 search();
+		       } 
+		}); 
+		
 		$("#MsgForm")
 				.submit(
 						function() {
-							//$(".message_content").val("")
-							//showUserInfo(1, true);
-							//var nickname = $("#nickname").text();
-							//showOwnmessages(nickname, 1, 1, false);
 							var num = $("#message_num").text();
 							$("#message_num").text(parseInt(num, 10) + 1); // 广播数+1
 							$(".send_success").slideDown();
@@ -250,8 +224,8 @@
 			});
 		//////////////////////////////////////////////////////////////////////////////////////////
 			
-		$(document).ready(function() {
-
+		//$(document).ready(function() {
+			
 			$(".messages_class li").each(function(index) {
 				var $this = $(this);
 				$this.hover(function() {
@@ -272,8 +246,18 @@
 			setInterval("update()", 30000);
 			//setTimeout('adjustHeight()', 300);
 			//setTimeout('adjustHeight()', 5000);
-		});
+		//});
 
+			$(document).scroll(function(){
+				var content = $(".right_info");
+				if(293 <= $(window).scrollTop()) {
+					content.css("margin-top", $(window).scrollTop() - 270);
+				}
+				else {
+					content.css("margin-top", 0);
+				}
+			});
+		
 		$(".top_content li").mouseover(function() {
 			this.style.background = "snow";
 		});
@@ -282,8 +266,15 @@
 			this.style.background = "";
 		});
 		
+		var height;
 		function adjustHeight() {
-			$(".right_content").css("height", $(".left_content").height());
+			if(height == undefined) {
+				height = $(".right_content").height();
+			}
+			if(height <= $(".left_content").height())
+				$(".right_content").css("height", $(".left_content").height());
+			else
+				$(".right_content").css("height", $(window).height());
 		}
 
 		$(".icon").live('click', function() {
@@ -378,7 +369,7 @@
 				var nickname = $("#nickname").text();
 				showOwnmessages(nickname, pageNum, 0, true);
 			}
-			$(window).scrollTop(0);
+			$(window).scrollTop(300);
 			//setTimeout('adjustHeight()', 300);
 			$(".pageNum").val(pageNum);
 		});// 跳转上一页
@@ -391,7 +382,7 @@
 				var nickname = $("#nickname").text();
 				showOwnmessages(nickname, pageNum, 0, true);
 			}
-			$(window).scrollTop(0);
+			$(window).scrollTop(300);
 			//setTimeout('adjustHeight()', 300);
 			$(".pageNum").val(pageNum);
 		});// 跳转下一页
@@ -413,7 +404,7 @@
 				var nickname = $("#nickname").text();
 				showOwnmessages(nickname, num, 0, true);
 			}
-			$(window).scrollTop(0);
+			$(window).scrollTop(300);
 			//setTimeout('adjustHeight()', 300);
 		} // 跳转指定页面
 	</script>

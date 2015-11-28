@@ -6,6 +6,8 @@ public interface FriendService {
 	public String[] showFriendsByGroupname(String username, String group);
 	
 	public String[] showGroupsByUsername(String username);
+	
+	public Target[] showCommonFriendsByTargetUsername(String username, String targetUsername);
 		
 	public boolean  judgeIfFriendsOrNot(String username, String targetUsername);
 	
