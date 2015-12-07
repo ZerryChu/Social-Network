@@ -70,32 +70,22 @@
 							<time class="timeago" datetime=""></time>
 							<span class="num_info"><span class="comment">评论(<span
 									class="num"></span>)
-							</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="repost">转发(<span
-									class="num"></span>)
+							&转发(<span
+									class="rpt_num"></span>)
 							</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="support"><img
 									class="zan" style="width: 8%; height: 50%;" src="images/2.png"
 									onclick="">(<span class="num"></span>)<i
 									class="like_plus"
 									style="color: gray; margin-top: -35px; margin-left: 65%; display: none;">+1</i></span></span>
 						</div>
-						<div class="rpt" style="display: none">
-							<textarea class="rptarea" name=""
-								style="height: 40px; width: 498px;"></textarea>
-							<span class="rpt_emotion" id="rpt_emotion"></span>
-							<div class="repost_btn">
-								<button class="repost_button">转发</button>
-							</div>
-						</div>
 						<div class="comtxt" style="display: none">
 							<textarea style="height: 40px; width: 498px;" class="comarea"
 								name="content"></textarea>
 							<span class="cmt_emotion" id="cmt_emotion"></span>
 							<div class="comment_btn">
-								<div class="andforward">
-									<input type="checkbox" value="1" name="forward" id="forward" /><label
-										for="forward">同时转发</label>
-								</div>
 								<button class="comment_button">评论</button>
+								<button class="repost_button">转发</button>
+								
 							</div>
 							<ul class="otherCom" id="comment_${param.id}" style=""></ul>
 						</div>
@@ -120,14 +110,6 @@
 							$(function() {
 								$('#cmt_emotion').qqFace({
 									assign : '.comarea', //给输入框赋值 
-									path : 'face/' //表情图片存放的路径 
-								});
-
-							});
-
-							$(function() {
-								$('#rpt_emotion').qqFace({
-									assign : '.rptarea', //给输入框赋值 
 									path : 'face/' //表情图片存放的路径 
 								});
 
@@ -175,8 +157,8 @@
 														.attr(
 																"datetime",
 																data.returndata.create_time);
-												$(".repost")
-														.find(".num")
+												$(".comment")
+														.find(".rpt_num")
 														.text(
 																data.returndata.repost_times);
 												$(".comment")
@@ -199,7 +181,7 @@
 												$(".userPic a")
 														.attr(
 																"href",
-																"userinfo.jsp?targetNickname="
+																"userinfo.jsp?userToken=" + $.query.get("userToken") + "&username=" + $.query.get("username") + "&targetNickname="
 																		+ data.returndata.author);
 
 												$(".userPic a img").attr(
@@ -210,7 +192,7 @@
 												$(".weibo_username a")
 														.attr(
 																"href",
-																"userinfo.jsp?targetNickname="
+																"userinfo.jsp?userToken=" + $.query.get("userToken") + "&username=" + $.query.get("username") + "&targetNickname="
 																		+ data.returndata.author);
 												$(".weibo_username a").text(
 														data.returndata.author);
@@ -234,10 +216,6 @@
 			}
 
 		}); // 查看评论
-
-		$(".repost").live('click', function() {
-			$(".rpt").slideToggle();
-		});
 
 		$(".repost_button").live('click', function() {
 			var message_id = $.query.get("id");

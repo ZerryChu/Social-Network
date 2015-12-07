@@ -299,5 +299,13 @@ body {
 		window.location = "userinfo.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&targetNickname=" + targetNickname; 
 
 	}
+	
+	$(".options li").mouseover(function() {
+		$(this).css("color", "#eb7350");
+	});
+
+	$(".options li").mouseout(function() {
+		$(this).css("color", "gray");
+	});
 </script>
 </html>

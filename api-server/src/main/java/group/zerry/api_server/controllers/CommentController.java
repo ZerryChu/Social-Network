@@ -12,7 +12,9 @@ import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import group.zerry.api_server.annotation.AuthPass;
 import group.zerry.api_server.entity.Comment;
 import group.zerry.api_server.enumtypes.CommentStatusEnum;
+import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.service.CommentService;
+import group.zerry.api_server.utils.CacheTools;
 
 /**
  * @author ZerryChu
@@ -26,9 +28,12 @@ public class CommentController {
 	@Autowired
 	CommentService                         commentService;
 
+	@Autowired
+	private CacheTools 					   cacheTools;
+	
 	private static SimplePropertyPreFilter commentFilter = new SimplePropertyPreFilter(Comment.class, "id", "nickname",
 			"content", "create_time");
-
+	
 	private static Logger                  logger = Logger.getLogger(CommentController.class);
 
 	/**
@@ -58,7 +63,8 @@ public class CommentController {
 	@RequestMapping(value = "/delete", produces = "text/html;charset=UTF-8")
 	public String delete_comment(String username, String userToken, String nickname, int message_id, int id) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-		regMsg.append(commentService.delete_comment(username, nickname, message_id, id).getValue());
+		CommentStatusEnum status = commentService.delete_comment(username, nickname, message_id, id);
+		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		return regMsg.toString();
 	}

@@ -15,6 +15,17 @@ body {
 	background-color: #73cff1;
 }
 
+.clean {
+	cursor: pointer;
+}
+
+.list_info {
+	cursor: pointer;
+	color: #006a92;
+	width: 120px;
+	padding-left: 20px;
+}
+
 .bg {
 	width: 100%;
 	height: 100%;
@@ -111,7 +122,7 @@ body {
 }
 
 .friend_icon {
-	float: left; //
+	float: left;
 	margin-left: 10px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -146,6 +157,40 @@ body {
 	margin: 5px 10px;
 	cursor: pointer;
 }
+
+.history {
+	height: 40%;
+	background: white;
+}
+
+.heated_search {
+	height: 40%;
+	background: white;
+	overflow: hidden;
+}
+
+.left_sub_title {
+	/*border: 1px solid silver;*/
+	height: 40px;
+	padding: 10px;
+	border-bottom: 1px solid silver;
+}
+
+.heated_search_list {
+	margin-left: 50px;
+	margin-top: 10px;
+}
+
+.history_info {
+	display: inline-block;
+	font-weight: bold;
+}
+
+.search_history_list {
+	float: left;
+	margin-left: 50px;
+	margin-top: 10px;
+}
 </style>
 
 </head>
@@ -153,7 +198,8 @@ body {
 	<div class="bg"></div>
 	<div class="top">
 		<ul class="top_content" style="font-weight: bold;">
-			<li><a class="link" href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
+			<li><a class="link"
+				href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
 			<li>敬请期待</li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
@@ -167,8 +213,31 @@ body {
 	</div>
 	<div class="main">
 		<div class="left_content">
+			<div class="left_sub_title">
+				<div class="history_info">搜索历史</div>
+				<span style="margin-left: 20px; color: #006a92; font-size: 14px;"
+					class="clean">-清除</span>
+			</div>
+
 			<div class="history">
-				<div class="history_info">搜索历史模块</div>
+				<br>
+				<ul class="search_history_list">
+					<li>111</li>
+					<li>222</li>
+					<li>aa</li>
+				</ul>
+			</div>
+			<div class="left_sub_title">
+				<div style="display: inline-block; font-weight: bold;">热搜榜</div>
+				<span style="margin-left: 20px; color: #006a92; font-size: 14px;"
+					class="change">-换一组</span>
+			</div>
+			<div class="heated_search">
+				<ul class="heated_search_list">
+					<li>111</li>
+					<li>222</li>
+					<li>aa</li>
+				</ul>
 			</div>
 		</div>
 		<div class="right_content">
@@ -186,18 +255,37 @@ body {
 <script src="plugins/timeago.js" type="text/javascript"></script>
 <script src="plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
-<script src="scripts/checkSubmit.js" type="text/javascript"></script>	
+<script src="scripts/checkSubmit.js" type="text/javascript"></script>
+<script src="plugins/jquery.cookie.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var pageNum = 1;
 	var flag; // 1 搜人 2 搜微博
 	var content;
-	
-	$(".top").keypress(function(e) { 
-	    // 回车键事件 
-	       if(e.which == 13) { 
-	  			 search();
-	       } 
-	}); 
+
+	$(".top").keypress(function(e) {
+		// 回车键事件 
+		if (e.which == 13) {
+			search();
+		}
+	});
+
+	/**
+	 * flag 1:微博搜索记录 2:用户搜索记录
+	 */
+	function getSearchHistory(flag) {
+		var history;
+		if(flag == 1)
+		    history = decodeURI($.cookie('history_msg')).split(";");
+		else
+			history = decodeURI($.cookie('history_user')).split(";");
+		var ul = $(".search_history_list");
+		ul.empty();
+		var str = "";
+		for(var i = history.length-2; i >= 0; i--) {
+			str += "<li class=\"list_info\">" + history[i] + "</li>";
+		}
+		ul.append(str);
+	}
 	
 	$(document).ready(function() {
 		content = $.query.get("content");
@@ -208,7 +296,6 @@ body {
 				searchMessages(content, 1);
 			}
 		}
-
 	});
 
 	function search() {
@@ -289,7 +376,7 @@ body {
 							message += "</ul>";
 							$(".search_result").append(message);
 							$(".timeago").timeago();
-
+							getSearchHistory(1);
 						}
 					}
 				});
@@ -338,6 +425,7 @@ body {
 							message += "</tr>";
 							$(".friend_list").append(message);
 							$(".search_result").append("</table>");
+							getSearchHistory(2);
 						}
 					}
 				});
@@ -357,7 +445,52 @@ body {
 		}
 
 	});// 跳转上一页
-
+	
+	$(".clean").click(function() {
+		DelCookie("history_msg");
+		DelCookie("history_user");
+	});
+	
+	//获取指定名称的cookie的值 
+	function getCookie(objName){
+        var arrStr = document.cookie.split("; "); 
+        for (var i = 0; i < arrStr.length; i++) { 
+            var temp = arrStr[i].split("="); 
+            if (temp[0] == objName) 
+                return unescape(temp[1]); 
+        } 
+    } 
+	
+	/**
+	 * 	清楚指定cookies
+	 */
+	function DelCookie(name) {
+	    var exp = new Date();
+		exp.setTime(exp.getTime() - 1);
+		var cval = getCookie(name);
+		if(cval != null)
+		    document.cookie= name + "=" + cval + ";expires=" + exp.toGMTString();
+	}
+	
+	$(".list_info").live('mouseover', function() {
+				$(this).css("background-color", "snow");
+				$(this).css("color", "#eb7350");
+			});
+	
+	$(".list_info").live('mouseout', function() {
+		$(this).css("background-color", "");
+		$(this).css("color", "#006a92");
+	});
+	
+	$(".list_info").live(
+		'click', function() {
+			if(flag == 1) {
+				searchUsers($(this).text(), 1);
+			} else {
+				searchMessages($(this).text(), 1);
+			}
+		});
+	
 	$(".nextPage").click(function() {
 		pageNum++;
 
@@ -383,7 +516,7 @@ body {
 						+ $(this).attr("id");
 				window.open("message.jsp?" + param);
 			});
-	
+
 	$(".top_content li").mouseover(function() {
 		this.style.background = "snow";
 	});

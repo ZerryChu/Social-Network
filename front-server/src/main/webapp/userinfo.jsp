@@ -83,6 +83,7 @@ body {
 
 #focus, #unfocus {
 	width: 70px;
+	background-color: silver;
 }
 
 .qqFace {
@@ -124,6 +125,12 @@ body {
 
 .common_friend {
 	padding-left: 20px;
+}
+
+.otherCom {
+	border: 1px solid #dee3e3;
+	width: 520px;
+	list-style: none;
 }
 </style>
 </head>
@@ -188,19 +195,24 @@ body {
 			</div>
 		</div>
 		<div class="right_content">
-			<div class="subtitle">共同收听<span class="num">0</span>人</div>
-			<div class="common_friend">
-				<div title="上一页" style="display: inline-block; background: gray; width: 10px; height: 60px;" class="pre"></div>
-				<span id="fri1" class="commonfriend_info"></span>
-				<span id="fri2" class="commonfriend_info"></span>
-				<span id="fri3" class="commonfriend_info"></span>
-				<div title="下一页" style="display: inline-block; background: gray; width: 10px; height: 60px;" class="next"></div>
+			<div class="subtitle">
+				共同收听<span class="num">0</span>人
 			</div>
-			<div class="common_topic">共同话题</div>
+			<div class="common_friend">
+				<span><img style="width: 10px; height: 60px;"
+					src="images/pre.jpg" title="上一页"></span> <span id="fri1"
+					class="commonfriend_info"></span> <span id="fri2"
+					class="commonfriend_info"></span> <span id="fri3"
+					class="commonfriend_info"></span> <span><img
+					style="width: 10px; height: 60px;" src="images/next.jpg"
+					title="下一页"></span>
+			</div>
+			<div class="common_topic">相似标签</div>
 		</div>
 	</div>
-	
-	<a id="gtotop" class="w-top" style="visibility: visible; opacity: 1;" hidefocus="true" href="#" title="回到顶部">回到顶部</a>	
+
+	<a id="gtotop" class="w-top" style="visibility: visible; opacity: 1;"
+		hidefocus="true" href="#" title="回到顶部">回到顶部</a>
 </body>
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
@@ -214,6 +226,7 @@ body {
 <script src="scripts/checkSubmit.js" type="text/javascript"></script>
 <script src="scripts/jquery-bigic.js" type="text/javascript"></script>
 <script type="text/javascript">
+
 	$(document).ready(function() {
 		showTargetInfo(1); //重写的js方法
 	});
@@ -263,6 +276,17 @@ body {
 		}
 	} //关注
 
+	$("#focus, #unfocus").mouseover(function() {
+		$(this).css("background-color", "white");
+	});
+
+	$("#focus, #unfocus").mousedown(function() {
+		$(this).css("background-color", "silver");
+	});
+	$("#focus, #unfocus").mouseout(function() {
+		$(this).css("background-color", "silver");
+	});
+	
 	function deleteFriend() {
 		if (checkSubmit(500)) {
 
@@ -333,19 +357,15 @@ body {
 																+ data.returndata[i].create_time
 																+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 															+ data.returndata[i].comment_times
-															+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"repost\">转发(<span class=\"num\">"
+															+ "</span>)&转发(<span class=\"rpt_num\">"
 															+ data.returndata[i].repost_times
 															+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"\" onclick=\"\">(<span class=\"num\">"
 															+ data.returndata[i].support_times
-															+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"rpt\" style=\"display: none\"><textarea class=\"rptarea_"
+															+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 560px;\" class=\"comarea_"
 																+ data.returndata[i].id
-																+ "\" name=\"\" style=\"height: 40px; width: 498px;\"></textarea><span class=\"rpt_emotion\" id=\"rpt_emotion"
+																+ "\" name=\"content\"></textarea><br><span class=\"cmt_emotion\" id=\"cmt_emotion"
 																+ data.returndata[i].id
-																+ "\"></span><div class=\"repost_btn\"><button class=\"repost_button\">转发</button></div></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
-																+ data.returndata[i].id
-																+ "\" name=\"content\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
-																+ data.returndata[i].id
-																+ "\"></span><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"comment_button\">评论</button></div>"
+																+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
 															+ "<ul class=\"otherCom\" id=\"comment_"
 																+ data.returndata[i].id
 																+ "\" style=\"\"></ul>"
@@ -361,26 +381,22 @@ body {
 															+ "</div>";
 													if (data.returndata[i].pic != undefined
 															&& data.returndata[i].pic != "")
-														message += "<br><img class=\"msg_pic\" src=\"message/"
+														message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"
 																	+ data.returndata[i].pic
 																	+ ".jpg\">";
 													message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
 																+ data.returndata[i].create_time
 																+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 															+ data.returndata[i].comment_times
-															+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"repost\">转发(<span class=\"num\">"
+															+ "</span>)&转发(<span class=\"rpt_num\">"
 															+ data.returndata[i].repost_times
 															+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"images/2.png\" onclick=\"\">(<span class=\"num\">"
 															+ data.returndata[i].support_times
-															+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"rpt\" style=\"display: none\"><textarea class=\"rptarea_"
+															+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 560px;\" class=\"comarea_"
 																+ data.returndata[i].id
-																+ "\" name=\"\" style=\"height: 40px; width: 498px;\"></textarea><span class=\"rpt_emotion\" id=\"rpt_emotion"
+																+ "\" name=\"content\"></textarea><br><span class=\"cmt_emotion\" id=\"cmt_emotion"
 																+ data.returndata[i].id
-																+ "\"></span><div class=\"repost_btn\"><button class=\"repost_button\">转发</button></div></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
-																+ data.returndata[i].id
-																+ "\" name=\"content\" style=\"width: 451px, height: 36px;\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
-																+ data.returndata[i].id
-																+ "\"></span><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"comment_button\">评论</button></div>"
+																+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
 															+ "<ul class=\"otherCom\" id=\"comment_"
 																+ data.returndata[i].id
 																+ "\" style=\"\"></ul>"
@@ -392,16 +408,6 @@ body {
 														0);
 												// judgeIfSupport.js
 
-												var textarea = ".rptarea_"
-														+ data.returndata[i].id;
-												var emotion = '#rpt_emotion'
-														+ data.returndata[i].id;
-												// /////////////////////////////////////
-												$(emotion).qqFace({
-													assign : textarea, // 给输入框赋值
-													path : 'face/' // 表情图片存放的路径
-												});
-
 												var textarea = ".comarea_"
 														+ data.returndata[i].id;
 												var emotion = '#cmt_emotion'
@@ -410,7 +416,6 @@ body {
 													assign : textarea, // 给输入框赋值
 													path : 'face/' // 表情图片存放的路径
 												});
-												// /////////////////////////////////////
 												i++;
 											}
 										})
@@ -435,13 +440,22 @@ body {
 	}); // 查看评论
 
 	$(".repost").live('click', function() {
-		$(this).parents("li").find(".rpt").slideToggle();
-	});
+		var message_id = $(this).parents("li").attr("id");
+		message_id = message_id.substr(6);
+		var comtxt = $(this).parents("li").find(".comtxt");
+		if (comtxt.css("display") == "none") {
+			show_comments(message_id, 1, 1);
+			comtxt.slideToggle();
+			$(this).parents("li").find(".pageNum").text("1");
+		} else {
+			comtxt.slideToggle();
+		}
+	}); // 同查看评论
 
 	$(".repost_button").live('click', function() {
 		var message_id = $(this).parents("li").attr("id");
 		message_id = message_id.substr(6);
-		var textarea = ".rptarea_" + message_id;
+		var textarea = ".comarea_" + message_id;
 		var content = $(textarea).val();
 		repost_message(content, message_id, 1);
 		$(textarea).val("");
@@ -477,7 +491,7 @@ body {
 		$(".pageNum").val(pageNum);
 	});// 跳转上一页
 
-	var pageNum = 1;
+	var pageNum = 1; // 微博页码
 	$(".nextPage").click(function() {
 		pageNum++;
 		showOwnmessages(pageNum, 1, true);
@@ -500,5 +514,6 @@ body {
 		$(window).scrollTop(0);
 		//setTimeout('adjustHeight()', 300);
 	} // 跳转指定页面
+	
 </script>
 </html>

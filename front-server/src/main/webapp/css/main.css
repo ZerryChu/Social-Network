@@ -7,6 +7,11 @@ body{
     background-color: #73cff1;
 }
 
+.option {
+	height: 30px;
+	margin-left: 60%;
+}
+
 .main {
 	width: 1000px;
 	margin: 0px auto;
@@ -25,7 +30,9 @@ body{
 
 .msg_pic {
 	width: 100px;
-	height: 100px;	
+	height: 100px;
+	/*display: inline-block;
+	float: right;*/	
 }
 
 .top {
@@ -107,10 +114,14 @@ body{
 	background: #c9f1ff;
 }
 
-#heated_topic, #friend_recommand, #chat, #heated_message{
+#heated_topic, #friend_recommand, #chat, #heated_message {
 	padding-top: 50px;
 	margin: 5px 3%;
 	width: 92%;
+}
+
+#heated_message {
+	
 }
 
 .right_content2 {
@@ -173,17 +184,25 @@ body{
 	color: #006a92;
 }
 
+input {
+	cursor: pointer;
+}
+
 #nickname a:hover, #nickname a:active, .msgBox .username a:hover,
 	.msgBox .username a:active, .msgBox .info a:hover, .msgBox .info a:active
 	{
 	text-decoration: underline;
 }
 
-.logout {
+.logout, .private_msg {
 	cursor: pointer;
+	float: right;
+	margin: 10px;
 }
 
-.comment, .repost, .support {
+
+.comment, .support, .comment span {
+	color: gray;
 	cursor: pointer;
 	font-weight: bold;
 }
@@ -217,10 +236,6 @@ body{
 	cursor: pointer;
 }
 
-#friends_count:hover, #messages_count:hover {
-	text-decoration: underline;
-}
-
 .delete_msg, .delete_cmt {
 	cursor: pointer;
 }
@@ -233,14 +248,23 @@ body{
 	padding-top: 20px;
 }
 
-.heated_subtitle, .rec_content, .group, .heated_msg_content {
+.heated_subtitle, .rec_content, .group {
 	color: #006a92;
-	border-top: 1px solid #ccc;
 	padding-top: 30px;
 	padding-left: 50px;
 }
 
+.heated_msg_content {
+	margin: 10px;
+	background: white;
+}
+
+.heated_msg_content img {
+	margin: 10px;	
+}
+
 .sub_title {
+	border-bottom: 1px solid gray;
 	font-weight: bold;
 }
 
@@ -326,10 +350,6 @@ body{
 	background: #ccc;
 }
 
-.logout {
-	margin-left: 80%;
-}
-
 .msgBox {
 	width: 535px;
 	float: left;
@@ -343,6 +363,8 @@ body{
 .msgBox .txt {
 	line-height: 30px;
 	font-size: 17px;
+	/*display: inline-block;
+	float: right;*/
 }
 
 .info {
@@ -377,7 +399,7 @@ body{
 	height: 20px;
 	line-height: 20px;
 	font-size: 13px;
-	margin: 0px 0px 5px;
+	margin: 0px 10px 5px;
 }
 
 .msgBox .comment_btn .andforward {
@@ -397,9 +419,8 @@ body{
 	cursor: pointer;
 }
 
-.msgBox .comment_btn, .repost_btn button {
+.msgBox button {
 	float: right;
-	margin-right: 2%;
 	cursor: pointer;
 }
 

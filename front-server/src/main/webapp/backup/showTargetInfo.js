@@ -16,7 +16,7 @@ function showTargetInfo(_flag) {
                 	$(".message_num span").text(data.returndata.message_num);
                 	$(".age div").text(data.returndata.age);
                 	$(".habit div").text(data.returndata.habit);
-            		$("img").attr("src", "pic/" + data.returndata.username + ".jpg");
+            		//$("img").attr("src", "pic/" + data.returndata.username + ".jpg");
             		judgeIfFriend($(".targetUsername div").text(), 0); //判断是否可以点赞
                 } else {
                 	$(".targetUsername div").text($.query.get("targetNickname"));

@@ -46,7 +46,8 @@
 		<ul class="top_content" style="font-weight: bold;">
 			<li><a class="link"
 				href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
-			<li>敬请期待</li>
+			<li><a class="link"
+				href="label.jsp?username=${param.username}&userToken=${param.userToken}">标签</a></li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
 				<input type="text" class="search_text" /> <select
@@ -61,10 +62,16 @@
 		<div class="right_content">
 			<div id="userinfo">
 				<div id="nickname"></div>
-				<img id="user_icon" src="pic/${param.username}.jpg"
-					onerror="this.src='images/no_found.png'" onclick="" /> <br> <img
-					class="logout" src="images/sign-out.png" alt="sign-out"
-					style="width: 20px; height: 20px;">
+					<img id="user_icon" src="pic/${param.username}.jpg"
+					onerror="this.src='images/no_found.png'"/> <br> 
+					<div class="option">
+						<img
+						class="logout" src="images/sign-out.png" title="登出" alt="sign-out"
+						style="width: 20px; height: 20px;">
+						<img
+						class="private_msg" src="images/private_message.png" title="私信" alt="private_msg"
+						style="width: 20px; height: 20px;">
+					</div>
 				<ul class="user_account">
 					<li class="user_friend_text"><span id="friends_count"
 						style="font-weight: bold;">粉丝：</span> <br><span id="friend_num">0</span></li>
@@ -75,10 +82,11 @@
 			<div class="right_info">
 			<div id="heated_message">
 				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门微博</div>
-				<div class="heated_msg_content">暂无内容</div>
+				<div class="heated_msg_content"><div style="height: 90px; "><img style="float: left; display: inline-block; width: 70px; height: 70px;" src="pic/zhouzhou.jpg"><div style="padding-top: 10px; color: #006a92;">周周</div><div style="float: left; height: 70px; display: inline-block;">aaaaaaaaaa</div></div></div>
+				<div align="right" class="next_one">换一组</div>				
 			</div>
 			<div id="heated_topic">
-				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门话题</div>
+				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门标签</div>
 				<ul class="heated_subtitle">
 					<li class="heated_topic" id="topic_1">旅游<span class="val"
 						id="val_1">0<!--  热度 --></span></li>
@@ -91,6 +99,7 @@
 					<li class="heated_topic" id="topic_5">动漫<span class="val"
 						id="val_5">0<!--  热度 --></span></li>
 				</ul>
+				<div align="right" class="next_one">换一组</div>
 			</div>
 			<div id="friend_recommand">
 				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">推荐收听</div>
@@ -100,6 +109,7 @@
 					<li id="rec2"><span class="rec_nickname">nickname</span> <span
 						style="color: gray;">原因</span></li>
 				</ul>
+				<div align="right" class="next_one">换一组</div>				
 			</div>
 			<div id="chat">
 				<div class="sub_title" style="padding-left: 20px; font-size: 20px;">聊天室</div>
@@ -120,8 +130,9 @@
 					<h2
 						style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
 					<textarea class="message_content" id="content" name="content"></textarea>
-					<br> <span id="msg_emotion" class="msg_emotion"></span> <input
-						type="file" class="fileOnLoad" name="pic">
+					<br> <span id="msg_emotion" class="msg_emotion"></span><input
+						type="file" style="width: 150px;" class="fileOnLoad" name="pic">标签<input
+						type="text" style="width: 70px;" class="label" name="label">
 					<!-- <select
 						class="type" name="type">
 						<option value="2">暂无</option>
@@ -192,7 +203,7 @@
 	<script src="scripts/ad.js" type="text/javascript"></script>
 	<script src="scripts/checkSubmit.js" type="text/javascript"></script>	
 	<script type="text/javascript">
-		var flag = 1; // 1: 微博跳转 2: 用户自己发得微博的跳转
+		var flag = 1; // 1: 微博跳转 2: 用户自己发得微博的跳转 3、公告
 		var pageNum = 1;
 
 		$(".top").keypress(function(e) { 
@@ -212,7 +223,7 @@
 									'$("#MsgForm")[0].reset();$(".send_success").slideUp()',
 									3000);
 
-						})
+						});
 						
 		/////////////      表情包        /////////////////////////////////////////////////////////////
 			$(function() {
@@ -277,14 +288,22 @@
 				$(".right_content").css("height", $(window).height());
 		}
 
-		$(".icon").live('click', function() {
-			var classUsername = $(this).parents("li").find("name");
-			var tag_a = classUsername.children("a");
-			var targetNickname = tag_a.text();
-			window.location = "userinfo.jsp?targetNickname=" + targetNickname; //+ "&userToken=" + $.query.get("userToken");
-		})// 更换头像
+		$("#all_messages").click(function() {
+			show_announcements(0);
+			flag = 3;
+		});// 显示公告
 
-		//$("li[id^='weibo_']").live('click', function() {
+
+		$("#messages_count").live('click', function() {
+			var nickname = $("#nickname").text();
+			showOwnmessages(nickname, 1, 1, true);
+			flag = 2;
+			pageNum = 1;
+			$(".pageNum").val(pageNum);
+			//setTimeout('adjustHeight()', 300);
+
+		});
+
 		$(".comment").live('click', function() {
 			var message_id = $(this).parents("li").attr("id");
 			message_id = message_id.substr(6);
@@ -298,14 +317,10 @@
 			}
 		}); // 查看评论
 
-		$(".repost").live('click', function() {
-			$(this).parents("li").find(".rpt").slideToggle();
-		});
-
 		$(".repost_button").live('click', function() {
 			var message_id = $(this).parents("li").attr("id");
 			message_id = message_id.substr(6);
-			var textarea = ".rptarea_" + message_id;
+			var textarea = ".comarea_" + message_id;
 			var content = $(textarea).val();
 			repost_message(content, message_id, 1);
 			$(textarea).val("");
@@ -320,42 +335,9 @@
 			$(comarea).val(""); // 清空输入框
 		}); //发送评论
 
-		$("#all_messages").click(function() {
-			show_announcements(0);
-			flag = 2;
-		});// 显示公告
-
-		$("#friends_count").click(
-				function() {
-					window.open("friendlist.jsp?username="
-							+ $.query.get("username") + "&userToken="
-							+ $.query.get("userToken"));
-
-				});
-
-		$("#friend_messages").click(function() {
-			show_messages(1, 1);
-			flag = 1;
-			pageNum = 1;
-			$(".pageNum").val(pageNum);
-			//setTimeout('adjustHeight()', 300);
-		});// 好友广播
-
-		$(".logout").click(function() {
-			logout();
-		});// 登出
-
-		$("#messages_count").live('click', function() {
-			var nickname = $("#nickname").text();
-			showOwnmessages(nickname, 1, 1, true);
-			flag = 2;
-			pageNum = 1;
-			$(".pageNum").val(pageNum);
-			//setTimeout('adjustHeight()', 300);
-
-		});
-
 		$(".prePage").click(function() {
+			if (flag == 3)
+				return;
 			if (pageNum == 1)
 				return;
 			pageNum--;
@@ -375,6 +357,8 @@
 		});// 跳转上一页
 
 		$(".nextPage").click(function() {
+			if (flag == 3)
+				return;
 			pageNum++;
 			if (flag == 1)
 				show_messages(pageNum, 1);
@@ -388,6 +372,8 @@
 		});// 跳转下一页
 
 		function goToPage() {
+			if(flag == 3)
+				return;
 			var num = $(".pageNum").val();
 			if (num == "" || isNaN(num)) {
 				return;

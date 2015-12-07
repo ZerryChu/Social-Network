@@ -85,19 +85,15 @@ function show_messages(pageNumber, _flag) {
 														+ data.returndata[i].create_time
 														+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 														+ data.returndata[i].comment_times
-														+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"repost\">转发(<span class=\"num\">"
+														+ "</span>)&转发(<span class=\"rpt_num\">"
 														+ data.returndata[i].repost_times
 														+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"\" onclick=\"\">(<span class=\"num\">"
 														+ data.returndata[i].support_times
-														+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"rpt\" style=\"display: none\"><textarea class=\"rptarea_"
-														+ data.returndata[i].id
-														+ "\" name=\"\" style=\"height: 40px; width: 498px;\"></textarea><span class=\"rpt_emotion\" id=\"rpt_emotion"
-														+ data.returndata[i].id
-														+ "\"></span><div class=\"repost_btn\"><button class=\"repost_button\">转发</button></div></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
+														+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
 														+ data.returndata[i].id
 														+ "\" name=\"content\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
 														+ data.returndata[i].id
-														+ "\"></span><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"comment_button\">评论</button></div>"
+														+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
 														+ "<ul class=\"otherCom\" id=\"comment_"
 														+ data.returndata[i].id
 														+ "\" style=\"\"></div>"
@@ -118,19 +114,15 @@ function show_messages(pageNumber, _flag) {
 														+ data.returndata[i].create_time
 														+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 														+ data.returndata[i].comment_times
-														+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"repost\">转发(<span class=\"num\">"
+														+ "</span>)&转发(<span class=\"rpt_num\">"
 														+ data.returndata[i].repost_times
 														+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"images/2.png\" onclick=\"\">(<span class=\"num\">"
 														+ data.returndata[i].support_times
-														+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"rpt\" style=\"display: none\"><textarea class=\"rptarea_"
-														+ data.returndata[i].id
-														+ "\" name=\"\" style=\"height: 40px; width: 498px;\"></textarea><span class=\"rpt_emotion\" id=\"rpt_emotion"
-														+ data.returndata[i].id
-														+ "\"></span><div class=\"repost_btn\"><button class=\"repost_button\">转发</button></div></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
+														+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
 														+ data.returndata[i].id
 														+ "\" name=\"content\" style=\"width: 451px, height: 36px;\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
 														+ data.returndata[i].id
-														+ "\"></span><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"comment_button\">评论</button></div>"
+														+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
 														+ "<ul class=\"otherCom\" id=\"comment_"
 														+ data.returndata[i].id
 														+ "\" style=\"\"></ul>"
@@ -141,16 +133,6 @@ function show_messages(pageNumber, _flag) {
 													data.returndata[i].id, 0);
 											// judgeIfSupport.js
 
-											var textarea = ".rptarea_"
-													+ data.returndata[i].id;
-											var emotion = '#rpt_emotion'
-													+ data.returndata[i].id;
-											// /////////////////////////////////////
-											$(emotion).qqFace({
-												assign : textarea, // 给输入框赋值
-												path : 'face/' // 表情图片存放的路径
-											});
-
 											var textarea = ".comarea_"
 													+ data.returndata[i].id;
 											var emotion = '#cmt_emotion'
@@ -159,7 +141,6 @@ function show_messages(pageNumber, _flag) {
 												assign : textarea, // 给输入框赋值
 												path : 'face/' // 表情图片存放的路径
 											});
-											// /////////////////////////////////////
 
 											i++;
 										}
@@ -233,9 +214,9 @@ $(".repostInfo").live(
  * Created by zhuzirui on 10/13/15.
  */
 
- /**
-  * @content 接收系统公告（管理员发的微博）
-  */
+/**
+ * @content 接收系统公告（管理员发的微博）
+ */
 function show_announcements(_flag) {
 	$
 			.ajax({
@@ -310,7 +291,7 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 												var message = "<li id=\"weibo_"
 														+ data.returndata[i].id
 														+ "\"><div style=\"display: none; padding-left: 30%;\" class=\"delete_confirm\">确定删除吗？<button onclick=\"deleteOwnmessage('"
-														+ data.returndata[i].id 
+														+ data.returndata[i].id
 														+ "');showUserInfo(1, true);\">确认</button><button onclick=\"$(this).parents('.delete_confirm').slideUp();\">取消</button></div><div class=\"weiboinfo\"><div class=\"userPic\"><img src=\""
 														+ "pic/"
 														+ $.query
@@ -334,19 +315,15 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 															+ data.returndata[i].create_time
 															+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 															+ data.returndata[i].comment_times
-															+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"repost\">转发(<span class=\"num\">"
+															+ "</span>)&转发(<span class=\"rpt_num\">"
 															+ data.returndata[i].repost_times
 															+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"\" onclick=\"\">(<span class=\"num\">"
 															+ data.returndata[i].support_times
-															+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"rpt\" style=\"display: none\"><textarea class=\"rptarea_"
-															+ data.returndata[i].id
-															+ "\" name=\"\" style=\"height: 40px; width: 498px;\"></textarea><span class=\"rpt_emotion\" id=\"rpt_emotion"
-															+ data.returndata[i].id
-															+ "\"></span><div class=\"repost_btn\"><button class=\"repost_button\">转发</button></div></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
+															+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
 															+ data.returndata[i].id
 															+ "\" name=\"content\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
 															+ data.returndata[i].id
-															+ "\"></span><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"comment_button\">评论</button></div>"
+															+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
 															+ "<ul class=\"otherCom\" id=\"comment_"
 															+ data.returndata[i].id
 															+ "\" style=\"\"></ul>"
@@ -364,24 +341,20 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 															&& data.returndata[i].pic != "")
 														message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"
 																+ data.returndata[i].pic
-																+ ".jpg\">";	
+																+ ".jpg\">";
 													message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
 															+ data.returndata[i].create_time
 															+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
 															+ data.returndata[i].comment_times
-															+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"repost\">转发(<span class=\"num\">"
+															+ "</span>)&转发(<span class=\"rpt_num\">"
 															+ data.returndata[i].repost_times
 															+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"images/2.png\" onclick=\"\">(<span class=\"num\">"
 															+ data.returndata[i].support_times
-															+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"rpt\" style=\"display: none\"><textarea class=\"rptarea_"
-															+ data.returndata[i].id
-															+ "\" name=\"\" style=\"height: 40px; width: 498px;\"></textarea><span class=\"rpt_emotion\" id=\"rpt_emotion"
-															+ data.returndata[i].id
-															+ "\"></span><div class=\"repost_btn\"><button class=\"repost_button\">转发</button></div></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
+															+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
 															+ data.returndata[i].id
 															+ "\" name=\"content\" style=\"width: 451px, height: 36px;\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
 															+ data.returndata[i].id
-															+ "\"></span><div class=\"comment_btn\"><div class=\"andforward\"><input type=\"checkbox\" value=\"1\" name=\"forward\" id=\"forward\" /><label for=\"forward\">同时转发</label></div><button class=\"comment_button\">评论</button></div>"
+															+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
 															+ "<ul class=\"otherCom\" id=\"comment_"
 															+ data.returndata[i].id
 															+ "\" style=\"\"></ul>"
@@ -393,16 +366,6 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 														0);
 												// judgeIfSupport.js
 
-												var textarea = ".rptarea_"
-														+ data.returndata[i].id;
-												var emotion = '#rpt_emotion'
-														+ data.returndata[i].id;
-												// /////////////////////////////////////
-												$(emotion).qqFace({
-													assign : textarea, // 给输入框赋值
-													path : 'face/' // 表情图片存放的路径
-												});
-
 												var textarea = ".comarea_"
 														+ data.returndata[i].id;
 												var emotion = '#cmt_emotion'
@@ -411,7 +374,6 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 													assign : textarea, // 给输入框赋值
 													path : 'face/' // 表情图片存放的路径
 												});
-												// /////////////////////////////////////
 												i++;
 											}
 										})
@@ -489,55 +451,12 @@ function repost_message(_content, message_id, flag) {
 							showUserInfo(1, true);
 						var nickname = $("#nickname").text();
 						// showOwnmessages(nickname, 1, 1, false);
-						var textarea = ".rptarea_" + message_id;
+						var textarea = ".comarea_" + message_id;
 						$(textarea).val("");
 						var weibo = "#weibo_" + message_id;
-						var num = $(weibo).find(".repost").find(".num").text();
-						$(weibo).find(".repost").find(".num").text(
-								parseInt(num, 10) + 1); // 评论数+1
-					} else {
-						// ...tell fail
-						alert("fail");
-					}
-				});
-			}
-		});
-	}
-}
-
-/**
- * @content 转发微博 
- * flag = 0: 不更新userinfo
- */
-function repost_message(_content, message_id, flag) {
-	if (checkSubmit(2000)) {
-		$.ajax({
-			type : "post",
-			url : "message/repost",
-			async : false, // 发帖同步执行
-			data : {
-				username : $.query.get("username"),
-				userToken : $.query.get("userToken"),
-				content : _content,
-				id : message_id
-			},
-			dataType : "json",
-			success : function(data) {
-				$.each(data, function() {
-					if (data.msg == 1) {
-						// ...add content
-						alert("succeed");
-						// 页面数据更新
-						if (flag == 1)
-							showUserInfo(1, true);
-						var nickname = $("#nickname").text();
-						// showOwnmessages(nickname, 1, 1, false);
-						var textarea = ".rptarea_" + message_id;
-						$(textarea).val("");
-						var weibo = "#weibo_" + message_id;
-						var num = $(weibo).find(".repost").find(".num").text();
-						$(weibo).find(".repost").find(".num").text(
-								parseInt(num, 10) + 1); // 评论数+1
+						var num = $(weibo).find(".comment").find(".rpt_num").text();
+						$(weibo).find(".comment").find(".rpt_num").text(
+								parseInt(num, 10) + 1); // 转发数+1
 					} else {
 						// ...tell fail
 						alert("fail");
@@ -625,14 +544,14 @@ function show_comments(message_id, pageNumber, _flag) {
 																	+ ",'"
 																	+ data.returndata[i].nickname
 																	+ "',"
-																	+ message_id 
+																	+ message_id
 																	+ ")\">确认</button><button onclick=\"$(this).parents('.delete_confirm').slideUp();\">取消</button></div><div class=\"txt\">"
 																	+ "<a href=\"javascript:void(0);\" class=\"comer_name\">"
 																	+ data.returndata[i].nickname
 																	+ "</a>:<span class=\"content\">"
 																	+ return_content
 																	+ "</span><div class=\"info\"><img class=\"delete_cmt\" align=\"right\" style=\"margin-right: 30px; width: 10px; height: 10px;\" src=\"images/delete.jpg\" onclick=\"show_delete_confirm("
-																	+ data.returndata[i].id 
+																	+ data.returndata[i].id
 																	+ ")\"><time class=\"timeago\" datetime=\""
 																	+ data.returndata[i].create_time
 																	+ "\"></time></span></div>"
@@ -718,39 +637,26 @@ function cmt_nextPage(message_id) {
 	$(target).find(".pageNum").text(pageNum);
 } // 跳转下一页
 
-/**
- * @content 评论微博
- */
-function send_comment(message_id, comment_content) {
-	if (checkSubmit(2000)) {
-		$.ajax({
-			type : "post",
-			url : "message/comment",
-			async : false, // 发帖同步执行
-			data : {
-				username : $.query.get("username"),
-				userToken : $.query.get("userToken"),
-				id : message_id,
-				content : comment_content,
-			},
-			dataType : "json",
-			success : function(data) {
-				$.each(data,
-						function() {
-							if (data.msg == 1) {
-								var weibo = "#weibo_" + message_id;
-								var num = $(weibo).find(".comment")
-										.find(".num").text();
-								$(weibo).find(".comment").find(".num").text(
-										parseInt(num, 10) + 1); // 评论数+1
-								show_comments(message_id, 1, 1);
-							} else {
-								//...tell fail
-								alert("fail");
-							}
-						});
-			}
-		});
-	}
-}
 
+$(".icon").live('click', function() {
+	var classUsername = $(this).parents("li").find("name");
+	var tag_a = classUsername.children("a");
+	var targetNickname = tag_a.text();
+	window.location = "userinfo.jsp?targetNickname=" + targetNickname; //+ "&userToken=" + $.query.get("userToken");
+})
+
+$("#friend_messages").click(function() {
+	show_messages(1, 1);
+	flag = 1;
+	pageNum = 1;
+	$(".pageNum").val(pageNum);
+	//setTimeout('adjustHeight()', 300);
+});// 好友广播
+
+$(".comment").live('mouseover', function() {
+	$(this).css("color", "#759aad");
+});
+
+$(".comment").live('mouseout', function() {
+	$(this).css("color", "gray");
+});

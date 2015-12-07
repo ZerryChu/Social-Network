@@ -120,6 +120,7 @@ public class MessageServiceImpl implements MessageService {
 			}
 			messageDao.addMessage(message);
 			messageDao.addRepostTimes(id);
+			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;

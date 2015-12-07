@@ -17,27 +17,32 @@ import group.zerry.api_server.annotation.AuthPass;
 import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.service.MessageService;
+import group.zerry.api_server.utils.CacheTools;
 
 /**
- * @author  ZerryChu
- * @since   2015 10 3
+ * @author ZerryChu
+ * @since 2015 10 3
  * @version 2.0
  *
  */
 @Controller
-@RequestMapping(value="/message")
+@RequestMapping(value = "/message")
 public class MessageController {
 
 	@Autowired
 	MessageService messageService;
 
-	private static SimplePropertyPreFilter messageFilter = new SimplePropertyPreFilter(Message.class, "id", "type", "author",
-			"content", "create_time", "repost_times", "comment_times", "support_times", "pic"); // 全部属性都需要
+	@Autowired
+	private CacheTools cacheTools; // 记录微博的热度
+	
+	private static SimplePropertyPreFilter messageFilter = new SimplePropertyPreFilter(Message.class, "id", "type",
+			"author", "content", "create_time", "repost_times", "comment_times", "support_times", "pic"); // 全部属性都需要
 
 	private static Logger logger = Logger.getLogger(MessageController.class);
 
 	/*
 	 * 发送微博
+	 * 
 	 * @return type: 1 普通微博 2： 转发的微博
 	 */
 	@AuthPass
@@ -47,7 +52,7 @@ public class MessageController {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		regMsg.append(messageService.send_message(username, content, type, pic).getValue());
 		regMsg.append("\"}");
-		//logger.error(regMsg.toString());
+		// logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 
@@ -56,48 +61,43 @@ public class MessageController {
 	@RequestMapping(value = "/delete", produces = "text/html;charset=UTF-8")
 	public String delete_message(String username, String userToken, int id) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-		regMsg.append(messageService.delete_message(username, id).getValue());
+		MessageStatusEnum status = messageService.delete_message(username, id);
+		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
 
 	/*
-	 * @param type 2: 转发的微博
-	 * 分页 pagesize=5
+	 * @param type 2: 转发的微博 分页 pagesize=5
 	 */
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show", produces = "text/html;charset=UTF-8")
 	public String show_messages(String username, String userToken, int page) {
-		//page--;
+		// page--;
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
-		//Message[] messagesInUse;
+		// Message[] messagesInUse;
 		try {
 			messages = messageService.show_messages(username, page);
 			/*
-			messagesInUse = new Message[10];
-			int index = 0;
-			for (int i = page * 10; i < (page + 1) * 10; i++) {
-				if(i + 1 <= messages.length)
-					messagesInUse[index++] = messages[i];
-				else
-					break;
-			}
-			*/
+			 * messagesInUse = new Message[10]; int index = 0; for (int i = page
+			 * * 10; i < (page + 1) * 10; i++) { if(i + 1 <= messages.length)
+			 * messagesInUse[index++] = messages[i]; else break; }
+			 */
 		} catch (Exception e) {
 			regMsg.append(MessageStatusEnum.SMF);
 			regMsg.append("}");
 			return regMsg.toString();
 		}
-		//regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
+		// regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
 		regMsg.append(JSON.toJSONString(messages, messageFilter));
 		regMsg.append("}");
-		//logger.error(regMsg.toString());
+		// logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
-	
+
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show_message", produces = "text/html;charset=UTF-8")
@@ -116,7 +116,7 @@ public class MessageController {
 		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
-	
+
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/repost", produces = "text/html;charset=UTF-8")
@@ -128,7 +128,7 @@ public class MessageController {
 		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
-	
+
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/comment", produces = "text/html;charset=UTF-8")
@@ -139,12 +139,12 @@ public class MessageController {
 		regMsg.append("\"}");
 		return regMsg.toString();
 	}
-	
+
 	/**
 	 * @content 点赞
-	 * @param   username
-	 * @param   userToken
-	 * @param   id
+	 * @param username
+	 * @param userToken
+	 * @param id
 	 * @return
 	 */
 	@AuthPass
@@ -153,6 +153,18 @@ public class MessageController {
 	public String support_message(String username, String userToken, int id) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		MessageStatusEnum status = messageService.addSupport(username, id);
+		/*
+		if(status == MessageStatusEnum.SS) {
+			String str_id = String.valueOf(id);
+			int num; // 热度
+			if(cacheTools.get(str_id) == null) {
+				cacheTools.put(str_id, "1");	
+			} else {
+				num = Integer.valueOf(cacheTools.get(str_id));
+				cacheTools.put(str_id, String.valueOf(num + 1));
+			}
+		}
+		*/
 		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		return regMsg.toString();
@@ -160,9 +172,9 @@ public class MessageController {
 
 	/**
 	 * @content 取消点赞
-	 * @param   username
-	 * @param   userToken
-	 * @param   id
+	 * @param username
+	 * @param userToken
+	 * @param id
 	 * @return
 	 */
 	@AuthPass
@@ -175,10 +187,10 @@ public class MessageController {
 		regMsg.append("\"}");
 		return regMsg.toString();
 	}
-	
+
 	/**
-	 * 获取目好友发的微博
-	 * @每页显示的页数： pagesize=10
+	 * 获取目好友发的微博 @每页显示的页数： pagesize=10
+	 * 
 	 * @return
 	 */
 	@ResponseBody
@@ -186,78 +198,68 @@ public class MessageController {
 	public String show_userOwnMessages(String nickname, int page) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
-		//Message[] messagesInUse;
+		// Message[] messagesInUse;
 		try {
 			messages = messageService.show_ownMessages(nickname, page);
 			/*
-			messagesInUse = new Message[10];
-			int index = 0;
-			for (int i = page * 10; i < (page + 1) * 10; i++) {
-				if(i + 1 <= messages.length)
-					messagesInUse[index++] = messages[i];
-				else
-					break;
-			}
-			*/
+			 * messagesInUse = new Message[10]; int index = 0; for (int i = page
+			 * * 10; i < (page + 1) * 10; i++) { if(i + 1 <= messages.length)
+			 * messagesInUse[index++] = messages[i]; else break; }
+			 */
 		} catch (Exception e) {
 			regMsg.append(MessageStatusEnum.SMF.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
 		}
-		//regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
+		// regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
 		regMsg.append(JSON.toJSONString(messages, messageFilter));
 		regMsg.append("}");
 		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/show_announcements", produces = "text/html;charset=UTF-8")
 	public String show_announcements() {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
-		//Message[] messagesInUse;
+		// Message[] messagesInUse;
 		try {
 			messages = messageService.show_announcements();
 			/*
-			messagesInUse = new Message[10];
-			int index = 0;
-			for (int i = page * 10; i < (page + 1) * 10; i++) {
-				if(i + 1 <= messages.length)
-					messagesInUse[index++] = messages[i];
-				else
-					break;
-			}
-			*/
+			 * messagesInUse = new Message[10]; int index = 0; for (int i = page
+			 * * 10; i < (page + 1) * 10; i++) { if(i + 1 <= messages.length)
+			 * messagesInUse[index++] = messages[i]; else break; }
+			 */
 		} catch (Exception e) {
 			regMsg.append(MessageStatusEnum.SMF.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
 		}
-		//regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
+		// regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
 		regMsg.append(JSON.toJSONString(messages, messageFilter));
 		regMsg.append("}");
 		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
-	
+
 	/**
 	 * @content 判断是否允许点赞（用户只可对单个微博点赞一次）
-	 * @param   username
-	 * @param   id
-	 * @return  1: 允许点赞 0: 不允许点赞
+	 * @param username
+	 * @param id
+	 * @return 1: 允许点赞 0: 不允许点赞
 	 */
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/judge_ifsupport", produces = "text/html;charset=UTF-8")
 	public String findIfSupportedByUsername(String username, int id, String userToken) {
 		StringBuilder regMsg = new StringBuilder("{\"msg\":");
-		if(true == messageService.judgeIfSupport(username, id)) {
+		if (true == messageService.judgeIfSupport(username, id)) {
 			regMsg.append(" 1");
-		} //可以点赞
+		} // 可以点赞
 		else {
 			regMsg.append(" 0");
-		} //不能点赞
+		} // 不能点赞
 		regMsg.append("}");
 		return regMsg.toString();
 	}

@@ -51,7 +51,7 @@ function showTargetInfo(_flag) {
                 	$(".message_num span").text(data.returndata.message_num);
                 	$(".age div").text(data.returndata.age);
                 	$(".habit div").text(data.returndata.habit);
-            		$("img").attr("src", "pic/" + data.returndata.username + ".jpg");
+            		$(".topInfo img").attr("src", "pic/" + data.returndata.username + ".jpg");
             		judgeIfFriend($(".targetUsername div").text(), 0); //判断是否可以点赞
 					showOwnmessages(1, 1);
                 } else {
@@ -99,3 +99,22 @@ function logout() {
         }
     });
 }
+
+$("#friends_count").click(
+		function() {
+			window.open("friendlist.jsp?username="
+					+ $.query.get("username") + "&userToken="
+					+ $.query.get("userToken"));
+		});
+
+$(".logout").click(function() {
+	logout();
+});// 登出
+
+$("#friends_count, #messages_count").mouseover(function() {
+	$(this).css("color", "#eb7350");
+});
+
+$("#friends_count, #messages_count").mouseout(function() {
+	$(this).css("color", "#006a92");
+});
