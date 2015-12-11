@@ -104,7 +104,12 @@ body{
     background-position: 0 -934px;    
 }
 
+.next_one {
+	cursor: pointer;	
+}
+
 .right_content {
+	overflow-y:auto;
 	display: inline-block;
 	float: right;
 	border-top: 3px solid white;

@@ -107,7 +107,7 @@ public class MessageController {
 		try {
 			message = messageService.show_messageById(message_id);
 		} catch (Exception e) {
-			regMsg.append(MessageStatusEnum.SMF);
+			regMsg.append(MessageStatusEnum.SMF.getValue());//getValue()?
 			regMsg.append("}");
 			return regMsg.toString();
 		}

@@ -262,12 +262,12 @@ body {
 	var flag; // 1 搜人 2 搜微博
 	var content;
 
-	$(".top").keypress(function(e) {
+	/*$(".top").keypress(function(e) {
 		// 回车键事件 
 		if (e.which == 13) {
 			search();
 		}
-	});
+	});*/
 
 	/**
 	 * flag 1:微博搜索记录 2:用户搜索记录
@@ -289,6 +289,7 @@ body {
 	
 	$(document).ready(function() {
 		content = $.query.get("content");
+		
 		if ($.query.get("type") == 1) {
 			searchUsers(content, 1);
 		} else {
@@ -300,6 +301,10 @@ body {
 
 	function search() {
 		content = $(".search_text").val();
+		if (content == undefined || content == "") {
+			alert("no content.");
+			return;
+		}
 		var type = $(".search_type").val();
 		if (type == 1) {
 			searchUsers(content, 1);
@@ -322,10 +327,13 @@ body {
 					dataType : "json",
 					success : function(data) {
 						if (data.returndata != undefined) {
-							$(".search_result").empty();
-							var message = "<ul id=\"weibo\">";
+							var message;
 							var i = 0;
 							while (data.returndata[i] != undefined) {
+								if (i == 0) {
+									$(".search_result").empty();
+									message = "<ul id=\"weibo\">";
+								}
 								// ///////////////////////////////////////
 								var username;
 								var targetNickname = data.returndata[i].author;
@@ -373,9 +381,13 @@ body {
 								message += "</div></li>";
 								i++;
 							}
-							message += "</ul>";
-							$(".search_result").append(message);
-							$(".timeago").timeago();
+							if (i== 0)
+								pageNum--;
+							else {
+								message += "</ul>";
+								$(".search_result").append(message);
+								$(".timeago").timeago();
+							}
 							getSearchHistory(1);
 						}
 					}
@@ -397,12 +409,14 @@ body {
 					success : function(data) {
 						var i = 0;
 						if (data.returndata != undefined) {
-							$(".search_result").empty();
-							$(".search_result").append(
-									"<table class=\"friend_list\">");
 							var index = 0;
 							var message = "";
 							while (data.returndata[i] != undefined) {
+								if (i == 0) {
+									$(".search_result").empty();
+									$(".search_result").append(
+											"<table class=\"friend_list\">");
+								}
 								if (index == 3) {
 									index = 0;
 									message += "</tr>";
@@ -422,9 +436,13 @@ body {
 										+ "</span></div</div></td>";
 								i++;
 							}
-							message += "</tr>";
-							$(".friend_list").append(message);
-							$(".search_result").append("</table>");
+							if (i == 0)
+								pageNum--;
+							else {
+								message += "</tr>";
+								$(".friend_list").append(message);
+								$(".search_result").append("</table>");
+							}
 							getSearchHistory(2);
 						}
 					}
@@ -447,8 +465,12 @@ body {
 	});// 跳转上一页
 	
 	$(".clean").click(function() {
-		DelCookie("history_msg");
-		DelCookie("history_user");
+		if(confirm("确认清除历史记录？")) {
+			DelCookie("history_msg");
+			DelCookie("history_user");
+			var ul = $(".search_history_list");
+			ul.empty();
+		}
 	});
 	
 	//获取指定名称的cookie的值 
@@ -466,10 +488,10 @@ body {
 	 */
 	function DelCookie(name) {
 	    var exp = new Date();
-		exp.setTime(exp.getTime() - 1);
+		exp.setTime(exp.getTime() - 1000);
 		var cval = getCookie(name);
 		if(cval != null)
-		    document.cookie= name + "=" + cval + ";expires=" + exp.toGMTString();
+			document.cookie= name + "=" + cval + ";expires=" + exp.toGMTString() + ";path=/";
 	}
 	
 	$(".list_info").live('mouseover', function() {

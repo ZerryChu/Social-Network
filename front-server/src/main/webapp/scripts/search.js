@@ -138,6 +138,11 @@ function searchMessagesByContent(search_content) {
  */
 function search() {
 	var search_text = $(".search_text").val();
+	if (search_text == undefined || content == "") {
+		alert("no content.");
+		return;
+	}
+	
 	if ($(".search_type").val() == 1) {
 		//searchUsersByNickname(search_text);
 		window.open("searchfriend.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&content=" + search_text + "&type=1");

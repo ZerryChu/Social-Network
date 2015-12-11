@@ -64,7 +64,6 @@ public class SearchController {
 				String[] history = URLDecoder.decode(cookie.getValue(), "utf-8").split("\\;");
 				int length = history.length;
 				for(int i = 0;i < length; i++) {
-					System.out.println("history: " + history[i]);
 					if(history[i].equals(content)) {
 						for(i = i + 1;i < length; i++) {
 							history[i-1] = history[i];
