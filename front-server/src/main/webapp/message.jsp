@@ -69,9 +69,7 @@
 						<div class="info">
 							<time class="timeago" datetime=""></time>
 							<span class="num_info"><span class="comment">评论(<span
-									class="num"></span>)
-							&转发(<span
-									class="rpt_num"></span>)
+									class="num"></span>) &转发(<span class="rpt_num"></span>)
 							</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="support"><img
 									class="zan" style="width: 8%; height: 50%;" src="images/2.png"
 									onclick="">(<span class="num"></span>)<i
@@ -85,7 +83,7 @@
 							<div class="comment_btn">
 								<button class="comment_button">评论</button>
 								<button class="repost_button">转发</button>
-								
+
 							</div>
 							<ul class="otherCom" id="comment_${param.id}" style=""></ul>
 						</div>
@@ -101,7 +99,7 @@
 	<script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 	<script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
 	<script src="scripts/show_messages.js" type="text/javascript"></script>
-	<script src="scripts/checkSubmit.js" type="text/javascript"></script>		
+	<script src="scripts/checkSubmit.js" type="text/javascript"></script>
 	<script src="scripts/support.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document)

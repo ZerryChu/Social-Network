@@ -40,17 +40,17 @@
 }
 
 .info {
-	background : snow;
+	background: snow;
 	height: 130px;
 	width: 590px;
 }
 
 .user_list li {
 	list-style-type: none;
-	margin: 5px; 
+	margin: 5px;
 	float: left;
 	width: 600px;
-	width : 590px;
+	width: 590px;
 	height: 140px;
 }
 
@@ -91,6 +91,12 @@ timeago {
 
 #not_read .num {
 	font-weight: bold;
+}
+
+time {
+	float: left;
+    margin-left: -30px;
+    margin-top: 80px;
 }
 </style>
 </head>
@@ -138,6 +144,49 @@ timeago {
 <script src="plugins/timeago.js" type="text/javascript"></script>
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 <script type="text/javascript">
+	$(document).ready(function() {
+		showMsgInfoList();
+	});
+	
+	function showMsgInfoList() {
+		$
+		.ajax({
+			type : "post",
+			// async : false,
+			url : "privateMsg/getInfo",
+			data : {
+				username : $.query.get("username"),
+				userToken : $.query.get("userToken")
+			},
+			dataType : "json",
+			success : function(data) {
+				$(".user_list").empty();
+				var i = 0;
+				while (data.returndata[i] != undefined) {
+					var str = "<li><div class=\"info\"><img style=\"margin: 15px; width: 100px; height: 100px;\" src=\"pic/"
+					+ data.returndata[i].targetUsername
+					+ ".jpg\" onerror=\"this.src='images/no_found.png'\">"
+					+ "<div class=\"nickname\">"
+					+ data.returndata[i].targetNickname
+					+ "</div><time class=\"timeago\"></time><div class=\"msg_num\"><span class=\"num\">"
+					+ data.returndata[i].count
+					+ "</span>个对话</div></div></li>";
+					$(".user_list").append(str);
+					$(".timeago")
+					.attr(
+							"datetime",
+							data.returndata[i].time);
+					i++;
+					
+				}
+				$(".timeago").timeago();
+			},
+			error : function() {
+				alert("error");
+			}
+		});
+	}
+	
 	$("#all, #not_read").mouseover(function() {
 		$(this).css("color", "#eb7350");
 	});

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.zerry.api_server.dao.PrivateMsgDao">
+	<select id="selectAllIdTalkedToUser" parameterType="int" resultType="int">
+		SELECT DISTINCT
+			id
+		FROM
+			(
+				(
+					SELECT
+						sdr_id AS id
+					FROM
+						private_msg
+					WHERE
+						rcvr_id = #{id}
+				)
+				UNION
+					(
+						SELECT
+							rcvr_id AS id
+						FROM
+							private_msg
+						WHERE
+							sdr_id = #{id}
+					)
+			) AS a
+	</select>
+	
+	<select id="getMessagesCount" parameterType="int" resultType="Count">
+		SELECT
+			count(*) as number
+		FROM
+			private_msg
+		WHERE
+			(sdr_id = #{0} AND rcvr_id = #{1})
+		OR (sdr_id = #{1} AND rcvr_id = #{0})
+	</select>
+	
+	<select id="getHotMsg" parameterType="int" resultType="PrivateMsg">
+		SELECT
+			*
+		FROM
+			private_msg
+		WHERE
+			(sdr_id = #{0} AND rcvr_id = #{1})
+		OR (sdr_id = #{1} AND rcvr_id = #{0})
+		ORDER BY
+			time DESC
+		LIMIT 0,
+		 1
+	</select>
+</mapper>

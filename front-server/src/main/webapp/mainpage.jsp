@@ -66,17 +66,18 @@
 					onerror="this.src='images/no_found.png'" /> <br>
 				<div class="option">
 					<img class="logout" src="images/sign-out.png" title="登出"
-						alt="sign-out" style="width: 20px; height: 20px;"> <img
+						alt="sign-out" style="width: 20px; height: 20px;"> <a
+						href="privateMsgList.jsp?username=${param.username}&userToken=${param.userToken}"><img
 						class="private_msg" src="images/private_message.png" title="私信"
-						alt="private_msg" style="width: 20px; height: 20px;">
+						alt="private_msg" style="width: 20px; height: 20px;"></a>
 				</div>
 				<ul class="user_account">
 					<li class="user_friend_text"><span id="friends_count"
-						style="font-weight: bold;">粉丝：</span> <br>
-					<span id="friend_num">0</span></li>
+						style="font-weight: bold;">粉丝：</span> <br> <span
+						id="friend_num">0</span></li>
 					<li class="user_message_text"><span id="messages_count"
-						style="font-weight: bold;">广播：</span> <br>
-					<span id="message_num">0</span></li>
+						style="font-weight: bold;">广播：</span> <br> <span
+						id="message_num">0</span></li>
 				</ul>
 			</div>
 			<div class="right_info">
@@ -411,7 +412,7 @@
 			$(window).scrollTop(300);
 			//setTimeout('adjustHeight()', 300);
 		} // 跳转指定页面
-		
+
 		$(".next_one").mouseover(function() {
 			$(this).css("color", "#eb7350");
 		});

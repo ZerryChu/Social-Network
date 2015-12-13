@@ -36,6 +36,16 @@
 		username = #{username}
 	</select>
 
+	<select id="selectUserById" parameterType="int"
+		resultType="User">
+		SELECT
+		*
+		FROM
+		user_inf
+		WHERE
+		id = #{id}
+	</select>
+	
 	<select id="selectUserByNickname" parameterType="string"
 		resultType="User">
 		SELECT
