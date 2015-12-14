@@ -8,10 +8,11 @@
 <title>私信列表</title>
 <style type="text/css">
 .mainPanel {
+	overflow-y: auto;
 	margin: 0px auto;
 	margin-top: 50px;
 	width: 600px;
-	height: 600px;
+	height: 800px;
 	border: 1px gray solid;
 	background-color: white;
 }
@@ -40,7 +41,6 @@
 }
 
 .info {
-	background: snow;
 	height: 130px;
 	width: 590px;
 }
@@ -49,7 +49,6 @@
 	list-style-type: none;
 	margin: 5px;
 	float: left;
-	width: 600px;
 	width: 590px;
 	height: 140px;
 }
@@ -120,11 +119,12 @@ time {
 	</div>
 	<div class="mainPanel">
 		<div class="topInfo">
-			<span class="name">ZerryChu的私信</span> <span id="not_read">未读(<span
-				class="num">0</span>)
+			<span class="name">${param.username}的私信</span> <span id="not_read">未读(<span
+				style="color: red;" class="num">0</span>)
 			</span><span id="all">全部</span>
 		</div>
 		<ul class="user_list">
+			<!--
 			<li>
 				<div class="info">
 					<img style="margin: 15px; width: 100px; height: 100px;" src=""
@@ -136,6 +136,7 @@ time {
 					</div>
 				</div>
 			</li>
+			-->
 		</ul>
 	</div>
 </body>
@@ -162,24 +163,39 @@ time {
 			success : function(data) {
 				$(".user_list").empty();
 				var i = 0;
+				var num = 0;
 				while (data.returndata[i] != undefined) {
-					var str = "<li><div class=\"info\"><img style=\"margin: 15px; width: 100px; height: 100px;\" src=\"pic/"
+					var str = "";
+					str += "<a href=\"privateMsg.jsp?username="
+					+ $.query.get("username")
+					+ "&userToken="
+					+ $.query.get("userToken")
+					+ "&targetUsername="
+					+ data.returndata[i].targetUsername
+					+ "&targetNickname="
+					+ data.returndata[i].targetNickname
+					+ "\">"
+					+ "<li><div class=\"info\"><img style=\"margin: 15px; width: 100px; height: 100px;\" src=\"pic/"
 					+ data.returndata[i].targetUsername
 					+ ".jpg\" onerror=\"this.src='images/no_found.png'\">"
 					+ "<div class=\"nickname\">"
 					+ data.returndata[i].targetNickname
 					+ "</div><time class=\"timeago\"></time><div class=\"msg_num\"><span class=\"num\">"
 					+ data.returndata[i].count
-					+ "</span>个对话</div></div></li>";
+					+ "</span>个对话</div></div></li></a>";
 					$(".user_list").append(str);
 					$(".timeago")
 					.attr(
 							"datetime",
 							data.returndata[i].time);
+					if (data.returndata[i].has_noRead == true) {
+						$(".info").css("background-color", "silver");
+						num++;
+					}
 					i++;
-					
 				}
 				$(".timeago").timeago();
+				$("#not_read .num").text(num);
 			},
 			error : function() {
 				alert("error");

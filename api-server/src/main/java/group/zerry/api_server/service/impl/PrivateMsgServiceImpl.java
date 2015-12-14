@@ -19,6 +19,7 @@ import group.zerry.api_server.entity.Count;
 import group.zerry.api_server.entity.PrivateMsg;
 import group.zerry.api_server.entity.PrivateMsgInfo;
 import group.zerry.api_server.entity.User;
+import group.zerry.api_server.enumtypes.PrivateMsgStatusEnum;
 import group.zerry.api_server.service.PrivateMsgService;
 
 @Service(value="PrivateMsgService")
@@ -78,12 +79,43 @@ public class PrivateMsgServiceImpl implements PrivateMsgService {
 				} else if(o2.isHas_noRead() == true && o1.isHas_noRead() == false) {
 					return 1;
 				} else {
-					return new Date(o1.getTime()).compareTo(new Date(o2.getTime()));
+					return 1;
+					//return new Date(o1.getTime()).compareTo(new Date(o2.getTime()));
 				}
 			}
 			
 		});
 		return privateMsgInfoList;
+	}
+	
+	@Override
+	public PrivateMsg[] getPrivateMsg(String username, String targetUsername) {
+		// TODO Auto-generated method stub
+		User user = userDao.selectUserByUsername(username);
+		User target = userDao.selectUserByUsername(targetUsername);
+		PrivateMsg[] msg = privateMsgDao.getMsg(user.getId(), target.getId());
+		for(int i = 0;i < msg.length; i++) {
+			if (msg[i].getSdr_id() == target.getId()) {
+				msg[i].setIs_target(true);
+			} else {
+				msg[i].setIs_target(false);
+			}
+		}
+		return msg;
+	}
+	
+	@Override
+	public PrivateMsgStatusEnum addPrivateMessage(String username, String targetUsername, String content) {
+		// TODO Auto-generated method stub
+		try {
+			User user = userDao.selectUserByUsername(username);
+			User target = userDao.selectUserByUsername(targetUsername);
+			privateMsgDao.insertPrivateMessage(user.getId(), target.getId(), content);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return PrivateMsgStatusEnum.AMF;
+		}
+		return PrivateMsgStatusEnum.AMS;
 	}
 	
 

@@ -15,6 +15,7 @@ public class PrivateMsg {
 	private String  content;
 	private boolean has_read;// 是否已读
 	private String  time;
+	private boolean is_target;//是用户发出的私信还是对方发得私信
 
 	public int getId() {
 		return id;
@@ -51,5 +52,11 @@ public class PrivateMsg {
 	}
 	public void setTime(String time) {
 		this.time = time;
+	}
+	public boolean isIs_target() {
+		return is_target;
+	}
+	public void setIs_target(boolean is_target) {
+		this.is_target = is_target;
 	}
 }

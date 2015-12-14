@@ -22,8 +22,14 @@ public class PrivateMsgController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/getMessage", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String showMessage(String username, String userToken, int id) {
-		return null;
+	@RequestMapping(value = "/getMsg", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String showMessage(String username, String userToken, String targetUsername) {
+		return privateMsgService.getMsg(username, userToken, targetUsername);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/addMsg", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String addPrivateMessage(String username, String userToken, String targetUsername, String content) {
+		return privateMsgService.addPrivateMessage(username, userToken, targetUsername, content);
 	}
 }

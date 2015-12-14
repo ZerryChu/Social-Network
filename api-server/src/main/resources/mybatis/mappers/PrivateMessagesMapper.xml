@@ -3,6 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="group.zerry.api_server.dao.PrivateMsgDao">
+
 	<select id="selectAllIdTalkedToUser" parameterType="int" resultType="int">
 		SELECT DISTINCT
 			id
@@ -51,4 +52,29 @@
 		LIMIT 0,
 		 1
 	</select>
+	
+	<select id="getMsg" parameterType="int" resultType="PrivateMsg">
+		SELECT
+			*
+		FROM
+			private_msg
+		WHERE
+			(sdr_id = #{0} AND rcvr_id = #{1})
+		OR (sdr_id = #{1} AND rcvr_id = #{0})
+		ORDER BY
+			time
+	</select>
+	
+	<insert id="insertPrivateMessage" 
+		useGeneratedKeys="true">
+		INSERT INTO private_msg (
+			sdr_id,
+			rcvr_id,
+			content,
+			has_read,
+			time
+		)
+		VALUES
+			(#{0}, #{1}, #{2}, 0, now())
+	</insert>
 </mapper>

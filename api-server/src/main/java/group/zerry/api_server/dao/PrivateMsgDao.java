@@ -18,4 +18,9 @@ public interface PrivateMsgDao {
 	 * @content 用户1与用户2对话的最新消息
 	 */
 	public PrivateMsg getHotMsg(int id1, int id2);
+	
+	public PrivateMsg[] getMsg(int id1, int id2);
+	
+	public void insertPrivateMessage(int id1, int id2, String content);
+	
 }
