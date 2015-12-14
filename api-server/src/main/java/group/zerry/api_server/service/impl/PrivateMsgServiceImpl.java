@@ -1,5 +1,7 @@
 package group.zerry.api_server.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,6 +11,7 @@ import java.util.List;
 
 import javax.xml.crypto.Data;
 
+import org.apache.log4j.lf5.util.DateFormatManager;
 import org.codehaus.jackson.map.util.Comparators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,13 +59,14 @@ public class PrivateMsgServiceImpl implements PrivateMsgService {
 			boolean has_noRead = false;
 			int count = privateMsgDao.getMessagesCount(id, idList[i]).getNumber();
 			PrivateMsg hotMessage = privateMsgDao.getHotMsg(id, idList[i]);
-			if(hotMessage.isHas_read() == false)
+			if (hotMessage != null && hotMessage.isHas_read() == false)
 				has_noRead = true;
 			User target = userDao.selectUserById(idList[i]);
 			PrivateMsgInfo privateMsgInfo = new PrivateMsgInfo();
 			privateMsgInfo.setTargetUsername(target.getUsername());
 			privateMsgInfo.setTargetId(idList[i]);
-			privateMsgInfo.setTime(hotMessage.getTime());
+			if (hotMessage != null)
+				privateMsgInfo.setTime(hotMessage.getTime());
 			privateMsgInfo.setTargetNickname(target.getNickname());
 			privateMsgInfo.setHas_noRead(has_noRead);
 			privateMsgInfo.setCount(count);
@@ -79,8 +83,25 @@ public class PrivateMsgServiceImpl implements PrivateMsgService {
 				} else if(o2.isHas_noRead() == true && o1.isHas_noRead() == false) {
 					return 1;
 				} else {
-					return 1;
-					//return new Date(o1.getTime()).compareTo(new Date(o2.getTime()));
+					SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					try {
+						if (o1.getTime() == null) {
+							return 1;
+						}
+						if (o2.getTime() == null) {
+							return -1;
+						}
+						Date date1 = sf.parse(o1.getTime());
+						Date date2 = sf.parse(o2.getTime());
+						if (date1.compareTo(date2) < 0)
+							return 1;
+						else
+							return -1;
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return -1;
+					}
 				}
 			}
 			
@@ -116,6 +137,20 @@ public class PrivateMsgServiceImpl implements PrivateMsgService {
 			return PrivateMsgStatusEnum.AMF;
 		}
 		return PrivateMsgStatusEnum.AMS;
+	}
+
+	@Override
+	public PrivateMsgStatusEnum readPrivateMsg(String username, String targetUsername) {
+		// TODO Auto-generated method stub
+		try {
+			User user = userDao.selectUserByUsername(username);
+			User target = userDao.selectUserByUsername(targetUsername);
+			privateMsgDao.readPrivateMsg(user.getId(), target.getId());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return PrivateMsgStatusEnum.RMF;
+		}
+		return PrivateMsgStatusEnum.RMS;
 	}
 	
 

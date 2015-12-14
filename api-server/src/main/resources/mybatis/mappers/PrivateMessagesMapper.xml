@@ -45,8 +45,7 @@
 		FROM
 			private_msg
 		WHERE
-			(sdr_id = #{0} AND rcvr_id = #{1})
-		OR (sdr_id = #{1} AND rcvr_id = #{0})
+			sdr_id = #{1} AND rcvr_id = #{0}
 		ORDER BY
 			time DESC
 		LIMIT 0,
@@ -64,6 +63,14 @@
 		ORDER BY
 			time
 	</select>
+	
+	<update id="readPrivateMsg" parameterType="int">
+		UPDATE private_msg
+		SET has_read = 1
+		WHERE
+			sdr_id = #{1}
+		AND rcvr_id = #{0}
+	</update>
 	
 	<insert id="insertPrivateMessage" 
 		useGeneratedKeys="true">

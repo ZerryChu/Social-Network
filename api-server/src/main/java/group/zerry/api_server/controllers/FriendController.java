@@ -7,9 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 
 import group.zerry.api_server.annotation.AuthPass;
+import group.zerry.api_server.entity.Friend;
+import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.entity.Target;
+import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.FriendStatusEnum;
 import group.zerry.api_server.service.FriendService;
 
@@ -22,6 +26,8 @@ public class FriendController {
 	
 	private Logger logger = Logger.getLogger(FriendController.class);
 
+	private static SimplePropertyPreFilter friendFilter = new SimplePropertyPreFilter(Friend.class, "nickname", "username");
+	
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show/groups ", produces = "text/html;charset=UTF-8")
@@ -49,7 +55,7 @@ public class FriendController {
 			regMsg.append("}");
 			return regMsg.toString();
 		}
-		regMsg.append(JSON.toJSONString(friends));
+		regMsg.append(JSON.toJSONString(friends, friendFilter));
 		regMsg.append("}");
 		return regMsg.toString();
 	}
@@ -62,13 +68,13 @@ public class FriendController {
 	@RequestMapping(value = "/show/friends", produces = "text/html;charset=UTF-8")
 	public String showFriendsByGroupname(String username, String userToken, String groupname) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
-		String[] friendnames = friendService.showFriendsByGroupname(username, groupname);
-		if (null == friendnames) {
+		User[] friends = friendService.showFriendsByGroupname(username, groupname);
+		if (null == friends) {
 			regMsg.append(FriendStatusEnum.NFE.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
 		}
-		regMsg.append(JSON.toJSONString(friendnames));
+		regMsg.append(JSON.toJSONString(friends));
 		regMsg.append("}");
 		logger.error(regMsg.toString());
 		return regMsg.toString();

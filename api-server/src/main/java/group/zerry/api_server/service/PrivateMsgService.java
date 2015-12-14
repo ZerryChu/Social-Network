@@ -18,4 +18,6 @@ public interface PrivateMsgService {
 	public List<PrivateMsgInfo> getALLPrivateMsgList(String username);
 	
 	public PrivateMsgStatusEnum addPrivateMessage(String username, String targetUsername, String content);
+	
+	public PrivateMsgStatusEnum readPrivateMsg(String username ,String targetUsername);
 }

@@ -52,4 +52,15 @@ public class PrivateMsgServiceImpl implements PrivateMsgService {
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 
+	@Override
+	public String readPrivateMessage(String username, String userToken, String targetUsername) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "privateMsg/readMsg";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);		
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("targetUsername", targetUsername);
+		return fetchURLTool.doPost(url, paramsMap);
+	}
+
 }

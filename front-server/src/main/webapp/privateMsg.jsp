@@ -193,6 +193,7 @@ time {
 <script>
 	$(document).ready(function() {
 		//未读消息变已读
+		readMsg();
 		showMsg(1);
 		setInterval('showMsg(0)', 5000);
 	});
@@ -218,6 +219,27 @@ time {
 					$("#content").val("");
 					// add content...
 				}
+			}
+		});
+	}
+	
+	function readMsg() {
+		$
+		.ajax({
+			type : "post",
+			// async : false,
+			url : "privateMsg/readMsg",
+			data : {
+				username : $.query.get("username"),
+				userToken : $.query.get("userToken"),
+				targetUsername : $.query.get("targetUsername")
+			},
+			dataType : "json",
+			success : function(data) {
+
+			},
+			error : function() {
+				alert("read msg fail.");
 			}
 		});
 	}

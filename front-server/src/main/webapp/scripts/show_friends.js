@@ -60,8 +60,16 @@ function showFriends(rec_id, _group, _flag) {
 			while (data.returndata[i] != undefined) {
 				var li = "#rec_" + rec_id + " .friend_list";
 				$(li).append(
-						"<span class=\"friend\">" + data.returndata[i]
-								+ "</span><br>");
+						"<a target=\"_blank\" style=\"text-decoration: none;\" href=\"privateMsg.jsp?username=" 
+						+ $.query.get("username")
+						+ "&userToken="
+						+ $.query.get("userToken")
+						+ "&targetUsername="
+						+ data.returndata[i].username
+						+ "&targetNickname="
+						+ data.returndata[i].nickname
+						+ "\"><span class=\"friend\">" + data.returndata[i].nickname
+								+ "</span><br></a>");
 				i++;
 			}
 		}

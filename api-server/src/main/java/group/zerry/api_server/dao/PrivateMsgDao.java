@@ -21,6 +21,8 @@ public interface PrivateMsgDao {
 	
 	public PrivateMsg[] getMsg(int id1, int id2);
 	
+	public void readPrivateMsg(int id1, int id2);
+	
 	public void insertPrivateMessage(int id1, int id2, String content);
 	
 }

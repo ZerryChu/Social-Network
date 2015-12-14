@@ -32,9 +32,9 @@
 	-->
 	<!-- 收听的人 -->
 	<select id="selectFriendsByGroupname" parameterType="string"
-		resultType="string">
+		resultType="User">
 		SELECT
-		nickname
+		nickname, username
 		FROM
 		user_inf
 		WHERE

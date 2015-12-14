@@ -32,4 +32,10 @@ public class PrivateMsgController {
 	public String addPrivateMessage(String username, String userToken, String targetUsername, String content) {
 		return privateMsgService.addPrivateMessage(username, userToken, targetUsername, content);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/readMsg", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String readPrivateMessage(String username, String userToken, String targetUsername) {
+		return privateMsgService.readPrivateMessage(username, userToken, targetUsername);
+	}
 }

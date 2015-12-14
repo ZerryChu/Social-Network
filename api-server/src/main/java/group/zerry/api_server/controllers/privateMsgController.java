@@ -63,4 +63,19 @@ public class privateMsgController {
 		// logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/readMsg", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String readPrivateMessage(String username, String userToken, String targetUsername) {
+		StringBuilder regMsg = new StringBuilder("{\"returnmsg\": ");
+		PrivateMsgStatusEnum status = privateMsgService.readPrivateMsg(username, targetUsername);
+		if(status.getValue().equals(PrivateMsgStatusEnum.RMS.getValue())) {
+			regMsg.append("1 }");
+		} else {
+			regMsg.append("0 }");
+		}
+		// logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
 }

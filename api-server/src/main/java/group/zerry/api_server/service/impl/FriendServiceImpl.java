@@ -39,18 +39,12 @@ public class FriendServiceImpl implements FriendService {
 	 * @return friendName
 	 */
 	@Override
-	public String[] showFriendsByGroupname(String username, String group) {
+	public User[] showFriendsByGroupname(String username, String group) {
 		// TODO Auto-generated method stub
-		try {
-			String[] friends = friendDao.selectFriendsByGroupname(username, group);
+		/*try {
+			User[] friends = friendDao.selectFriendsByGroupname(username, group);
 			ArrayList<String> friendsOnline = new ArrayList<String>();
 			for (int i = 0; i < friends.length; i++) {
-				/*
-				 * if(cacheTools.get(friends[i]) == null) { continue; } else {
-				 * friendsOnline.add(friends[i]); }
-				 * 测试注掉！ 
-				 * 
-				 */
 				if (cacheTools.get(friends[i]) != null) {
 					continue;
 				} else {
@@ -61,7 +55,9 @@ public class FriendServiceImpl implements FriendService {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;
-		}
+		}*/
+		User[] friends = friendDao.selectFriendsByGroupname(username, group);
+		return friends;
 	}
 
 	@Override

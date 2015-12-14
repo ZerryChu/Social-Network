@@ -5,6 +5,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>收听</title>
 <style type="text/css">
 * {
 	margin: 0px;
