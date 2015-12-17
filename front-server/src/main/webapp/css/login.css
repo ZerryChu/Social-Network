@@ -3,6 +3,10 @@
 	padding:0;
 }
 
+body {
+	background: url(../images/bg_background.png) left top repeat-y;
+}
+
 *:focus{
 	outline: none;
 }

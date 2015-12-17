@@ -59,13 +59,16 @@
 	background-color: #e4e4e4;
 }
 
-.target_msg, .user_msg {
+.content {
 	overflow-y: auto;
-	background-color: white;
-	width: 450px;
 	height: 80px;
-	margin: 5%;
-	width: 450px;
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+
+.target_msg, .user_msg {
+	background-color: white;
+	width: 450px;	
 }
 
 .target_msg {
@@ -265,21 +268,21 @@ time {
 					var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
 					var str = "";
 					if (data.returndata[i].is_target == false) {
-						str += "<div class=\"user_msg\"><img class=\"user_icon\" src=\"pic/" + $.query.get("username") + ".jpg\">";
+						str += "<div class=\"content\"><img style=\"float: left; width: 7%; height: 13%;\" src=\"images/1.png\"><div class=\"user_msg\"><img class=\"user_icon\" src=\"pic/" + $.query.get("username") + ".jpg\">";
 						str += "<div class=\"name\">我</div><br><div class=\"msg\">";
 						str += return_content;
 						str += "</div><time class=\"timeago\" datetime=\"";
 						str += data.returndata[i].time;
-						str += "\"></time></div>";
+						str += "\"></time></div></div>";
 					} else {
-						str += "<div class=\"target_msg\"><img class=\"user_icon\" src=\"pic/" + $.query.get("targetUsername") + ".jpg\">";
+						str += "<div class=\"content\"><img style=\"float: right; width: 7%; height: 13%;\" src=\"images/2.png\"><div class=\"target_msg\"><img class=\"user_icon\" src=\"pic/" + $.query.get("targetUsername") + ".jpg\">";
 						str += "<div class=\"name\">";
 						str += $.query.get("targetNickname");
 						str += "</div><br><div class=\"msg\">";
 						str += return_content;
 						str += "</div><time class=\"timeago\" datetime=\"";
 						str += data.returndata[i].time;
-						str += "\"></time></div>";
+						str += "\"></time></div></div>";
 					}
 					$(".msg_list").append(str);
 					i++;
