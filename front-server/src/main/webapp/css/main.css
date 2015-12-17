@@ -4,7 +4,9 @@
 }
 
 body{
-    background-color: #73cff1;
+  /*  background-color: #73cff1;*/  
+    background: url(../images/bg_background.png) center top repeat-y;
+  
 }
 
 .option {
@@ -22,7 +24,6 @@ body{
 .bg{
     width: 100%;
     height: 100%;
-    background: url(../images/bg1_m.jpg) center top no-repeat;
     position: absolute;
     top: 0px;
     z-index: -1;
@@ -119,10 +120,17 @@ body{
 	background: #c9f1ff;
 }
 
-#heated_topic, #friend_recommand, #chat, #heated_message {
+.heated_topic, .friend_recommand, .chat, .heated_message {
+	text-decoration: none;
+	color: #006a92;
 	padding-top: 50px;
 	margin: 5px 3%;
 	width: 92%;
+}
+
+.rec_info {
+	color: #006a92;
+	text-decoration: none;	
 }
 
 #heated_message {
@@ -460,7 +468,6 @@ input {
 .friend_list {
 	float: left;
 	/*border: 1px solid #786F66;*/
-	width: 100%;
 	padding-left: 50px;
 }
 

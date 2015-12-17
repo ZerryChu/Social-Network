@@ -95,7 +95,8 @@
 
 .bg{
 	width: 100%;
-	position: fixed;
+	height: 100%;
+	position: absolute;
 /*	top: -100px;*/
 	z-index:-1;
 }

@@ -41,7 +41,9 @@
 </style>
 </head>
 <body>
-	<div class="bg"></div>
+	<div class="bg">
+		<img style="heigth: 100%; width: 100%;" src="images/index_bg.jpg" />
+	</div>
 	<div class="top">
 		<ul class="top_content" style="font-weight: bold;">
 			<li><a class="link"
@@ -97,26 +99,26 @@
 				<div id="heated_topic">
 					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门标签</div>
 					<ul class="heated_subtitle">
-						<li class="heated_topic" id="topic_1">旅游<span class="val"
-							id="val_1">0<!--  热度 --></span></li>
-						<li class="heated_topic" id="topic_2">游戏<span class="val"
-							id="val_2">0<!--  热度 --></span></li>
-						<li class="heated_topic" id="topic_3">美食<span class="val"
-							id="val_3">0<!--  热度 --></span></li>
-						<li class="heated_topic" id="topic_4">电影<span class="val"
-							id="val_4">0<!--  热度 --></span></li>
-						<li class="heated_topic" id="topic_5">动漫<span class="val"
-							id="val_5">0<!--  热度 --></span></li>
+						<a class="heated_topic" href=""><li id="topic_1">旅游<span class="val"
+							id="val_1">0<!--  热度 --></span></li></a>
+						<a class="heated_topic" href=""><li id="topic_2">游戏<span class="val"
+							id="val_2">0<!--  热度 --></span></li></a>
+						<a class="heated_topic" href=""><li id="topic_3">美食<span class="val"
+							id="val_3">0<!--  热度 --></span></li></a>
+						<a class="heated_topic" href=""><li id="topic_4">电影<span class="val"
+							id="val_4">0<!--  热度 --></span></li></a>
+						<a class="heated_topic" href=""><li id="topic_5">动漫<span class="val"
+							id="val_5">0<!--  热度 --></span></li></a>
 					</ul>
 					<div align="right" class="next_one">换一组</div>
 				</div>
 				<div id="friend_recommand">
 					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">推荐收听</div>
 					<ul class="rec_content">
-						<li id="rec1"><span class="rec_nickname">nickname</span> <span
-							style="color: gray;">原因</span></li>
-						<li id="rec2"><span class="rec_nickname">nickname</span> <span
-							style="color: gray;">原因</span></li>
+						<a class="rec_info" href=""><li id="rec1"><span class="rec_nickname">nickname</span> <span
+							style="color: gray;"></span></li></a>
+						<a class="rec_info" href=""><li id="rec2"><span class="rec_nickname">nickname</span> <span
+							style="color: gray;"></span></li></a>
 					</ul>
 					<div align="right" class="next_one">换一组</div>
 				</div>
@@ -419,6 +421,14 @@
 
 		$(".next_one").mouseout(function() {
 			$(this).css("color", "black");
+		});
+		
+		$(".heated_topic, .rec_info, .friend").live('mouseover', function() {
+			$(this).css("text-decoration", "underline");
+		});
+
+		$(".heated_topic, .rec_info, .friend").live('mouseout', function() {
+			$(this).css("text-decoration", "none");
 		});
 	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->

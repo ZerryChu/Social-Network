@@ -139,7 +139,9 @@ body {
 
 </head>
 <body>
-	<div class="bg"></div>
+	<div class="bg">
+		<img style="heigth: 100%; width: 100%;" src="images/index_bg.jpg" />		
+	</div>
 	<div class="main">
 		<div class="left_content">
 			<ul class="options">

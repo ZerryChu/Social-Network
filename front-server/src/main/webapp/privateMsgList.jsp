@@ -19,6 +19,7 @@
 
 .topInfo {
 	border: 1px gray solid;
+	border-bottom: 5px gray solid;
 	height: 100px;
 }
 
@@ -100,7 +101,9 @@ time {
 </style>
 </head>
 <body>
-	<div class="bg"></div>
+	<div class="bg">
+		<img style="heigth: 100%; width: 100%;" src="images/index_bg.jpg" />	
+	</div>
 	<div class="top">
 		<ul class="top_content" style="font-weight: bold;">
 			<li><a class="link"
@@ -164,6 +167,7 @@ time {
 				$(".user_list").empty();
 				var i = 0;
 				var num = 0;
+				var index = 0;
 				while (data.returndata[i] != undefined) {
 					var str = "";
 					str += "<a href=\"privateMsg.jsp?username="
@@ -175,7 +179,9 @@ time {
 					+ "&targetNickname="
 					+ data.returndata[i].targetNickname
 					+ "\">"
-					+ "<li><div class=\"info\"><img style=\"margin: 15px; width: 100px; height: 100px;\" src=\"pic/"
+					+ "<li id=\""
+				    + index
+					+ "\" class=\"info\"><div><img style=\"margin: 15px; width: 100px; height: 100px;\" src=\"pic/"
 					+ data.returndata[i].targetUsername
 					+ ".jpg\" onerror=\"this.src='images/no_found.png'\">"
 					+ "<div class=\"nickname\">"
@@ -189,10 +195,11 @@ time {
 							"datetime",
 							data.returndata[i].time);
 					if (data.returndata[i].has_noRead == true) {
-						$(".info").css("background-color", "silver");
+						$(".info").css("background-color", "#e9e8ea");
 						num++;
 					}
 					i++;
+					index++;
 				}
 				$(".timeago").timeago();
 				$("#not_read .num").text(num);
@@ -209,6 +216,36 @@ time {
 
 	$("#all, #not_read").mouseout(function() {
 		$(this).css("color", "black");
+	});
+	
+	$(".info").live('mouseover', function() {
+		if ($(this).css("background-color") == "rgb(233, 232, 234)")
+			$(this).css("background-color", "silver");
+		else {
+			$(this).css("background-color", "#e9e8ea");
+		}
+	});
+
+	$(".info").live('mouseout', function() {
+		if ($(this).css("background-color") == "rgb(192, 192, 192)")
+			$(this).css("background-color", "#e9e8ea");
+		else
+			$(this).css("background-color", "white");
+	});
+	
+	//优化
+	$("#not_read").click(function() {
+		var num = parseInt($("#not_read .num").text(), 10);
+		for (var i = num;i < $(".info").length; i++) {
+			$("#" + i).slideUp();
+		}
+	});
+	
+	$("#all").click(function() {
+		var num = parseInt($("#not_read .num").text(), 10);
+		for (var i = num;i < $(".info").length; i++) {
+			$("#" + i).slideDown();
+		}	
 	});
 </script>
 </html>
