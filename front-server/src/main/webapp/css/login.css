@@ -4,7 +4,7 @@
 }
 
 body {
-	background: url(../images/bg_background.png) left top repeat-y;
+	background: url(../images/bg_background.png) left top repeat;
 }
 
 *:focus{

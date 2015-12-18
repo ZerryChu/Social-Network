@@ -5,7 +5,7 @@
 
 body{
   /*  background-color: #73cff1;*/  
-    background: url(../images/bg_background.png) left top repeat-y;
+	background: url(../images/bg_background.png) left top repeat;
   
 }
 
@@ -78,13 +78,13 @@ body{
 .left_content {
 	display: inline-block;
 	float: left;
-	border-top: 2px solid snow;
-	border-left: 1px solid snow;
-	border-right: 2px solid snow;	
-	border-bottom: 2px solid snow;
+	border-top: 2px solid #c9f1ff;
+	border-left: 1px solid #c9f1ff;
+	border-right: 2px solid #c9f1ff;	
+	border-bottom: 2px solid #c9f1ff;
 	width: 69%;
 	border-radius: 5px 0px 0px 5px;
-	background: #fff;
+	background: #c9f1ff;
 }
 
 .num_info {
@@ -113,8 +113,8 @@ body{
 	overflow-y:auto;
 	display: inline-block;
 	float: right;
-	border-top: 3px solid white;
-	border-left: 6px solid white;	
+	border-top: 3px solid #c9f1ff;
+	border-left: 6px solid #c9f1ff;	
 	width: 30%;
 	border-radius: 0px 5px 5px 0px;
 	background: #c9f1ff;
@@ -157,7 +157,9 @@ body{
 	border: 0px;
 	padding-top: 10px;
 	padding-left: 7px;
-	background: url(../images/post_bg.png) no-repeat right center;
+	margin-bottom: 5px;
+	box-shadow: 0px 2px 4px gray;
+	/*background: url(../images/post_bg.png) no-repeat right center;*/
 }
 
 #userinfo {
@@ -331,6 +333,7 @@ input {
 .weibolist ul {
 	list-style: none;
 	padding: 0px 20px;
+	background-color: #c9f1ff;
 }
 
 .weibo {
@@ -341,12 +344,14 @@ input {
 
 .weibolist ul li {
 	padding: 10px 0;
-	border-bottom: 1px dashed #e4e4e4;
+	/*border-bottom: 1px dashed #e4e4e4;*/
 }
 
 .weiboinfo {
 	clear: both;
 	overflow: hidden;
+	background-color: white;
+	box-shadow: 0px 1px 2px #8ab6fc;
 }
 
 .weiboinfo .userPic {
@@ -518,7 +523,8 @@ input {
 .getPageNum {
 	padding-top: 5px;
 	padding-bottom: 8px;
-	border-top: 1px solid gray;
+	border-top: 1px solid #c9f1ff;
+	background-color: white;
 }
 
 .prePage, .nextPage {

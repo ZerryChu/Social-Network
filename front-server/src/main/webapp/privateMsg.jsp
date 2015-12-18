@@ -32,7 +32,7 @@
 	height: 60px;
 }
 
-.user_icon, .name, .msg {
+.name, .user_icon { 
 	float: left;
 }
 
@@ -43,6 +43,7 @@
 }
 
 .msg {
+	min-height: 60px;
 	margin-top: 5px;
 }
 
@@ -60,23 +61,24 @@
 }
 
 .content {
-	overflow-y: auto;
-	height: 80px;
 	margin-top: 5%;
 	margin-bottom: 5%;
 }
 
 .target_msg, .user_msg {
+	padding: 5px;
+	min-height: 80px;	
 	background-color: white;
 	width: 450px;	
+	box-shadow: 0px 5px 10px gray; 
 }
 
 .target_msg {
-	float: right;
+	margin-left: 82px;
 }
 
 .user_msg {
-	float: left;
+	margin-left: 40px;
 }
 
 .topInfo {
@@ -85,9 +87,7 @@
 }
 
 time {
-	float: right;
-	margin: 10px;
-	margin-top: 30px;
+	margin-left: 65%;
 }
 
 .msg_emotion {
@@ -268,14 +268,14 @@ time {
 					var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
 					var str = "";
 					if (data.returndata[i].is_target == false) {
-						str += "<div class=\"content\"><img style=\"float: left; width: 7%; height: 13%;\" src=\"images/1.png\"><div class=\"user_msg\"><img class=\"user_icon\" src=\"pic/" + $.query.get("username") + ".jpg\">";
+						str += "<div class=\"content\"><img style=\"float: left; width: 7%; height: 7%;\" src=\"images/left.png\"><div class=\"user_msg\"><img class=\"user_icon\" src=\"pic/" + $.query.get("username") + ".jpg\">";
 						str += "<div class=\"name\">我</div><br><div class=\"msg\">";
 						str += return_content;
 						str += "</div><time class=\"timeago\" datetime=\"";
 						str += data.returndata[i].time;
 						str += "\"></time></div></div>";
 					} else {
-						str += "<div class=\"content\"><img style=\"float: right; width: 7%; height: 13%;\" src=\"images/2.png\"><div class=\"target_msg\"><img class=\"user_icon\" src=\"pic/" + $.query.get("targetUsername") + ".jpg\">";
+						str += "<div class=\"content\"><img style=\"float: right; width: 7%; height: 7%;\" src=\"images/right.png\"><div class=\"target_msg\"><img class=\"user_icon\" src=\"pic/" + $.query.get("targetUsername") + ".jpg\">";
 						str += "<div class=\"name\">";
 						str += $.query.get("targetNickname");
 						str += "</div><br><div class=\"msg\">";
