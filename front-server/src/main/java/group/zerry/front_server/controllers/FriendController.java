@@ -62,7 +62,7 @@ public class FriendController {
 	@RequestMapping(value = "/show/friends ", produces = "text/html;charset=UTF-8")
 	public String showFriendsByGroupname(HttpServletRequest request, HttpServletResponse response, String username,
 			String userToken, String groupname, int flag) throws UnsupportedEncodingException {
-		if (flag == 0) {
+		/*if (flag == 0) {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, URLEncoder.encode(groupname, "UTF-8")))) {
 				String returnMsg = friendService.showFriendsByGroupname(username, userToken, groupname);
@@ -76,11 +76,12 @@ public class FriendController {
 			}
 		} // 无更新查询
 		else {
+		*/
 			String returnMsg = friendService.showFriendsByGroupname(username, userToken, groupname);
-			cookiesData.save(request, response, URLEncoder.encode(groupname, "UTF-8"),
-					URLEncoder.encode(returnMsg, "UTF-8"));
+		//	cookiesData.save(request, response, URLEncoder.encode(groupname, "UTF-8"),
+		//			URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
-		}
+		//}
 	}
 
 	@AuthPass

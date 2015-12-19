@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
-<title></title>
+<title>用户信息</title>
 <style type="text/css">
 .targetUsername, .targetNickname, .friend_num, .message_num, form {
 	display: inline-block;
@@ -75,10 +75,13 @@ body {
 .right_content {
 	display: inline-block;
 	float: right;
-	border-right: 0px solid snow;
-	border-bottom: 2px solid snow;
+	border-right: 0px solid #f3f7f9;
+	border-left: 6px solid #f3f7f9;
+	border-bottom: 2px solid #f3f7f9;
+	border-top: 3px solid #f3f7f9;
+	padding-right: 0px;
 	width: 30%;
-	background: #f8f8f8;
+	background: #f3f7f9;
 }
 
 #focus, #unfocus {
@@ -266,7 +269,9 @@ body {
 					$.each(data, function() {
 						if (data.msg == 1) {
 							//...add content
-							judgeIfFriend($(".targetUsername div").text(), 1);
+							//judgeIfFriend($(".targetUsername div").text(), 1);
+							$("#focus").attr("disabled", true);
+							$("#unfocus").attr("disabled", false);
 							// 更新数据
 						} else {
 							//...tell fail
@@ -305,7 +310,9 @@ body {
 					$.each(data, function() {
 						if (data.msg == 1) {
 							//...add content
-							judgeIfFriend($(".targetUsername div").text(), 1);
+							//judgeIfFriend($(".targetUsername div").text(), 1);
+							$("#focus").attr("disabled", false);
+							$("#unfocus").attr("disabled", true);
 							// 更新数据
 						} else {
 							//...tell fail

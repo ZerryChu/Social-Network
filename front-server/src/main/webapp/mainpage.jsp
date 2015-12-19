@@ -97,28 +97,31 @@
 					<div align="right" class="next_one">换一组</div>
 				</div>
 				<div id="heated_topic">
-					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门标签</div>
-					<ul class="heated_subtitle">
-						<a class="heated_topic" href=""><li id="topic_1">旅游<span class="val"
-							id="val_1">0<!--  热度 --></span></li></a>
-						<a class="heated_topic" href=""><li id="topic_2">游戏<span class="val"
-							id="val_2">0<!--  热度 --></span></li></a>
-						<a class="heated_topic" href=""><li id="topic_3">美食<span class="val"
-							id="val_3">0<!--  热度 --></span></li></a>
-						<a class="heated_topic" href=""><li id="topic_4">电影<span class="val"
-							id="val_4">0<!--  热度 --></span></li></a>
-						<a class="heated_topic" href=""><li id="topic_5">动漫<span class="val"
-							id="val_5">0<!--  热度 --></span></li></a>
-					</ul>
+					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门话题</div>
+					<div class="heated_subtitle">
+						<a class="heated_topic" href=""><div id="topic_1">
+								<span class="topic_info">新一轮雾霾来袭 你还能自强不吸吗</span><span
+									class="val">0</span>
+							</div></a> <a class="heated_topic" href=""><div id="topic_2">
+								<span class="topic_info">那些年，让你跌破眼镜的童鞋</span><span class="val">0<!--  热度 --></span>
+							</div></a> <a class="heated_topic" href=""><div id="topic_3">
+								<span class="topic_info">为400助学金遭性侵的百色贫困女童</span><span
+									class="val">0<!--  热度 --></span>
+							</div></a> <a class="heated_topic" href=""><div id="topic_4">
+								<span class="topic_info">30岁后你会过上什么样的生活</span><span class="val">0<!--  热度 --></span>
+							</div></a> <a class="heated_topic" href=""><div id="topic_5">
+								<span class="topic_info">晒晒你家乡的美食 都到碗里来！</span><span class="val">0<!--  热度 --></span>
+							</div></a>
+					</div>
 					<div align="right" class="next_one">换一组</div>
 				</div>
 				<div id="friend_recommand">
 					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">推荐收听</div>
 					<ul class="rec_content">
-						<a class="rec_info" href=""><li id="rec1"><span class="rec_nickname">nickname</span> <span
-							style="color: gray;"></span></li></a>
-						<a class="rec_info" href=""><li id="rec2"><span class="rec_nickname">nickname</span> <span
-							style="color: gray;"></span></li></a>
+						<a class="rec_info" href=""><li id="rec1"><span
+								class="rec_nickname">nickname</span> <span style="color: gray;"></span></li></a>
+						<a class="rec_info" href=""><li id="rec2"><span
+								class="rec_nickname">nickname</span> <span style="color: gray;"></span></li></a>
 					</ul>
 					<div align="right" class="next_one">换一组</div>
 				</div>
@@ -422,7 +425,7 @@
 		$(".next_one").mouseout(function() {
 			$(this).css("color", "black");
 		});
-		
+
 		$(".heated_topic, .rec_info, .friend").live('mouseover', function() {
 			$(this).css("text-decoration", "underline");
 		});

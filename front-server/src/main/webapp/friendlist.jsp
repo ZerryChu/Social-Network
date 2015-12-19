@@ -66,10 +66,12 @@ body {
 	border-top: 2px solid white;
 	border-right: 1px solid white;
 	border-bottom: 2px solid white;
+	border-left: 6px solid white;
 	width: 79%;
 	height: 600px;
 	border-radius: 0px 5px 5px 0px;
 	background: white;
+	padding-right: 0px;
 }
 
 .friend_info {

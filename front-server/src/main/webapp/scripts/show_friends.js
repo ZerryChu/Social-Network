@@ -30,7 +30,7 @@ function showGroups(_flag) {
 																	+ data.returndata[i]
 																	+ "</div><div class=\"friend_list\" style=\"display: none\"></div></li>");
 											showFriends(i, data.returndata[i],
-													0); // 补充friend_list信息
+													1); // 补充friend_list信息
 											i++;
 										}
 									});
@@ -43,6 +43,7 @@ function showGroups(_flag) {
  * @param rec_id
  * @param _group
  * @param _flag
+ * @param _isShow
  */
 function showFriends(rec_id, _group, _flag) {
 	$.ajax({

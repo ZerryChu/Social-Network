@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <style type="text/css">
 .cmt_emotion, .rpt_emotion {
 	width: 42px;
@@ -13,6 +14,10 @@
 	padding-right: 20px;
 	padding-top: 3px;
 	cursor: pointer
+}
+
+.weiboinfo {
+	box-shadow: 0 0px 0px #8ab6fc;
 }
 
 .cmt_emotion:hover, .rpt_emotion:hover {
@@ -48,7 +53,6 @@
 }
 </style>
 <title>微博</title>
-<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body style="background: white;">
 	<div class="weibolist">
