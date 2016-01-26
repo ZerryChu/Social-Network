@@ -18,4 +18,5 @@ public interface UserService {
 	
 	public UserStatusEnum deleteFriend(String username, String friendUsername);
 
+	public User[] showRecommendedUsers(String username);
 }

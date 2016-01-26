@@ -13,6 +13,7 @@ import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.UserStatusEnum;
 import group.zerry.api_server.service.UserService;
 import group.zerry.api_server.utils.EncodeTools;
+import group.zerry.api_server.utils.Recommender;
 /**
  * @author ZerryChu
  * @since  2015.10.3
@@ -22,12 +23,15 @@ import group.zerry.api_server.utils.EncodeTools;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	UserDao               userDao;
+	private UserDao               userDao;
 
 	@Autowired
-	FriendDao             friendDao;
+	private FriendDao             friendDao;
 	
-	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
+	@Autowired
+	private Recommender           recommender;
+	
+	private static Logger         logger = Logger.getLogger(UserServiceImpl.class);
 	
 	@Override
 	public UserStatusEnum login(String username, String password) {
@@ -132,6 +136,18 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public User[] showRecommendedUsers(String username) {
+		User user = userDao.selectUserByUsername(username);
+		long[] recs = recommender.getRecommendedUser(user.getId(), 5);
+		User[] users = new User[recs.length];
+		for (int i = 0;i < recs.length; i++) {
+			users[i] = userDao.selectUserById((int)recs[i]);
+		}
+		return users;
+			
+	}
+	
 	/*
 	@Override
 	public Friend[] showFriendsByNickname(String nickname) {

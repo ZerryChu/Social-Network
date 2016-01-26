@@ -24,4 +24,5 @@ public interface UserService {
 	
 	public boolean fileUpload(HttpServletRequest request, String username);
 	
+	public String showRecommendedUsers(String username);
 }

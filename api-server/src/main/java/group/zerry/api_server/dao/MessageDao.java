@@ -13,6 +13,10 @@ public interface MessageDao {
 	
 	public Message[] getMessages(String[] friend);
 	
+	public Message[] getMessagesByLabelAndHeat(int label_id);
+	
+	public Message[] getMessagesByLabel(int label_id);
+	
 	public Message[] getOwnMessages(String nickname);
 	
 	public Message[] getAnnouncements();

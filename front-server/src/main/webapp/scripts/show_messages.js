@@ -2,6 +2,34 @@
  * Created by zhuzirui on 10/12/15.
  */
 
+function show_label() {
+	$
+			.ajax({
+				type : "post",
+				// async : false,
+				url : "label/show",
+				data : {
+				},
+				dataType : "json",
+				success : function(data) {
+					if (data.returndata != undefined) {
+						$(".rec1 .rec_nickname").empty().append(data.returndata[0].name);
+						$(".rec2 .rec_nickname").empty().append(data.returndata[1].name);
+						$(".rec3 .rec_nickname").empty().append(data.returndata[2].name);
+						$(".rec4 .rec_nickname").empty().append(data.returndata[3].name);
+						$(".rec1 .val").empty().append(data.returndata[0].times);
+						$(".rec2 .val").empty().append(data.returndata[1].times);
+						$(".rec3 .val").empty().append(data.returndata[2].times);
+						$(".rec4 .val").empty().append(data.returndata[3].times);
+						$(".rec1").attr("id", data.returndata[0].id);
+						$(".rec2").attr("id", data.returndata[1].id);
+						$(".rec3").attr("id", data.returndata[2].id);
+						$(".rec4").attr("id", data.returndata[3].id);
+					}
+				}
+			});
+}
+
 // flag ：0 缓存show 1 非缓存show
 function show_messages(pageNumber, _flag) {
 	$
@@ -644,14 +672,6 @@ $(".icon").live('click', function() {
 	var targetNickname = tag_a.text();
 	window.location = "userinfo.jsp?targetNickname=" + targetNickname; //+ "&userToken=" + $.query.get("userToken");
 })
-
-$("#friend_messages").click(function() {
-	show_messages(1, 1);
-	flag = 1;
-	pageNum = 1;
-	$(".pageNum").val(pageNum);
-	//setTimeout('adjustHeight()', 300);
-});// 好友广播
 
 $(".comment").live('mouseover', function() {
 	$(this).css("color", "#759aad");

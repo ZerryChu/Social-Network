@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -16,6 +15,16 @@
 	<bean id="cacheTools" class="group.zerry.api_server.utils.RedisUtils"
 		init-method="init" />
 
+	<bean id="batchHandleForMsg" class="group.zerry.api_server.utils.BatchHandleWrapperForMsg" />
+
+	<bean id="batchHandleForLabel" class="group.zerry.api_server.utils.BatchHandleWrapperForLabel" />
+
+	<bean id="labelHeat" class="group.zerry.api_server.utils.LabelHeat"
+		init-method="init" />
+		
+	<bean id="recommender" class="group.zerry.api_server.utils.Recommender" 
+		init-method="init" />
+	
 	<!-- 使用Aliyun OCS作为缓存 <bean id="cacheTools" class="me.zhilong.bms.api.utils.MemcachedUtils" 
 		init-method="init" /> -->
 </beans>

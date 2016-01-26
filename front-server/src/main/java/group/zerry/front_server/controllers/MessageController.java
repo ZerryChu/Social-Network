@@ -28,12 +28,13 @@ public class MessageController {
 
 	@Autowired
 	CookiesData cookiesData;
-	
+
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/send", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String post_message(String username, String userToken, String content, int type, MultipartFile pic) {
-		if (messageService.send_message(username, userToken, content, type, pic))
+	public String post_message(String username, String userToken, String content, int type, MultipartFile pic,
+			String label) {
+		if (messageService.send_message(username, userToken, content, type, pic, label))
 			return "{\"msg\" : 1}";
 		else
 			return "{\"msg\" : 0}";
@@ -106,6 +107,24 @@ public class MessageController {
 		}
 	}
 
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/show_by_label", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String show_messagesByLabel(HttpServletRequest request, HttpServletResponse response, String username,
+			String userToken, int label_id, int page) throws UnsupportedEncodingException {
+		String returnMsg = messageService.show_messagesByLabel(username, userToken, label_id, page);
+		return returnMsg;
+	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/show_by_labelAndHeat", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String show_messagesByLabelAndHeat(HttpServletRequest request, HttpServletResponse response, String username,
+			String userToken, int label_id, int page) throws UnsupportedEncodingException {
+		String returnMsg = messageService.show_messagesByLabelAndHeat(username, userToken, label_id, page);
+		return returnMsg;
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "/show_announcements", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String show_announcements(HttpServletRequest request, HttpServletResponse response, int flag)
@@ -147,7 +166,8 @@ public class MessageController {
 		} // 无更新查询
 		else {
 			String returnMsg = messageService.show_userOwnMessages(nickname, page);
-			//cookiesData.save(request, response, "ownmessages", URLEncoder.encode(returnMsg, "UTF-8"));
+			// cookiesData.save(request, response, "ownmessages",
+			// URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}
@@ -200,7 +220,8 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/show_message", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String show_messageById(HttpServletRequest request, HttpServletResponse response, String username, String userToken, int message_id, int flag) throws UnsupportedEncodingException {
+	public String show_messageById(HttpServletRequest request, HttpServletResponse response, String username,
+			String userToken, int message_id, int flag) throws UnsupportedEncodingException {
 		String cookieName = "MessageInfoById" + message_id;
 		if (flag == 0) {
 			Cookie cookie;
@@ -216,8 +237,10 @@ public class MessageController {
 		} // 无更新查询
 		else {
 			String returnMsg = messageService.show_messageById(username, userToken, message_id);
-			//cookiesData.save(request, response, cookieName, URLEncoder.encode(returnMsg, "UTF-8"));
+			// cookiesData.save(request, response, cookieName,
+			// URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}
+
 }

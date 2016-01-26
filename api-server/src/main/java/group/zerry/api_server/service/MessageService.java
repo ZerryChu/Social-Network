@@ -4,12 +4,16 @@ import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 
 public interface MessageService {
-	public MessageStatusEnum send_message(String username, String content, int type, String pic);
+	public MessageStatusEnum send_message(String username, String content, int type, String pic, String label);
 	
 	public MessageStatusEnum delete_message(String username, int id);
 	
 	public Message[] show_messages(String username, int page);
 	
+	public Message[] show_messagesByLabel(int label_id, int page);
+	
+	public Message[] showMessagesByLabelAndHeat(int label_id, int page);
+
 	public Message[] show_ownMessages(String nickname, int page);
 
 	public Message[] show_announcements();
@@ -25,4 +29,6 @@ public interface MessageService {
 	public MessageStatusEnum addSupport(String username, int id); //点赞
 	
 	public MessageStatusEnum decreaseSupport(String username, int id);
+	
+	public void addLabelHeat(String username, long id, int timeoutMS);
 }

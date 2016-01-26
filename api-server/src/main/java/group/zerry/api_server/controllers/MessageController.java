@@ -17,7 +17,10 @@ import group.zerry.api_server.annotation.AuthPass;
 import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.service.MessageService;
+import group.zerry.api_server.utils.BatchHandleWrapperForLabel;
+import group.zerry.api_server.utils.BatchHandleWrapperForMsg;
 import group.zerry.api_server.utils.CacheTools;
+import group.zerry.api_server.utils.LabelHeat;
 
 /**
  * @author ZerryChu
@@ -30,15 +33,18 @@ import group.zerry.api_server.utils.CacheTools;
 public class MessageController {
 
 	@Autowired
-	MessageService messageService;
-
+	private MessageService 	           messageService;
+	
 	@Autowired
-	private CacheTools cacheTools; // 记录微博的热度
+	private CacheTools 		   		   cacheTools; // 记录微博的热度
+	
+	@Autowired
+	private BatchHandleWrapperForMsg   batchHandleForMsg;
 	
 	private static SimplePropertyPreFilter messageFilter = new SimplePropertyPreFilter(Message.class, "id", "type",
 			"author", "content", "create_time", "repost_times", "comment_times", "support_times", "pic"); // 全部属性都需要
 
-	private static Logger logger = Logger.getLogger(MessageController.class);
+	private static Logger      logger = Logger.getLogger(MessageController.class);
 
 	/*
 	 * 发送微博
@@ -48,9 +54,9 @@ public class MessageController {
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/send", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String post_message(String username, String userToken, String content, int type, String pic) {
+	public String post_message(String username, String userToken, String content, int type, String pic, String label) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
-		regMsg.append(messageService.send_message(username, content, type, pic).getValue());
+		regMsg.append(messageService.send_message(username, content, type, pic, label).getValue());
 		regMsg.append("\"}");
 		// logger.error(regMsg.toString());
 		return regMsg.toString();
@@ -116,6 +122,60 @@ public class MessageController {
 		logger.error(regMsg.toString());
 		return regMsg.toString();
 	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/show_by_label", produces = "text/html;charset=UTF-8")
+	public String show_messageByLabel(String username, String userToken, int label_id, int page) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
+		Message[] messages;
+		// Message[] messagesInUse;
+		try {
+			messages = messageService.show_messagesByLabel(label_id, page);
+			/*
+			 * messagesInUse = new Message[10]; int index = 0; for (int i = page
+			 * * 10; i < (page + 1) * 10; i++) { if(i + 1 <= messages.length)
+			 * messagesInUse[index++] = messages[i]; else break; }
+			 */
+		} catch (Exception e) {
+			regMsg.append(MessageStatusEnum.SMF);
+			regMsg.append("}");
+			return regMsg.toString();
+		}
+		// regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
+		regMsg.append(JSON.toJSONString(messages, messageFilter));
+		regMsg.append("}");
+		// logger.error(regMsg.toString());
+		return regMsg.toString();
+
+	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/show_by_labelAndHeat", produces = "text/html;charset=UTF-8")
+	public String show_messageByLabelAndHeat(String username, String userToken, int label_id, int page) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
+		Message[] messages;
+		// Message[] messagesInUse;
+		try {
+			messages = messageService.showMessagesByLabelAndHeat(label_id, page);
+			/*
+			 * messagesInUse = new Message[10]; int index = 0; for (int i = page
+			 * * 10; i < (page + 1) * 10; i++) { if(i + 1 <= messages.length)
+			 * messagesInUse[index++] = messages[i]; else break; }
+			 */
+		} catch (Exception e) {
+			regMsg.append(MessageStatusEnum.SMF);
+			regMsg.append("}");
+			return regMsg.toString();
+		}
+		// regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
+		regMsg.append(JSON.toJSONString(messages, messageFilter));
+		regMsg.append("}");
+		// logger.error(regMsg.toString());
+		return regMsg.toString();
+
+	}
 
 	@AuthPass
 	@ResponseBody
@@ -126,6 +186,8 @@ public class MessageController {
 		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		logger.error(regMsg.toString());
+		batchHandleForMsg.add(id, 50);
+		messageService.addLabelHeat(username, id, 50);
 		return regMsg.toString();
 	}
 
@@ -135,6 +197,8 @@ public class MessageController {
 	public String comment_message(String username, String userToken, int id, String content) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		MessageStatusEnum status = messageService.addComment(username, content, id);
+		batchHandleForMsg.add(id, 50);
+		messageService.addLabelHeat(username, id, 50);
 		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		return regMsg.toString();
@@ -153,6 +217,9 @@ public class MessageController {
 	public String support_message(String username, String userToken, int id) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		MessageStatusEnum status = messageService.addSupport(username, id);
+		batchHandleForMsg.add(id, 50);
+		messageService.addLabelHeat(username, id, 50);
+
 		/*
 		if(status == MessageStatusEnum.SS) {
 			String str_id = String.valueOf(id);
@@ -263,4 +330,5 @@ public class MessageController {
 		regMsg.append("}");
 		return regMsg.toString();
 	}
+
 }

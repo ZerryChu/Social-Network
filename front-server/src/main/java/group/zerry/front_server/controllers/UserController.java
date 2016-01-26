@@ -201,4 +201,9 @@ public class UserController {
 		}
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/show_rec_users", produces = "text/html;charset=UTF-8")
+	public String showRecommendedUsers(String username) {
+		return userService.showRecommendedUsers(username);
+	}
 }

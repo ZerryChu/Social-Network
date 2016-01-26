@@ -14,6 +14,7 @@ import group.zerry.api_server.entity.Comment;
 import group.zerry.api_server.enumtypes.CommentStatusEnum;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.service.CommentService;
+import group.zerry.api_server.utils.BatchHandleWrapperForMsg;
 import group.zerry.api_server.utils.CacheTools;
 
 /**
@@ -26,10 +27,10 @@ import group.zerry.api_server.utils.CacheTools;
 public class CommentController {
 
 	@Autowired
-	CommentService                         commentService;
+	private CommentService                 commentService;
 
 	@Autowired
-	private CacheTools 					   cacheTools;
+	private CacheTools 	    			   cacheTools;
 	
 	private static SimplePropertyPreFilter commentFilter = new SimplePropertyPreFilter(Comment.class, "id", "nickname",
 			"content", "create_time");

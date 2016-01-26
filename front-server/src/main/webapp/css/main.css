@@ -106,7 +106,10 @@ body{
 }
 
 .next_one {
+	display: inline-block;
+	float: right;
 	cursor: pointer;	
+	font-size: 12px;
 }
 
 .right_content {
@@ -121,21 +124,15 @@ body{
 	background: #c9f1ff;
 }
 
-.heated_topic, .friend_recommand, .chat, .heated_message {
+.heated_topic, .label_recommand, .chat {
 	text-decoration: none;
 	color: #006a92;
 	padding-top: 50px;
-	margin: 5px 3%;
 	width: 92%;
 }
 
 .heated_topic {
 	font-size: 12px;
-}
-
-.rec_info {
-	color: #006a92;
-	text-decoration: none;	
 }
 
 .right_content2 {
@@ -268,15 +265,8 @@ input {
 	color: #006a92;
 	padding-top: 30px;
 	padding-left: 40px;
-}
-
-.heated_msg_content {
-	margin: 10px;
-	background: white;
-}
-
-.heated_msg_content img {
-	margin: 10px;	
+	padding-right: 10px;
+	font-size: 14px;
 }
 
 .sub_title {
@@ -433,6 +423,9 @@ input {
 	vertical-align: middle;
 }
 
+.rec_nickname {
+	cursor: pointer;	
+}
 
 .btn {
 	cursor: pointer;
@@ -464,10 +457,6 @@ input {
 .cls {
 	cursor: pointer;
 	color: #006a92;
-}
-
-.heated_topic div {
-	width: 95%;	
 }
 
 .val {
@@ -558,65 +547,6 @@ input {
 .cmt_getPageNum {
 	padding-top: 5px;
 	padding-bottom: 8px;
-}
-
-/*ad*/
-#box_ad {
-	position:relative;
-	width:650px;
-	height:172px;
-	background:#fff;
-	border-radius:5px;
-	border:8px solid #fff;
-	margin:10px auto;
-	cursor:pointer;
-}
-#box_ad .list {
-	position:relative;
-	width:650px;
-	height:170px;
-	overflow:hidden;
-}
-#box_ad .list ul {
-	position:absolute;
-	top:0;
-	left:0;
-}
-#box_ad .list li {
-	width:650px;
-	height:170px;
-	overflow:hidden;
-}
-#box_ad .count {
-	position:absolute;
-	right:0;
-	bottom:5px;
-}
-#box_ad .count li {
-	color:#fff;
-	float:left;
-	width:20px;
-	height:20px;
-	cursor:pointer;
-	margin-right:5px;
-	overflow:hidden;
-	background:#F90;
-	opacity:0.7;
-	filter:alpha(opacity=70);
-	border-radius:20px;
-}
-#box_ad .count li.current {
-	color:#fff;
-	opacity:1;
-	filter:alpha(opacity=100);
-	font-weight:700;
-	background:#f60;
-}
-#tmp {
-	width:100px;
-	height:100px;
-	background:red;
-	position:absolute;
 }
 
 /*bigic*/

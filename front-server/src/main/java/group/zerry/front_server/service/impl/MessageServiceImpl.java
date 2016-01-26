@@ -55,7 +55,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	public boolean send_message(String username, String userToken, String content, int type,
-			MultipartFile pic) {
+			MultipartFile pic, String label) {
 		// TODO Auto-generated method stub
 		try {
 			logger.error("content: " + content);
@@ -67,6 +67,7 @@ public class MessageServiceImpl implements MessageService {
 			paramsMap.put("userToken", userToken);
 			paramsMap.put("content", content);
 			paramsMap.put("type", String.valueOf(type));
+			paramsMap.put("label", label);
 			if(!pic.isEmpty())
 				paramsMap.put("pic", uuid.toString());
 			ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
@@ -215,6 +216,34 @@ public class MessageServiceImpl implements MessageService {
 		paramsMap.put("username", username);
 		paramsMap.put("userToken", userToken);
 		paramsMap.put("message_id", String.valueOf(message_id));
+		return fetchURLTool.doPost(url, paramsMap);
+	}
+
+	@Override
+	public String show_messagesByLabel(String username, String userToken, int label_id, int page) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/show_by_label";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("label_id", String.valueOf(label_id));
+		paramsMap.put("page", String.valueOf(page));
+		// List<Message> messages = JSON.parseArray(fetchURLTool.doPost(url,
+		// paramsMap), Message.class);
+		return fetchURLTool.doPost(url, paramsMap);
+	}
+
+	@Override
+	public String show_messagesByLabelAndHeat(String username, String userToken, int label_id, int page) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/show_by_labelAndHeat";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("label_id", String.valueOf(label_id));
+		paramsMap.put("page", String.valueOf(page));
+		// List<Message> messages = JSON.parseArray(fetchURLTool.doPost(url,
+		// paramsMap), Message.class);
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 

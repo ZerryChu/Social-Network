@@ -52,7 +52,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
 			else {
 				String username = request.getParameter("username");
 				String userToken = request.getParameter("userToken");
-				System.out.println(userToken);
+				// System.out.println(userToken);
 				if (null == cacheTools.get(username) || !cacheTools.get(username).equals(userToken)) {
 					// 验证userToken 是否正确
 					response.setCharacterEncoding("UTF-8");

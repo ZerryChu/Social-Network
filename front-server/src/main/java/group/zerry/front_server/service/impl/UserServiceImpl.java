@@ -207,4 +207,13 @@ public class UserServiceImpl implements UserService {
 			return false;
 	}
 
+	@Override
+	public String showRecommendedUsers(String username) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "user/show_rec_users";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		return fetchURLTool.doPost(url, paramsMap);	
+	}
+
 }

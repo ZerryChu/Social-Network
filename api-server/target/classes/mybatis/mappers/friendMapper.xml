@@ -34,22 +34,22 @@
 	<select id="selectFriendsByGroupname" parameterType="string"
 		resultType="User">
 		SELECT
-		nickname, username
+			nickname, username
 		FROM
-		user_inf
+			user_inf
 		WHERE
-		id IN (
-		SELECT
-		friend_id
-		FROM
-		friend,
-		user_inf
-		WHERE
-		username = #{0}
-		AND user_id = id
-		AND groupname =
-		#{1}
-		)
+			id IN (
+				SELECT
+					friend_id
+				FROM
+					friend,
+					user_inf
+				WHERE
+					username = #{0}
+					AND user_id = id
+					AND groupname =
+					#{1}
+			)
 	</select>
 
 	<select id="selectCommonFriendsByTargerUsername" parameterType="string"
@@ -83,73 +83,73 @@
 						user_inf
 					WHERE
 						username = #{1}
-					AND friend_id = id
+						AND friend_id = id
 				) AS b ON a.user_id = b.user_id
 			)
 	</select>
 		
 	<select id="selectFollowers" parameterType="string" resultType="Target">
 		SELECT
-		username,
-		nickname,
-		friend_num
+			username,
+			nickname,
+			friend_num
 		FROM
-		user_inf
+			user_inf
 		WHERE
-		id IN (
-		SELECT
-		user_id
-		FROM
-		friend,
-		user_inf
-		WHERE
-		username = #{0}
-		AND friend_id = id
-		)
+			id IN (
+				SELECT
+					user_id
+				FROM
+					friend,
+					user_inf
+				WHERE
+					username = #{0}
+					AND friend_id = id
+			)
 	</select>
 
 	<select id="selectFavorites" parameterType="string" resultType="Target">
 		SELECT
-		username,
-		nickname,
-		friend_num
+			username,
+			nickname,
+			friend_num
 		FROM
-		user_inf
+			user_inf
 		WHERE
-		id IN (
-		SELECT
-		friend_id
-		FROM
-		friend,
-		user_inf
-		WHERE
-		username =
-		#{0}
-		AND user_id = id
-		)
+			id IN (
+				SELECT
+					friend_id
+				FROM
+					friend,
+					user_inf
+				WHERE
+					username =
+					#{0}
+					AND user_id = id
+			)
 	</select>
 
 	<select id="selectGroupsByUsername" parameterType="string"
 		resultType="string">
 		SELECT DISTINCT
-		groupname
+			groupname
 		FROM
-		friend,
-		user_inf
+			friend,
+			user_inf
 		WHERE
-		username =
-		#{0}
-		AND user_id = id
+			username =
+			#{0}
+			AND user_id = id
 	</select>
 
 	<select id="judgeIfFriendsOrNot" resultType="Count">
 		SELECT
-		COUNT(*) as
+			COUNT(*) as
 		number
-		FROM
-		friend
+			FROM
+			friend
 		WHERE
-		user_id = #{0}
-		AND friend_id = #{1}
+			user_id = #{0}
+			AND friend_id = #{1}
 	</select>
 </mapper>

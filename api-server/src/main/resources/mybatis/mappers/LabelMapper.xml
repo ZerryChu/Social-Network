@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="group.zerry.api_server.dao.LabelDao">
+ 	<resultMap id="CountMap" type="Count">
+		<result property="number" column="number" />
+	</resultMap>
+	
+ 	<select id="judgeIfLabelExists" resultType="Count">
+ 		SELECT
+			count(id) as number
+		from
+			label_inf
+		where
+			name = #{name}	
+ 	</select>
+ 	
+ 	<select id="searchLabelIDByMsgId" resultType="int">
+ 		SELECT
+			label_id
+		FROM
+			message_inf
+		WHERE
+			id = #{id}
+ 	</select>
+ 	
+ 	<select id="searchLabelNameById" resultType="string">
+ 		SELECT
+			name
+		FROM
+			label_inf
+		WHERE
+			id = #{id}
+ 	</select>
+ 	
+ 	<select id="searchLabelIdByName" resultType="int">
+ 		SELECT
+			id
+		FROM
+			label_inf
+		WHERE
+			name = #{name}
+ 	</select>
+ 	
+ 	<update id="updateLabelHeatById">
+ 		UPDATE label_heat
+		SET times = times + 1
+		WHERE
+			id = #{id}	
+ 	</update>
+ 	
+ 	<insert id="insertNewLabel">
+ 		INSERT INTO label_inf (NAME)
+		VALUES
+			(#{name})	
+ 	</insert>
+ </mapper>

@@ -9,16 +9,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import group.zerry.api_server.dao.CommentDao;
+import group.zerry.api_server.dao.LabelDao;
 import group.zerry.api_server.dao.MessageDao;
 import group.zerry.api_server.dao.UserDao;
 import group.zerry.api_server.entity.Comment;
 import group.zerry.api_server.entity.Count;
+import group.zerry.api_server.entity.Label;
 import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.interceptors.PageHelperInterceptor;
 import group.zerry.api_server.interceptors.PageHelperInterceptor.Page;
 import group.zerry.api_server.service.MessageService;
+import group.zerry.api_server.utils.BatchHandleWrapperForLabel;
 
 /**
  * @author ZerryChu
@@ -35,12 +38,18 @@ public class MessageServiceImpl implements MessageService {
 	CommentDao commentDao;
 	
 	@Autowired
-	UserDao userDao;
+	UserDao    userDao;
+	
+	@Autowired
+	LabelDao   labelDao;
+	
+	@Autowired
+	private BatchHandleWrapperForLabel batchHandleWrapperForLabel;
 	
 	private Logger logger = Logger.getLogger(MessageServiceImpl.class);
 	
 	@Override
-	public MessageStatusEnum send_message(String username, String content, int type, String pic) {
+	public MessageStatusEnum send_message(String username, String content, int type, String pic, String label) {
 		// TODO Auto-generated method stub
 		User user = userDao.selectUserByUsername(username);
 		Message message = new Message();
@@ -52,6 +61,15 @@ public class MessageServiceImpl implements MessageService {
 		}
 		message.setContent(content);
 		message.setType(type);
+		if (label != null) {
+			Count count = labelDao.judgeIfLabelExists(label);
+			if (count.getNumber() == 0) {
+				labelDao.insertNewLabel(label);
+			} 
+			int id = labelDao.searchLabelIdByName(label);
+			labelDao.updateLabelHeatById(id);
+			message.setLabel(id);
+		}
 		try {
 			messageDao.addMessage(message);
 			//userDao.addMessage_numByUsername(username); //发微博数+1
@@ -240,6 +258,53 @@ public class MessageServiceImpl implements MessageService {
 	public Message show_messageById(int message_id) {
 		// TODO Auto-generated method stub
 		return messageDao.getMessageById(message_id);
+	}
+
+	@Override
+	public void addLabelHeat(String username, long id, int timeoutMS) {
+		// TODO Auto-generated method stub
+		int label_id = labelDao.searchLabelIDByMsgId(id);
+		if (label_id == 0) {
+			return;
+		}
+		User user = userDao.selectUserByUsername(username);
+		batchHandleWrapperForLabel.add(user.getId(), label_id, 50);
+	}
+
+	@Override
+	public Message[] show_messagesByLabel(int label_id, int page) {
+		// TODO Auto-generated method stub
+		int pageSize = 5;
+		Message[] message = null;
+		try {
+			PageHelperInterceptor.startPage(page, pageSize);
+			message = messageDao.getMessagesByLabel(label_id);
+			Page<Message> myPage = PageHelperInterceptor.endPage();
+			List<Message> list = myPage.getResult();
+			message = (Message[]) list.toArray(new Message[list.size()]);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+		return message;
+	}
+
+	@Override
+	public Message[] showMessagesByLabelAndHeat(int label_id, int page) {
+		// TODO Auto-generated method stub
+		int pageSize = 5;
+		Message[] message = null;
+		try {
+			PageHelperInterceptor.startPage(page, pageSize);
+			message = messageDao.getMessagesByLabelAndHeat(label_id);
+			Page<Message> myPage = PageHelperInterceptor.endPage();
+			List<Message> list = myPage.getResult();
+			message = (Message[]) list.toArray(new Message[list.size()]);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+		return message;
 	}
 
 }

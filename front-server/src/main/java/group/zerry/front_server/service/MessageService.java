@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface MessageService {
 	
-	public boolean send_message(String username, String userToken, String content, int type, MultipartFile pic);
+	public boolean send_message(String username, String userToken, String content, int type, MultipartFile pic, String label);
 	
 	public boolean send_comment(String username, String userToken, int id, String content);
 	
@@ -18,6 +18,10 @@ public interface MessageService {
 	public int decreaseSupportTimes(String username, String userToken, int id);
 	
 	public String show_messages(String username, String userToken, int page);
+	
+	public String show_messagesByLabel(String username, String userToken, int label_id, int page);
+	
+	public String show_messagesByLabelAndHeat(String username, String userToken, int label_id, int page);
 	
 	public String show_userOwnMessages(String nickname, int page);
 	

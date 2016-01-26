@@ -16,7 +16,14 @@ public class Message {
 	private int    comment_times; //评论量
 	private int    support_times; //点赞量
 	private String pic;           //uuid值，图片名，暂定一微博只能存一张图片
+	private int    label;
 	
+	public int getLabel() {
+		return label;
+	}
+	public void setLabel(int label) {
+		this.label = label;
+	}
 	public String getPic() {
 		return pic;
 	}

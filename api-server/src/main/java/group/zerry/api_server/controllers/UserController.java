@@ -152,6 +152,22 @@ public class UserController {
 		return regMsg.toString();
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/show_rec_users", produces = "text/html;charset=UTF-8")
+	public String showRecommendedUsers(String username) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
+		User[] users;
+		if(null == (users = userService.showRecommendedUsers(username))) {
+			regMsg.append(UserStatusEnum.UNV.getValue());
+		}
+		else {
+			regMsg.append(JSON.toJSONString(users, userFilter));
+		}
+		regMsg.append("}");
+        logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
+	
 	/*
 	@ResponseBody
 	@RequestMapping(value = "/showfriends", produces = "text/html;charset=UTF-8")

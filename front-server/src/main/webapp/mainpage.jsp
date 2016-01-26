@@ -38,6 +38,66 @@
 .qqFace table td img:hover {
 	border: 1px #0066cc solid;
 }
+
+/*ad*/
+#box_ad {
+	position:relative;
+	width:650px;
+	height:172px;
+	background:#fff;
+	border-radius:5px;
+	border:8px solid #fff;
+	margin:10px auto;
+	cursor:pointer;
+}
+#box_ad .list {
+	position:relative;
+	width:650px;
+	height:170px;
+	overflow:hidden;
+}
+#box_ad .list ul {
+	position:absolute;
+	top:0;
+	left:0;
+}
+#box_ad .list li {
+	width:650px;
+	height:170px;
+	overflow:hidden;
+}
+#box_ad .count {
+	position:absolute;
+	right:0;
+	bottom:5px;
+}
+#box_ad .count li {
+	color:#fff;
+	float:left;
+	width:20px;
+	height:20px;
+	cursor:pointer;
+	margin-right:5px;
+	overflow:hidden;
+	background:#F90;
+	opacity:0.7;
+	filter:alpha(opacity=70);
+	border-radius:20px;
+}
+#box_ad .count li.current {
+	color:#fff;
+	opacity:1;
+	filter:alpha(opacity=100);
+	font-weight:700;
+	background:#f60;
+}
+#tmp {
+	width:100px;
+	height:100px;
+	background:red;
+	position:absolute;
+}
+
 </style>
 </head>
 <body>
@@ -83,21 +143,9 @@
 				</ul>
 			</div>
 			<div class="right_info">
-				<div id="heated_message">
-					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门微博</div>
-					<div class="heated_msg_content">
-						<div style="height: 90px;">
-							<img
-								style="float: left; display: inline-block; width: 70px; height: 70px;"
-								src="pic/zhouzhou.jpg">
-							<div style="padding-top: 10px; color: #006a92;">周周</div>
-							<div style="float: left; height: 70px; display: inline-block;">aaaaaaaaaa</div>
-						</div>
-					</div>
-					<div align="right" class="next_one">换一组</div>
-				</div>
 				<div id="heated_topic">
 					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门话题</div>
+					<div style="display: inline-block; float: right; font-size: 12px; color: red;" class="heat">热度</div>
 					<div class="heated_subtitle">
 						<a class="heated_topic" href=""><div id="topic_1">
 								<span class="topic_info">新一轮雾霾来袭 你还能自强不吸吗</span><span
@@ -113,18 +161,27 @@
 								<span class="topic_info">晒晒你家乡的美食 都到碗里来！</span><span class="val">0<!--  热度 --></span>
 							</div></a>
 					</div>
-					<div align="right" class="next_one">换一组</div>
+					<div class="next_one">换一组</div>
 				</div>
-				<div id="friend_recommand">
-					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">推荐收听</div>
-					<ul class="rec_content">
-						<a class="rec_info" href=""><li id="rec1"><span
-								class="rec_nickname">nickname</span> <span style="color: gray;"></span></li></a>
-						<a class="rec_info" href=""><li id="rec2"><span
-								class="rec_nickname">nickname</span> <span style="color: gray;"></span></li></a>
-					</ul>
-					<div align="right" class="next_one">换一组</div>
+				<br>
+				<br>
+				<div id="label_recommand">
+					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">发现标签</div>
+					<div style="display: inline-block; float: right; font-size: 12px; color: red;" class="heat">热度</div>
+					<div style="left-margin: 100px;" class="rec_content">
+						<div class="rec1"><span
+								class="rec_nickname"></span> <span class="val" style="color: gray;"></span></div>
+						<div class="rec2"><span
+								class="rec_nickname"></span> <span class="val" style="color: gray;"></span></div>
+						<div class="rec3"><span
+								class="rec_nickname"></span> <span class="val" style="color: gray;"></span></div>
+						<div class="rec4"><span
+								class="rec_nickname"></span> <span class="val" style="color: gray;"></span></div>
+					</div>
+					<div id="label_next" class="next_one">换一组</div>
 				</div>
+				<br>
+				<br>
 				<div id="chat">
 					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">发送私信</div>
 					<ul class="group">
@@ -269,6 +326,7 @@
 		$(".right_content").css('height', $(window).height() - 40);
 		showUserInfo(1, true);
 		show_messages(1, 1);
+		show_label();
 		showGroups(0);
 		setInterval("update()", 30000);
 		//setTimeout('adjustHeight()', 300);
@@ -319,6 +377,10 @@
 			flag = 3;
 		});// 显示公告
 
+		$("#label_next").click(function() {
+			show_label();
+		});
+		
 		$("#messages_count").live('click', function() {
 			var nickname = $("#nickname").text();
 			showOwnmessages(nickname, 1, 1, true);
@@ -326,9 +388,8 @@
 			pageNum = 1;
 			$(".pageNum").val(pageNum);
 			//setTimeout('adjustHeight()', 300);
-
 		});
-
+		
 		$(".comment").live('click', function() {
 			var message_id = $(this).parents("li").attr("id");
 			message_id = message_id.substr(6);
@@ -360,6 +421,19 @@
 			$(comarea).val(""); // 清空输入框
 		}); //发送评论
 
+		$("#friend_messages").click(function() {
+			show_messages(1, 1);
+			flag = 1;
+			pageNum = 1;
+			$(".pageNum").val(pageNum);
+			//setTimeout('adjustHeight()', 300);
+		});// 好友广播
+		
+		$(".rec_nickname").live('click', function() {
+			window.location = "label.jsp?username=" + $.query.get("username") + "&userToken="
+			+ $.query.get("userToken") + "&label=" + $(this).parent().attr("id") + "&content=" + $(this).text();
+		});
+		
 		$(".prePage").click(function() {
 			if (flag == 3)
 				return;
@@ -374,7 +448,7 @@
 				show_messages(pageNum, 1);
 			else {
 				var nickname = $("#nickname").text();
-				showOwnmessages(nickname, pageNum, 0, true);
+				showOwnmessages(nickname, pageNum, 1, true);
 			}
 			$(window).scrollTop(300);
 			//setTimeout('adjustHeight()', 300);
@@ -389,7 +463,7 @@
 				show_messages(pageNum, 1);
 			else {
 				var nickname = $("#nickname").text();
-				showOwnmessages(nickname, pageNum, 0, true);
+				showOwnmessages(nickname, pageNum, 1, true);
 			}
 			$(window).scrollTop(300);
 			//setTimeout('adjustHeight()', 300);
@@ -412,12 +486,22 @@
 				show_messages(num, 1);
 			else {
 				var nickname = $("#nickname").text();
-				showOwnmessages(nickname, num, 0, true);
+				showOwnmessages(nickname, num, 1, true);
 			}
 			$(window).scrollTop(300);
 			//setTimeout('adjustHeight()', 300);
 		} // 跳转指定页面
 
+		$(".rec_nickname").mouseover(function() {
+			$(this).css("color", "blue");
+			$(this).css("font-weight", "bold");
+		});
+		
+		$(".rec_nickname").mouseout(function() {
+			$(this).css("color", "#006a92");
+			$(this).css("font-weight", "normal");
+		});
+		
 		$(".next_one").mouseover(function() {
 			$(this).css("color", "#eb7350");
 		});
@@ -426,12 +510,14 @@
 			$(this).css("color", "black");
 		});
 
-		$(".heated_topic, .rec_info, .friend").live('mouseover', function() {
-			$(this).css("text-decoration", "underline");
+		$(".topic_info").live('mouseover', function() {
+			$(this).css("color", "blue");
+			$(this).css("font-weight", "bold");
 		});
 
-		$(".heated_topic, .rec_info, .friend").live('mouseout', function() {
-			$(this).css("text-decoration", "none");
+		$(".topic_info").live('mouseout', function() {
+			$(this).css("color", "#006a92");
+			$(this).css("font-weight", "normal");		
 		});
 	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->
