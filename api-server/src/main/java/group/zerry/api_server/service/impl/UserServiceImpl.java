@@ -1,5 +1,9 @@
 package group.zerry.api_server.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -139,10 +143,31 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User[] showRecommendedUsers(String username) {
 		User user = userDao.selectUserByUsername(username);
-		long[] recs = recommender.getRecommendedUser(user.getId(), 5);
-		User[] users = new User[recs.length];
-		for (int i = 0;i < recs.length; i++) {
-			users[i] = userDao.selectUserById((int)recs[i]);
+		long[] recs = recommender.getRecommendedUser(user.getId(), 10);
+		User[] users = new User[4];
+		if (recs.length <= 4) {
+			for (int i = 0;i < 4; i++) {
+				users[i] = userDao.selectUserById((int)recs[i]);
+			}
+		} else {
+			Random random = new Random();
+			int index = 0;
+			int flag[] = new int[recs.length];
+			for (int i = 0;i < flag.length; i++)
+				flag[i] = 0; // 初始话
+			for (int i = 0;i < 4; i++) {
+				index = 0;
+				while(index == 0) {
+					int num = random.nextInt(recs.length);
+					if (flag[num] == 0) {
+						flag[num] = 1;
+						index = num;
+					} else {
+						continue;
+					}
+				}
+				users[i] = userDao.selectUserById((int)recs[index]);
+			}
 		}
 		return users;
 			
