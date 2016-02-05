@@ -129,6 +129,29 @@ public class UserController {
 		}
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/getinfoByNickname", produces = "text/html;charset=UTF-8")
+	public String showUserInfoByNickname(HttpServletRequest request, HttpServletResponse response, String nickname, int flag) throws UnsupportedEncodingException {
+		if (flag == 0) {
+			Cookie cookie;
+			if (null == (cookie = cookiesData.getCookie(request, "userinfo"))) {
+				String returnMsg = userService.showUserInfoByNickname(nickname);
+				cookiesData.save(request, response, "userinfo", URLEncoder.encode(returnMsg, "UTF-8"));
+				return returnMsg;
+			} else {
+				String returnMsg = cookie.getValue();
+				returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
+				return returnMsg;
+			}
+		} // 无更新查询
+		else {
+			String returnMsg = userService.showUserInfoByNickname(nickname);
+			cookiesData.save(request, response, "userinfo", URLEncoder.encode(returnMsg, "UTF-8"));
+			return returnMsg;
+		}
+	}
+	
+	
 	/*
 	@ResponseBody
 	@RequestMapping(value = "/showfriends", produces = "text/html;charset=UTF-8")

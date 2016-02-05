@@ -120,6 +120,22 @@ public class UserController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/getinfoByNickname", produces = "text/html;charset=UTF-8")
+	public String ShowUserInfoByNickname(String nickname) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
+		User user;
+		if(null == (user = userService.showUserInfoByNickname(nickname))) {
+			regMsg.append(UserStatusEnum.UNV.getValue());
+		}
+		else {
+			regMsg.append(JSON.toJSONString(user, userFilter));
+		}
+		regMsg.append("}");
+        logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/getTargetinfo", produces = "text/html;charset=UTF-8")
 	public String ShowTargetInfoByNickname(String nickname) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");

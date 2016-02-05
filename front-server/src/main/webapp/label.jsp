@@ -100,12 +100,12 @@
 	padding-right: 3%;
 }
 
-.show_user_username {
+.show_user_nickname {
 	float: left;
 }
 
-.show_user_nickname {
-	float: left;
+#focus, #unfocus {
+	cursor: pointer;
 }
 </style>
 <body>
@@ -154,19 +154,19 @@
 				<div class="sub_title">推荐用户</div>
 				<div class="user_list">
 					<div id="u1" class="user_info">
-						<img class="usericon"><span class="username"></span><a
+						<img class="usericon"><span class="rec_nickname"></span><a
 							class="w-icn2 itag" style="" href="#">关注</a>
 					</div>
 					<div id="u2" class="user_info">
-						<img class="usericon"><span class="username"></span><a
+						<img class="usericon"><span class="rec_nickname"></span><a
 							class="w-icn2 itag" style="" href="#">关注</a>
 					</div>
 					<div id="u3" class="user_info">
-						<img class="usericon"><span class="username"></span><a
+						<img class="usericon"><span class="rec_nickname"></span><a
 							class="w-icn2 itag" style="" href="#">关注</a>
 					</div>
 
-					<div class="next_one" id="changeRecUsers" align="right">换一组</div>
+					<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
 				</div>
 			</div>
 		</div>
@@ -342,6 +342,7 @@
 		var pageNum = 1;
 
 		$(document).ready(function() {
+			showUserInfo(1, true);
 			$(".label_now").hide();
 			show_recommendedlabel();
 			show_recommendedUsers();
@@ -374,29 +375,48 @@
 				},
 				dataType : "json",
 				success : function(data) {
-					if (data.returndata[0] != undefined) {
-						$("#u1 img").attr("src",
-								"pic/" + data.returndata[0].username + ".jpg");
-						$("#u1 .username").empty().append(
-								data.returndata[0].nickname);
-					}
-					if (data.returndata[1] != undefined) {
-						$("#u2 img").attr("src",
-								"pic/" + data.returndata[1].username + ".jpg");
-						$("#u2 .username").empty().append(
-								data.returndata[1].nickname);
-					}
-					if (data.returndata[2] != undefined) {
-						$("#u3 img").attr("src",
-								"pic/" + data.returndata[2].username + ".jpg");
-						$("#u3 .username").empty().append(
-								data.returndata[2].nickname);
-					}
-					if (data.returndata[3] != undefined) {
-						$("#u4 img").attr("src",
-								"pic/" + data.returndata[3].username + ".jpg");
-						$("#u4 .username").empty().append(
-								data.returndata[3].nickname);
+					if (data.returndata != undefined) {
+						var num = 1;
+						for (var i = 0;i < data.returndata.length; i++)
+							if (data.returndata[i] != undefined) {
+								var if_friend = false;
+								
+								$.ajax({
+									type : "post",
+									url : "friend/iffriends",
+									async : false,
+									data : {
+										username : $.query.get("username"),
+										targetUsername : data.returndata[i].username,
+										flag : 1
+									},
+									// dataType : "json",
+									success : function(data) {
+										var i = 0;
+										if (data == "1") { // 两者是好友关系
+											if_friend = true;
+										} else { // 两者不是好友关系
+											if_friend = false;
+										}
+									}
+								});
+								
+								if (if_friend == true) {
+									continue;
+								}
+								
+								var id = "#u" + num;
+								
+								$(id + " img").attr("src",
+									"pic/" + data.returndata[i].username + ".jpg");
+								$(id + " .rec_nickname").append(
+									data.returndata[i].nickname);
+								
+								num++;
+								if (num == 4) {
+									break;
+								}
+							}
 					}
 				}
 			});
@@ -689,34 +709,97 @@
 			//setTimeout('adjustHeight()', 300);
 		});// 好友广播
 
-		$("#changeRecUsers").click(function() {
+	/*	$("#changeRecUsers").click(function() {
 			show_recommendedUsers();
-		});
+		});*/
 
 		$(".user_info")
-				.mouseover(function() {
-							if ($("#s1").length > 0) {
-								$("#s1").show();
-							}
-							else {
-								var left = $(this).offset().left - 100;
-								var top = $(this).offset().top + 100;
-								$("body")
-										.append(
-											"<div id=\"s1\" class=\"show_user_info\"><div class=\"show_user_top\"><span class=\"show_user_subtitle\">用户资料</span><button style=\"float: right;margin: 3%;\">关注或取关</button></div><div class=\"show_user_content\"><img class=\"show_user_usericon\" src=\"images/icon.jpg\" style=\"width: 25%; height: 25%;\"><span class=\"show_user_username\">用户名：username</span><span class=\"show_user_nickname\">昵称：nickname</span><div style=\"padding-top: 27%;margin-left: 5%;\"><span class=\"show_user_fans_count\">粉丝数：fans_num</span><span class=\"show_user_msg_count\">广播数：msg_num</span><div>常用标签</div><button style=\"\">爬山</button><button style=\"\">游泳</button><button style=\"\">购物</button></div></div></div>");
-								$("#s1").offset(function(n,c){
+				.mouseover(
+						function() {
+							var id = $(this).attr("id").substr(1);
+							$(".show_user_info").hide();
+							var temp = "#s" + id;
+							if ($(temp).length > 0) {
+								$(temp).show();
+							} else {
+								var left = $(this).offset().left
+										- $(this).width() - 45;
+								var top = $(this).offset().top + 20;
+								var nickname = $(this).find(".rec_nickname").text();
+								var username;
+								var msg_count;
+								var fan_count;
+								var pic;
+								var if_friend;
+								$
+										.ajax({
+											type : "post",
+											async : false,
+											url : "user/getinfoByNickname",
+											data : {
+												nickname : nickname,
+												flag : 1
+											},
+											dataType : "json",
+											success : function(data) {
+												if (data.returndata != undefined) {
+													username = data.returndata.username;
+													pic = "pic/" + username
+															+ ".jpg";
+													msg_count = data.returndata.message_num;
+													fan_count = data.returndata.friend_num;
+												}
+											}
+										});
+								/*
+								$.ajax({
+									type : "post",
+									url : "friend/iffriends",
+									async : false,
+									data : {
+										username : $.query.get("username"),
+										targetUsername : username,
+										flag : 1
+									},
+									// dataType : "json",
+									success : function(data) {
+										var i = 0;
+										if (data == "1") { // 两者是好友关系
+											if_friend = true;
+										} else { // 两者不是好友关系
+											if_friend = false;
+										}
+									}
+								});
+								*/
+								id = temp.substr(1); 
+								var str = "<div id=\"" + id + "\" class=\"show_user_info\"><div class=\"show_user_top\"><span class=\"show_user_subtitle\">用户资料</span>";
+								str += "<button id=\"focus\" style=\"float: right;margin: 3%;\">添加关注</button>";
+								str += "</div><div class=\"show_user_content\"><img class=\"show_user_usericon\" src=\""
+										+ pic
+										+ "\" style=\"width: 25%; height: 25%;\"><span class=\"show_user_username\">用户名："
+										+ username
+										+ "</span><span class=\"show_user_nickname\">昵称："
+										+ nickname
+										+ "</span><div style=\"padding-top: 23%;margin-left: 5%;\"><span class=\"show_user_fans_count\">粉丝数："
+										+ fan_count
+										+ "</span><span class=\"show_user_msg_count\">&nbsp;&nbsp;&nbsp;广播数："
+										+ msg_count
+										+ "</span><div>常用标签</div><button style=\"\">爬山</button><button style=\"\">游泳</button><button style=\"\">购物</button></div></div></div>";
+								$("body").append(str);
+								$(temp).offset(function(n, c) {
 									newPos = new Object();
-									newPos.left= left;
-									newPos.top= top;
+									newPos.left = left;
+									newPos.top = top;
 									return newPos;
 								});
 							}
-				});
+						});
 
-		$(".user_info").mouseout(function() {
-			if ($("#s1").length > 0)
-				$("#s1").hide();
-		});
+		//$(".user_info").mouseout(function() {
+			//if ($("#s1").length > 0)
+			//	$("#s1").hide();
+		//});
 
 		$("#messages_count").live('click', function() {
 			var nickname = $("#nickname").text();
@@ -783,7 +866,6 @@
 			});
 		});
 
-		showUserInfo(1, true);
 		//show mes
 		//setInterval("update()", 30000);
 

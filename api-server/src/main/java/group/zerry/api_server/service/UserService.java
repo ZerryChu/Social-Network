@@ -10,6 +10,8 @@ public interface UserService {
 	
 	public User showUserInfo(String username);
 
+	public User showUserInfoByNickname(String nickname);
+
 	public User showTargetInfoByNickname(String nickname);
 	
 	//public Friend[] showFriendsByNickname(String nickname);

@@ -216,4 +216,16 @@ public class UserServiceImpl implements UserService {
 		return fetchURLTool.doPost(url, paramsMap);	
 	}
 
+	@Override
+	public String showUserInfoByNickname(String nickname) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "user/getinfoByNickname";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("nickname", nickname);
+		// User user = JSON.parseObject(fetchURLTool.doPost(url, paramsMap),
+		// User.class);
+		// return user;
+		return fetchURLTool.doPost(url, paramsMap);
+	}
+
 }
