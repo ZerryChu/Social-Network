@@ -45,6 +45,7 @@
 }
 
 .user_info {
+	cursor: pointer;
 	width: 90%;
 	height: 60px;
 	background: snow;
@@ -62,19 +63,23 @@
 	z-index: 2;
 	top: 18px;
 }
-
+/*
 .w-icn2 {
-	background: rgba(0, 0, 0, 0) url("images/icon2-8.png") no-repeat scroll
-		999px 999px;
+	background: url("images/private_message.png");
 	background-position: 0 -830px;
 	display: block;
 	float: right;
-	height: 16px;
+	height: 5%;
 	overflow: hidden;
 	text-indent: -2000px;
-	width: 18px;
+	width: 5%;
 	margin-top: 20px;
 	margin-right: 5%;
+}*/
+
+.rec_nickname {
+	display: block;
+	margin-top: 6%;	
 }
 
 .show_user_info {
@@ -154,16 +159,13 @@
 				<div class="sub_title">推荐用户</div>
 				<div class="user_list">
 					<div id="u1" class="user_info">
-						<img class="usericon"><span class="rec_nickname"></span><a
-							class="w-icn2 itag" style="" href="#">关注</a>
+						<img class="usericon"><span class="rec_nickname"></span>
 					</div>
 					<div id="u2" class="user_info">
-						<img class="usericon"><span class="rec_nickname"></span><a
-							class="w-icn2 itag" style="" href="#">关注</a>
+						<img class="usericon"><span class="rec_nickname"></span>
 					</div>
 					<div id="u3" class="user_info">
-						<img class="usericon"><span class="rec_nickname"></span><a
-							class="w-icn2 itag" style="" href="#">关注</a>
+						<img class="usericon"><span class="rec_nickname"></span>
 					</div>
 
 					<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
@@ -366,60 +368,67 @@
 							class="w-icn2 itag" style="" href="#">关注</a>
 					</div>
 			 */
-			$.ajax({
-				type : "post",
-				// async : false,
-				url : "user/show_rec_users",
-				data : {
-					username : $.query.get("username")
-				},
-				dataType : "json",
-				success : function(data) {
-					if (data.returndata != undefined) {
-						var num = 1;
-						for (var i = 0;i < data.returndata.length; i++)
-							if (data.returndata[i] != undefined) {
-								var if_friend = false;
-								
-								$.ajax({
-									type : "post",
-									url : "friend/iffriends",
-									async : false,
-									data : {
-										username : $.query.get("username"),
-										targetUsername : data.returndata[i].username,
-										flag : 1
-									},
-									// dataType : "json",
-									success : function(data) {
-										var i = 0;
-										if (data == "1") { // 两者是好友关系
-											if_friend = true;
-										} else { // 两者不是好友关系
-											if_friend = false;
+			$
+					.ajax({
+						type : "post",
+						// async : false,
+						url : "user/show_rec_users",
+						data : {
+							username : $.query.get("username")
+						},
+						dataType : "json",
+						success : function(data) {
+							if (data.returndata != undefined) {
+								var num = 1;
+								for (var i = 0; i < data.returndata.length; i++)
+									if (data.returndata[i] != undefined) {
+										var if_friend = false;
+
+										$
+												.ajax({
+													type : "post",
+													url : "friend/iffriends",
+													async : false,
+													data : {
+														username : $.query
+																.get("username"),
+														targetUsername : data.returndata[i].username,
+														flag : 1
+													},
+													// dataType : "json",
+													success : function(data) {
+														var i = 0;
+														if (data == "1") { // 两者是好友关系
+															if_friend = true;
+														} else { // 两者不是好友关系
+															if_friend = false;
+														}
+													}
+												});
+
+										if (if_friend == true) {
+											continue;
+										}
+
+										var id = "#u" + num;
+
+										$(id + " .usericon")
+												.attr(
+														"src",
+														"pic/"
+																+ data.returndata[i].username
+																+ ".jpg");
+										$(id + " .rec_nickname").append(
+												data.returndata[i].nickname);
+										$(id + " .rec_nickname").after("<img class=\"send_msg\" title=\"私信\" style=\"cursor: pointer; width: 5%; height: 20%; float: right; margin-right: 10%; margin-top: -6%;\" src=\"images/private_message.png\">");
+										num++;
+										if (num == 4) {
+											break;
 										}
 									}
-								});
-								
-								if (if_friend == true) {
-									continue;
-								}
-								
-								var id = "#u" + num;
-								
-								$(id + " img").attr("src",
-									"pic/" + data.returndata[i].username + ".jpg");
-								$(id + " .rec_nickname").append(
-									data.returndata[i].nickname);
-								
-								num++;
-								if (num == 4) {
-									break;
-								}
 							}
-					}
-				}
-			});
+						}
+					});
 
 		}
 
@@ -709,23 +718,75 @@
 			//setTimeout('adjustHeight()', 300);
 		});// 好友广播
 
-	/*	$("#changeRecUsers").click(function() {
-			show_recommendedUsers();
-		});*/
+		$("#focus").live(
+				'click',
+				function() {
+					$.ajax({
+						type : "post",
+						url : "user/addfriend",
+						data : {
+							username : $.query.get("username"),
+							userToken : $.query.get("userToken"),
+							friendUsername : $(this).parent().next().find(
+									".show_user_username").text().substr(4),
+							group : "normal"
+						},
+						dataType : "json",
+						success : function(data) {
+							$.each(data, function() {
+								if (data.msg == 1) { // bug
+									$(this).text("取消关注");
+									$(this).attr("id", "unfocus");
+								} else {
+									alert("error");
+								}
+							});
+						}
+					});
+				})
 
+		$("#unfocus").live('click', function() {
+
+		})
+
+		$(".send_msg").live(
+				'click',
+				function() {
+					var item = "#s" + $(this).parent().attr("id").substr(1);
+					var targetUsername = $(item).find(".show_user_username").text().substr(4);
+					window.location = "privateMsg.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&targetUsername=" + targetUsername;
+					
+				});
+		/*	$("#changeRecUsers").click(function() {
+				show_recommendedUsers();
+			});*/
+/*
+		var pos = 0;
+
+		$(".show_user_info").live('mouseover', function() {
+			pos = 1;
+		})
+			
+		$(".show_user_info").live('mouseout', function() {
+		//	if (pos == 1)
+			//	$(this).fadeOut();
+		})
+		*/
 		$(".user_info")
 				.mouseover(
 						function() {
+							//pos = 0; // pos
 							var id = $(this).attr("id").substr(1);
 							$(".show_user_info").hide();
 							var temp = "#s" + id;
 							if ($(temp).length > 0) {
-								$(temp).show();
+								$(temp).fadeIn();
 							} else {
 								var left = $(this).offset().left
-										- $(this).width() - 45;
+										- $(this).width() - 35;
 								var top = $(this).offset().top + 20;
-								var nickname = $(this).find(".rec_nickname").text();
+								var nickname = $(this).find(".rec_nickname")
+										.text();
 								var username;
 								var msg_count;
 								var fan_count;
@@ -771,8 +832,8 @@
 										}
 									}
 								});
-								*/
-								id = temp.substr(1); 
+								 */
+								id = temp.substr(1);
 								var str = "<div id=\"" + id + "\" class=\"show_user_info\"><div class=\"show_user_top\"><span class=\"show_user_subtitle\">用户资料</span>";
 								str += "<button id=\"focus\" style=\"float: right;margin: 3%;\">添加关注</button>";
 								str += "</div><div class=\"show_user_content\"><img class=\"show_user_usericon\" src=\""
@@ -797,8 +858,8 @@
 						});
 
 		//$(".user_info").mouseout(function() {
-			//if ($("#s1").length > 0)
-			//	$("#s1").hide();
+		//if ($("#s1").length > 0)
+		//	$("#s1").hide();
 		//});
 
 		$("#messages_count").live('click', function() {
@@ -881,6 +942,11 @@
 		 });
 		 */
 
+		$(".user_info").click(function() {
+			var targetNickname = $(this).find(".rec_nickname").text();
+			window.location = "userinfo.jsp?username=" + $.query.get("username") + "&targetNickname=" + targetNickname + "&userToken=" + $.query.get("userToken");
+		});
+		 
 		$(".user_info").mouseover(function() {
 			$(this).css("color", "blue");
 		});

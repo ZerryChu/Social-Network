@@ -62,6 +62,7 @@ public class PrivateMsgServiceImpl implements PrivateMsgService {
 			if (hotMessage != null && hotMessage.isHas_read() == false)
 				has_noRead = true;
 			User target = userDao.selectUserById(idList[i]);
+			System.out.println(idList[i]);
 			PrivateMsgInfo privateMsgInfo = new PrivateMsgInfo();
 			privateMsgInfo.setTargetUsername(target.getUsername());
 			privateMsgInfo.setTargetId(idList[i]);

@@ -75,7 +75,7 @@ body {
 	border-top: 2px solid snow;
 	border-right: 1px solid snow;
 	border-bottom: 2px solid snow;
-	width: 79%;
+	width: 78%;
 	height: 600px;
 	border-radius: 0px 5px 5px 0px;
 	background: white;
