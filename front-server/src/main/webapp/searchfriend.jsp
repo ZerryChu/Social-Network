@@ -202,7 +202,11 @@ body {
 		<ul class="top_content" style="font-weight: bold;">
 			<li><a class="link"
 				href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
-			<li>敬请期待</li>
+			<li><a class="link"
+				href="label.jsp?username=${param.username}&userToken=${param.userToken}">标签</a></li>
+			<li><a class="link"
+				href="topic.jsp?username=${param.username}&userToken=${param.userToken}">话题</a></li>
+			
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
 				<input type="text" class="search_text" /> <select

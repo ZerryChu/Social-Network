@@ -110,6 +110,8 @@
 				href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
 			<li><a class="link"
 				href="label.jsp?username=${param.username}&userToken=${param.userToken}">标签</a></li>
+			<li><a class="link"
+				href="topic.jsp?username=${param.username}&userToken=${param.userToken}">话题</a></li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
 				<input type="text" class="search_text" /> <select
@@ -144,7 +146,7 @@
 			</div>
 			<div class="right_info">
 				<div id="heated_topic">
-					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">热门话题</div>
+					<div class="sub_title" style="padding-left: 20px; margin-left: 0%; width: 85%; font-size: 20px;">热门话题</div>
 					<div style="display: inline-block; float: right; font-size: 12px; color: red;" class="heat">热度</div>
 					<div class="heated_subtitle">
 						<a class="heated_topic" href=""><div id="topic_1">
@@ -166,7 +168,7 @@
 				<br>
 				<br>
 				<div id="label_recommand">
-					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">发现标签</div>
+					<div class="sub_title" style="padding-left: 20px; margin-left: 0%; width: 85%; font-size: 20px;">发现标签</div>
 					<div style="display: inline-block; float: right; font-size: 12px; color: red;" class="heat">热度</div>
 					<div style="left-margin: 100px;" class="rec_content">
 						<div class="rec1"><span
@@ -183,7 +185,7 @@
 				<br>
 				<br>
 				<div id="chat">
-					<div class="sub_title" style="padding-left: 20px; font-size: 20px;">发送私信</div>
+					<div class="sub_title" style="padding-left: 20px; margin-left: 0%; width: 85%; font-size: 20px;">发送私信</div>
 					<ul class="group">
 						<!--
 						<li id="rec_1"><div class="cls1" onclick="">好友分组1</div><div class="friendlist></div><li>

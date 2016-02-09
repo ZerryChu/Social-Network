@@ -144,8 +144,10 @@ public class UserServiceImpl implements UserService {
 	public User[] showRecommendedUsers(String username) {
 		User user = userDao.selectUserByUsername(username);
 		long[] recs = recommender.getRecommendedUser(user.getId(), 10);
-		User[] users = new User[4];
+		User[] users = new User[3];
 		for (int i = 0;i < recs.length; i++) {
+			if (i >= 3)
+				break;
 			users[i] = userDao.selectUserById((int)recs[i]);
 		}
 		return users;

@@ -37,14 +37,14 @@
 	width: 50px;
 }
 
-.usericon {
+.usericon, .master_icon {
 	background: silver;
 	width: 40px;
 	height: 40px;
 	margin: 10px;
 }
 
-.user_info {
+.user_info, .master_info {
 	cursor: pointer;
 	width: 90%;
 	height: 60px;
@@ -76,10 +76,9 @@
 	margin-top: 20px;
 	margin-right: 5%;
 }*/
-
-.rec_nickname {
+.rec_nickname, .master_nickname{
 	display: block;
-	margin-top: 6%;	
+	margin-top: 6%;
 }
 
 .show_user_info {
@@ -123,6 +122,8 @@
 				href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
 			<li><a class="link"
 				href="label.jsp?username=${param.username}&userToken=${param.userToken}">标签</a></li>
+			<li><a class="link"
+				href="topic.jsp?username=${param.username}&userToken=${param.userToken}">话题</a></li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
 				<input type="text" class="search_text" /> <select
@@ -171,16 +172,38 @@
 					<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
 				</div>
 			</div>
+			<div class="user_recommend">
+				<div class="sub_title">圈内大神</div>
+				<div class="master_list">
+					<div id="u1" class="master_info">
+						<img class="master_icon"><span class="master_nickname"></span>
+					</div>
+					<div id="u2" class="master_info">
+						<img class="master_icon"><span class="master_nickname"></span>
+					</div>
+					<div id="u3" class="master_info">
+						<img class="master_icon"><span class="master_nickname"></span>
+					</div>
+
+					<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
+				</div>
+			</div>
 		</div>
 		<div class="left_content">
+			<div class="search" style="float: right;">
+				<form>
+					<input type="text" class="search_text" /><input class="btn"
+						type="button" value="搜索">
+				</form>
+			</div>
 			<div
 				style="background-color: #dee3e3; padding-left: 1%; color: gray;"
 				class="label_now"></div>
 			<div align="center" class="heated_label">
 				<table>
-					<tr align="right">
+					<!--  <tr align="right">
 						<td colspan="5"><div class="next_one" align="right">更多</div></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><div id="lb0" class="label_info">
 								<div
@@ -760,7 +783,7 @@
 		/*	$("#changeRecUsers").click(function() {
 				show_recommendedUsers();
 			});*/
-/*
+		/*
 		var pos = 0;
 
 		$(".show_user_info").live('mouseover', function() {
@@ -768,8 +791,8 @@
 		})
 			
 		$(".show_user_info").live('mouseout', function() {
-		//	if (pos == 1)
-			//	$(this).fadeOut();
+			if (pos == 1)
+				$(this).fadeOut();
 		})
 		*/
 		$(".user_info")

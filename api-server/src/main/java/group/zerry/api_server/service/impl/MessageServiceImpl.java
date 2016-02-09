@@ -63,11 +63,12 @@ public class MessageServiceImpl implements MessageService {
 		message.setType(type);
 		if (label != null) {
 			Count count = labelDao.judgeIfLabelExists(label);
+			int id;
 			if (count.getNumber() == 0) {
 				labelDao.insertNewLabel(label);
 			} 
-			int id = labelDao.searchLabelIdByName(label);
-			labelDao.updateLabelHeatById(id);
+			id = labelDao.searchLabelIdByName(label);
+			labelDao.updateLabelHeatById(user.getId(), id);
 			message.setLabel(id);
 		}
 		try {

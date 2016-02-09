@@ -44,10 +44,9 @@
  	</select>
  	
  	<update id="updateLabelHeatById">
- 		UPDATE label_heat
-		SET times = times + 1
-		WHERE
-			id = #{id}	
+ 		INSERT INTO label_heat
+		VALUES
+			(#{0}, #{1}, 1) ON DUPLICATE KEY UPDATE times = times + 1	
  	</update>
  	
  	<insert id="insertNewLabel">

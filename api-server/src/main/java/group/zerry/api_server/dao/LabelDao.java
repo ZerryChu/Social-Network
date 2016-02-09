@@ -9,7 +9,7 @@ public interface LabelDao {
 	
 	String searchLabelNameById(long id1);
 	
-	void updateLabelHeatById(long id);
+	void updateLabelHeatById(int user_id, long id);
 	
 	void insertNewLabel(String name);
 	

@@ -74,7 +74,7 @@
 }
 
 .target_msg {
-	margin-left: 82px;
+	margin-left: 97px;
 }
 
 .user_msg {
@@ -200,7 +200,7 @@ time {
 		//未读消息变已读
 		readMsg();
 		showMsg(1);
-		setInterval('showMsg(0)', 5000);
+		//setInterval('showMsg(0)', 5000);
 	});
 	
 	function sendMsg() {

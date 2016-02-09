@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+import org.mockito.asm.tree.IntInsnNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,9 @@ public class LabelServiceImpl implements LabelService {
 	
 	@Autowired
 	private Recommender recommender;
+	
+	@Autowired
+	private static Logger logger = Logger.getLogger(LabelServiceImpl.class); 
 	
 	@Override
 	public Label[] showHeatedLabel() {
@@ -78,6 +83,7 @@ public class LabelServiceImpl implements LabelService {
 			lbs[i].setName(labelDao.searchLabelNameById(labelsId[i]));
 			map.put(labelsId[i], 1);
 		}
+		logger.info("recommended_label_size: " + labels_size);
 		//int labels_size = 0;
 		List<Long> list = lh.getLabelList();
 		for(int i = 0;i < list.size(); i++) {
@@ -92,6 +98,8 @@ public class LabelServiceImpl implements LabelService {
 			lbs[labels_size].setName(labelDao.searchLabelNameById(num));
 			labels_size++;
 		}
+		//for(int i = 0;i < labels_size; i++)
+			//System.out.println(lbs[i].getId());
 		return lbs;
 	}
 	

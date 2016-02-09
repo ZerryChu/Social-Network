@@ -59,6 +59,10 @@ public final class BatchHandleWrapperForLabel {
 					}
 					excuteUpdate(sql2);
 				}
+				
+				/*
+				 * on duplicate key update
+				 */
 				// 发送sql请求
 			}
 		};
