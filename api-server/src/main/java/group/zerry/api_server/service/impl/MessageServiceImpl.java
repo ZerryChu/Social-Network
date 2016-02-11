@@ -3,7 +3,7 @@ package group.zerry.api_server.service.impl;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-
+import org.hamcrest.core.IsNot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -139,7 +139,7 @@ public class MessageServiceImpl implements MessageService {
 			}
 			messageDao.addMessage(message);
 			messageDao.addRepostTimes(id);
-			
+			addLabelHeat(username, id, 50);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;
@@ -160,6 +160,7 @@ public class MessageServiceImpl implements MessageService {
 			comment.setContent(content);
 			comment.setMessage_id(id);
 			commentDao.addComment(comment);
+			addLabelHeat(username, id, 50);
 			//messageDao.addCommentTimes(id);
 		} catch(Exception e) {
 			return MessageStatusEnum.OF;
@@ -178,6 +179,7 @@ public class MessageServiceImpl implements MessageService {
 			else if(num == 1)
 				return MessageStatusEnum.HAS;
 			messageDao.addSupportInfo(id, username);
+			addLabelHeat(username, id, 50);
 			//messageDao.addSupportTimes(id);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());

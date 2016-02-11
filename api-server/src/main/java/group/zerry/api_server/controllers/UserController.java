@@ -1,5 +1,6 @@
 package group.zerry.api_server.controllers;
 
+import org.apache.commons.httpclient.NTCredentials;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -145,6 +146,22 @@ public class UserController {
 		}
 		else {
 			regMsg.append(JSON.toJSONString(user, userFilter));
+		}
+		regMsg.append("}");
+        logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/show_masters", produces = "text/html;charset=UTF-8")
+	public String getMasters(int label_id, int num) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
+		User[] users;
+		if(null == (users = userService.getMastersByLabelId(label_id, num))) {
+			regMsg.append(UserStatusEnum.UNV.getValue());
+		}
+		else {
+			regMsg.append(JSON.toJSONString(users, userFilter));
 		}
 		regMsg.append("}");
         logger.error(regMsg.toString());

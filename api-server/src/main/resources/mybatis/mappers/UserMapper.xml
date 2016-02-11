@@ -80,6 +80,19 @@
 		)
 	</select>
 
+	<select id="getMasterByLabelId" parameterType="int" resultType="int">
+		SELECT
+			user_id
+		FROM
+			label_heat
+		WHERE
+			label_id = #{0}
+		ORDER BY
+			times DESC
+		LIMIT 0,
+		#{1}
+	</select>
+
 	<insert id="addUser" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		INTO user_inf (

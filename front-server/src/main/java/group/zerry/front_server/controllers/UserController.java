@@ -20,6 +20,7 @@ import group.zerry.front_server.utils.EncodeTools;
 import group.zerry.front_server.annotation.AuthPass;
 import group.zerry.front_server.entity.User;
 import group.zerry.front_server.service.UserService;
+import group.zerry.front_server.service.impl.UserServiceImpl;
 
 @Controller
 @RequestMapping(value="/user")
@@ -228,5 +229,11 @@ public class UserController {
 	@RequestMapping(value = "/show_rec_users", produces = "text/html;charset=UTF-8")
 	public String showRecommendedUsers(String username) {
 		return userService.showRecommendedUsers(username);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/show_masters", produces = "text/html;charset=UTF-8")
+	public String getMasters(int label_id, int num) {
+		return userService.getMastersByLabelId(label_id, num);
 	}
 }

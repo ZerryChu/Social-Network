@@ -17,6 +17,9 @@ import org.apache.taglibs.standard.tag.common.core.CatchTag;
 
 import com.mysql.jdbc.Statement;
 
+/*
+ * 暂时弃用
+ */
 public final class BatchHandleWrapperForMsg {
 
 	private LinkedBlockingQueue<Object> queue;

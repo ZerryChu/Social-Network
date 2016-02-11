@@ -27,4 +27,6 @@ public interface UserService {
 	public boolean fileUpload(HttpServletRequest request, String username);
 	
 	public String showRecommendedUsers(String username);
+	
+	public String getMastersByLabelId(int label_id, int num);
 }

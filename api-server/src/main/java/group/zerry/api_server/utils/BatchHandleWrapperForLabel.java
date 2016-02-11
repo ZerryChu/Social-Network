@@ -37,6 +37,7 @@ public final class BatchHandleWrapperForLabel {
 			@Override
 			public void handle(List<Object> list_usrId, List<Object> list_lblId, Runnable task) { // 需要算法关联三个参数
 				for (int i = 0; i < list_usrId.size(); i++) {
+					/*
 					String sql1 = "select count(*) from label_heat where user_id=";
 					sql1 += String.valueOf(list_usrId.get(i));
 					sql1 += " and label_id=";
@@ -58,11 +59,15 @@ public final class BatchHandleWrapperForLabel {
 						sql2 += String.valueOf(list_lblId.get(i));
 					}
 					excuteUpdate(sql2);
+					*/
+					String sql = "insert into label_heat values("
+						+ String.valueOf(list_usrId.get(i))
+						+ ","
+						+ String.valueOf(list_lblId.get(i))
+						+ ",1) on duplicate key update times = times + 1";
+					excuteUpdate(sql);
 				}
-				
-				/*
-				 * on duplicate key update
-				 */
+
 				// 发送sql请求
 			}
 		};

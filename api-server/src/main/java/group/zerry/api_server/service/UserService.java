@@ -21,4 +21,6 @@ public interface UserService {
 	public UserStatusEnum deleteFriend(String username, String friendUsername);
 
 	public User[] showRecommendedUsers(String username);
+	
+	public User[] getMastersByLabelId(int label_id, int num);
 }

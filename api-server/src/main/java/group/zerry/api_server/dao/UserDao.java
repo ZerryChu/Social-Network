@@ -28,4 +28,7 @@ public interface UserDao {
 	public void addFriend_numByUsername(String username);
 	
 	public User[] searchUsersLikeNickname(String nickname);
+	
+	// 推荐的大神个数
+	public Integer[] getMasterByLabelId(int label_id, int num);
 }

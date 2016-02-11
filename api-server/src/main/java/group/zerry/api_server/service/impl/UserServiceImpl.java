@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 
 import group.zerry.api_server.dao.FriendDao;
 import group.zerry.api_server.dao.UserDao;
+import group.zerry.api_server.entity.Count;
 import group.zerry.api_server.entity.Friend;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.UserStatusEnum;
@@ -145,10 +146,17 @@ public class UserServiceImpl implements UserService {
 		User user = userDao.selectUserByUsername(username);
 		long[] recs = recommender.getRecommendedUser(user.getId(), 10);
 		User[] users = new User[3];
+		int user_num = 0;
+		Count count = null;
 		for (int i = 0;i < recs.length; i++) {
-			if (i >= 3)
+			User item = userDao.selectUserById((int)recs[i]);
+			count = friendDao.judgeIfFriendsOrNot(user.getId(), item.getId());
+			if (count.getNumber() > 0) {
+				continue;
+			}
+			users[user_num++] = item;
+			if (user_num >= 3)
 				break;
-			users[i] = userDao.selectUserById((int)recs[i]);
 		}
 		return users;
 			
@@ -165,6 +173,18 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 		return user;
+	}
+
+	@Override
+	public User[] getMastersByLabelId(int label_id, int num) {
+		// TODO Auto-generated method stub
+		User[] users = new User[num];
+		Integer[] ids = userDao.getMasterByLabelId(label_id, num);
+		for (int i = 0;i < ids.length; i++) {
+			User user = userDao.selectUserById(ids[i]);
+			users[i] = user;
+		}
+		return users;
 	}
 	
 	/*

@@ -228,4 +228,17 @@ public class UserServiceImpl implements UserService {
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 
+	@Override
+	public String getMastersByLabelId(int label_id, int num) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "user/show_masters";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("label_id", String.valueOf(label_id));
+		paramsMap.put("num", String.valueOf(num));
+		// User user = JSON.parseObject(fetchURLTool.doPost(url, paramsMap),
+		// User.class);
+		// return user;
+		return fetchURLTool.doPost(url, paramsMap);	
+	}
+
 }
