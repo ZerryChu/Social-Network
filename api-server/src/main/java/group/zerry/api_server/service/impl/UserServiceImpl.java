@@ -102,6 +102,10 @@ public class UserServiceImpl implements UserService {
 		User user = null;
 		try {
 			user = userDao.selectUserByUsername(username);
+			Integer integer = userDao.getUserFansNumById(user.getId());
+			user.setFriend_num(integer);
+			integer = userDao.getUserFocusNumById(user.getId());
+			user.setFocus_num(integer);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -115,6 +119,10 @@ public class UserServiceImpl implements UserService {
 		User user = null;
 		try {
 			user = userDao.selectUserByNickname(nickname);
+			Integer integer = userDao.getUserFansNumById(user.getId());
+			user.setFriend_num(integer);
+			integer = userDao.getUserFocusNumById(user.getId());
+			user.setFocus_num(integer);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;

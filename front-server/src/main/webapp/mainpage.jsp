@@ -41,63 +41,74 @@
 
 /*ad*/
 #box_ad {
-	position:relative;
-	width:650px;
-	height:172px;
-	background:#fff;
-	border-radius:5px;
-	border:8px solid #fff;
-	margin:10px auto;
-	cursor:pointer;
-}
-#box_ad .list {
-	position:relative;
-	width:650px;
-	height:170px;
-	overflow:hidden;
-}
-#box_ad .list ul {
-	position:absolute;
-	top:0;
-	left:0;
-}
-#box_ad .list li {
-	width:650px;
-	height:170px;
-	overflow:hidden;
-}
-#box_ad .count {
-	position:absolute;
-	right:0;
-	bottom:5px;
-}
-#box_ad .count li {
-	color:#fff;
-	float:left;
-	width:20px;
-	height:20px;
-	cursor:pointer;
-	margin-right:5px;
-	overflow:hidden;
-	background:#F90;
-	opacity:0.7;
-	filter:alpha(opacity=70);
-	border-radius:20px;
-}
-#box_ad .count li.current {
-	color:#fff;
-	opacity:1;
-	filter:alpha(opacity=100);
-	font-weight:700;
-	background:#f60;
-}
-#tmp {
-	width:100px;
-	height:100px;
-	background:red;
-	position:absolute;
+	position: relative;
+	width: 650px;
+	height: 172px;
+	background: #fff;
+	border-radius: 5px;
+	border: 8px solid #fff;
+	margin: 10px auto;
+	cursor: pointer;
 }
 
+#box_ad .list {
+	position: relative;
+	width: 650px;
+	height: 170px;
+	overflow: hidden;
+}
+
+#box_ad .list ul {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#box_ad .list li {
+	width: 650px;
+	height: 170px;
+	overflow: hidden;
+}
+
+#box_ad .count {
+	position: absolute;
+	right: 0;
+	bottom: 5px;
+}
+
+#box_ad .count li {
+	color: #fff;
+	float: left;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	margin-right: 5px;
+	overflow: hidden;
+	background: #F90;
+	opacity: 0.7;
+	filter: alpha(opacity = 70);
+	border-radius: 20px;
+}
+
+#box_ad .count li.current {
+	color: #fff;
+	opacity: 1;
+	filter: alpha(opacity = 100);
+	font-weight: 700;
+	background: #f60;
+}
+
+#tmp {
+	width: 100px;
+	height: 100px;
+	background: red;
+	position: absolute;
+}
+
+.right_content {
+	position: absolute;
+	left: 68%;
+}
 </style>
 </head>
 <body>
@@ -123,80 +134,7 @@
 		</ul>
 	</div>
 	<div class="main">
-		<div class="right_content">
-			<div id="userinfo">
-				<div id="nickname"></div>
-				<img id="user_icon" src="pic/${param.username}.jpg"
-					onerror="this.src='images/no_found.png'" /> <br>
-				<div class="option">
-					<img class="logout" src="images/sign-out.png" title="登出"
-						alt="sign-out" style="width: 20px; height: 20px;"> <a
-						href="privateMsgList.jsp?username=${param.username}&userToken=${param.userToken}"><img
-						class="private_msg" src="images/private_message.png" title="私信"
-						alt="private_msg" style="width: 20px; height: 20px;"></a>
-				</div>
-				<ul class="user_account">
-					<li class="user_friend_text"><span id="friends_count"
-						style="font-weight: bold;">粉丝：</span> <br> <span
-						id="friend_num">0</span></li>
-					<li class="user_message_text"><span id="messages_count"
-						style="font-weight: bold;">广播：</span> <br> <span
-						id="message_num">0</span></li>
-				</ul>
-			</div>
-			<div class="right_info">
-				<div id="heated_topic">
-					<div class="sub_title" style="padding-left: 20px; margin-left: 0%; width: 85%; font-size: 20px;">热门话题</div>
-					<div style="display: inline-block; float: right; font-size: 12px; color: red;" class="heat">热度</div>
-					<div class="heated_subtitle">
-						<a class="heated_topic" href=""><div id="topic_1">
-								<span class="topic_info">新一轮雾霾来袭 你还能自强不吸吗</span><span
-									class="val">0</span>
-							</div></a> <a class="heated_topic" href=""><div id="topic_2">
-								<span class="topic_info">那些年，让你跌破眼镜的童鞋</span><span class="val">0<!--  热度 --></span>
-							</div></a> <a class="heated_topic" href=""><div id="topic_3">
-								<span class="topic_info">为400助学金遭性侵的百色贫困女童</span><span
-									class="val">0<!--  热度 --></span>
-							</div></a> <a class="heated_topic" href=""><div id="topic_4">
-								<span class="topic_info">30岁后你会过上什么样的生活</span><span class="val">0<!--  热度 --></span>
-							</div></a> <a class="heated_topic" href=""><div id="topic_5">
-								<span class="topic_info">晒晒你家乡的美食 都到碗里来！</span><span class="val">0<!--  热度 --></span>
-							</div></a>
-					</div>
-					<div class="next_one">换一组</div>
-				</div>
-				<br>
-				<br>
-				<div id="label_recommand">
-					<div class="sub_title" style="padding-left: 20px; margin-left: 0%; width: 85%; font-size: 20px;">发现标签</div>
-					<div style="display: inline-block; float: right; font-size: 12px; color: red;" class="heat">热度</div>
-					<div style="left-margin: 100px;" class="rec_content">
-						<div class="rec1"><span
-								class="rec_nickname"></span> <span class="val" style="color: gray;"></span></div>
-						<div class="rec2"><span
-								class="rec_nickname"></span> <span class="val" style="color: gray;"></span></div>
-						<div class="rec3"><span
-								class="rec_nickname"></span> <span class="val" style="color: gray;"></span></div>
-						<div class="rec4"><span
-								class="rec_nickname"></span> <span class="val" style="color: gray;"></span></div>
-					</div>
-					<div id="label_next" class="next_one">换一组</div>
-				</div>
-				<br>
-				<br>
-				<div id="chat">
-					<div class="sub_title" style="padding-left: 20px; margin-left: 0%; width: 85%; font-size: 20px;">发送私信</div>
-					<ul class="group">
-						<!--
-						<li id="rec_1"><div class="cls1" onclick="">好友分组1</div><div class="friendlist></div><li>
-						<li id="rec_2"><span class="cls2">好友分组2</span></li>
-					-->
-					</ul>
-				</div>
-			</div>
-		</div>
 		<div class="left_content">
-
 			<div class="post_message">
 				<form id="MsgForm" action="message/send?type=1" method="post"
 					target="upframe" enctype="multipart/form-data">
@@ -251,9 +189,118 @@
 					第<input style="width: 30px;" class="pageNum" type="number">页<input
 						type="button" class="btn" value="跳转" onclick="goToPage()">
 				</form>
-				</from>
 			</div>
 		</div>
+		<div class="right_content">
+			<div id="userinfo">
+				<div id="nickname"></div>
+				<img id="user_icon" src="pic/${param.username}.jpg"
+					onerror="this.src='images/no_found.png'" /> <br>
+				<div class="option">
+					<img class="logout" src="images/sign-out.png" title="登出"
+						alt="sign-out" style="width: 20px; height: 20px;"> <a
+						href="privateMsgList.jsp?username=${param.username}&userToken=${param.userToken}"><img
+						class="private_msg" src="images/private_message.png" title="私信"
+						alt="private_msg" style="width: 20px; height: 20px;"></a>
+				</div>
+				<!--  
+				<ul class="user_account">
+					<li class="user_friend_text"><span id="friends_count"
+						style="font-weight: bold;">听众：</span> <br> <span
+						id="friend_num">0</span></li>
+					<li class="user_friend_text"><span id="focus_count"
+						style="font-weight: bold;">关注：</span> <br> <span
+						id="friend_num">0</span></li>
+					<li class="user_message_text"><span id="messages_count"
+						style="font-weight: bold;">广播：</span> <br> <span
+						id="message_num">0</span></li>
+				</ul>
+				-->
+				<table class="user_account" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td class="user_friend_text" style=""><strong
+								id="friend_num" style="display: block; font-weight: bold;">0</strong>
+								<span id="friends_count">听众</span></td>
+							<td class="user_friend_text" style=""><strong
+								id="focus_num" style="display: block; font-weight: bold;">0</strong>
+								<span id="focus_count">关注</span></td>
+							<td class="user_message_text" style=""><strong
+								id="message_num" style="display: block; font-weight: bold;">0</strong>
+								<span id="messages_count">广播</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div style="top: 331px;" class="right_content">
+			<div class="right_info">
+				<div id="heated_topic">
+					<div class="sub_title"
+						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">热门话题</div>
+					<div
+						style="display: inline-block; float: right; font-size: 12px; color: red;"
+						class="heat">阅读</div>
+					<div class="heated_subtitle">
+						<a class="heated_topic" href=""><div id="topic_1">
+								<span class="topic_info">新一轮雾霾来袭 你还能自强不吸吗</span><span
+									class="val">0</span>
+							</div></a> <a class="heated_topic" href=""><div id="topic_2">
+								<span class="topic_info">那些年，让你跌破眼镜的童鞋</span><span class="val">0<!--  热度 --></span>
+							</div></a> <a class="heated_topic" href=""><div id="topic_3">
+								<span class="topic_info">为400助学金遭性侵的百色贫困女童</span><span
+									class="val">0<!--  热度 --></span>
+							</div></a> <a class="heated_topic" href=""><div id="topic_4">
+								<span class="topic_info">30岁后你会过上什么样的生活</span><span class="val">0<!--  热度 --></span>
+							</div></a> <a class="heated_topic" href=""><div id="topic_5">
+								<span class="topic_info">晒晒你家乡的美食 都到碗里来！</span><span class="val">0<!--  热度 --></span>
+							</div></a>
+					</div>
+					<div class="next_one">换一组 ></div>
+				</div>
+			</div>
+		</div>
+		<div style="top: 512px;" class="right_content">
+			<div id="label_recommand">
+				<div class="sub_title"
+					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">发现标签</div>
+				<div
+					style="display: inline-block; float: right; font-size: 12px; color: red;"
+					class="heat">热度</div>
+				<div style="left-margin: 100px;" class="rec_content">
+					<div class="rec1">
+						<span class="rec_nickname"></span> <span class="val"
+							style="color: gray;"></span>
+					</div>
+					<div class="rec2">
+						<span class="rec_nickname"></span> <span class="val"
+							style="color: gray;"></span>
+					</div>
+					<div class="rec3">
+						<span class="rec_nickname"></span> <span class="val"
+							style="color: gray;"></span>
+					</div>
+					<div class="rec4">
+						<span class="rec_nickname"></span> <span class="val"
+							style="color: gray;"></span>
+					</div>
+				</div>
+				<div id="label_next" class="next_one">换一组 ></div>
+			</div>
+		</div>
+		<div style="top: 688px;" class="right_content">
+			<div id="chat">
+				<div class="sub_title"
+					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">发送私信</div>
+				<ul class="group">
+					<!--
+						<li id="rec_1"><div class="cls1" onclick="">好友分组1</div><div class="friendlist></div><li>
+						<li id="rec_2"><span class="cls2">好友分组2</span></li>
+					-->
+				</ul>
+			</div>
+		</div>
+
 	</div>
 	<a id="gtotop" class="w-top" style="visibility: visible; opacity: 1;"
 		hidefocus="true" href="#" title="回到顶部">回到顶部</a>
@@ -325,35 +372,11 @@
 				}
 			});
 		});
-		$(".right_content").css('height', $(window).height() - 40);
 		showUserInfo(1, true);
 		show_messages(1, 1);
 		show_label();
 		showGroups(0);
 		setInterval("update()", 30000);
-		//setTimeout('adjustHeight()', 300);
-		//setTimeout('adjustHeight()', 5000);
-		//});
-		/*
-		$(document).scroll(function(){
-			var content = $(".right_info");
-			if(293 <= $(window).scrollTop()) {
-				content.css("margin-top", $(window).scrollTop() - 270);
-			}
-			else {
-				content.css("margin-top", 0);
-			}
-		});
-		 */
-		$(document).scroll(function() {
-			var content = $(".right_content");
-			//if(293 <= $(window).scrollTop()) {
-			content.css("margin-top", $(window).scrollTop());
-			//}
-			//else {
-			//	content.css("margin-top", 0);
-			//}
-		});
 
 		$(".top_content li").mouseover(function() {
 			this.style.background = "snow";
@@ -363,6 +386,8 @@
 			this.style.background = "";
 		});
 
+		/*
+		$(".right_content").css('height', $(window).height() - 40);
 		var height;
 		function adjustHeight() {
 			if (height == undefined) {
@@ -373,6 +398,16 @@
 			else
 				$(".right_content").css("height", $(window).height());
 		}
+		$(document).scroll(function() {
+			var content = $(".right_content");
+			//if(293 <= $(window).scrollTop()) {
+			content.css("margin-top", $(window).scrollTop());
+			//}
+			//else {
+			//	content.css("margin-top", 0);
+			//}
+		});
+		 */
 
 		$("#all_messages").click(function() {
 			show_announcements(0);
@@ -382,7 +417,7 @@
 		$("#label_next").click(function() {
 			show_label();
 		});
-		
+
 		$("#messages_count").live('click', function() {
 			var nickname = $("#nickname").text();
 			showOwnmessages(nickname, 1, 1, true);
@@ -391,7 +426,7 @@
 			$(".pageNum").val(pageNum);
 			//setTimeout('adjustHeight()', 300);
 		});
-		
+
 		$(".comment").live('click', function() {
 			var message_id = $(this).parents("li").attr("id");
 			message_id = message_id.substr(6);
@@ -430,12 +465,17 @@
 			$(".pageNum").val(pageNum);
 			//setTimeout('adjustHeight()', 300);
 		});// 好友广播
-		
-		$(".rec_nickname").live('click', function() {
-			window.location = "label.jsp?username=" + $.query.get("username") + "&userToken="
-			+ $.query.get("userToken") + "&label=" + $(this).parent().attr("id") + "&content=" + $(this).text();
-		});
-		
+
+		$(".rec_nickname").live(
+				'click',
+				function() {
+					window.location = "label.jsp?username="
+							+ $.query.get("username") + "&userToken="
+							+ $.query.get("userToken") + "&label="
+							+ $(this).parent().attr("id") + "&content="
+							+ $(this).text();
+				});
+
 		$(".prePage").click(function() {
 			if (flag == 3)
 				return;
@@ -495,15 +535,15 @@
 		} // 跳转指定页面
 
 		$(".rec_nickname").mouseover(function() {
-			$(this).css("color", "blue");
+			$(this).css("color", "gray");
 			$(this).css("font-weight", "bold");
 		});
-		
+
 		$(".rec_nickname").mouseout(function() {
 			$(this).css("color", "#006a92");
 			$(this).css("font-weight", "normal");
 		});
-		
+
 		$(".next_one").mouseover(function() {
 			$(this).css("color", "#eb7350");
 		});
@@ -513,13 +553,13 @@
 		});
 
 		$(".topic_info").live('mouseover', function() {
-			$(this).css("color", "blue");
+			$(this).css("color", "gray");
 			$(this).css("font-weight", "bold");
 		});
 
 		$(".topic_info").live('mouseout', function() {
 			$(this).css("color", "#006a92");
-			$(this).css("font-weight", "normal");		
+			$(this).css("font-weight", "normal");
 		});
 	</script>
 	<!--<jsp:include page="copyright.jsp"></jsp:include>-->

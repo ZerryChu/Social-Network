@@ -117,6 +117,17 @@
 #focus, #unfocus {
 	cursor: pointer;
 }
+
+.sub_title {
+	font-size: 20px;
+	margin-left: 5px;
+	margin-bottom: 20px;
+}
+
+.right_content {
+	position: absolute;
+	left: 777px;
+}
 </style>
 <body>
 	<div class="bg">
@@ -141,60 +152,6 @@
 		</ul>
 	</div>
 	<div class="main">
-		<div class="right_content">
-			<div id="userinfo">
-				<div id="nickname"></div>
-				<img id="user_icon" src="pic/${param.username}.jpg"
-					onerror="this.src='images/no_found.png'" onclick="" /> <br>
-				<div class="option">
-					<img class="logout" src="images/sign-out.png" title="登出"
-						alt="sign-out" style="width: 20px; height: 20px;"> <a
-						href="privateMsgList.jsp?username=${param.username}&userToken=${param.userToken}"><img
-						class="private_msg" src="images/private_message.png" title="私信"
-						alt="private_msg" style="width: 20px; height: 20px;"></a>
-				</div>
-				<ul class="user_account">
-					<li class="user_friend_text"><span id="friends_count"
-						style="font-weight: bold;">粉丝：</span> <br> <span
-						id="friend_num">0</span></li>
-					<li class="user_message_text"><span id="messages_count"
-						style="font-weight: bold;">广播：</span> <br> <span
-						id="message_num">0</span></li>
-				</ul>
-			</div>
-			<div class="user_recommend">
-				<div class="sub_title">推荐用户</div>
-				<div class="user_list">
-					<div id="u1" class="user_info">
-						<img class="usericon"><span class="rec_nickname"></span>
-					</div>
-					<div id="u2" class="user_info">
-						<img class="usericon"><span class="rec_nickname"></span>
-					</div>
-					<div id="u3" class="user_info">
-						<img class="usericon"><span class="rec_nickname"></span>
-					</div>
-
-					<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
-				</div>
-			</div>
-			<div class="user_recommend">
-				<div class="sub_title">圈内大神</div>
-				<div class="master_list">
-					<div id="m1" class="master_info">
-						<img class="master_icon"><span class="master_nickname"></span>
-					</div>
-					<div id="m2" class="master_info">
-						<img class="master_icon"><span class="master_nickname"></span>
-					</div>
-					<div id="m3" class="master_info">
-						<img class="master_icon"><span class="master_nickname"></span>
-					</div>
-
-					<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
-				</div>
-			</div>
-		</div>
 		<div class="left_content">
 			<div
 				style="background-color: #dee3e3; padding-left: 1%; color: gray;"
@@ -322,7 +279,84 @@
 				</form>
 			</div>
 		</div>
+		<div class="right_content">
+			<div id="userinfo">
+				<div id="nickname"></div>
+				<img id="user_icon" src="pic/${param.username}.jpg"
+					onerror="this.src='images/no_found.png'" onclick="" /> <br>
+				<div class="option">
+					<img class="logout" src="images/sign-out.png" title="登出"
+						alt="sign-out" style="width: 20px; height: 20px;"> <a
+						href="privateMsgList.jsp?username=${param.username}&userToken=${param.userToken}"><img
+						class="private_msg" src="images/private_message.png" title="私信"
+						alt="private_msg" style="width: 20px; height: 20px;"></a>
+				</div>
+				<!--  <ul class="user_account">
+					<li class="user_friend_text"><span id="friends_count"
+						style="font-weight: bold;">听众：</span> <br> <span
+						id="friend_num">0</span></li>
+					<li class="user_friend_text"><span id="focus_count"
+						style="font-weight: bold;">关注：</span> <br> <span
+						id="friend_num">0</span></li>
+					<li class="user_message_text"><span id="messages_count"
+						style="font-weight: bold;">广播：</span> <br> <span
+						id="message_num">0</span></li>
+				</ul> -->
+				<table class="user_account" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td class="user_friend_text" style=""><strong
+								id="friend_num" style="display: block; font-weight: bold;">0</strong>
+								<span id="friends_count">听众</span></td>
+							<td class="user_friend_text" style=""><strong
+								id="focus_num" style="display: block; font-weight: bold;">0</strong>
+								<span id="focus_count">关注</span></td>
+							<td class="user_message_text" style=""><strong
+								id="message_num" style="display: block; font-weight: bold;">0</strong>
+								<span id="messages_count">广播</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div style="top: 333px;" class="right_content">
+			<div class="user_recommend">
+				<div class="sub_title">推荐用户</div>
+				<div class="user_list">
+					<div id="u1" class="user_info">
+						<img class="usericon"><span class="rec_nickname"></span>
+					</div>
+					<div id="u2" class="user_info">
+						<img class="usericon"><span class="rec_nickname"></span>
+					</div>
+					<div id="u3" class="user_info">
+						<img class="usericon"><span class="rec_nickname"></span>
+					</div>
+
+					<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
+				</div>
+			</div>
+		</div>
+		<div style="top: 604px;" class="right_content">
+			<div class="user_recommend">
+				<div class="sub_title">圈内大神</div>
+				<div class="master_list">
+					<div id="m1" class="master_info">
+						<img class="master_icon"><span class="master_nickname"></span>
+					</div>
+					<div id="m2" class="master_info">
+						<img class="master_icon"><span class="master_nickname"></span>
+					</div>
+					<div id="m3" class="master_info">
+						<img class="master_icon"><span class="master_nickname"></span>
+					</div>
+
+					<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
+				</div>
+			</div>
+		</div>
 	</div>
+
 	<script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<script src="plugins/timeago.js" type="text/javascript"></script>
 	<script src="plugins/jquery-migrate-1.2.1.min.js"
@@ -340,7 +374,7 @@
 		var flag = 1; // 1: 最热 2: 最新 3、。。。
 		var pageNum = 1;
 		var label_now = 0;
-		
+
 		$(document).ready(function() {
 			showUserInfo(1, true);
 			$(".label_now").hide();
@@ -376,7 +410,7 @@
 								master_user_count = 1;
 								for (var i = 0; i < data.returndata.length; i++)
 									if (data.returndata[i] != undefined) {
-										
+
 										if (data.returndata[i].username == $.query
 												.get("username")) {
 											continue;
@@ -390,8 +424,10 @@
 														"pic/"
 																+ data.returndata[i].username
 																+ ".jpg");
-										$(id + " .master_nickname").empty().append(
-												data.returndata[i].nickname);
+										$(id + " .master_nickname")
+												.empty()
+												.append(
+														data.returndata[i].nickname);
 										$(id + " .master_nickname")
 												.after(
 														"<img class=\"send_msg\" title=\"私信\" style=\"cursor: pointer; width: 5%; height: 20%; float: right; margin-right: 10%; margin-top: -6%;\" src=\"images/private_message.png\">");
@@ -406,7 +442,7 @@
 								var id = "#m" + num;
 								$(id + " .master_icon").attr("src", "");
 								$(id + " .master_nickname").empty();
-								$(id + " .send_msg").remove();								
+								$(id + " .send_msg").remove();
 							}
 
 						}
@@ -750,7 +786,7 @@
 			flag = 2;
 			pageNum = 1;
 			$(".pageNum").val(pageNum);
-			
+
 			//setTimeout('adjustHeight()', 300);
 		});// 好友广播
 

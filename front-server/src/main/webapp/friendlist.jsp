@@ -50,27 +50,20 @@ body {
 .left_content {
 	display: inline-block;
 	float: left;
-	border-top: 2px solid white;
-	border-left: 2px solid white;
-	border-bottom: 2px solid white;
-	border-right: 1px solid gray;
 	width: 20%;
 	height: 600px;
 	border-radius: 5px 0px 0px 5px;
-	background: #f9f9f9;
+	background: white;
+	border-right: 1px solid gray;
 }
 
 .right_content {
 	display: inline-block;
 	float: left;
-	border-top: 2px solid white;
-	border-right: 1px solid white;
-	border-bottom: 2px solid white;
-	border-left: 6px solid white;
 	width: 79%;
 	height: 600px;
 	border-radius: 0px 5px 5px 0px;
-	background: white;
+	background: #f9f9f9;
 	padding-right: 0px;
 }
 
@@ -137,19 +130,33 @@ body {
 .btn {
 	cursor: pointer;
 }
+
+.mrc_pic {
+	display: inline-block;
+	margin-left: 30px;
+	margin-top: 10px;
+}
 </style>
 
 </head>
 <body>
 	<div class="bg">
-		<img style="heigth: 100%; width: 100%;" src="images/index_bg.jpg" />		
+		<img style="heigth: 100%; width: 100%;" src="images/index_bg.jpg" />
 	</div>
 	<div class="main">
 		<div class="left_content">
-			<ul class="options">
-				<li onclick="getfavorites(1)">我的收听</li>
-				<li onclick="getfollowers(1)">我的听众</li>
-			</ul>
+			<div class="options">
+				<div id="op1" class="friend_option">
+					<div class="mrc_pic"
+						style="background: url(images/mrc.png) left top no-repeat; background-position: 0px -25px; width: 22px; height: 22px;"></div>
+					<div class="myfocus" onclick="getfavorites(1)">我的收听</div>
+				</div>
+				<div id="op2" class="friend_option">
+					<div class="mrc_pic"
+						style="background: url(images/mrc.png) left top no-repeat; background-position: 0px 0px; width: 22px; height: 22px;"></div>
+					<div class="myfocuser" onclick="getfollowers(1)">我的听众</div>
+				</div>
+			</div>
 		</div>
 		<div class="right_content">
 			<div class="search" style="float: right;">
@@ -174,15 +181,24 @@ body {
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 <script type="text/javascript">
+	var flag;// 1 我的听众 2 我的收听 
 	$(document).ready(function() {
-		getfollowers(1);
+		flag = $.query.get("flag");
+		if (flag == undefined) {
+			flag = 1
+		}
+		if (flag == 1)
+			getfollowers(1);
+		else
+			getfavorites(1);
 	});
-	
+
 	var pageNum = 1;
-	var flag; // 1 我的听众 2 我的收听 
 
 	function getfavorites(_page) {
 		$(".title").text("我的收听");
+		$("#op1").css("background", "#f9f9f9");
+		$("#op2").css("background", "white");
 		flag = 1;
 		$
 				.ajax({
@@ -210,8 +226,8 @@ body {
 									message += "<tr>";
 								}
 								message += "<td><div class=\"friend_info\" onclick=\"goTo('"
-									+ data.returndata[i].nickname
-									+ "')\"><img src=\"pic/" 
+										+ data.returndata[i].nickname
+										+ "')\"><img src=\"pic/" 
 														+ data.returndata[i].username 
 														+ ".jpg\" style=\"width:70px; height:70px;\" class=\"friend_icon\"><div class=\"friend_name\">"
 										+ data.returndata[i].nickname
@@ -223,6 +239,17 @@ body {
 							message += "</tr>";
 							$(".friend_list").empty();
 							$(".friend_list").append(message);
+							$(".friend_info").mouseover(function() {
+								$(this).css("width", "208");
+								$(this).css("height", "78");
+								$(this).css("border", "2px solid lightblue");
+							});
+
+							$(".friend_info").mouseout(function() {
+								$(this).css("width", "210");
+								$(this).css("height", "80");
+								$(this).css("border", "1px solid grey");
+							});
 						}
 					}
 				});
@@ -230,6 +257,8 @@ body {
 
 	function getfollowers(_page) {
 		$(".title").text("我的听众");
+		$("#op1").css("background", "white");
+		$("#op2").css("background", "#f9f9f9");
 		flag = 2;
 		$
 				.ajax({
@@ -270,6 +299,17 @@ body {
 							message += "</tr>";
 							$(".friend_list").empty();
 							$(".friend_list").append(message);
+							$(".friend_info").mouseover(function() {
+								$(this).css("width", "208");
+								$(this).css("height", "78");
+								$(this).css("border", "2px solid lightblue");
+							});
+
+							$(".friend_info").mouseout(function() {
+								$(this).css("width", "210");
+								$(this).css("height", "80");
+								$(this).css("border", "1px solid grey");
+							});
 						}
 					}
 				});
@@ -299,18 +339,22 @@ body {
 			getfollowers(pageNum);
 		}
 	}); // 跳转下一页
-	
+
 	function goTo(targetNickname) {
-		window.location = "userinfo.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&targetNickname=" + targetNickname; 
+		window.location = "userinfo.jsp?username=" + $.query.get("username")
+				+ "&userToken=" + $.query.get("userToken") + "&targetNickname="
+				+ targetNickname;
 
 	}
-	
-	$(".options li").mouseover(function() {
-		$(this).css("color", "#eb7350");
+
+	$(".myfocus, .myfocuser").mouseover(function() {
+		$(this).css("color", "gray");
+		//$(this).css("background", "#f9f9f9");
 	});
 
-	$(".options li").mouseout(function() {
-		$(this).css("color", "gray");
+	$(".myfocus, .myfocuser").mouseout(function() {
+		$(this).css("color", "lightgray");
+		//$(this).css("background", "white");
 	});
 </script>
 </html>

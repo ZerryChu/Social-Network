@@ -15,8 +15,15 @@ public class User {
 	private int    type;
 	private String habit;
 	private int    friend_num;
+	private int    focus_num;
 	private int    message_num;
-	
+
+	public int getFocus_num() {
+		return focus_num;
+	}
+	public void setFocus_num(int focus_num) {
+		this.focus_num = focus_num;
+	}	
 	public int getId() {
 		return id;
 	}

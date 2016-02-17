@@ -29,6 +29,9 @@ public interface UserDao {
 	
 	public User[] searchUsersLikeNickname(String nickname);
 	
+	public Integer getUserFansNumById(int id);
+	
+	public Integer getUserFocusNumById(int id);
 	// 推荐的大神个数
 	public Integer[] getMasterByLabelId(int label_id, int num);
 }

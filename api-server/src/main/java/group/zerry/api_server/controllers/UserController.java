@@ -33,7 +33,7 @@ public class UserController {
 	//private static Jedis                   jedis = new Jedis("localhost", 6379);
 
 	private static SimplePropertyPreFilter userFilter   = new SimplePropertyPreFilter(User.class, "username", "nickname",
-            "age", "type", "habit", "friend_num", "message_num");
+            "age", "type", "habit", "focus_num", "friend_num", "message_num");
 		
     private static Logger                  logger = Logger.getLogger(UserController.class);
 

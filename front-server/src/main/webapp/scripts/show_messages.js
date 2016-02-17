@@ -576,7 +576,7 @@ function show_comments(message_id, pageNumber, _flag) {
 																	+ ")\">确认</button><button onclick=\"$(this).parents('.delete_confirm').slideUp();\">取消</button></div><div class=\"txt\">"
 																	+ "<a href=\"javascript:void(0);\" class=\"comer_name\">"
 																	+ data.returndata[i].nickname
-																	+ "</a>:<span class=\"content\">"
+																	+ "</a>: <span class=\"content\">"
 																	+ return_content
 																	+ "</span><div class=\"info\"><img class=\"delete_cmt\" align=\"right\" style=\"margin-right: 30px; width: 10px; height: 10px;\" src=\"images/delete.jpg\" onclick=\"show_delete_confirm("
 																	+ data.returndata[i].id

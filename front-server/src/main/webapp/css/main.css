@@ -14,6 +14,12 @@ body{
 	margin-left: 60%;
 }
 
+.myfocus, .myfocuser {
+	color: lightgray;
+	display: inline-block;
+	cursor: pointer;
+}
+
 .main {
 	width: 1000px;
 	margin: 0px auto;
@@ -78,11 +84,7 @@ body{
 .left_content {
 	display: inline-block;
 	float: left;
-	border-top: 2px solid #c9f1ff;
-	border-left: 1px solid #c9f1ff;
-	border-right: 2px solid #c9f1ff;	
-	border-bottom: 2px solid #c9f1ff;
-	width: 69%;
+	width: 70%;
 	border-radius: 5px 0px 0px 5px;
 	background: #c9f1ff;
 }
@@ -113,15 +115,14 @@ body{
 }
 
 .right_content {
-	overflow-y:auto;
-	display: inline-block;
-	float: right;
-	border-top: 3px solid #c9f1ff;
-	border-left: 6px solid #c9f1ff;	
-	width: 29%;
-	padding-right: 10px;
+	overflow: auto;
+	/*display: inline-block;
+	float: right;*/
+	width: 28%;
+	padding: 8px;
 	border-radius: 0px 5px 5px 0px;
 	background: #c9f1ff;
+	margin-bottom: 5px;
 }
 
 .heated_topic, .label_recommand, .chat {
@@ -231,21 +232,27 @@ input {
 .user_account {
 	margin-top: 5px;
 	border-top: 4px solid #5da8eb;
-	height: 40px;
+	height: 50px;
 	background: #b5d6f3;
 	padding-top: 3px;
-	padding-left: 20px;
+	margin-left: 5px;
+	width: 90%;
 }
 
-.user_account li {
-	width: 100px;
-	height: 36px;
+.user_friend_text {
+	border-right: 0.5px solid gray;	
+}
+
+.user_friend_text, .user_message_text {
+	width: 75px;
+	height: 27px;
 	float: left;
 	text-align: center;
 	list-style-type: none;
 	color: #006a92;
 	/*border-right: 1px solid #000;*/
 	padding: 0px 10px;
+	margin-top: 4px;
 	cursor: pointer;
 }
 
@@ -264,7 +271,7 @@ input {
 .heated_subtitle, .rec_content, .group {
 	color: #006a92;
 	padding-top: 30px;
-	padding-left: 40px;
+	padding-left: 10px;
 	padding-right: 10px;
 	padding-bottom: 20px;
 	font-size: 14px;
@@ -477,7 +484,7 @@ input {
 	text-decoration: underline;
 }
 
-.weibolist .comtxt .otherCom li {
+.otherCom li {
 	padding: 0 0 5px;
 	border-bottom: 1px dashed #e4e4e4;
 	overflow: hidden;

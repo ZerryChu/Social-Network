@@ -16,10 +16,13 @@
 	margin-left: 20px;
 }
 
-.message_num, .friend_num {
-	display: inline-block;
+.message_num, .friend_num, .focus_num {
+	margin-left: 30px;
+}
+
+.account {
 	float: right;
-	margin-right: 100px;
+	margin-right: 20px;
 }
 
 body {
@@ -35,8 +38,10 @@ body {
 
 .topInfo {
 	width: 900px;
-	margin: 0 auto;
+	padding-bottom: 5px;
+	margin-bottom: 3px;
 	background: #f3f7f9;
+	border-radius: 5px 5px 0px 0px;
 }
 
 .msgBox {
@@ -66,22 +71,17 @@ body {
 .left_content {
 	display: inline-block;
 	float: left;
-	border-left: 0px solid snow;
-	border-bottom: 2px solid snow;
-	width: 69%;
+	border-radius: 0px 0px 0px 5px;
+	width: 70%;
 	background: #fff;
 }
 
 .right_content {
 	display: inline-block;
 	float: right;
-	border-right: 0px solid #f3f7f9;
-	border-left: 6px solid #f3f7f9;
-	border-bottom: 2px solid #f3f7f9;
-	border-top: 3px solid #f3f7f9;
-	padding-right: 0px;
-	width: 30%;
-	background: #f3f7f9;
+	width: 28%;
+	border-radius: 0px 0px 5px 0px;
+	background: white;
 }
 
 #focus, #unfocus {
@@ -139,7 +139,7 @@ body {
 </head>
 <body>
 	<div class="bg">
-		<img style="heigth: 100%; width: 100%;" src="images/index_bg.jpg" />	
+		<img style="heigth: 100%; width: 100%;" src="images/index_bg.jpg" />
 	</div>
 	<div class="top">
 		<ul class="top_content" style="font-weight: bold;">
@@ -149,7 +149,7 @@ body {
 				href="label.jsp?username=${param.username}&userToken=${param.userToken}">标签</a></li>
 			<li><a class="link"
 				href="topic.jsp?username=${param.username}&userToken=${param.userToken}">话题</a></li>
-			
+
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
 				<input type="text" class="search_text" /> <select
@@ -180,11 +180,15 @@ body {
 					onclick="addFriend('normal')"> <input type="button"
 					id="unfocus" value="取消关注" onclick="deleteFriend()">
 			</form>
-			<span class="message_num"> 广播： <span
-				style="color: #006a92; font-weight: bold;"></span>
-			</span> <span class="friend_num"> 粉丝： <span
-				style="color: #006a92; font-weight: bold;"></span>
-			</span>
+			<div class="account">
+				<span class="message_num"> 广播： <span
+					style="color: #006a92; font-weight: bold;"></span>
+				</span> <span class="friend_num"> 听众：<span
+					style="color: #006a92; font-weight: bold;"></span>
+				</span> <span class="focus_num"> 收听： <span
+					style="color: #006a92; font-weight: bold;"></span>
+				</span>
+			</div>
 		</div>
 		<div class="left_content">
 			<div class="ownMessage">
@@ -235,21 +239,19 @@ body {
 <script src="scripts/checkSubmit.js" type="text/javascript"></script>
 <script src="scripts/jquery-bigic.js" type="text/javascript"></script>
 <script type="text/javascript">
-
 	$(document).ready(function() {
-		showTargetInfo(1); //重写的js方法
+		showTargetInfo(1);
 	});
 
-	$(document).scroll(function(){
+	$(document).scroll(function() {
 		var content = $(".subtitle");
-		if(248 <= $(window).scrollTop()) {
+		if (248 <= $(window).scrollTop()) {
 			content.css("margin-top", $(window).scrollTop() - 220);
-		}
-		else {
+		} else {
 			content.css("margin-top", 0);
 		}
 	});
-	
+
 	/*
 	function openFriendList() {
 		if($(li).find(".friend_list").slideToggle();
@@ -297,7 +299,7 @@ body {
 	$("#focus, #unfocus").mouseout(function() {
 		$(this).css("background-color", "silver");
 	});
-	
+
 	function deleteFriend() {
 		if (checkSubmit(500)) {
 
@@ -518,7 +520,7 @@ body {
 		if (num == "" || isNaN(num)) {
 			return;
 		}
-		if(num <= 1) {
+		if (num <= 1) {
 			pageNum = 1;
 			$(".pageNum").val(pageNum);
 		} else
@@ -527,6 +529,5 @@ body {
 		$(window).scrollTop(0);
 		//setTimeout('adjustHeight()', 300);
 	} // 跳转指定页面
-	
 </script>
 </html>

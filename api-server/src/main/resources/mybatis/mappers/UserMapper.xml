@@ -46,6 +46,24 @@
 		id = #{id}
 	</select>
 	
+	<select id="getUserFansNumById" parameterType="int" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			friend
+		WHERE
+			friend_id = #{1}
+	</select>
+	
+	<select id="getUserFocusNumById" parameterType="int" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			friend
+		WHERE
+			user_id = #{1}
+	</select>
+	
 	<select id="selectUserByNickname" parameterType="string"
 		resultType="User">
 		SELECT

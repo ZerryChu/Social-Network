@@ -14,6 +14,7 @@ function showTargetInfo(_flag) {
                 	$(".targetUsername div").text(data.returndata.username);
                 	$(".friend_num span").text(data.returndata.friend_num);
                 	$(".message_num span").text(data.returndata.message_num);
+                	$(".focus_num span").text(data.returndata.focus_num);
                 	$(".age div").text(data.returndata.age);
                 	$(".habit div").text(data.returndata.habit);
             		//$("img").attr("src", "pic/" + data.returndata.username + ".jpg");
@@ -23,6 +24,7 @@ function showTargetInfo(_flag) {
                 	$(".targetNickname div").text("null");
                 	$(".friend_num span").text("0");
                 	$(".message_num span").text("0");
+                	$(".focus_num span").text("0");
                 	$(".age div").text("0");
                 	$(".habit div").text("null");
                 	//
