@@ -96,6 +96,12 @@ public class FriendServiceImpl implements FriendService {
 		Page<Target> myPage = PageHelperInterceptor.endPage();
 		List<Target> list = myPage.getResult();
 		favorites = (Target[]) list.toArray(new Target[list.size()]);
+		for (int i = 0;i < favorites.length; i++) {
+			Integer integer = userDao.getUserFansNumById(favorites[i].getId());
+			favorites[i].setFriend_num(integer);
+			integer = userDao.getUserFocusNumById(favorites[i].getId());
+			favorites[i].setFocus_num(integer);
+		}
 		return favorites;
 	}
 	
@@ -112,6 +118,12 @@ public class FriendServiceImpl implements FriendService {
 		Page<Target> myPage = PageHelperInterceptor.endPage();
 		List<Target> list = myPage.getResult();
 		followers = (Target[]) list.toArray(new Target[list.size()]);
+		for (int i = 0;i < followers.length; i++) {
+			Integer integer = userDao.getUserFansNumById(followers[i].getId());
+			followers[i].setFriend_num(integer);
+			integer = userDao.getUserFocusNumById(followers[i].getId());
+			followers[i].setFocus_num(integer);
+		}
 		return followers;
 	}
 

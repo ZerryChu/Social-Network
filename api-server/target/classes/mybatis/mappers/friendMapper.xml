@@ -7,7 +7,7 @@
 	<resultMap id="TargetMap" type="Target">
 		<result property="username" column="username" />
 		<result property="nickname" column="nickname" />
-		<result property="friend_num" column="friend_num" />		
+		<result property="id" column="id" />
 	</resultMap>
 	
 	<resultMap id="CountMap" type="Count">
@@ -34,7 +34,9 @@
 	<select id="selectFriendsByGroupname" parameterType="string"
 		resultType="User">
 		SELECT
-			nickname, username
+			nickname, 
+			username,
+			id
 		FROM
 			user_inf
 		WHERE
@@ -57,7 +59,7 @@
 		SELECT
 			username,
 			nickname,
-			friend_num
+			id
 		FROM
 			user_inf
 		WHERE
@@ -92,7 +94,7 @@
 		SELECT
 			username,
 			nickname,
-			friend_num
+			id	
 		FROM
 			user_inf
 		WHERE
@@ -112,7 +114,7 @@
 		SELECT
 			username,
 			nickname,
-			friend_num
+			id
 		FROM
 			user_inf
 		WHERE

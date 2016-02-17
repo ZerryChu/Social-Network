@@ -67,7 +67,7 @@ body {
 	padding-right: 0px;
 }
 
-.friend_info {
+.target_info {
 	display: inline-block;
 	float: left;
 	width: 210px;
@@ -89,13 +89,12 @@ body {
 	background: silver;
 }
 
-.friend_info div {
-	display: inline-block;
-}
-
 .friend_name {
 	margin: 2px;
 	float: left;
+	font-size: 18px;
+	font-weight: bold;
+	width: 112px;
 }
 
 .count_info {
@@ -136,6 +135,16 @@ body {
 	margin-left: 30px;
 	margin-top: 10px;
 }
+
+.friend_info, .focus_info {
+	font-size: 12px;
+}
+
+.friend_info span, .focus_info span {
+	font-weight: bold;
+	color: #759aad;	
+}
+
 </style>
 
 </head>
@@ -225,27 +234,29 @@ body {
 								if (index == 1) {
 									message += "<tr>";
 								}
-								message += "<td><div class=\"friend_info\" onclick=\"goTo('"
+								message += "<td><div class=\"target_info\" onclick=\"goTo('"
 										+ data.returndata[i].nickname
 										+ "')\"><img src=\"pic/" 
 														+ data.returndata[i].username 
 														+ ".jpg\" style=\"width:70px; height:70px;\" class=\"friend_icon\"><div class=\"friend_name\">"
 										+ data.returndata[i].nickname
-										+ "</div><div class=\"count_info\">粉丝：<span class=\"num\">"
+										+ "</div><div class=\"friend_info\">听众：<span class=\"num\">"
 										+ data.returndata[i].friend_num
+										+ "</span></div><div class=\"focus_info\">关注：<span class=\"num\">"
+										+ data.returndata[i].focus_num
 										+ "</span></div></div></td>";
 								i++;
 							}
 							message += "</tr>";
 							$(".friend_list").empty();
 							$(".friend_list").append(message);
-							$(".friend_info").mouseover(function() {
+							$(".target_info").mouseover(function() {
 								$(this).css("width", "208");
 								$(this).css("height", "78");
 								$(this).css("border", "2px solid lightblue");
 							});
 
-							$(".friend_info").mouseout(function() {
+							$(".target_info").mouseout(function() {
 								$(this).css("width", "210");
 								$(this).css("height", "80");
 								$(this).css("border", "1px solid grey");
@@ -285,27 +296,29 @@ body {
 								if (index == 1) {
 									message += "<tr>";
 								}
-								message += "<td><div class=\"friend_info\" onclick=\"goTo('"
+								message += "<td><div class=\"target_info\" onclick=\"goTo('"
 										+ data.returndata[i].nickname
 										+ "')\"><img src=\"pic/" 
 														+ data.returndata[i].username 
 														+ ".jpg\" style=\"width:70px; height:70px;\" class=\"friend_icon\"><div class=\"friend_name\">"
 										+ data.returndata[i].nickname
-										+ "</div><div class=\"count_info\">粉丝：<span class=\"num\">"
+										+ "</div><div class=\"friend_info\">听众：<span class=\"num\">"
 										+ data.returndata[i].friend_num
-										+ "</span></div</div></td>";
+										+ "</span></div><div class=\"focus_info\">关注：<span class=\"num\">"
+										+ data.returndata[i].focus_num
+										+ "</span></div></div></td>";
 								i++;
 							}
 							message += "</tr>";
 							$(".friend_list").empty();
 							$(".friend_list").append(message);
-							$(".friend_info").mouseover(function() {
+							$(".target_info").mouseover(function() {
 								$(this).css("width", "208");
 								$(this).css("height", "78");
 								$(this).css("border", "2px solid lightblue");
 							});
 
-							$(".friend_info").mouseout(function() {
+							$(".target_info").mouseout(function() {
 								$(this).css("width", "210");
 								$(this).css("height", "80");
 								$(this).css("border", "1px solid grey");

@@ -178,11 +178,11 @@ public class PageHelperInterceptor implements Interceptor {
 		} catch (SQLException e) {
 			logger.error("Ignore this exception", e);
 		} finally {
-			try {
+			/*try {
 				rs.close();
 			} catch (SQLException e) {
 				logger.error("Ignore this exception", e);
-			}
+			}*/
 			try {
 				countStmt.close();
 			} catch (SQLException e) {

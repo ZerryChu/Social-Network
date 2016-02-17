@@ -9,14 +9,14 @@
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <style type="text/css">
 .sort {
-	margin-top: 50px; margin-left : 200px;
+	margin-top: 50px;
+    margin-left: 70px;
 	height: 380px;
 	width: 1000px;
-	margin-left: 200px;
 }
 
 .info {
-	margin-left: 207px;
+	margin-left: 77px;
 	height: 400px;
 	width: 917px;
 	border-radius: 5px 5px 5px 5px;
@@ -34,7 +34,7 @@
 
 .headline {
 	height: 30px;
-	border: 1px solid gray;
+	border-bottom: 1px solid gray;
 }
 
 .s_content {

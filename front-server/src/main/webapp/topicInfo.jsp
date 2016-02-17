@@ -120,6 +120,23 @@ body {
 	background-color: white;
 	width: 23%;
 }
+
+.topic_subtitle {
+	color: #006a92;
+	padding-top: 30px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+	font-size: 14px;
+}
+
+.topic_classify {
+	text-decoration: none;
+	color: #006a92;
+	padding-top: 50px;
+	width: 92%;
+	font-size: 12px;
+}
 </style>
 <body>
 	<div class="bg">
@@ -159,37 +176,24 @@ body {
 					<table class="tb_counter" cellspacing="0" cellpadding="0">
 						<tbody>
 							<tr>
-								<td
-									style="width: 70px; text-align: center; padding: 5px;"><div style="border-right: 1px solid gray; padding-right: 5px;"><strong
-									style="display: block;">111</strong> <span style="font-size: 12px; color: gray;">阅读</span></div></td>
-								<td
-									style="width: 70px; text-align: center; padding: 5px;"><div style="border-right: 1px solid gray; padding-right: 5px;"><strong
-									style="display: block;">111</strong> <span style="font-size: 12px; color: gray;">微博</span></div></td>
-								<td style="width: 70px; text-align: center;"><div style=""><strong
-									style="display: block;">111</strong> <span style="font-size: 12px; color: gray;">评论</span></div></td>
+								<td style="width: 70px; text-align: center; padding: 5px;"><div
+										style="border-right: 1px solid gray; padding-right: 5px;">
+										<strong style="display: block;">111</strong> <span
+											style="font-size: 12px; color: gray;">阅读</span>
+									</div></td>
+								<td style="width: 70px; text-align: center; padding: 5px;"><div
+										style="border-right: 1px solid gray; padding-right: 5px;">
+										<strong style="display: block;">111</strong> <span
+											style="font-size: 12px; color: gray;">微博</span>
+									</div></td>
+								<td style="width: 70px; text-align: center;"><div style="">
+										<strong style="display: block;">111</strong> <span
+											style="font-size: 12px; color: gray;">讨论</span>
+									</div></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
-		<div class="topic_right_content">
-			<div id="heated_topic">
-				<div class="sub_title"
-					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">热门话题</div>
-				<div
-					style="display: inline-block; float: right; font-size: 12px; color: red;"
-					class="heat">阅读</div>
-				<div class="heated_subtitle">
-					<a class="heated_topic" href=""><div id="topic_1">
-							新一轮雾霾来袭 你还能自强不吸吗</div></a> <a class="heated_topic" href=""><div
-							id="topic_2">那些年，让你跌破眼镜的童鞋</div></a> <a class="heated_topic" href=""><div
-							id="topic_3">为400助学金遭性侵的百色贫困女童</div></a> <a class="heated_topic"
-						href=""><div id="topic_4">30岁后你会过上什么样的生活</div></a> <a
-						class="heated_topic" href=""><div id="topic_5">晒晒你家乡的美食
-							都到碗里来！</div></a>
-				</div>
-				<div class="next_one">换一组 ></div>
 			</div>
 		</div>
 		<div class="topic_left_content">
@@ -205,7 +209,7 @@ body {
 				</div>
 			</div>
 			<div class="comment_opt"
-				style="border-bottom: 3px solid gray; margin-bottom: 30px; width: 95%; font-size: 20px; margin-left: 20px; margin-top: 20px; font-weight: bold; cursor: pointer;">评论
+				style="border-bottom: 3px solid gray; margin-bottom: 30px; width: 95%; font-size: 20px; margin-left: 20px; margin-top: 20px; font-weight: bold; cursor: pointer;">讨论
 				></div>
 			<div class="comments" style="display: none;">
 				<textarea class="comarea" name="content" style="height: 60px;"></textarea>
@@ -347,6 +351,41 @@ body {
 							</div>
 						</div></li>
 				</ul>
+			</div>
+		</div>
+		<div class="topic_right_content">
+			<div id="heated_topic">
+				<div class="sub_title"
+					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">热门话题</div>
+				<div class="heated_subtitle">
+					<a class="heated_topic" href=""><div id="topic_1">
+							新一轮雾霾来袭 你还能自强不吸吗</div></a> <a class="heated_topic" href=""><div
+							id="topic_2">那些年，让你跌破眼镜的童鞋</div></a> <a class="heated_topic" href=""><div
+							id="topic_3">为400助学金遭性侵的百色贫困女童</div></a> <a class="heated_topic"
+						href=""><div id="topic_4">30岁后你会过上什么样的生活</div></a> <a
+						class="heated_topic" href=""><div id="topic_5">晒晒你家乡的美食
+							都到碗里来！</div></a>
+				</div>
+				<div class="next_one">换一组 ></div>
+			</div>
+		</div>
+		<div style="margin-top: 10px;" class="topic_right_content">
+			<div id="topic_info">
+				<div class="sub_title"
+					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">话题分类</div>
+				<div class="topic_subtitle">
+					<a class="topic_classify" href=""><div id="topic_1">活动</div></a> <a
+						class="topic_classify" href=""><div id="topic_2">时尚</div></a> <a
+						class="topic_classify" href=""><div id="topic_3">体育</div></a> <a
+						class="topic_classify" href=""><div id="topic_4">国际</div></a> <a
+						class="topic_classify" href=""><div id="topic_5">空</div></a> <a
+						class="topic_classify" href=""><div id="topic_6">空</div></a> <a
+						class="topic_classify" href=""><div id="topic_7">空</div></a> <a
+						class="topic_classify" href=""><div id="topic_8">空</div></a> <a
+						class="topic_classify" href=""><div id="topic_9">空</div></a> <a
+						class="topic_classify" href=""><div id="topic_10">空</div></a>
+				</div>
+				<div class="next_one">换一组 ></div>
 			</div>
 		</div>
 	</div>
