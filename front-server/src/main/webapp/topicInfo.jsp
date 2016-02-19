@@ -36,11 +36,12 @@ body {
 .topic_right_content {
 	display: inline-block;
 	float: right;
-	width: 24%;
+	width: 23%;
 	/*height: 1000px;*/
 	overflow: auto;
 	border-radius: 0px 5px 5px 0px;
 	background: #f9f9f9;
+	padding: 5px;
 }
 
 .topic_left_content {
@@ -137,6 +138,10 @@ body {
 	width: 92%;
 	font-size: 12px;
 }
+
+.heated_subtitle, .topic_subtitle {
+	padding: 15px 10px 20px;
+}
 </style>
 <body>
 	<div class="bg">
@@ -168,7 +173,7 @@ body {
 				<div class="line2_pic">
 					<img src="topic/1.jpg">
 				</div>
-				<div class="line2_topic_name">#情人节这样过#</div>
+				<div class="line2_topic_name"></div>
 				<div class="line2_opt">
 					<button>分享</button>
 				</div>
@@ -178,16 +183,16 @@ body {
 							<tr>
 								<td style="width: 70px; text-align: center; padding: 5px;"><div
 										style="border-right: 1px solid gray; padding-right: 5px;">
-										<strong style="display: block;">111</strong> <span
+										<strong id="read_num" style="display: block;"></strong> <span
 											style="font-size: 12px; color: gray;">阅读</span>
 									</div></td>
 								<td style="width: 70px; text-align: center; padding: 5px;"><div
 										style="border-right: 1px solid gray; padding-right: 5px;">
-										<strong style="display: block;">111</strong> <span
+										<strong id="weibo_num" style="display: block;"></strong> <span
 											style="font-size: 12px; color: gray;">微博</span>
 									</div></td>
 								<td style="width: 70px; text-align: center;"><div style="">
-										<strong style="display: block;">111</strong> <span
+										<strong id="comment_num" style="display: block;"></strong> <span
 											style="font-size: 12px; color: gray;">讨论</span>
 									</div></td>
 							</tr>
@@ -205,7 +210,7 @@ body {
 			</div>
 			<div class="article">
 				<div class="content">
-					<font style="color: blue;">#情人节这样过#</font>情人节，我们要这样过！大胆晒出和情人节有关的图，和大家一起分享你们的浪漫故事哦～情人节，我们要这样过！大胆晒出和情人节有关的图，和大家一起分享你们的浪漫故事哦～情人节，我们要这样过！大胆晒出和情人节有关的图，和大家一起分享你们的浪漫故事哦～情人节，我们要这样过！大胆晒出和情人节有关的图，和大家一起分享你们的浪漫故事哦～情人节，我们要这样过！大胆晒出和情人节有关的图，和大家一起分享你们的浪漫故事哦～情人节，我们要这样过！大胆晒出和情人节有关的图，和大家一起分享你们的浪漫故事哦～情人节，我们要这样过！大胆晒出和情人节有关的图，和大家一起分享你们的浪漫故事哦～情人节，我们要这样过！大胆晒出和情人节有关的图，和大家一起分享你们的浪漫故事哦～
+					<font class="topic_title" style="color: blue;"></font>
 				</div>
 			</div>
 			<div class="comment_opt"
@@ -218,7 +223,8 @@ body {
 					<button class="comment_button">评论</button>
 				</div>
 				<div class="comment_btn">
-					<ul style="" id="comment_254" class="otherCom">
+					<ul class="otherCom">
+						<!--  
 						<li>
 							<div class="msgBox" id="cmt_2">
 								<div class="txt">
@@ -231,18 +237,7 @@ body {
 								</div>
 							</div>
 						</li>
-						<li>
-							<div class="msgBox" id="cmt_3">
-								<div class="txt">
-									<a class="comer_name" href="javascript:void(0);">zdfchu</a>: <span
-										class="content">dfsffsf</span>
-									<div class="info">
-										<time datetime="2016-01-22 15:37:51.0" class="timeago">23
-										days ago</time>
-									</div>
-								</div>
-							</div>
-						</li>
+						-->
 						<div class="cmt_getPageNum" align="center">
 							<span class="cmt_prePage" onclick="cmt_prePage(254)">上一页</span> <span
 								class="cmt_nextPage" onclick="cmt_nextPage(254)">下一页</span> <span
@@ -357,14 +352,15 @@ body {
 			<div id="heated_topic">
 				<div class="sub_title"
 					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">热门话题</div>
+
+
 				<div class="heated_subtitle">
 					<a class="heated_topic" href=""><div id="topic_1">
-							新一轮雾霾来袭 你还能自强不吸吗</div></a> <a class="heated_topic" href=""><div
-							id="topic_2">那些年，让你跌破眼镜的童鞋</div></a> <a class="heated_topic" href=""><div
-							id="topic_3">为400助学金遭性侵的百色贫困女童</div></a> <a class="heated_topic"
-						href=""><div id="topic_4">30岁后你会过上什么样的生活</div></a> <a
-						class="heated_topic" href=""><div id="topic_5">晒晒你家乡的美食
-							都到碗里来！</div></a>
+							#情人节要这样过#</div></a> <a class="heated_topic" href=""><div id="topic_2">#那些年，让你跌破眼镜的童鞋#</div></a>
+					<a class="heated_topic" href=""><div id="topic_3">#为400助学金遭性侵的百色贫困女童#</div></a>
+					<a class="heated_topic" href=""><div id="topic_4">#30岁后你会过上什么样的生活#</div></a>
+					<a class="heated_topic" href=""><div id="topic_5">#晒晒你家乡的美食
+							都到碗里来！#</div></a>
 				</div>
 				<div class="next_one">换一组 ></div>
 			</div>
@@ -397,8 +393,100 @@ body {
 <script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
 <script src="scripts/checkSubmit.js" type="text/javascript"></script>
 <script type="text/javascript">
+	function showTopics() {
+		$.ajax({
+			type : "post",
+			url : "topic/show_topic",
+			data : {
+				id : $.query.get("id"),
+			},
+			dataType : "json",
+			success : function(data) {
+				$.each(data, function() {
+					if (data.returndata != undefined) {
+						$(".topic_title").append(
+								"#" + data.returndata.name + "#");
+						$(".line2_topic_name").append(
+								"#" + data.returndata.name + "#");
+						$(".topic_title").after(data.returndata.content);
+						$("#weibo_num").append(data.returndata.weibo_num);
+						$("#comment_num").append(data.returndata.comment_num);
+						$("#read_num").append(data.returndata.read_num);
+					}
+				});
+			}
+		});
+	}
+
+	var pageNum = 0;
+	function showComments(page) {
+		$
+				.ajax({
+					type : "post",
+					url : "topic/show_comment",
+					data : {
+						id : $.query.get("id"),
+						page : page
+					},
+					dataType : "json",
+					success : function(data) {
+						$
+								.each(
+										data,
+										function() {
+											var i = 0;
+											var str = "";
+											while (data.returndata[i] != undefined) {
+												str += "<li><div class=\"msgBox\"><div class=\"txt\"><a class=\"comer_name\" href=\"javascript:void(0);\">"
+														+ data.returndata[i].nickname
+														+ "</a>: <span class=\"content\">"
+														+ data.returndata[i].comment
+														+ "</span><div class=\"info\"><time datetime=\""
+													+ data.returndata[i].create_time 
+													+ "\" class=\"timeago\"></time></div></div></div></li>";
+												i++;
+											}
+											$(".otherCom").empty();
+											$(".otherCom").append(str);
+											page_num = 1;
+										});
+					}
+				});
+	}
+
+	showTopics();
+	showComments(1);
+
 	$(".comment_opt").click(function() {
 		$(".comments").slideToggle();
+	});
+
+	$(".topic_classify").mouseover(function() {
+		$(this).css("color", "gray");
+		$(this).css("font-weight", "bold");
+	});
+
+	$(".topic_classify").mouseout(function() {
+		$(this).css("color", "#006a92");
+		$(this).css("font-weight", "normal");
+	});
+
+	$(".heated_topic").live("mouseover", function() {
+		$(this).css("color", "gray");
+		$(this).css("font-weight", "bold");
+	});
+
+	$(".heated_topic").live("mouseout", function() {
+		$(this).css("color", "#006a92");
+		$(this).css("font-weight", "normal");
+	});
+
+	$(".next_one").mouseover(function() {
+		$(this).css("color", "#eb7350");
+	});
+
+	$(".next_one").mouseout(function() {
+		$(this).css("color", "black");
 	});
 </script>
 </html>

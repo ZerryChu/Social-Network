@@ -13,7 +13,9 @@
 		<typeAlias alias="Comment" type="group.zerry.api_server.entity.Comment" />
 		<typeAlias alias="Friend" type="group.zerry.api_server.entity.Friend" />
 		<typeAlias alias="Count" type="group.zerry.api_server.entity.Count" />
-		<typeAlias alias="Target" type="group.zerry.api_server.entity.Target" />		
+		<typeAlias alias="Target" type="group.zerry.api_server.entity.Target" />
+		<typeAlias alias="Topic" type="group.zerry.api_server.entity.Topic" />	
+		<typeAlias alias="TopicComment" type="group.zerry.api_server.entity.TopicComment" />													
 		<typeAlias alias="PrivateMsg" type="group.zerry.api_server.entity.PrivateMsg" />		
 		<typeAlias alias="PrivateMsgInfo" type="group.zerry.api_server.entity.PrivateMsgInfo" />		
 

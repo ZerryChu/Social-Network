@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.zerry.api_server.dao.TopicDao">
+	<select id="selectTopicsByType" resultType="Topic">
+ 		SELECT
+			*
+		from
+			topic_inf
+		where
+			topic_id = #{id}	
+ 	</select>
+
+	<select id="selectTopicById" resultType="Topic">
+ 		SELECT
+			*
+		from
+			topic_inf
+		where
+			id = #{id}	
+ 	</select>
+ 	
+ 	<!-- 一根据时间先后排序， 点赞，根据点赞数排序待做 -->
+ 	<select id="selectCommentsByTopicId" resultType="TopicComment">
+ 		SELECT
+			COMMENT,
+			create_time,
+			nickname
+		FROM
+			topic_comment,
+			user_inf
+		WHERE
+			topic_id = #{id}
+		AND user_inf.id = user_id
+		ORDER BY
+			create_time DESC
+ 	</select>
+ 	
+ 	
+</mapper>

@@ -182,7 +182,9 @@ public class UserServiceImpl implements UserService {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("username", username);
 		paramsMap.put("userToken", userToken);
-		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		String result = fetchURLTool.doPost(url, paramsMap);
+		System.out.println(result);
+		ReturnMsgDto returnMsgDto = JSON.parseObject(result, ReturnMsgDto.class);
 		if(returnMsgDto.getReturnMsg().equals(UserStatusEnum.LOS.getValue())) {
 			return true;
 		}
