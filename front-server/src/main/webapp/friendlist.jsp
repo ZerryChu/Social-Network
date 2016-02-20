@@ -207,7 +207,10 @@ body {
 	function getfavorites(_page) {
 		$(".title").text("我的收听");
 		$("#op1").css("background", "#f9f9f9");
+		$("#op1").css("border-left", "3px solid gray");
 		$("#op2").css("background", "white");
+		$("#op2").css("border-left", "0px");
+
 		flag = 1;
 		$
 				.ajax({
@@ -269,7 +272,10 @@ body {
 	function getfollowers(_page) {
 		$(".title").text("我的听众");
 		$("#op1").css("background", "white");
+		$("#op1").css("border-left", "0px");
 		$("#op2").css("background", "#f9f9f9");
+		$("#op2").css("border-left", "3px solid gray");
+		
 		flag = 2;
 		$
 				.ajax({

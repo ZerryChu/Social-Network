@@ -35,7 +35,7 @@
 
 .headline {
 	height: 30px;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid #eee;
 }
 
 .s_content {
@@ -47,7 +47,7 @@
 }
 
 .topic_info_title {
-	background-color: #DDDDDD;
+	background-color: #eee;
 	color: gray;
 	font-weight: bold;
 }
@@ -238,7 +238,7 @@
 
 	$(".topic_to_choose").live('mouseover', function() {
 		$(this).css("font-weight", "bold");
-		$(this).css("background-color", "#dee3e3");
+		$(this).css("background-color", "#eee");
 	});
 
 	$(".topic_to_choose").live('mouseout', function() {
