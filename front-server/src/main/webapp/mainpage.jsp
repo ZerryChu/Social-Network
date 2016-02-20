@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>主页</title>
 <link rel="stylesheet" type="text/css" href="css/main.css">
-
 <style type="text/css">
 .msg_emotion, .cmt_emotion, .rpt_emotion {
 	width: 42px;
@@ -106,9 +105,15 @@
 }
 
 .right_content {
-	position: absolute;
-	left: 68%;
+ 	width: 100%;
 }
+
+.right_wrap {
+	display: inline-block;
+	width: 24%;
+	margin-left: 6px;
+}
+
 </style>
 </head>
 <body>
@@ -191,6 +196,8 @@
 				</form>
 			</div>
 		</div>
+	</div>
+	<div class="right_wrap">
 		<div class="right_content">
 			<div id="userinfo">
 				<div id="nickname"></div>
@@ -203,28 +210,15 @@
 						class="private_msg" src="images/private_message.png" title="私信"
 						alt="private_msg" style="width: 20px; height: 20px;"></a>
 				</div>
-				<!--  
-				<ul class="user_account">
-					<li class="user_friend_text"><span id="friends_count"
-						style="font-weight: bold;">听众：</span> <br> <span
-						id="friend_num">0</span></li>
-					<li class="user_friend_text"><span id="focus_count"
-						style="font-weight: bold;">关注：</span> <br> <span
-						id="friend_num">0</span></li>
-					<li class="user_message_text"><span id="messages_count"
-						style="font-weight: bold;">广播：</span> <br> <span
-						id="message_num">0</span></li>
-				</ul>
-				-->
 				<table class="user_account" cellspacing="0" cellpadding="0">
 					<tbody>
 						<tr>
 							<td class="user_friend_text" style=""><strong
 								id="friend_num" style="display: block; font-weight: bold;">0</strong>
 								<span id="friends_count">听众</span></td>
-							<td class="user_friend_text" style=""><strong
-								id="focus_num" style="display: block; font-weight: bold;">0</strong>
-								<span id="focus_count">关注</span></td>
+							<td class="user_friend_text" style=""><strong id="focus_num"
+								style="display: block; font-weight: bold;">0</strong> <span
+								id="focus_count">关注</span></td>
 							<td class="user_message_text" style=""><strong
 								id="message_num" style="display: block; font-weight: bold;">0</strong>
 								<span id="messages_count">广播</span></td>
@@ -248,12 +242,13 @@
 							</div></a> <a class="heated_topic" href=""><div id="topic_2">
 								<span class="topic_info">#那些年，让你跌破眼镜的童鞋#</span><span class="val">0<!--  热度 --></span>
 							</div></a> <a class="heated_topic" href=""><div id="topic_3">
-								<span class="topic_info">#情人节这样过#</span><span
-									class="val">0<!--  热度 --></span>
+								<span class="topic_info">#情人节这样过#</span><span class="val">0<!--  热度 --></span>
 							</div></a> <a class="heated_topic" href=""><div id="topic_4">
-								<span class="topic_info">#30岁后你会过上什么样的生活#</span><span class="val">0<!--  热度 --></span>
+								<span class="topic_info">#30岁后你会过上什么样的生活#</span><span
+									class="val">0<!--  热度 --></span>
 							</div></a> <a class="heated_topic" href=""><div id="topic_5">
-								<span class="topic_info">#晒晒你家乡的美食 都到碗里来！#</span><span class="val">0<!--  热度 --></span>
+								<span class="topic_info">#晒晒你家乡的美食 都到碗里来！#</span><span
+									class="val">0<!--  热度 --></span>
 							</div></a>
 					</div>
 					<div class="next_one">换一组 ></div>
@@ -426,37 +421,6 @@
 			$(".pageNum").val(pageNum);
 			//setTimeout('adjustHeight()', 300);
 		});
-
-		$(".comment").live('click', function() {
-			var message_id = $(this).parents("li").attr("id");
-			message_id = message_id.substr(6);
-			var comtxt = $(this).parents("li").find(".comtxt");
-			if (comtxt.css("display") == "none") {
-				show_comments(message_id, 1, 1);
-				comtxt.slideToggle();
-				$(this).parents("li").find(".pageNum").text("1");
-			} else {
-				comtxt.slideToggle();
-			}
-		}); // 查看评论
-
-		$(".repost_button").live('click', function() {
-			var message_id = $(this).parents("li").attr("id");
-			message_id = message_id.substr(6);
-			var textarea = ".comarea_" + message_id;
-			var content = $(textarea).val();
-			repost_message(content, message_id, 1);
-			$(textarea).val("");
-		}); // 转发微博
-
-		$(".comment_button").live('click', function() {
-			var message_id = $(this).parents("li").attr("id");
-			message_id = message_id.substr(6);
-			comarea = ".comarea_" + message_id;
-			content = $(comarea).val();
-			send_comment(message_id, content);
-			$(comarea).val(""); // 清空输入框
-		}); //发送评论
 
 		$("#friend_messages").click(function() {
 			show_messages(1, 1);

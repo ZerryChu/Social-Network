@@ -192,8 +192,8 @@
 											var str = "";
 											while (data.returndata[i] != undefined) {
 												str += "<tr class=\"topic_to_choose\"><td class=\"topic_id\" style=\"width: 10px\">"
-												        + data.returndata[i].id
-												        + "</td><td style=\"width: 50%;\">"
+														+ data.returndata[i].id
+														+ "</td><td style=\"width: 50%;\">"
 														+ data.returndata[i].name
 														+ "</td><td>"
 														+ data.returndata[i].read_num
@@ -228,28 +228,34 @@
 		$(this).find(".s_content").css("width", 165);
 		$(this).find(".s_content").css("height", 135);
 	});
-	
+
 	$(".s_info").mouseout(function() {
 		$(this).find(".s_content").css("margin-top", "0px");
 		$(this).css("font-weight", "normal");
 		$(this).find(".s_content").css("width", 170);
 		$(this).find(".s_content").css("height", 140);
 	});
-	
+
 	$(".topic_to_choose").live('mouseover', function() {
 		$(this).css("font-weight", "bold");
 		$(this).css("background-color", "#dee3e3");
 	});
-	
+
 	$(".topic_to_choose").live('mouseout', function() {
 		$(this).css("font-weight", "normal");
 		$(this).css("background-color", "white");
 	});
-	
-	$(".topic_to_choose").live('click', function() {
-		window.location = "topicInfo.jsp?id=" + $(this).find(".topic_id").text();
-	});
-	
+
+	$(".topic_to_choose").live(
+			'click',
+			function() {
+				window.location = "topicInfo.jsp?username="
+						+ $.query.get("username") + "&userToken="
+						+ $.query.get("userToken") + "&id="
+						+ $(this).find(".topic_id").text();
+
+			});
+
 	$(".prePage").click(function() {
 		pageNum--;
 		if (pageNum < 1) {

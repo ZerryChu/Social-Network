@@ -51,7 +51,7 @@ body {
 	display: inline-block;
 	float: left;
 	width: 20%;
-	height: 600px;
+	height: 616px;
 	border-radius: 5px 0px 0px 5px;
 	background: white;
 	border-right: 1px solid gray;

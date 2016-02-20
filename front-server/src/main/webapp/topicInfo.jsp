@@ -8,6 +8,38 @@
 </head>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <style type="text/css">
+.msg_emotion, .cmt_emotion {
+	width: 42px;
+	height: 20px;
+	background: url(face/icon.gif) no-repeat 2px 2px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 3px;
+	cursor: pointer
+}
+
+.msg_emotion:hover, .cmt_emotion:hover, .rpt_emotion:hover {
+	background-position: 2px -28px
+}
+
+.qqFace {
+	margin-top: 4px;
+}
+
+.qqFace table td {
+	padding: 0px;
+}
+
+.qqFace table td img {
+	cursor: pointer;
+	border: 1px #fff solid;
+}
+
+.qqFace table td img:hover {
+	border: 1px #0066cc solid;
+}
+
+////////////////////////
 * {
 	margin: 0px;
 	padding: 0px;
@@ -142,6 +174,15 @@ body {
 .heated_subtitle, .topic_subtitle {
 	padding: 15px 10px 20px;
 }
+
+.opt {
+	margin-left: 87%;
+}
+
+.opt button {
+	float: right;
+	margin-right: 23px;
+}
 </style>
 <body>
 	<div class="bg">
@@ -218,9 +259,11 @@ body {
 				></div>
 			<div class="comments" style="display: none;">
 				<textarea class="comarea" name="content" style="height: 60px;"></textarea>
-				<span id="cmt_emotion" class="cmt_emotion"></span>
-				<div style="margin-left: 90%;" class="comment_btn">
-					<button class="comment_button">评论</button>
+				<div class="opt">
+					<span id="cmt_emotion" class="cmt_emotion"></span>
+					<div style="margin-left: 90%;" class="comment_btn">
+						<button class="comment_button">评论</button>
+					</div>
 				</div>
 				<div class="comment_btn">
 					<ul class="otherCom">
@@ -253,7 +296,8 @@ body {
 				<form id="MsgForm" action="message/send?type=1" method="post"
 					target="upframe" enctype="multipart/form-data">
 					<textarea class="message_content" id="content" name="content"></textarea>
-					<br> <span id="msg_emotion" class="msg_emotion"></span><input
+					<br>
+					<span id="msg_emotion" class="msg_emotion"></span><input
 						type="file" style="width: 150px;" class="fileOnLoad" name="pic">
 					<!-- <select
 						class="type" name="type">
@@ -296,14 +340,14 @@ body {
 											class="like_plus">+1</i></span></span>
 								</div>
 								<div style="display: none" class="comtxt">
-									<textarea name="content" class="comarea_254"
+									<textarea name="content" class="comarea"
 										style="height: 40px; width: 498px;"></textarea>
-									<span id="cmt_emotion254" class="cmt_emotion"></span>
+									<span id="cmt_emotion" class="cmt_emotion"></span>
 									<div class="comment_btn">
 										<button class="comment_button">评论</button>
 										<button class="repost_button">转发</button>
 									</div>
-									<ul style="" id="comment_254" class="otherCom"></ul>
+									<ul style="" id="comment" class="otherCom"></ul>
 								</div>
 							</div>
 						</div></li>
@@ -442,18 +486,32 @@ body {
 														+ "</a>: <span class=\"content\">"
 														+ data.returndata[i].comment
 														+ "</span><div class=\"info\"><time datetime=\""
-													+ data.returndata[i].create_time 
-													+ "\" class=\"timeago\"></time></div></div></div></li>";
+														+ data.returndata[i].create_time 
+														+ "\" class=\"timeago\"></time></div></div></div></li>";
 												i++;
 											}
 											$(".otherCom").empty();
 											$(".otherCom").append(str);
+											$(".timeago").timeago();
 											page_num = 1;
 										});
 					}
 				});
 	}
 
+	$(function() {
+		$('#msg_emotion').qqFace({
+			assign : '#content', //给输入框赋值 
+			path : 'face/' //表情图片存放的路径 
+		});
+
+	});
+	var textarea = ".comarea";
+	var emotion = "#cmt_emotion";
+	$(emotion).qqFace({
+		assign : textarea, // 给输入框赋值
+		path : 'face/' // 表情图片存放的路径
+	});
 	showTopics();
 	showComments(1);
 

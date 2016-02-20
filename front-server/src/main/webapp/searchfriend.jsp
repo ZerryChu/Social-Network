@@ -56,25 +56,24 @@ body {
 	margin-bottom: 30px;
 }
 
-.left_content {
+.left_wrap {
 	display: inline-block;
 	float: left;
-	border-top: 2px solid snow;
-	border-left: 1px solid snow;
-	border-bottom: 2px solid snow;
-	border-right: 2px solid gray;
 	width: 20%;
-	height: 600px;
+	height: 616px;	
+}
+
+.left_content {
+	border-right: 2px solid gray;
+	height: 304px;
+	width: 96%;
 	border-radius: 5px 0px 0px 5px;
-	background: #f9f9f9;
+	background: white;
 }
 
 .right_content {
 	display: inline-block;
 	float: left;
-	border-top: 2px solid snow;
-	border-right: 1px solid snow;
-	border-bottom: 2px solid snow;
 	width: 78%;
 	height: 600px;
 	border-radius: 0px 5px 5px 0px;
@@ -160,13 +159,10 @@ body {
 
 .history {
 	height: 40%;
-	background: white;
 }
 
 .heated_search {
-	height: 40%;
-	background: white;
-	overflow: hidden;
+	
 }
 
 .left_sub_title {
@@ -174,6 +170,7 @@ body {
 	height: 40px;
 	padding: 10px;
 	border-bottom: 1px solid silver;
+	background-color: #dee3e3;
 }
 
 .heated_search_list {
@@ -189,14 +186,13 @@ body {
 .search_history_list {
 	float: left;
 	margin-left: 50px;
-	margin-top: 10px;
 }
 </style>
 
 </head>
 <body>
 	<div class="bg">
-		<img style="heigth: 100%; width: 100%;" src="images/index_bg.jpg" />	
+		<img style="heigth: 100%; width: 100%;" src="images/index_bg.jpg" />
 	</div>
 	<div class="top">
 		<ul class="top_content" style="font-weight: bold;">
@@ -206,7 +202,7 @@ body {
 				href="label.jsp?username=${param.username}&userToken=${param.userToken}">标签</a></li>
 			<li><a class="link"
 				href="topic.jsp?username=${param.username}&userToken=${param.userToken}">话题</a></li>
-			
+
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
 				<input type="text" class="search_text" /> <select
@@ -218,32 +214,37 @@ body {
 		</ul>
 	</div>
 	<div class="main">
-		<div class="left_content">
-			<div class="left_sub_title">
-				<div class="history_info">搜索历史</div>
-				<span style="margin-left: 20px; color: #006a92; font-size: 14px;"
-					class="clean">-清除</span>
-			</div>
+		<div class="left_wrap">
+			<div class="left_content">
+				<div style="border-radius: 5px 0px 0px 0px;" class="left_sub_title">
+					<div class="history_info">搜索历史</div>
+					<span style="margin-left: 20px; color: #006a92; font-size: 10px;"
+						class="clean">-清除</span>
+				</div>
 
-			<div class="history">
-				<br>
-				<ul class="search_history_list">
-					<li>111</li>
-					<li>222</li>
-					<li>aa</li>
-				</ul>
+				<div class="history">
+					<br>
+					<ul class="search_history_list">
+						<li>111</li>
+						<li>222</li>
+						<li>aa</li>
+					</ul>
+				</div>
+
 			</div>
-			<div class="left_sub_title">
-				<div style="display: inline-block; font-weight: bold;">热搜榜</div>
-				<span style="margin-left: 20px; color: #006a92; font-size: 14px;"
-					class="change">-换一组</span>
-			</div>
-			<div class="heated_search">
-				<ul class="heated_search_list">
-					<li>111</li>
-					<li>222</li>
-					<li>aa</li>
-				</ul>
+			<div style="margin-top: 8px;" class="left_content">
+				<div class="left_sub_title">
+					<div style="display: inline-block; font-weight: bold;">热搜榜</div>
+					<span style="margin-left: 20px; color: #006a92; font-size: 10px;"
+						class="change">-换一组</span>
+				</div>
+				<div class="heated_search">
+					<ul class="heated_search_list">
+						<li>111</li>
+						<li>222</li>
+						<li>aa</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div class="right_content">
@@ -280,22 +281,22 @@ body {
 	 */
 	function getSearchHistory(flag) {
 		var history;
-		if(flag == 1)
-		    history = decodeURI($.cookie('history_msg')).split(";");
+		if (flag == 1)
+			history = decodeURI($.cookie('history_msg')).split(";");
 		else
 			history = decodeURI($.cookie('history_user')).split(";");
 		var ul = $(".search_history_list");
 		ul.empty();
 		var str = "";
-		for(var i = history.length-2; i >= 0; i--) {
+		for (var i = history.length - 2; i >= 0; i--) {
 			str += "<li class=\"list_info\">" + history[i] + "</li>";
 		}
 		ul.append(str);
 	}
-	
+
 	$(document).ready(function() {
 		content = $.query.get("content");
-		
+
 		if ($.query.get("type") == 1) {
 			searchUsers(content, 1);
 		} else {
@@ -387,7 +388,7 @@ body {
 								message += "</div></li>";
 								i++;
 							}
-							if (i== 0)
+							if (i == 0)
 								pageNum--;
 							else {
 								message += "</ul>";
@@ -469,56 +470,56 @@ body {
 		}
 
 	});// 跳转上一页
-	
+
 	$(".clean").click(function() {
-		if(confirm("确认清除历史记录？")) {
+		if (confirm("确认清除历史记录？")) {
 			DelCookie("history_msg");
 			DelCookie("history_user");
 			var ul = $(".search_history_list");
 			ul.empty();
 		}
 	});
-	
+
 	//获取指定名称的cookie的值 
-	function getCookie(objName){
-        var arrStr = document.cookie.split("; "); 
-        for (var i = 0; i < arrStr.length; i++) { 
-            var temp = arrStr[i].split("="); 
-            if (temp[0] == objName) 
-                return unescape(temp[1]); 
-        } 
-    } 
-	
+	function getCookie(objName) {
+		var arrStr = document.cookie.split("; ");
+		for (var i = 0; i < arrStr.length; i++) {
+			var temp = arrStr[i].split("=");
+			if (temp[0] == objName)
+				return unescape(temp[1]);
+		}
+	}
+
 	/**
 	 * 	清楚指定cookies
 	 */
 	function DelCookie(name) {
-	    var exp = new Date();
+		var exp = new Date();
 		exp.setTime(exp.getTime() - 1000);
 		var cval = getCookie(name);
-		if(cval != null)
-			document.cookie= name + "=" + cval + ";expires=" + exp.toGMTString() + ";path=/";
+		if (cval != null)
+			document.cookie = name + "=" + cval + ";expires="
+					+ exp.toGMTString() + ";path=/";
 	}
-	
+
 	$(".list_info").live('mouseover', function() {
-				$(this).css("background-color", "snow");
-				$(this).css("color", "#eb7350");
-			});
-	
+		$(this).css("background-color", "snow");
+		$(this).css("color", "#eb7350");
+	});
+
 	$(".list_info").live('mouseout', function() {
 		$(this).css("background-color", "");
 		$(this).css("color", "#006a92");
 	});
-	
-	$(".list_info").live(
-		'click', function() {
-			if(flag == 1) {
-				searchUsers($(this).text(), 1);
-			} else {
-				searchMessages($(this).text(), 1);
-			}
-		});
-	
+
+	$(".list_info").live('click', function() {
+		if (flag == 1) {
+			searchUsers($(this).text(), 1);
+		} else {
+			searchMessages($(this).text(), 1);
+		}
+	});
+
 	$(".nextPage").click(function() {
 		pageNum++;
 

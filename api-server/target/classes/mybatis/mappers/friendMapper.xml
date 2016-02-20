@@ -147,8 +147,8 @@
 	<select id="judgeIfFriendsOrNot" resultType="Count">
 		SELECT
 			COUNT(*) as
-		number
-			FROM
+			number
+		FROM
 			friend
 		WHERE
 			user_id = #{0}

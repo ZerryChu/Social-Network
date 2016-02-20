@@ -8,6 +8,38 @@
 <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <style type="text/css">
+.msg_emotion, .cmt_emotion, .rpt_emotion {
+	width: 42px;
+	height: 20px;
+	background: url(face/icon.gif) no-repeat 2px 2px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 3px;
+	cursor: pointer
+}
+
+.msg_emotion:hover, .cmt_emotion:hover, .rpt_emotion:hover {
+	background-position: 2px -28px
+}
+
+.qqFace {
+	margin-top: 4px;
+}
+
+.qqFace table td {
+	padding: 0px;
+}
+
+.qqFace table td img {
+	cursor: pointer;
+	border: 1px #fff solid;
+}
+
+.qqFace table td img:hover {
+	border: 1px #0066cc solid;
+}
+
+////////////////////////////////////
 .usericon {
 	float: left;
 }
@@ -78,13 +110,14 @@
 }*/
 .rec_nickname {
 	display: block;
-	margin-top: 6%;
+	margin-top: -40px;
+	margin-left: 60px;
 }
 
 .master_nickname {
 	display: block;
-	margin-top: -16%;
-	margin-left: 22%;
+	margin-top: -21%;
+	margin-left: 26%;
 }
 
 .show_user_info {
@@ -125,8 +158,17 @@
 }
 
 .right_content {
-	position: absolute;
-	left: 777px;
+	 width: 100%;
+}
+
+.right_wrap {
+ 	display: inline-block;
+ 	width: 24%;
+ 	margin-left: 6px;
+}
+
+.user_friend_text, .user_message_text {
+	width: 50px;
 }
 </style>
 <body>
@@ -279,19 +321,20 @@
 				</form>
 			</div>
 		</div>
-		<div class="right_content">
-			<div id="userinfo">
-				<div id="nickname"></div>
-				<img id="user_icon" src="pic/${param.username}.jpg"
-					onerror="this.src='images/no_found.png'" onclick="" /> <br>
-				<div class="option">
-					<img class="logout" src="images/sign-out.png" title="登出"
-						alt="sign-out" style="width: 20px; height: 20px;"> <a
-						href="privateMsgList.jsp?username=${param.username}&userToken=${param.userToken}"><img
-						class="private_msg" src="images/private_message.png" title="私信"
-						alt="private_msg" style="width: 20px; height: 20px;"></a>
-				</div>
-				<!--  <ul class="user_account">
+		<div class="right_wrap">
+			<div class="right_content">
+				<div id="userinfo">
+					<div id="nickname"></div>
+					<img id="user_icon" src="pic/${param.username}.jpg"
+						onerror="this.src='images/no_found.png'" onclick="" /> <br>
+					<div class="option">
+						<img class="logout" src="images/sign-out.png" title="登出"
+							alt="sign-out" style="width: 20px; height: 20px;"> <a
+							href="privateMsgList.jsp?username=${param.username}&userToken=${param.userToken}"><img
+							class="private_msg" src="images/private_message.png" title="私信"
+							alt="private_msg" style="width: 20px; height: 20px;"></a>
+					</div>
+					<!--  <ul class="user_account">
 					<li class="user_friend_text"><span id="friends_count"
 						style="font-weight: bold;">听众：</span> <br> <span
 						id="friend_num">0</span></li>
@@ -302,56 +345,57 @@
 						style="font-weight: bold;">广播：</span> <br> <span
 						id="message_num">0</span></li>
 				</ul> -->
-				<table class="user_account" cellspacing="0" cellpadding="0">
-					<tbody>
-						<tr>
-							<td class="user_friend_text" style=""><strong
-								id="friend_num" style="display: block; font-weight: bold;">0</strong>
-								<span id="friends_count">听众</span></td>
-							<td class="user_friend_text" style=""><strong
-								id="focus_num" style="display: block; font-weight: bold;">0</strong>
-								<span id="focus_count">关注</span></td>
-							<td class="user_message_text" style=""><strong
-								id="message_num" style="display: block; font-weight: bold;">0</strong>
-								<span id="messages_count">广播</span></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div style="top: 333px;" class="right_content">
-			<div class="user_recommend">
-				<div class="sub_title">推荐用户</div>
-				<div class="user_list">
-					<div id="u1" class="user_info">
-						<img class="usericon"><span class="rec_nickname"></span>
-					</div>
-					<div id="u2" class="user_info">
-						<img class="usericon"><span class="rec_nickname"></span>
-					</div>
-					<div id="u3" class="user_info">
-						<img class="usericon"><span class="rec_nickname"></span>
-					</div>
-
-					<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
+					<table class="user_account" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td class="user_friend_text" style=""><strong
+									id="friend_num" style="display: block; font-weight: bold;">0</strong>
+									<span id="friends_count">听众</span></td>
+								<td class="user_friend_text" style=""><strong
+									id="focus_num" style="display: block; font-weight: bold;">0</strong>
+									<span id="focus_count">关注</span></td>
+								<td class="user_message_text" style=""><strong
+									id="message_num" style="display: block; font-weight: bold;">0</strong>
+									<span id="messages_count">广播</span></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
-		</div>
-		<div style="top: 604px;" class="right_content">
-			<div class="user_recommend">
-				<div class="sub_title">圈内大神</div>
-				<div class="master_list">
-					<div id="m1" class="master_info">
-						<img class="master_icon"><span class="master_nickname"></span>
-					</div>
-					<div id="m2" class="master_info">
-						<img class="master_icon"><span class="master_nickname"></span>
-					</div>
-					<div id="m3" class="master_info">
-						<img class="master_icon"><span class="master_nickname"></span>
-					</div>
+			<div style="margin-top: 5px;" class="right_content">
+				<div class="user_recommend">
+					<div class="sub_title">推荐用户</div>
+					<div class="user_list">
+						<div id="u1" class="user_info">
+							<img class="usericon"><span class="rec_nickname"></span>
+						</div>
+						<div id="u2" class="user_info">
+							<img class="usericon"><span class="rec_nickname"></span>
+						</div>
+						<div id="u3" class="user_info">
+							<img class="usericon"><span class="rec_nickname"></span>
+						</div>
 
-					<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
+						<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
+					</div>
+				</div>
+			</div>
+			<div style="margin-top: 5px;" class="right_content">
+				<div class="user_recommend">
+					<div class="sub_title">圈内大神</div>
+					<div class="master_list">
+						<div id="m1" class="master_info">
+							<img class="master_icon"><span class="master_nickname"></span>
+						</div>
+						<div id="m2" class="master_info">
+							<img class="master_icon"><span class="master_nickname"></span>
+						</div>
+						<div id="m3" class="master_info">
+							<img class="master_icon"><span class="master_nickname"></span>
+						</div>
+
+						<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
+					</div>
 				</div>
 			</div>
 		</div>
@@ -484,7 +528,7 @@
 												data.returndata[i].nickname);
 										$(id + " .rec_nickname")
 												.after(
-														"<img class=\"send_msg\" title=\"私信\" style=\"cursor: pointer; width: 5%; height: 20%; float: right; margin-right: 10%; margin-top: -6%;\" src=\"images/private_message.png\">");
+														"<img class=\"send_msg\" title=\"私信\" style=\"cursor: pointer; width: 5%; height: 20%; float: right; margin-right: 10%; margin-top: -8%;\" src=\"images/private_message.png\">");
 										rec_user_count++;
 										if (rec_user_count == 4) {
 											break;
@@ -582,44 +626,6 @@
 															+ data.returndata[i].author
 															+ "</a></div>";
 
-													if (data.returndata[i].type == 2) { // 属于转发的微博
-														var content = return_content;
-														var authorWords = content
-																.substr(
-																		0,
-																		content
-																				.indexOf(';')); // 转发者说的话
-														var id = content
-																.substr(content
-																		.indexOf(';') + 1); // 原微博id
-														message += authorWords
-																+ "<div class=\"repostInfo\">"
-																+ "</div>";
-														message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
-														+ data.returndata[i].create_time
-														+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
-																+ data.returndata[i].comment_times
-																+ "</span>)&转发(<span class=\"rpt_num\">"
-																+ data.returndata[i].repost_times
-																+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"\" onclick=\"\">(<span class=\"num\">"
-																+ data.returndata[i].support_times
-																+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
-														+ data.returndata[i].id
-														+ "\" name=\"content\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
-														+ data.returndata[i].id
-														+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
-																+ "<ul class=\"otherCom\" id=\"comment_"
-														+ data.returndata[i].id
-														+ "\" style=\"\"></div>"
-																+ "</ul>"
-																+ "</div></div></div></li>";
-														$("#weibo").append(
-																message);
-														show_sourceMessage(
-																id,
-																data.returndata[i].id,
-																1);
-													} else { // 原创微博
 														message += return_content;
 														if (data.returndata[i].pic != undefined
 																&& data.returndata[i].pic != "")
@@ -645,7 +651,7 @@
 																+ "</div></div></div></li>";
 														$("#weibo").append(
 																message);
-													}
+													
 													judgeIfSupport(
 															data.returndata[i].id,
 															0);
@@ -1175,6 +1181,7 @@
 			$(this).css("background-color", "#dee3e3");
 			$(this).find(".label_name").css("background-color", "white");
 		});
+		
 	</script>
 </body>
 </html>
