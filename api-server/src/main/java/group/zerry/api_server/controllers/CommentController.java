@@ -70,5 +70,17 @@ public class CommentController {
 		return regMsg.toString();
 	}
 
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/add_topicComment", produces = "text/html;charset=UTF-8")
+	public String addTopicComment(String username, String userToken, String comment, int topic_id) {
+		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
+		CommentStatusEnum status = commentService.insertCommentByTopicId(username, comment, topic_id);
+		regMsg.append(status.getValue());
+		regMsg.append("\"}");
+		return regMsg.toString();
+	}
+	
+	
 	// 评论点赞
 }

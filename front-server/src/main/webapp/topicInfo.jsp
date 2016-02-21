@@ -8,7 +8,7 @@
 </head>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <style type="text/css">
-.msg_emotion, .cmt_emotion {
+.topic_cmt_emotion, .msg_emotion, .cmt_emotion {
 	width: 42px;
 	height: 20px;
 	background: url(face/icon.gif) no-repeat 2px 2px;
@@ -92,8 +92,9 @@ body {
 }
 
 .top_wrap {
-	background-color: snow;
+	background-color: white;
 	height: 140px;
+	border-radius: 5px 5px 0px 0px;
 }
 
 .top_wrap_line2 {
@@ -182,6 +183,24 @@ body {
 .opt button {
 	float: right;
 	margin-right: 23px;
+	margin-bottom: -40px;
+}
+
+.topic_comarea {
+	resize: none;
+	width: 98%;
+	height: 50px;
+	overflow-y: hidden;
+	margin-left: 26px;
+	width: 93%;
+}
+
+.topicCmt_prePage, .topicCmt_nextPage {
+	cursor: pointer;
+	color: gray;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 13px;
 }
 </style>
 <body>
@@ -258,34 +277,15 @@ body {
 				style="border-bottom: 3px solid gray; margin-bottom: 30px; width: 95%; font-size: 20px; margin-left: 20px; margin-top: 20px; font-weight: bold; cursor: pointer;">讨论
 				></div>
 			<div class="comments" style="display: none;">
-				<textarea class="comarea" name="content" style="height: 60px;"></textarea>
+				<textarea class="topic_comarea" name="content" style="height: 60px;"></textarea>
 				<div class="opt">
-					<span id="cmt_emotion" class="cmt_emotion"></span>
+					<span id="topic_cmt_emotion" class="topic_cmt_emotion"></span>
 					<div style="margin-left: 90%;" class="comment_btn">
-						<button class="comment_button">评论</button>
+						<button class="topicComment_button">评论</button>
 					</div>
 				</div>
 				<div class="comment_btn">
 					<ul class="otherCom">
-						<!--  
-						<li>
-							<div class="msgBox" id="cmt_2">
-								<div class="txt">
-									<a class="comer_name" href="javascript:void(0);">zerrychu</a>:
-									<span class="content">aaa</span>
-									<div class="info">
-										<time datetime="2016-01-22 15:37:51.0" class="timeago">21
-										days ago</time>
-									</div>
-								</div>
-							</div>
-						</li>
-						-->
-						<div class="cmt_getPageNum" align="center">
-							<span class="cmt_prePage" onclick="cmt_prePage(254)">上一页</span> <span
-								class="cmt_nextPage" onclick="cmt_nextPage(254)">下一页</span> <span
-								class="pageNum">1</span>
-						</div>
 					</ul>
 				</div>
 			</div>
@@ -296,8 +296,7 @@ body {
 				<form id="MsgForm" action="message/send?type=1" method="post"
 					target="upframe" enctype="multipart/form-data">
 					<textarea class="message_content" id="content" name="content"></textarea>
-					<br>
-					<span id="msg_emotion" class="msg_emotion"></span><input
+					<br> <span id="msg_emotion" class="msg_emotion"></span><input
 						type="file" style="width: 150px;" class="fileOnLoad" name="pic">
 					<!-- <select
 						class="type" name="type">
@@ -313,82 +312,6 @@ body {
 			</div>
 			<div class="weibolist">
 				<ul id="weibo">
-					<li id="weibo_254" class="weibo_message"><div
-							class="weiboinfo">
-							<div class="userPic">
-								<a
-									href="userinfo.jsp?username=zerry&amp;targetNickname=周周&amp;userToken=6812943e-1efb-4dde-bc62-b748967443df"><img
-									onerror="javascript:this.src='images/no_found.png'"
-									src="pic/zhouzhou.jpg" title="查看用户信息"></a>
-							</div>
-							<div class="msgBox">
-								<div class="weibo_username">
-									<a
-										href="userinfo.jsp?targetNickname=周周&amp;username=zerry&amp;userToken=6812943e-1efb-4dde-bc62-b748967443df">周周</a>
-								</div>
-								jfsljfsjl
-								<div class="info">
-									<time datetime="2015-11-04 00:21:30.0" class="timeago">3
-									months ago</time>
-									<span class="num_info"><span class="comment">评论(<span
-											class="num">2</span>)&amp;转发(<span class="rpt_num">0</span>)
-									</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="support"><img
-											onclick="support(254, 1);" src="images/1.png"
-											style="width: 8%; height: 50%; display: inline;" class="zan">(<span
-											class="num">1</span>)<i
-											style="color: gray; margin-top: -35px; margin-left: 65%; display: none;"
-											class="like_plus">+1</i></span></span>
-								</div>
-								<div style="display: none" class="comtxt">
-									<textarea name="content" class="comarea"
-										style="height: 40px; width: 498px;"></textarea>
-									<span id="cmt_emotion" class="cmt_emotion"></span>
-									<div class="comment_btn">
-										<button class="comment_button">评论</button>
-										<button class="repost_button">转发</button>
-									</div>
-									<ul style="" id="comment" class="otherCom"></ul>
-								</div>
-							</div>
-						</div></li>
-					<li id="weibo_246" class="weibo_message"><div
-							class="weiboinfo">
-							<div class="userPic">
-								<a
-									href="userinfo.jsp?username=zerry&amp;targetNickname=周周&amp;userToken=6812943e-1efb-4dde-bc62-b748967443df"><img
-									onerror="javascript:this.src='images/no_found.png'"
-									src="pic/zhouzhou.jpg" title="查看用户信息"></a>
-							</div>
-							<div class="msgBox">
-								<div class="weibo_username">
-									<a
-										href="userinfo.jsp?targetNickname=周周&amp;username=zerry&amp;userToken=6812943e-1efb-4dde-bc62-b748967443df">周周</a>
-								</div>
-								考试100分！
-								<div class="info">
-									<time datetime="2015-11-03 09:55:49.0" class="timeago">3
-									months ago</time>
-									<span class="num_info"><span class="comment">评论(<span
-											class="num">0</span>)&amp;转发(<span class="rpt_num">0</span>)
-									</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="support"><img
-											onclick="support(246, 0);" src="images/2.png"
-											style="width: 8%; height: 50%; display: inline;" class="zan">(<span
-											class="num">0</span>)<i
-											style="color: gray; margin-top: -35px; margin-left: 65%; display: none;"
-											class="like_plus">+1</i></span></span>
-								</div>
-								<div style="display: none" class="comtxt">
-									<textarea name="content" class="comarea_246"
-										style="height: 40px; width: 498px;"></textarea>
-									<span id="cmt_emotion246" class="cmt_emotion"></span>
-									<div class="comment_btn">
-										<button class="comment_button">评论</button>
-										<button class="repost_button">转发</button>
-									</div>
-									<ul style="" id="comment_246" class="otherCom"></ul>
-								</div>
-							</div>
-						</div></li>
 				</ul>
 			</div>
 		</div>
@@ -437,6 +360,120 @@ body {
 <script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
 <script src="scripts/checkSubmit.js" type="text/javascript"></script>
 <script type="text/javascript">
+
+//暂无flag ：0 缓存show 1 非缓存show
+	function show_messagesByTopicId(pageNumber) {
+		$
+			.ajax({
+				type : "post",
+				url : "message/show_topicWeibo",
+				data : {
+					topic_id : $.query.get("id"),
+					page : pageNumber				
+				},
+				dataType : "json",
+				success : function(data) {
+					$
+							.each(
+									data,
+									function() {
+										$("#weibo").empty();
+										var i = 0;
+										while (data.returndata[i] != undefined) {
+											// ///////////////////////////////////////
+											var username;
+											var targetNickname = data.returndata[i].author;
+											$
+													.ajax({
+														type : "post",
+														url : "user/getTargetinfo",
+														data : {
+															nickname : targetNickname
+														},
+														async : false,
+														dataType : "json",
+														success : function(data) {
+															$
+																	.each(
+																			data,
+																			function() {
+																				username = data.returndata.username;
+																			});
+														}
+													});
+											// ////////////////////////////////////////
+
+											var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
+											var message = "<li  class=\"weibo_message\" id=\"weibo_"
+													+ data.returndata[i].id
+													+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><a href=\""
+													+ "userinfo.jsp?username="
+													+ $.query.get("username")
+													+ "&targetNickname="
+													+ data.returndata[i].author
+													+ "&userToken="
+													+ $.query.get("userToken")
+													+ "\"><img title=\"查看用户信息\" src=\""
+													+ "pic/"
+													+ username
+													+ ".jpg"
+													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"weibo_username\"><a href=\""
+													+ "userinfo.jsp?targetNickname="
+													+ data.returndata[i].author
+													+ "&username="
+													+ $.query.get("username")
+													+ "&userToken="
+													+ $.query.get("userToken")
+													+ "\">"
+													+ data.returndata[i].author
+													+ "</a></div>";
+
+												message += return_content;
+												if (data.returndata[i].pic != undefined
+														&& data.returndata[i].pic != "")
+													message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"
+															+ data.returndata[i].pic
+															+ ".jpg\">";
+												message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
+														+ data.returndata[i].create_time
+														+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
+														+ data.returndata[i].comment_times
+														+ "</span>)&转发(<span class=\"rpt_num\">"
+														+ data.returndata[i].repost_times
+														+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"images/2.png\" onclick=\"\">(<span class=\"num\">"
+														+ data.returndata[i].support_times
+														+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
+														+ data.returndata[i].id
+														+ "\" name=\"content\" style=\"width: 451px, height: 36px;\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
+														+ data.returndata[i].id
+														+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
+														+ "<ul class=\"otherCom\" id=\"comment_"
+														+ data.returndata[i].id
+														+ "\" style=\"\"></ul>"
+														+ "</div></div></div></li>";
+												$("#weibo").append(message);
+											judgeIfSupport(
+													data.returndata[i].id, 0);
+											// judgeIfSupport.js
+
+											var textarea = ".comarea_"
+													+ data.returndata[i].id;
+											var emotion = '#cmt_emotion'
+													+ data.returndata[i].id;
+											$(emotion).qqFace({
+												assign : textarea, // 给输入框赋值
+												path : 'face/' // 表情图片存放的路径
+											});
+
+											i++;
+										}
+									});
+					$(".timeago").timeago();
+					$(".msg_pic").bigic();
+				}
+			});
+	}
+
 	function showTopics() {
 		$.ajax({
 			type : "post",
@@ -462,8 +499,8 @@ body {
 		});
 	}
 
-	var pageNum = 0;
-	function showComments(page) {
+	var topic_pageNum = 1;
+	function showTopicComments(page) {
 		$
 				.ajax({
 					type : "post",
@@ -490,14 +527,121 @@ body {
 														+ "\" class=\"timeago\"></time></div></div></div></li>";
 												i++;
 											}
+											str += "<div id=\"topic_cmt_pageNum\" class=\"cmt_getPageNum\" align=\"center\"><span class=\"topicCmt_prePage\" onclick=\"topicCmt_prePage()\">上一页</span> <span class=\"topicCmt_nextPage\" onclick=\"topicCmt_nextPage()\">下一页</span></div>";
 											$(".otherCom").empty();
 											$(".otherCom").append(str);
 											$(".timeago").timeago();
-											page_num = 1;
 										});
 					}
 				});
 	}
+
+	function send_topicComment(id, comment_content) {
+		if (checkSubmit(2000)) {
+			$.ajax({
+				type : "post",
+				url : "comment/add_topicComment",
+				async : false, // 发帖同步执行
+				data : {
+					username : $.query.get("username"),
+					userToken : $.query.get("userToken"),
+					comment : comment_content,
+					topic_id : id
+				},
+				dataType : "json",
+				success : function(data) {
+					$.each(data, function() {
+						if (data.msg == 1) {
+							$(".comment_num span")
+									.text(
+											parseInt($(".comment_num").find()
+													.text(), 10) + 1); // 讨论数+1   //bug
+							showTopicComments(1);
+						} else {
+							//...tell fail
+							alert("fail");
+						}
+					});
+				}
+			});
+		}
+	}
+
+	$(".topicComment_button").click(function() {
+		var comarea = ".topic_comarea";
+		var content = $(comarea).val();
+		send_topicComment($.query.get("id"), content);
+		$(comarea).val(""); // 清空输入框
+	});
+
+	function topicCmt_prePage() {
+		if (topic_pageNum == 1)
+			return;
+		topic_pageNum--;
+		if (topic_pageNum < 1) {
+			topic_pageNum = 1;
+		}
+		showTopicComments(topic_pageNum);
+	} // 跳转上一页
+
+	function topicCmt_nextPage() {
+		topic_pageNum++;
+		showTopicComments(topic_pageNum);
+	} // 跳转下一页
+
+	/*
+	 $(".comment").live('click', function() {
+	 var message_id = $(this).parents("li").attr("id");
+	 message_id = message_id.substr(6);
+	 var comtxt = $(this).parents("li").find(".comtxt");
+	 if (comtxt.css("display") == "none") {
+	 show_comments(message_id, 1, 1);
+	 comtxt.slideToggle();
+	 $(this).parents("li").find(".pageNum").text("1");
+	 } else {
+	 comtxt.slideToggle();
+	 }
+	 }); // 查看评论
+
+	 $(".repost_button").live('click', function() {
+	 var message_id = $(this).parents("li").attr("id");
+	 message_id = message_id.substr(6);
+	 var textarea = ".comarea_" + message_id;
+	 var content = $(textarea).val();
+	 repost_message(content, message_id, 1);
+	 $(textarea).val("");
+	 }); // 转发微博
+
+	 $(".comment_button").live('click', function() {
+	 var message_id = $(this).parents("li").attr("id");
+	 message_id = message_id.substr(6);
+	 comarea = ".comarea_" + message_id;
+	 content = $(comarea).val();
+	 send_comment(message_id, content);
+	 $(comarea).val(""); // 清空输入框
+	 }); //发送评论
+	
+	 function cmt_prePage(message_id) {
+	 var target = "#comment_" + message_id;
+	 pageNum = $(target).find(".pageNum").text();
+	 if (pageNum == 1)
+	 return;
+	 pageNum--;
+	 if (pageNum < 1) {
+	 pageNum = 1;
+	 }
+	 show_comments(message_id, pageNum, 1);
+	 $(target).find(".pageNum").text(pageNum);
+	 } // 跳转上一页
+
+	 function cmt_nextPage(message_id) {
+	 var target = "#comment_" + message_id;
+	 pageNum = $(target).find(".pageNum").text();
+	 pageNum++;
+	 show_comments(message_id, pageNum, 1);
+	 $(target).find(".pageNum").text(pageNum);
+	 } // 跳转下一页
+	 */
 
 	$(function() {
 		$('#msg_emotion').qqFace({
@@ -506,14 +650,15 @@ body {
 		});
 
 	});
-	var textarea = ".comarea";
-	var emotion = "#cmt_emotion";
+	var textarea = ".topic_comarea";
+	var emotion = "#topic_cmt_emotion";
 	$(emotion).qqFace({
 		assign : textarea, // 给输入框赋值
 		path : 'face/' // 表情图片存放的路径
 	});
 	showTopics();
-	showComments(1);
+	showTopicComments(1);
+	show_messagesByTopicId(1);
 
 	$(".comment_opt").click(function() {
 		$(".comments").slideToggle();

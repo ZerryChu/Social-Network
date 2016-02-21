@@ -35,7 +35,7 @@
 		(#{message_id},
 		#{nickname}, #{content}, now())
 	</insert>
-	
+
 	<delete id="deleteComment">
 		DELETE
 		FROM
@@ -46,4 +46,14 @@
 		nickname = #{0}
 	</delete>
 
+	<insert id="insertTopicComment" parameterType="TopicComment">
+		INSERT INTO topic_comment (
+		user_id,
+		COMMENT,
+		topic_id,
+		create_time
+		)
+		VALUES
+		(#{user_id}, #{comment}, #{topic_id}, now())
+	</insert>
 </mapper>

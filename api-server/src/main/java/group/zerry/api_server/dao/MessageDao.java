@@ -21,9 +21,12 @@ public interface MessageDao {
 	
 	public Message[] getAnnouncements();
 	
+	public Message[] selectWeiboByTopicName(String name);
+
 	public void deleteMessageById(int id);
 	
 	public void addRepost(Message message);
+	
 	public void addRepostTimes(int id);
 
 	//public void addCommentTimes(int id);

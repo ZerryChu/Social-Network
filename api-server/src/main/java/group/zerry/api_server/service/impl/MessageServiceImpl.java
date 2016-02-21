@@ -11,11 +11,13 @@ import org.springframework.web.multipart.MultipartFile;
 import group.zerry.api_server.dao.CommentDao;
 import group.zerry.api_server.dao.LabelDao;
 import group.zerry.api_server.dao.MessageDao;
+import group.zerry.api_server.dao.TopicDao;
 import group.zerry.api_server.dao.UserDao;
 import group.zerry.api_server.entity.Comment;
 import group.zerry.api_server.entity.Count;
 import group.zerry.api_server.entity.Label;
 import group.zerry.api_server.entity.Message;
+import group.zerry.api_server.entity.Topic;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.interceptors.PageHelperInterceptor;
@@ -42,6 +44,9 @@ public class MessageServiceImpl implements MessageService {
 	
 	@Autowired
 	LabelDao   labelDao;
+	
+	@Autowired
+	TopicDao   topicDao;
 	
 	@Autowired
 	private BatchHandleWrapperForLabel batchHandleWrapperForLabel;
@@ -310,4 +315,24 @@ public class MessageServiceImpl implements MessageService {
 		return message;
 	}
 
+	@Override
+	public Message[] showWeiboByTopicId(int topic_id, int page) {
+		// TODO Auto-generated method stub
+		int pageSize = 2;
+		Message[] message = null;
+		try {
+			PageHelperInterceptor.startPage(page, pageSize);
+			Topic topic = topicDao.selectTopicById(topic_id);
+			message = messageDao.selectWeiboByTopicName("#" + topic.getName() + "#");
+			Page<Message> myPage = PageHelperInterceptor.endPage();
+			List<Message> list = myPage.getResult();
+			message = (Message[]) list.toArray(new Message[list.size()]);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+		return message;
+	}
+
+	
 }

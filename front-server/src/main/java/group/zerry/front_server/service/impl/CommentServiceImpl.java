@@ -47,6 +47,22 @@ public class CommentServiceImpl implements CommentService{
 		} else
 			return false;
 	}
+
+	@Override
+	public boolean insertCommentByTopicId(String username, String userToken, String comment, int topic_id) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "comment/add_topicComment";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("comment", comment);
+		paramsMap.put("topic_id", String.valueOf(topic_id));
+		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchUrlTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		if(returnMsgDto.getReturnMsg().trim().equals(CommentStatusEnum.ATCS.getValue())) {
+			return true;
+		} else
+			return false;
+	}
 	
 	//评论点赞
 }

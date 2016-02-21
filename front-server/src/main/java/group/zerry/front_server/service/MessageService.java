@@ -2,7 +2,6 @@ package group.zerry.front_server.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
 public interface MessageService {
 	
 	public boolean send_message(String username, String userToken, String content, int type, MultipartFile pic, String label);
@@ -30,4 +29,6 @@ public interface MessageService {
 	public String show_messageById(String username, String userToken, int message_id);
 	
 	public String judgeIfSupport(String username, int message_id, String userToken);
+	
+	public String showWeiboByTopicId(int topic_id, int page);
 }

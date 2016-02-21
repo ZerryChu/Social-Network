@@ -27,7 +27,7 @@
 		from message_inf
 		where id = #{id}
 	</select>
-	
+
 	<select id="getOwnMessages" parameterType="string" resultType="Message">
 		select
 		*
@@ -70,29 +70,29 @@
 		ORDER BY
 		create_time DESC
 	</select>
-	
+
 	<select id="getMessagesByLabelAndHeat" resultType="message">
 		SELECT
-			message_inf.id,
- 			type,
- 			author,
- 			content,
- 			create_time,
- 			repost_times,
- 			comment_times,
- 			support_times,
- 			pic,
- 			label_id,
- 			times
+		message_inf.id,
+		type,
+		author,
+		content,
+		create_time,
+		repost_times,
+		comment_times,
+		support_times,
+		pic,
+		label_id,
+		times
 		FROM
-			message_inf
+		message_inf
 		INNER JOIN weibo_heat
 		WHERE
-			weibo_heat.id = message_inf.id
+		weibo_heat.id = message_inf.id
 		AND message_inf.label_id = #{label_id}
 	</select>
 
-	<select id="getMessagesByLabel"  resultType="message">
+	<select id="getMessagesByLabel" resultType="message">
 		SELECT
 		*
 		FROM
@@ -101,6 +101,17 @@
 		label_id=
 		#{label_id}
 		AND create_time &lt; now()
+		ORDER BY
+		create_time DESC
+	</select>
+
+	<select id="selectWeiboByTopicName" resultType="message">
+		SELECT
+		*
+		FROM
+		message_inf
+		WHERE
+		content LIKE '#情人节这样过#%'
 		ORDER BY
 		create_time DESC
 	</select>
@@ -164,7 +175,8 @@
 		WHERE
 		content LIKE #{content}
 		AND
-		type = 1
+		type =
+		1
 	</select>
 
 	<select id="findIfSupportedByUsername" resultType="Count">
@@ -177,7 +189,7 @@
 		AND message_id =
 		#{1}
 	</select>
-	
+
 	<update id="addRepostTimes" parameterType="int">
 		UPDATE message_inf
 		SET
@@ -185,35 +197,13 @@
 		WHERE
 		id = #{id}
 	</update>
-	
-	<!--
-	<update id="addSupportTimes" parameterType="int">
-		UPDATE message_inf
-		SET support_times = support_times + 1
-		WHERE
-		id = #{id}
-	</update>
 
-	<update id="decreaseSupportTimes" parameterType="int">
-		UPDATE
-		message_inf
-		SET support_times = support_times - 1
-		WHERE
-		id = #{id}
-	</update>
-
-	<update id="addCommentTimes" parameterType="int">
-		UPDATE message_inf
-		SET comment_times = comment_times + 1
-		WHERE
-		id = #{id}
-	</update>
-
-	<update id="decreaseCommentTimes" parameterType="int">
-		UPDATE message_inf
-		SET comment_times = comment_times - 1
-		WHERE
-		id = #{id}
-	</update>
-	-->
+	<!-- <update id="addSupportTimes" parameterType="int"> UPDATE message_inf 
+		SET support_times = support_times + 1 WHERE id = #{id} </update> <update 
+		id="decreaseSupportTimes" parameterType="int"> UPDATE message_inf SET support_times 
+		= support_times - 1 WHERE id = #{id} </update> <update id="addCommentTimes" 
+		parameterType="int"> UPDATE message_inf SET comment_times = comment_times 
+		+ 1 WHERE id = #{id} </update> <update id="decreaseCommentTimes" parameterType="int"> 
+		UPDATE message_inf SET comment_times = comment_times - 1 WHERE id = #{id} 
+		</update> -->
 </mapper>

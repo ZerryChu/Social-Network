@@ -33,8 +33,9 @@ public class MessageServiceImpl implements MessageService {
 	/**
 	 * @content 图片存储位置
 	 */
-	private String path = "/root/apache-tomcat-7.0.65/webapps/weibo/message/";
-
+	//private String path = "/root/apache-tomcat-7.0.65/webapps/weibo/message/";
+	private String path = "/Users/zhuzirui/GitHub/Social-Network/front-server/src/main/webapp/message/";
+	
 	private boolean fileUpload(MultipartFile pic, UUID uuid) {
 		// 图片大小，像素等的处理
 		if (pic == null || pic.getSize() >= 5242880)
@@ -244,6 +245,16 @@ public class MessageServiceImpl implements MessageService {
 		paramsMap.put("page", String.valueOf(page));
 		// List<Message> messages = JSON.parseArray(fetchURLTool.doPost(url,
 		// paramsMap), Message.class);
+		return fetchURLTool.doPost(url, paramsMap);
+	}
+
+	@Override
+	public String showWeiboByTopicId(int topic_id, int page) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/show_topicWeibo";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("topic_id", String.valueOf(topic_id));
+		paramsMap.put("page", String.valueOf(page));
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 

@@ -399,11 +399,6 @@ input {
 	text-decoration: none;
 }
 
-.msgBox .comtxt {
-	/*display: none;*/
-	
-}
-
 .msgBox .comtxt .comarea {
 	resize: none;
 	width: 98%;

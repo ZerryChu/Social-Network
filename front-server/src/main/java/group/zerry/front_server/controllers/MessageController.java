@@ -242,5 +242,12 @@ public class MessageController {
 			return returnMsg;
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/show_topicWeibo", produces="text/html;charset=UTF-8")
+	public String showWeiboByTopicId(int topic_id, int page) {
+		String returnMsg = messageService.showWeiboByTopicId(topic_id, page);
+		return returnMsg;
+	}
 
 }

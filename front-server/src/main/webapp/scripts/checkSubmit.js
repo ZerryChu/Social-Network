@@ -14,7 +14,7 @@ function checkSubmit(time) {
         t = setTimeout('ifCanSubmit = true;', time);
         return true;
     } else {
-        alert("操作过于频繁");
+        /*alert("操作过于频繁");*/
         clearTimeout(t);
         t = setTimeout('ifCanSubmit = true;', time);
         return false;

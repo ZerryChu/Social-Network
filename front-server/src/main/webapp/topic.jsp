@@ -10,13 +10,13 @@
 <style type="text/css">
 .sort {
 	margin-top: 50px;
-	margin-left: 70px;
+	margin-left: 190px;
 	height: 380px;
 	width: 1000px;
 }
 
 .info {
-	margin-left: 77px;
+	margin-left: 196px;
 	height: auto;
 	width: 917px;
 	border-radius: 5px 5px 5px 5px;

@@ -16,6 +16,7 @@ import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import group.zerry.api_server.annotation.AuthPass;
 import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
+import group.zerry.api_server.enumtypes.TopicStatusEnum;
 import group.zerry.api_server.service.MessageService;
 import group.zerry.api_server.utils.BatchHandleWrapperForLabel;
 import group.zerry.api_server.utils.BatchHandleWrapperForMsg;
@@ -331,4 +332,18 @@ public class MessageController {
 		return regMsg.toString();
 	}
 
+	@ResponseBody
+	@RequestMapping(value="/show_topicWeibo", produces="text/html;charset=UTF-8")
+	public String showWeiboByTopicId(int topic_id, int page) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
+		Message[] messages = messageService.showWeiboByTopicId(topic_id, page);
+		if (null == messages) {
+			regMsg.append(MessageStatusEnum.MNE.getValue());
+			regMsg.append("}");
+			return regMsg.toString();
+		}
+		regMsg.append(JSON.toJSONString(messages));
+		regMsg.append("}");
+		return regMsg.toString();
+	}
 }

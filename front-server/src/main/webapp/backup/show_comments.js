@@ -75,14 +75,14 @@ function show_comments(message_id, pageNumber, _flag) {
 																	+ ",'"
 																	+ data.returndata[i].nickname
 																	+ "',"
-																	+ message_id 
+																	+ message_id
 																	+ ")\">确认</button><button onclick=\"$(this).parents('.delete_confirm').slideUp();\">取消</button></div><div class=\"txt\">"
 																	+ "<a href=\"javascript:void(0);\" class=\"comer_name\">"
 																	+ data.returndata[i].nickname
 																	+ "</a>:<span class=\"content\">"
 																	+ return_content
 																	+ "</span><div class=\"info\"><img class=\"delete_cmt\" align=\"right\" style=\"margin-right: 30px; width: 10px; height: 10px;\" src=\"images/delete.jpg\" onclick=\"show_delete_confirm("
-																	+ data.returndata[i].id 
+																	+ data.returndata[i].id
 																	+ ")\"><time class=\"timeago\" datetime=\""
 																	+ data.returndata[i].create_time
 																	+ "\"></time></span></div>"
@@ -136,7 +136,7 @@ function send_comment(message_id, comment_content) {
 										.find(".num").text();
 								$(weibo).find(".comment").find(".num").text(
 										parseInt(num, 10) + 1); // 评论数+1
-								show_comments(message_id, 1, 1);
+								showComments(1);
 							} else {
 								//...tell fail
 								alert("fail");

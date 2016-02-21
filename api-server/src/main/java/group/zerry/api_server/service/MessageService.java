@@ -31,4 +31,6 @@ public interface MessageService {
 	public MessageStatusEnum decreaseSupport(String username, int id);
 	
 	public void addLabelHeat(String username, long id, int timeoutMS);
+	
+	public Message[] showWeiboByTopicId(int topic_id, int page);
 }

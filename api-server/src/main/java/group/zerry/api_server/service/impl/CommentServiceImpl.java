@@ -10,8 +10,10 @@ import group.zerry.api_server.dao.CommentDao;
 import group.zerry.api_server.dao.MessageDao;
 import group.zerry.api_server.dao.UserDao;
 import group.zerry.api_server.entity.Comment;
+import group.zerry.api_server.entity.TopicComment;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.CommentStatusEnum;
+import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.enumtypes.UserStatusEnum;
 import group.zerry.api_server.interceptors.PageHelperInterceptor;
 import group.zerry.api_server.interceptors.PageHelperInterceptor.Page;
@@ -69,5 +71,23 @@ public class CommentServiceImpl implements CommentService {
 			return CommentStatusEnum.DCF;
 		}
 		return CommentStatusEnum.OS;
+	}
+	
+	@Override
+	public CommentStatusEnum insertCommentByTopicId(String username, String comment, int topic_id) {
+		try {
+			User user = userDao.selectUserByUsername(username);
+			TopicComment topicComment = new TopicComment();
+			topicComment.setUser_id(user.getId());
+			topicComment.setComment(comment);
+			topicComment.setTopic_id(topic_id);
+			commentDao.insertTopicComment(topicComment);
+			//addLabelHeat(username, id, 50);
+			//messageDao.addCommentTimes(id);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			return CommentStatusEnum.OF;
+		}
+		return CommentStatusEnum.ATCS;
 	}
 }

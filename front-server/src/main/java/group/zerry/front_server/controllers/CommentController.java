@@ -65,4 +65,14 @@ public class CommentController {
 			return "{\"msg\" : 0}";
 		}
 	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value = "/add_topicComment", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String addTopicComment(String username, String userToken, String comment, int topic_id) {
+		if (true == commentService.insertCommentByTopicId(username, userToken, comment, topic_id))
+			return "{\"msg\" : 1}";
+		else
+			return "{\"msg\" : 0}";
+	}
 }
