@@ -35,7 +35,9 @@
 
 .headline {
 	height: 30px;
+	border-radius: 10px 10px 0px 0px;
 	border-bottom: 1px solid #eee;
+	background-color: #c9f1ff;
 }
 
 .s_content {
@@ -134,7 +136,7 @@
 		</div>
 	</div>
 	<div class="info">
-		<div class="headline">
+		<div style="border-radius: 0px 0px 0px 0px;" class="headline">
 			<div class="search" style="float: right;">
 				<form>
 					<input type="text" class="search_text" /><input class="btn"
@@ -173,6 +175,9 @@
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 <script src="plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+	var topic = 0;
+	if ((topic = $.query.get("id")) != 0)
+		showTopics(topic, 1);
 	function showTopics(id, page) {
 		$
 				.ajax({
@@ -249,10 +254,12 @@
 	$(".topic_to_choose").live(
 			'click',
 			function() {
+				/*alert($.query.get("username")) == true? */
 				window.location = "topicInfo.jsp?username="
 						+ $.query.get("username") + "&userToken="
 						+ $.query.get("userToken") + "&id="
-						+ $(this).find(".topic_id").text();
+						+ $(this).find(".topic_id").text() + "&nickname="
+						+ $.query.get("nickname");
 
 			});
 

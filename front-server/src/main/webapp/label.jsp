@@ -158,13 +158,13 @@
 }
 
 .right_content {
-	 width: 100%;
+	width: 100%;
 }
 
 .right_wrap {
- 	display: inline-block;
- 	width: 24%;
- 	margin-left: 6px;
+	display: inline-block;
+	width: 24%;
+	margin-left: 6px;
 }
 
 .user_friend_text, .user_message_text {
@@ -181,8 +181,7 @@
 				href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
 			<li><a class="link"
 				href="label.jsp?username=${param.username}&userToken=${param.userToken}">标签</a></li>
-			<li><a class="link"
-				href="topic.jsp?username=${param.username}&userToken=${param.userToken}">话题</a></li>
+			<li><a class="link" id="topic_link" href="">话题</a></li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
 				<input type="text" class="search_text" /> <select
@@ -1182,6 +1181,11 @@
 			$(this).find(".label_name").css("background-color", "white");
 		});
 		
+		$("#topic_link").click(function() {
+			var str = "topic.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&nickname=";
+			str += $("#nickname").text();
+			window.location = str;
+		});
 	</script>
 </body>
 </html>

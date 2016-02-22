@@ -66,10 +66,6 @@ body {
 }
 
 .topic_right_content {
-	display: inline-block;
-	float: right;
-	width: 23%;
-	/*height: 1000px;*/
 	overflow: auto;
 	border-radius: 0px 5px 5px 0px;
 	background: #f9f9f9;
@@ -80,7 +76,6 @@ body {
 	display: inline-block;
 	float: left;
 	width: 75%;
-	/*height: 1000px;*/
 	overflow: auto;
 	border-radius: 5px 0px 0px 5px;
 	background: white;
@@ -127,9 +122,9 @@ body {
 	margin: 30px;
 }
 
-.otherCom {
+#topic_Com {
 	margin-left: 25px;
-	width: 700px;
+	width: 660px
 }
 
 .msgBox {
@@ -201,6 +196,16 @@ body {
 	padding-left: 10px;
 	padding-right: 10px;
 	font-size: 13px;
+}
+
+.msgBox {
+	margin-left: 0px;
+}
+
+.right_wrap {
+	display: inline-block;
+	float: right;
+	width: 24%;
 }
 </style>
 <body>
@@ -285,7 +290,7 @@ body {
 					</div>
 				</div>
 				<div class="comment_btn">
-					<ul class="otherCom">
+					<ul id="topic_Com" class="otherCom">
 					</ul>
 				</div>
 			</div>
@@ -293,7 +298,8 @@ body {
 				style="border-bottom: 3px solid gray; margin-bottom: 30px; width: 95%; font-size: 20px; margin-left: 20px; margin-top: 20px; font-weight: bold;">相关微博
 				></div>
 			<div class="post_message">
-				<form id="MsgForm" action="message/send?type=1" method="post"
+				<form id="MsgForm"
+					action="message/send_topicWeibo?topic_id=${param.id}" method="post"
 					target="upframe" enctype="multipart/form-data">
 					<textarea class="message_content" id="content" name="content"></textarea>
 					<br> <span id="msg_emotion" class="msg_emotion"></span><input
@@ -310,48 +316,70 @@ body {
 						value="分享内容">
 				</form>
 			</div>
+			<div style="display: none; padding-left: 100px;" class="send_success">发送成功...</div>
+
 			<div class="weibolist">
 				<ul id="weibo">
 				</ul>
 			</div>
 		</div>
-		<div class="topic_right_content">
-			<div id="heated_topic">
-				<div class="sub_title"
-					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">热门话题</div>
-
-
-				<div class="heated_subtitle">
-					<a class="heated_topic" href=""><div id="topic_1">
-							#情人节要这样过#</div></a> <a class="heated_topic" href=""><div id="topic_2">#那些年，让你跌破眼镜的童鞋#</div></a>
-					<a class="heated_topic" href=""><div id="topic_3">#为400助学金遭性侵的百色贫困女童#</div></a>
-					<a class="heated_topic" href=""><div id="topic_4">#30岁后你会过上什么样的生活#</div></a>
-					<a class="heated_topic" href=""><div id="topic_5">#晒晒你家乡的美食
-							都到碗里来！#</div></a>
+		<div class="right_wrap">
+			<div class="topic_right_content">
+				<div id="userinfo">
+					<div id="nickname"></div>
+					<img id="user_icon" src="pic/${param.username}.jpg"
+						onerror="this.src='images/no_found.png'" /> <br>
+					<div class="option">
+						<img class="logout" src="images/sign-out.png" title="登出"
+							alt="sign-out" style="width: 20px; height: 20px;"> <a
+							href="privateMsgList.jsp?username=${param.username}&userToken=${param.userToken}"><img
+							class="private_msg" src="images/private_message.png" title="私信"
+							alt="private_msg" style="width: 20px; height: 20px;"></a>
+					</div>
 				</div>
-				<div class="next_one">换一组 ></div>
 			</div>
-		</div>
-		<div style="margin-top: 10px;" class="topic_right_content">
-			<div id="topic_info">
-				<div class="sub_title"
-					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">话题分类</div>
-				<div class="topic_subtitle">
-					<a class="topic_classify" href=""><div id="topic_1">活动</div></a> <a
-						class="topic_classify" href=""><div id="topic_2">时尚</div></a> <a
-						class="topic_classify" href=""><div id="topic_3">体育</div></a> <a
-						class="topic_classify" href=""><div id="topic_4">国际</div></a> <a
-						class="topic_classify" href=""><div id="topic_5">空</div></a> <a
-						class="topic_classify" href=""><div id="topic_6">空</div></a> <a
-						class="topic_classify" href=""><div id="topic_7">空</div></a> <a
-						class="topic_classify" href=""><div id="topic_8">空</div></a> <a
-						class="topic_classify" href=""><div id="topic_9">空</div></a> <a
-						class="topic_classify" href=""><div id="topic_10">空</div></a>
+			<div style="margin-top: 10px;" class="topic_right_content">
+				<div id="heated_topic">
+					<div class="sub_title"
+						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">热门话题</div>
+					<div class="heated_subtitle">
+						<a class="heated_topic" href=""><div id="topic_1">
+								#情人节要这样过#</div></a> <a class="heated_topic" href=""><div id="topic_2">#那些年，让你跌破眼镜的童鞋#</div></a>
+						<a class="heated_topic" href=""><div id="topic_3">#为400助学金遭性侵的百色贫困女童#</div></a>
+						<a class="heated_topic" href=""><div id="topic_4">#30岁后你会过上什么样的生活#</div></a>
+						<a class="heated_topic" href=""><div id="topic_5">#晒晒你家乡的美食
+								都到碗里来！#</div></a>
+					</div>
+					<div class="next_one">换一组 ></div>
 				</div>
-				<div class="next_one">换一组 ></div>
+			</div>
+			<div style="margin-top: 10px;" class="topic_right_content">
+				<div id="topic_info">
+					<div class="sub_title"
+						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">话题分类</div>
+					<div class="topic_subtitle">
+						<a class="topic_classify" href="topic.jsp?id=1"><div
+								id="topic_1">活动</div></a> <a class="topic_classify"
+							href="topic.jsp?id=2"><div id="topic_2">时尚</div></a> <a
+							class="topic_classify" href="topic.jsp?id=3"><div
+								id="topic_3">体育</div></a> <a class="topic_classify"
+							href="topic.jsp?id=4"><div id="topic_4">国际</div></a> <a
+							class="topic_classify" href="topic.jsp?id=5"><div
+								id="topic_5">空</div></a> <a class="topic_classify"
+							href="topic.jsp?id=6"><div id="topic_6">空</div></a> <a
+							class="topic_classify" href="topic.jsp?id=7"><div
+								id="topic_7">空</div></a> <a class="topic_classify"
+							href="topic.jsp?id=8"><div id="topic_8">空</div></a> <a
+							class="topic_classify" href="topic.jsp?id=9"><div
+								id="topic_9">空</div></a> <a class="topic_classify"
+							href="topic.jsp?id=10"><div id="topic_10">空</div></a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	<iframe id="upframe" name="upframe" src="" style="display: none;">
+	</iframe>
 </body>
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="plugins/timeago.js" type="text/javascript"></script>
@@ -359,74 +387,84 @@ body {
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 <script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
 <script src="scripts/checkSubmit.js" type="text/javascript"></script>
+<script src="scripts/show_messages.js" type="text/javascript"></script>
+<script src="scripts/support.js" type="text/javascript"></script>
+<script src="scripts/showUserInfo.js" type="text/javascript"></script>
+<script src="scripts/jquery-bigic.js" type="text/javascript"></script>
 <script type="text/javascript">
-
-//暂无flag ：0 缓存show 1 非缓存show
-	function show_messagesByTopicId(pageNumber) {
+	//暂无flag ：0 缓存show 1 非缓存show
+	function show_messagesByTopicId(pageNumber, if_clear_oldMsg) {
+		if (true == if_clear_oldMsg)
+			$("#weibo").empty();
 		$
-			.ajax({
-				type : "post",
-				url : "message/show_topicWeibo",
-				data : {
-					topic_id : $.query.get("id"),
-					page : pageNumber				
-				},
-				dataType : "json",
-				success : function(data) {
-					$
-							.each(
-									data,
-									function() {
-										$("#weibo").empty();
-										var i = 0;
-										while (data.returndata[i] != undefined) {
-											// ///////////////////////////////////////
-											var username;
-											var targetNickname = data.returndata[i].author;
-											$
-													.ajax({
-														type : "post",
-														url : "user/getTargetinfo",
-														data : {
-															nickname : targetNickname
-														},
-														async : false,
-														dataType : "json",
-														success : function(data) {
-															$
-																	.each(
-																			data,
-																			function() {
-																				username = data.returndata.username;
-																			});
-														}
-													});
-											// ////////////////////////////////////////
+				.ajax({
+					type : "post",
+					url : "message/show_topicWeibo",
+					data : {
+						topic_id : $.query.get("id"),
+						page : pageNumber
+					},
+					dataType : "json",
+					success : function(data) {
+						$
+								.each(
+										data,
+										function() {
+											$("#weibo").empty();
+											var i = 0;
+											while (data.returndata[i] != undefined) {
+												// ///////////////////////////////////////
+												var username;
+												var targetNickname = data.returndata[i].author;
+												$
+														.ajax({
+															type : "post",
+															url : "user/getTargetinfo",
+															data : {
+																nickname : targetNickname
+															},
+															async : false,
+															dataType : "json",
+															success : function(
+																	data) {
+																$
+																		.each(
+																				data,
+																				function() {
+																					username = data.returndata.username;
+																				});
+															}
+														});
+												// ////////////////////////////////////////
 
-											var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
-											var message = "<li  class=\"weibo_message\" id=\"weibo_"
+												var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
+												var message = "<li  class=\"weibo_message\" id=\"weibo_"
 													+ data.returndata[i].id
 													+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><a href=\""
-													+ "userinfo.jsp?username="
-													+ $.query.get("username")
-													+ "&targetNickname="
-													+ data.returndata[i].author
-													+ "&userToken="
-													+ $.query.get("userToken")
-													+ "\"><img title=\"查看用户信息\" src=\""
+														+ "userinfo.jsp?username="
+														+ $.query
+																.get("username")
+														+ "&targetNickname="
+														+ data.returndata[i].author
+														+ "&userToken="
+														+ $.query
+																.get("userToken")
+														+ "\"><img title=\"查看用户信息\" src=\""
 													+ "pic/"
 													+ username
 													+ ".jpg"
 													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"weibo_username\"><a href=\""
-													+ "userinfo.jsp?targetNickname="
-													+ data.returndata[i].author
-													+ "&username="
-													+ $.query.get("username")
-													+ "&userToken="
-													+ $.query.get("userToken")
-													+ "\">"
-													+ data.returndata[i].author
-													+ "</a></div>";
+														+ "userinfo.jsp?targetNickname="
+														+ data.returndata[i].author
+														+ "&username="
+														+ $.query
+																.get("username")
+														+ "&userToken="
+														+ $.query
+																.get("userToken")
+														+ "\">"
+														+ data.returndata[i].author
+														+ "</a></div>";
 
 												message += return_content;
 												if (data.returndata[i].pic != undefined
@@ -452,26 +490,27 @@ body {
 														+ "\" style=\"\"></ul>"
 														+ "</div></div></div></li>";
 												$("#weibo").append(message);
-											judgeIfSupport(
-													data.returndata[i].id, 0);
-											// judgeIfSupport.js
+												judgeIfSupport(
+														data.returndata[i].id,
+														0);
+												// judgeIfSupport.js
 
-											var textarea = ".comarea_"
-													+ data.returndata[i].id;
-											var emotion = '#cmt_emotion'
-													+ data.returndata[i].id;
-											$(emotion).qqFace({
-												assign : textarea, // 给输入框赋值
-												path : 'face/' // 表情图片存放的路径
-											});
+												var textarea = ".comarea_"
+														+ data.returndata[i].id;
+												var emotion = '#cmt_emotion'
+														+ data.returndata[i].id;
+												$(emotion).qqFace({
+													assign : textarea, // 给输入框赋值
+													path : 'face/' // 表情图片存放的路径
+												});
 
-											i++;
-										}
-									});
-					$(".timeago").timeago();
-					$(".msg_pic").bigic();
-				}
-			});
+												i++;
+											}
+										});
+						$(".timeago").timeago();
+						$(".msg_pic").bigic();
+					}
+				});
 	}
 
 	function showTopics() {
@@ -518,10 +557,11 @@ body {
 											var i = 0;
 											var str = "";
 											while (data.returndata[i] != undefined) {
+												var return_content = replace_em(data.returndata[i].comment); // 解析QQ表情
 												str += "<li><div class=\"msgBox\"><div class=\"txt\"><a class=\"comer_name\" href=\"javascript:void(0);\">"
 														+ data.returndata[i].nickname
 														+ "</a>: <span class=\"content\">"
-														+ data.returndata[i].comment
+														+ return_content
 														+ "</span><div class=\"info\"><time datetime=\""
 														+ data.returndata[i].create_time 
 														+ "\" class=\"timeago\"></time></div></div></div></li>";
@@ -552,10 +592,9 @@ body {
 				success : function(data) {
 					$.each(data, function() {
 						if (data.msg == 1) {
-							$(".comment_num span")
-									.text(
-											parseInt($(".comment_num").find()
-													.text(), 10) + 1); // 讨论数+1   //bug
+							$(".comment_num span").text(
+									parseInt($(".comment_num").find().text(),
+											10) + 1); // 讨论数+1   //bug
 							showTopicComments(1);
 						} else {
 							//...tell fail
@@ -589,60 +628,6 @@ body {
 		showTopicComments(topic_pageNum);
 	} // 跳转下一页
 
-	/*
-	 $(".comment").live('click', function() {
-	 var message_id = $(this).parents("li").attr("id");
-	 message_id = message_id.substr(6);
-	 var comtxt = $(this).parents("li").find(".comtxt");
-	 if (comtxt.css("display") == "none") {
-	 show_comments(message_id, 1, 1);
-	 comtxt.slideToggle();
-	 $(this).parents("li").find(".pageNum").text("1");
-	 } else {
-	 comtxt.slideToggle();
-	 }
-	 }); // 查看评论
-
-	 $(".repost_button").live('click', function() {
-	 var message_id = $(this).parents("li").attr("id");
-	 message_id = message_id.substr(6);
-	 var textarea = ".comarea_" + message_id;
-	 var content = $(textarea).val();
-	 repost_message(content, message_id, 1);
-	 $(textarea).val("");
-	 }); // 转发微博
-
-	 $(".comment_button").live('click', function() {
-	 var message_id = $(this).parents("li").attr("id");
-	 message_id = message_id.substr(6);
-	 comarea = ".comarea_" + message_id;
-	 content = $(comarea).val();
-	 send_comment(message_id, content);
-	 $(comarea).val(""); // 清空输入框
-	 }); //发送评论
-	
-	 function cmt_prePage(message_id) {
-	 var target = "#comment_" + message_id;
-	 pageNum = $(target).find(".pageNum").text();
-	 if (pageNum == 1)
-	 return;
-	 pageNum--;
-	 if (pageNum < 1) {
-	 pageNum = 1;
-	 }
-	 show_comments(message_id, pageNum, 1);
-	 $(target).find(".pageNum").text(pageNum);
-	 } // 跳转上一页
-
-	 function cmt_nextPage(message_id) {
-	 var target = "#comment_" + message_id;
-	 pageNum = $(target).find(".pageNum").text();
-	 pageNum++;
-	 show_comments(message_id, pageNum, 1);
-	 $(target).find(".pageNum").text(pageNum);
-	 } // 跳转下一页
-	 */
-
 	$(function() {
 		$('#msg_emotion').qqFace({
 			assign : '#content', //给输入框赋值 
@@ -656,9 +641,22 @@ body {
 		assign : textarea, // 给输入框赋值
 		path : 'face/' // 表情图片存放的路径
 	});
+
+	$("#nickname").text($.query.get("nickname"));
 	showTopics();
 	showTopicComments(1);
-	show_messagesByTopicId(1);
+	show_messagesByTopicId(1, 1);
+
+	$("#MsgForm")
+			.submit(
+					function() {
+						var num = $("#weibo_num").text();
+						$("#weibo_num").text(parseInt(num, 10) + 1); // 广播数+1
+						$(".send_success").slideDown();
+						setTimeout(
+								'$("#MsgForm")[0].reset();$(".send_success").slideUp();show_messagesByTopicId(1, 1);',
+								2000);
+					});
 
 	$(".comment_opt").click(function() {
 		$(".comments").slideToggle();

@@ -33,4 +33,6 @@ public interface MessageService {
 	public void addLabelHeat(String username, long id, int timeoutMS);
 	
 	public Message[] showWeiboByTopicId(int topic_id, int page);
+	
+	public MessageStatusEnum send_topicMessage(String username, String content, String pic, int topic_id);
 }

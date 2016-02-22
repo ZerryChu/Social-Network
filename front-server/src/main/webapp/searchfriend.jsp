@@ -5,6 +5,8 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>搜索</title>
+
 <style type="text/css">
 * {
 	margin: 0px;
@@ -80,20 +82,6 @@ body {
 	background: white;
 }
 
-.friend_info {
-	display: inline-block;
-	float: left;
-	width: 210px;
-	height: 80px;
-	margin-left: 15px;
-	margin-right: 15px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	border: 1px solid grey;
-	background: white;
-	cursor: pointer;
-}
-
 #weibo {
 	margin-left: 50px;
 }
@@ -106,31 +94,8 @@ body {
 	background: silver;
 }
 
-.friend_info div {
-	display: inline-block;
-}
-
-.friend_name {
-	margin: 2px;
-	float: left;
-}
-
-.count_info {
-	margin: 2px;
-	float: left;
-}
-
-.friend_icon {
-	float: left;
-	margin-left: 10px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	margin-left: 10px;
-	margin-right: 10px;
-}
-
 .search_text {
-	margin-left: 500px;
+	margin-left: 400px;
 	width: 150px;
 	height: 19px;
 	background: url(images/search.jpg) no-repeat right center;
@@ -187,6 +152,55 @@ body {
 	float: left;
 	margin-left: 50px;
 }
+
+.target_info {
+	display: inline-block;
+	float: left;
+	width: 210px;
+	height: 80px;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 1px solid grey;
+	background: white;
+	cursor: pointer;
+}
+
+.friend_name {
+	margin: 2px;
+	float: left;
+	font-size: 18px;
+	font-weight: bold;
+	width: 112px;
+}
+
+.count_info {
+	margin: 2px;
+	float: left;
+}
+
+.friend_icon {
+	float: left; 
+	margin-left: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.friend_info {
+	font-size: 12px;
+}
+
+.friend_info span {
+	font-weight: bold;
+	color: #759aad;	
+}
+
+.friend_list {
+	padding-left: 24px;
+}
 </style>
 
 </head>
@@ -225,9 +239,6 @@ body {
 				<div class="history">
 					<br>
 					<ul class="search_history_list">
-						<li>111</li>
-						<li>222</li>
-						<li>aa</li>
 					</ul>
 				</div>
 
@@ -432,15 +443,17 @@ body {
 								if (index == 1) {
 									message += "<tr>";
 								}
-								message += "<td><div class=\"friend_info\" onclick=\"goTo('"
+								message += "<td><div class=\"target_info\" onclick=\"goTo('"
 										+ data.returndata[i].nickname
 										+ "')\"><img src=\"pic/" 
 														+ data.returndata[i].username 
 														+ ".jpg\" style=\"width:70px; height:70px;\" class=\"friend_icon\"><div class=\"friend_name\">"
 										+ data.returndata[i].nickname
-										+ "</div><div class=\"count_info\">粉丝：<span class=\"num\">"
+										+ "</div><div class=\"friend_info\">听众：<span class=\"num\">"
 										+ data.returndata[i].friend_num
-										+ "</span></div</div></td>";
+										+ "</span></div><div class=\"focus_info\">关注：<span class=\"num\">"
+										+ data.returndata[i].focus_num
+										+ "</span></div></div></td>";
 								i++;
 							}
 							if (i == 0)
@@ -552,6 +565,18 @@ body {
 
 	$(".top_content li").mouseout(function() {
 		this.style.background = "";
+	});
+	
+	$(".target_info").live("mouseover", function() {
+		$(this).css("width", "208");
+		$(this).css("height", "78");
+		$(this).css("border", "2px solid lightblue");
+	});
+
+	$(".target_info").live("mouseout", function() {
+		$(this).css("width", "210");
+		$(this).css("height", "80");
+		$(this).css("border", "1px solid grey");
 	});
 </script>
 </html>

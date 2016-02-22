@@ -60,7 +60,6 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		try {
 			logger.error("content: " + content);
-			System.out.println("content:" + content);
 			UUID uuid = UUID.randomUUID();
 			String url = httpTarget.getHostname() + httpTarget.getPath() + "message/send";
 			Map<String, String> paramsMap = new HashMap<String, String>();
@@ -256,6 +255,27 @@ public class MessageServiceImpl implements MessageService {
 		paramsMap.put("topic_id", String.valueOf(topic_id));
 		paramsMap.put("page", String.valueOf(page));
 		return fetchURLTool.doPost(url, paramsMap);
+	}
+
+	@Override
+	public boolean send_topicWeibo(String username, String userToken, String content, MultipartFile pic, int topic_id) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/send_topicWeibo";
+		UUID uuid = UUID.randomUUID();
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
+		paramsMap.put("userToken", userToken);
+		paramsMap.put("content", content);
+		paramsMap.put("topic_id", String.valueOf(topic_id));
+		if(!pic.isEmpty())
+			paramsMap.put("pic", uuid.toString());
+		ReturnMsgDto returnMsgDto = JSON.parseObject(fetchURLTool.doPost(url, paramsMap), ReturnMsgDto.class);
+		if (returnMsgDto.getReturnMsg().trim().equals(MessageStatusEnum.AMS.getValue())) {
+			if(!pic.isEmpty() && false == fileUpload(pic, uuid))
+				logger.error("图片上传失败");
+			return true;
+		} else
+			return false;
 	}
 
 }

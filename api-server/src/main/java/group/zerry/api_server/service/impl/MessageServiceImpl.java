@@ -334,5 +334,29 @@ public class MessageServiceImpl implements MessageService {
 		return message;
 	}
 
+	@Override
+	public MessageStatusEnum send_topicMessage(String username, String content, String pic, int topic_id) {
+		// TODO Auto-generated method stub
+		User user = userDao.selectUserByUsername(username);
+		Message message = new Message();
+		message.setAuthor(user.getNickname());
+		if(pic != null) {
+			message.setPic(pic);
+		} else {
+			message.setPic("");
+		}
+		Topic topic = topicDao.selectTopicById(topic_id);
+		content = '#' + topic.getName() + '#' + content;
+		message.setContent(content);
+		message.setType(1);
+		try {
+			messageDao.addMessage(message);
+			//userDao.addMessage_numByUsername(username); //发微博数+1
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return MessageStatusEnum.AMF;
+		}
+		return MessageStatusEnum.AMS;
+	}
 	
 }

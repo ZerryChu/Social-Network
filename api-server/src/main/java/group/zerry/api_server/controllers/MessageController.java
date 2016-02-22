@@ -346,4 +346,15 @@ public class MessageController {
 		regMsg.append("}");
 		return regMsg.toString();
 	}
+	
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value="/send_topicWeibo", produces="text/html;charset=UTF-8")
+	public String sendTopicMessage(String username, String userToken, String content, String pic, int topic_id) {
+		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
+		regMsg.append(messageService.send_topicMessage(username, content, pic, topic_id).getValue());
+		regMsg.append("\"}");
+		// logger.error(regMsg.toString());
+		return regMsg.toString();
+	}
 }

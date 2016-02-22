@@ -250,4 +250,13 @@ public class MessageController {
 		return returnMsg;
 	}
 
+	@AuthPass
+	@ResponseBody
+	@RequestMapping(value="/send_topicWeibo", produces="text/html;charset=UTF-8")
+	public String sendTopicMessage(String username, String userToken, String content, MultipartFile pic, int topic_id) {
+		if (messageService.send_topicWeibo(username, userToken, content, pic, topic_id))
+			return "{\"msg\" : 1}";
+		else
+			return "{\"msg\" : 0}";
+	}
 }

@@ -103,7 +103,7 @@ body {
 }
 
 .friend_icon {
-	float: left; //
+	float: left; 
 	margin-left: 10px;
 	margin-top: 5px;
 	margin-bottom: 5px;

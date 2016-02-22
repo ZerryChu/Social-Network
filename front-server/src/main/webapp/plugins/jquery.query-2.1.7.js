@@ -90,7 +90,7 @@ new function(settings) {
                 val = parseInt(val, 10);
             }
             
-            val = (!val && val !== 0) ? true : val;
+            val = (!val && val !== 0) ? "" : val;  /*  没有值给""  */
             
             if (val !== false && val !== true && typeof val != 'number')
               val = val;
