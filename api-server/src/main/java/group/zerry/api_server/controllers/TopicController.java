@@ -66,5 +66,20 @@ public class TopicController {
 		regMsg.append("}");
 		return regMsg.toString();
 	}
+	
 
+	@ResponseBody
+	@RequestMapping(value = "/show_topicByName", produces = "text/html;charset=UTF-8")
+	public String showTopicByName(String name) {
+		StringBuilder regMsg = new StringBuilder("{\"returndata\": ");
+		Topic topic = topicService.showTopicByName(name);
+		if (null == topic) {
+			regMsg.append(TopicStatusEnum.TNE.getValue());
+			regMsg.append("}");
+			return regMsg.toString();
+		}
+		regMsg.append(JSON.toJSONString(topic));
+		regMsg.append("}");
+		return regMsg.toString();
+	}
 }

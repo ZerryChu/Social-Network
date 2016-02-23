@@ -111,7 +111,7 @@
 		FROM
 		message_inf
 		WHERE
-		content LIKE '#情人节这样过#%'
+		content LIKE #{name}
 		ORDER BY
 		create_time DESC
 	</select>

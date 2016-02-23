@@ -9,4 +9,7 @@ public interface TopicService {
 	public Topic showTopicById(int id);
 	
 	public TopicComment[] showCommentsById(int id, int page);
+	
+	public Topic showTopicByName(String name);
+
 }

@@ -49,4 +49,12 @@ public class TopicServiceImpl implements TopicService {
 		return topicComments;
 	}
 
+	@Override
+	public Topic showTopicByName(String name) {
+		// TODO Auto-generated method stub
+		name = name.substring(1, name.length()-1);
+		System.out.println(name);
+		return topicDao.selectTopicByName(name);
+	}
+
 }

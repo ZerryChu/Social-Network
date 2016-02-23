@@ -31,4 +31,10 @@ public class TopicController {
 	public String showCommentsByTopicId(int id, int page) {
 		return topicService.showCommentsByTopicId(id, page);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/show_topicByName", produces = "text/html;charset=UTF-8")
+	public String showTopicByName(String name) {
+		return topicService.showTopicByName(name);
+	}
 }

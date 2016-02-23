@@ -189,11 +189,11 @@ body {
 	margin-right: 10px;
 }
 
-.friend_info {
+.friend_info, .focus_info {
 	font-size: 12px;
 }
 
-.friend_info span {
+.friend_info span, .focus_info span {
 	font-weight: bold;
 	color: #759aad;	
 }

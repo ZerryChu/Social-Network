@@ -11,4 +11,5 @@ public interface TopicDao {
 	
 	TopicComment[] selectCommentsByTopicId(int id);
 	
+	Topic selectTopicByName(String name);
 }

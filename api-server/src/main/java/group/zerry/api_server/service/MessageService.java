@@ -1,6 +1,7 @@
 package group.zerry.api_server.service;
 
 import group.zerry.api_server.entity.Message;
+import group.zerry.api_server.entity.Topic;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 
 public interface MessageService {
@@ -35,4 +36,5 @@ public interface MessageService {
 	public Message[] showWeiboByTopicId(int topic_id, int page);
 	
 	public MessageStatusEnum send_topicMessage(String username, String content, String pic, int topic_id);
+	
 }

@@ -322,6 +322,8 @@ body {
 				<ul id="weibo">
 				</ul>
 			</div>
+			<div class="scroll_helper"
+				style="padding: 3px; padding-left: 42%; font-weight: bold; color: gray; background-color: lightgray;">下滑加载更多...</div>
 		</div>
 		<div class="right_wrap">
 			<div class="topic_right_content">
@@ -343,11 +345,11 @@ body {
 					<div class="sub_title"
 						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">热门话题</div>
 					<div class="heated_subtitle">
-						<a class="heated_topic" href=""><div id="topic_1">
-								#情人节要这样过#</div></a> <a class="heated_topic" href=""><div id="topic_2">#那些年，让你跌破眼镜的童鞋#</div></a>
-						<a class="heated_topic" href=""><div id="topic_3">#为400助学金遭性侵的百色贫困女童#</div></a>
-						<a class="heated_topic" href=""><div id="topic_4">#30岁后你会过上什么样的生活#</div></a>
-						<a class="heated_topic" href=""><div id="topic_5">#晒晒你家乡的美食
+						<a class="heated_topic"><div id="topic_1">#情人节要这样过#</div></a> <a
+							class="heated_topic"><div id="topic_2">#那些年，让你跌破眼镜的童鞋#</div></a>
+						<a class="heated_topic"><div id="topic_3">#为400助学金遭性侵的百色贫困女童#</div></a>
+						<a class="heated_topic"><div id="topic_4">#30岁后你会过上什么样的生活#</div></a>
+						<a class="heated_topic"><div id="topic_5">#晒晒你家乡的美食
 								都到碗里来！#</div></a>
 					</div>
 					<div class="next_one">换一组 ></div>
@@ -358,26 +360,35 @@ body {
 					<div class="sub_title"
 						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">话题分类</div>
 					<div class="topic_subtitle">
-						<a class="topic_classify" href="topic.jsp?id=1"><div
+						<a class="topic_classify"
+							href="topic.jsp?id=1&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
 								id="topic_1">活动</div></a> <a class="topic_classify"
-							href="topic.jsp?id=2"><div id="topic_2">时尚</div></a> <a
-							class="topic_classify" href="topic.jsp?id=3"><div
+							href="topic.jsp?id=2&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
+								id="topic_2">时尚</div></a> <a class="topic_classify"
+							href="topic.jsp?id=3&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
 								id="topic_3">体育</div></a> <a class="topic_classify"
-							href="topic.jsp?id=4"><div id="topic_4">国际</div></a> <a
-							class="topic_classify" href="topic.jsp?id=5"><div
+							href="topic.jsp?id=4&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
+								id="topic_4">国际</div></a> <a class="topic_classify"
+							href="topic.jsp?id=5&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
 								id="topic_5">空</div></a> <a class="topic_classify"
-							href="topic.jsp?id=6"><div id="topic_6">空</div></a> <a
-							class="topic_classify" href="topic.jsp?id=7"><div
+							href="topic.jsp?id=6&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
+								id="topic_6">空</div></a> <a class="topic_classify"
+							href="topic.jsp?id=7&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
 								id="topic_7">空</div></a> <a class="topic_classify"
-							href="topic.jsp?id=8"><div id="topic_8">空</div></a> <a
-							class="topic_classify" href="topic.jsp?id=9"><div
+							href="topic.jsp?id=8&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
+								id="topic_8">空</div></a> <a class="topic_classify"
+							href="topic.jsp?id=9&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
 								id="topic_9">空</div></a> <a class="topic_classify"
-							href="topic.jsp?id=10"><div id="topic_10">空</div></a>
+							href="topic.jsp?id=10&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
+								id="topic_10">空</div></a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<a id="gtotop" class="w-top" style="visibility: visible; opacity: 1;"
+		hidefocus="true" href="#" title="回到顶部">回到顶部</a>
+
 	<iframe id="upframe" name="upframe" src="" style="display: none;">
 	</iframe>
 </body>
@@ -392,6 +403,18 @@ body {
 <script src="scripts/showUserInfo.js" type="text/javascript"></script>
 <script src="scripts/jquery-bigic.js" type="text/javascript"></script>
 <script type="text/javascript">
+	var pageNumber = 1;
+	var off = false;
+	$(document).scroll(
+			function() {
+				if (!off
+						&& ($(window).height() + $(window).scrollTop()) >= $(
+								"html").height()) {
+					pageNumber++;
+					setTimeout("show_messagesByTopicId(pageNumber, false);",
+							1000);
+				}
+			});
 	//暂无flag ：0 缓存show 1 非缓存show
 	function show_messagesByTopicId(pageNumber, if_clear_oldMsg) {
 		if (true == if_clear_oldMsg)
@@ -410,8 +433,12 @@ body {
 								.each(
 										data,
 										function() {
-											$("#weibo").empty();
 											var i = 0;
+											if (data.returndata[i] == undefined
+													|| data.returndata[i] == "") {
+												$(".scroll_helper").hide();
+												off = true;
+											}
 											while (data.returndata[i] != undefined) {
 												// ///////////////////////////////////////
 												var username;
@@ -606,6 +633,31 @@ body {
 		}
 	}
 
+	function getTopicInfo(name) {
+		$.ajax({
+			type : "post",
+			url : "topic/show_topicByName",
+			data : {
+				name : name
+			},
+			dataType : "json",
+			success : function(data) {
+				$.each(data, function() {
+					if (data.returndata.id != undefined) {
+						window.location = "topicInfo.jsp?username="
+								+ $.query.get("username") + "&userToken="
+								+ $.query.get("userToken") + "&nickname="
+								+ $.query.get("nickname") + "&id="
+								+ data.returndata.id;
+					} else {
+						//...tell fail
+						alert("fail");
+					}
+				});
+			}
+		});
+	}
+
 	$(".topicComment_button").click(function() {
 		var comarea = ".topic_comarea";
 		var content = $(comarea).val();
@@ -645,7 +697,7 @@ body {
 	$("#nickname").text($.query.get("nickname"));
 	showTopics();
 	showTopicComments(1);
-	show_messagesByTopicId(1, 1);
+	show_messagesByTopicId(1, true);
 
 	$("#MsgForm")
 			.submit(
@@ -654,9 +706,13 @@ body {
 						$("#weibo_num").text(parseInt(num, 10) + 1); // 广播数+1
 						$(".send_success").slideDown();
 						setTimeout(
-								'$("#MsgForm")[0].reset();$(".send_success").slideUp();show_messagesByTopicId(1, 1);',
+								'$("#MsgForm")[0].reset();$(".send_success").slideUp();show_messagesByTopicId(1, true);',
 								2000);
 					});
+
+	$(".heated_topic").live("click", function() {
+		getTopicInfo($(this).text());
+	});
 
 	$(".comment_opt").click(function() {
 		$(".comments").slideToggle();

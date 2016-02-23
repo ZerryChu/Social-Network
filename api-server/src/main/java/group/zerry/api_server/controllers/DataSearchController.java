@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 
+import group.zerry.api_server.dao.UserDao;
 import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.entity.Target;
 import group.zerry.api_server.entity.User;
@@ -31,11 +32,14 @@ public class DataSearchController {
 
 	@Autowired
 	SearchService searchService;
+	
+	@Autowired
+	UserDao       userDao;
 
 	Logger logger = Logger.getLogger(DataSearchController.class);
 
 	private static SimplePropertyPreFilter userFilter = new SimplePropertyPreFilter(User.class, "nickname", "username",
-			"age", "type", "habit", "friend_num", "message_num");
+			"age", "type", "habit", "friend_num", "focus_num", "message_num");
 
 	private static SimplePropertyPreFilter messageFilter = new SimplePropertyPreFilter(Message.class, "id", "author",
 			"content", "create_time", "repost_times", "comment_times", "support_times");
@@ -56,6 +60,13 @@ public class DataSearchController {
 			regMsg.append(UserStatusEnum.UNE.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
+		}
+		for (int i = 0;i < users.length; i++) {
+			int id = users[i].getId();
+			int user_fans_num = userDao.getUserFansNumById(id);
+			int user_focus_num = userDao.getUserFocusNumById(id);
+			users[i].setFocus_num(user_focus_num);
+			users[i].setFriend_num(user_fans_num);
 		}
 		regMsg.append(JSON.toJSONString(users, userFilter));
 		regMsg.append("}");

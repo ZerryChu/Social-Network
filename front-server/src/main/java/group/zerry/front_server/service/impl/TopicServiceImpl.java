@@ -47,6 +47,15 @@ public class TopicServiceImpl implements TopicService {
 		paramsMap.put("page", String.valueOf(page));
 		return fetchURlTool.doPost(url, paramsMap);	
 	}
+
+	@Override
+	public String showTopicByName(String name) {
+		// TODO Auto-generated method stub
+		String url = httpTarget.getHostname() + httpTarget.getPath() + "topic/show_topicByName";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("name", name);
+		return fetchURlTool.doPost(url, paramsMap);	
+	}
 	
 	
 }

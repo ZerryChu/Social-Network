@@ -28,7 +28,6 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public User[] searchUsersLikeNickname(String nickname) {
 		// TODO Auto-generated method stub
-		System.out.println("nickname: " + nickname);
 		nickname = '%' + nickname + '%';
 		return userDao.searchUsersLikeNickname(nickname);
 	}

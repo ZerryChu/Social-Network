@@ -37,4 +37,12 @@
 			create_time DESC
  	</select>
  	
+ 	<select id="selectTopicByName" resultType="Topic">
+ 		SELECT
+			*
+		from
+			topic_inf
+		where
+			name = #{name}	
+ 	</select>
 </mapper>

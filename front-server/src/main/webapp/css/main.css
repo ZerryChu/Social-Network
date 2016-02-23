@@ -130,6 +130,7 @@ body{
 	color: #006a92;
 	padding-top: 50px;
 	width: 92%;
+	cursor: pointer;
 }
 
 .heated_topic {

@@ -113,6 +113,10 @@
 	width: 24%;
 	margin-left: 6px;
 }
+
+#topic_link {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -125,7 +129,7 @@
 				href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
 			<li><a class="link"
 				href="label.jsp?username=${param.username}&userToken=${param.userToken}">标签</a></li>
-			<li><a class="link" id="topic_link" href="">话题</a></li>
+			<li><a class="link" id="topic_link">话题</a></li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
 				<input type="text" class="search_text" /> <select
@@ -234,17 +238,17 @@
 						style="display: inline-block; float: right; font-size: 12px; color: red;"
 						class="heat">阅读</div>
 					<div class="heated_subtitle">
-						<a class="heated_topic" href=""><div id="topic_1">
+						<a class="heated_topic"><div id="topic_1">
 								<span class="topic_info">#新一轮雾霾来袭 你还能自强不吸吗#</span><span
 									class="val">0</span>
-							</div></a> <a class="heated_topic" href=""><div id="topic_2">
+							</div></a> <a class="heated_topic"><div id="topic_2">
 								<span class="topic_info">#那些年，让你跌破眼镜的童鞋#</span><span class="val">0<!--  热度 --></span>
-							</div></a> <a class="heated_topic" href=""><div id="topic_3">
-								<span class="topic_info">#情人节这样过#</span><span class="val">0<!--  热度 --></span>
-							</div></a> <a class="heated_topic" href=""><div id="topic_4">
+							</div></a> <a class="heated_topic"><div id="topic_3">
+								<span class="topic_info">#情人节要这样过#</span><span class="val">0<!--  热度 --></span>
+							</div></a> <a class="heated_topic"><div id="topic_4">
 								<span class="topic_info">#30岁后你会过上什么样的生活#</span><span
 									class="val">0<!--  热度 --></span>
-							</div></a> <a class="heated_topic" href=""><div id="topic_5">
+							</div></a> <a class="heated_topic"><div id="topic_5">
 								<span class="topic_info">#晒晒你家乡的美食 都到碗里来！#</span><span
 									class="val">0<!--  热度 --></span>
 							</div></a>
@@ -523,12 +527,44 @@
 			$(this).css("color", "#006a92");
 			$(this).css("font-weight", "normal");
 		});
-		
-		$("#topic_link").click(function() {
-			var str = "topic.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&nickname=";
-			str += $("#nickname").text();
-			window.location = str;
+
+		$("#topic_link").click(
+				function() {
+					var str = "topic.jsp?username=" + $.query.get("username")
+							+ "&userToken=" + $.query.get("userToken")
+							+ "&nickname=";
+					str += $("#nickname").text();
+					window.location = str;
+				});
+
+		$(".heated_topic").live("click", function() {
+			getTopicInfo($(this).find(".topic_info").text());
 		});
-</script>
+
+		function getTopicInfo(name) {
+			$.ajax({
+				type : "post",
+				url : "topic/show_topicByName",
+				data : {
+					name : name
+				},
+				dataType : "json",
+				success : function(data) {
+					$.each(data, function() {
+						if (data.returndata.id != undefined) {
+							window.location = "topicInfo.jsp?username="
+									+ $.query.get("username") + "&userToken="
+									+ $.query.get("userToken") + "&nickname="
+									+ $.query.get("nickname") + "&id="
+									+ data.returndata.id;
+						} else {
+							//...tell fail
+							alert("fail");
+						}
+					});
+				}
+			});
+		}
+	</script>
 </body>
 </html>

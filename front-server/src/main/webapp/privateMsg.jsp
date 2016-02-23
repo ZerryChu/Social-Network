@@ -3,10 +3,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="css/main.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>私信</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <style type="text/css">
+#topic_link {
+	cursor: pointer;
+}
+
 .mainPanel {
 	margin: 0px auto;
 	margin-top: 50px;
@@ -60,9 +64,13 @@
 	background-color: #e4e4e4;
 }
 
-.content {
+.content, .target_content {
 	margin-top: 5%;
 	margin-bottom: 5%;
+}
+
+.target_content {
+
 }
 
 .target_msg, .user_msg {
@@ -74,7 +82,7 @@
 }
 
 .target_msg {
-	margin-left: 97px;
+	margin-left: 82px;
 }
 
 .user_msg {
@@ -133,7 +141,8 @@ time {
 				href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
 			<li><a class="link"
 				href="label.jsp?username=${param.username}&userToken=${param.userToken}">标签</a></li>
-			<!--  at    好友    私信 -->
+			<li><a class="link" id="topic_link">话题</a></li>
+			
 			<form action="" method="post">
 				<input type="text" class="search_text" /> <select
 					class="search_type" name="type">
@@ -145,38 +154,6 @@ time {
 	</div>
 	<div class="mainPanel">
 		<div class="msg_list">
-		    <%--
-			<div class="target_msg">
-				<img class="user_icon">
-				<div class="name">张星星</div>
-				<br>
-				<div class="msg">一二三四五六七八九十</div>
-			</div>
-			<div class="user_msg">
-				<img class="user_icon">
-				<div class="name">我</div>
-				<br>
-				<div class="msg">一二三四五六七八九十</div>
-			</div>
-			<div class="user_msg">
-				<img class="user_icon">
-				<div class="name">我</div>
-				<br>
-				<div class="msg">一二三四五六七八九十</div>
-			</div>
-			<div class="target_msg">
-				<img class="user_icon">
-				<div class="name">张星星</div>
-				<br>
-				<div class="msg">一二三四五六七八九十</div>
-			</div>
-			<div class="user_msg">
-				<img class="user_icon">
-				<div class="name">我</div>
-				<br>
-				<div class="msg">一二三四五六七八九十</div>
-			</div>
-			--%>
 		</div>
 		<div class="send_msg">
 			<form class="send_form" method="post">
@@ -275,7 +252,7 @@ time {
 						str += data.returndata[i].time;
 						str += "\"></time></div></div>";
 					} else {
-						str += "<div class=\"content\"><img style=\"float: right; width: 7%; height: 7%;\" src=\"images/right.png\"><div class=\"target_msg\"><img class=\"user_icon\" src=\"pic/" + $.query.get("targetUsername") + ".jpg\">";
+						str += "<div class=\"target_content\"><img style=\"float: right; width: 7%; height: 7%;\" src=\"images/right.png\"><div class=\"target_msg\"><img class=\"user_icon\" src=\"pic/" + $.query.get("targetUsername") + ".jpg\">";
 						str += "<div class=\"name\">";
 						str += $.query.get("targetNickname");
 						str += "</div><br><div class=\"msg\">";
@@ -293,8 +270,13 @@ time {
 			}
 		});
 	}
-	//div.scrollTop = div.scrollHeight;
-
+	
+	$("#topic_link").click(function() {
+		var str = "topic.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&nickname=";
+		str += $("#nickname").text();
+		window.location = str;
+	});
+	
 	/////////////      表情包        /////////////////////////////////////////////////////////////
 	$(function() {
 		$('#msg_emotion').qqFace({

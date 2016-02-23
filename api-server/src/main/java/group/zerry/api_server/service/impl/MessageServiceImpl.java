@@ -318,12 +318,12 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public Message[] showWeiboByTopicId(int topic_id, int page) {
 		// TODO Auto-generated method stub
-		int pageSize = 2;
+		Topic topic = topicDao.selectTopicById(topic_id);
+		int pageSize = 3;
 		Message[] message = null;
 		try {
 			PageHelperInterceptor.startPage(page, pageSize);
-			Topic topic = topicDao.selectTopicById(topic_id);
-			message = messageDao.selectWeiboByTopicName("#" + topic.getName() + "#");
+			message = messageDao.selectWeiboByTopicName("#" + topic.getName() + "#%");
 			Page<Message> myPage = PageHelperInterceptor.endPage();
 			List<Message> list = myPage.getResult();
 			message = (Message[]) list.toArray(new Message[list.size()]);
