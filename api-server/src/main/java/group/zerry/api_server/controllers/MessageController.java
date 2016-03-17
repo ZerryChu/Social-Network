@@ -157,23 +157,15 @@ public class MessageController {
 	public String show_messageByLabelAndHeat(String username, String userToken, int label_id, int page) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
-		// Message[] messagesInUse;
 		try {
 			messages = messageService.showMessagesByLabelAndHeat(label_id, page);
-			/*
-			 * messagesInUse = new Message[10]; int index = 0; for (int i = page
-			 * * 10; i < (page + 1) * 10; i++) { if(i + 1 <= messages.length)
-			 * messagesInUse[index++] = messages[i]; else break; }
-			 */
 		} catch (Exception e) {
 			regMsg.append(MessageStatusEnum.SMF);
 			regMsg.append("}");
 			return regMsg.toString();
 		}
-		// regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
 		regMsg.append(JSON.toJSONString(messages, messageFilter));
 		regMsg.append("}");
-		// logger.error(regMsg.toString());
 		return regMsg.toString();
 
 	}
@@ -187,8 +179,7 @@ public class MessageController {
 		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		logger.error(regMsg.toString());
-		batchHandleForMsg.add(id, 50);
-		messageService.addLabelHeat(username, id, 50);
+		//batchHandleForMsg.add(id, 50);
 		return regMsg.toString();
 	}
 
@@ -198,8 +189,7 @@ public class MessageController {
 	public String comment_message(String username, String userToken, int id, String content) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		MessageStatusEnum status = messageService.addComment(username, content, id);
-		batchHandleForMsg.add(id, 50);
-		messageService.addLabelHeat(username, id, 50);
+		//batchHandleForMsg.add(id, 50);
 		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		return regMsg.toString();
@@ -218,21 +208,7 @@ public class MessageController {
 	public String support_message(String username, String userToken, int id) {
 		StringBuilder regMsg = new StringBuilder("{\"returnmsg\":\"");
 		MessageStatusEnum status = messageService.addSupport(username, id);
-		batchHandleForMsg.add(id, 50);
-		messageService.addLabelHeat(username, id, 50);
-
-		/*
-		if(status == MessageStatusEnum.SS) {
-			String str_id = String.valueOf(id);
-			int num; // 热度
-			if(cacheTools.get(str_id) == null) {
-				cacheTools.put(str_id, "1");	
-			} else {
-				num = Integer.valueOf(cacheTools.get(str_id));
-				cacheTools.put(str_id, String.valueOf(num + 1));
-			}
-		}
-		*/
+		//batchHandleForMsg.add(id, 50);
 		regMsg.append(status.getValue());
 		regMsg.append("\"}");
 		return regMsg.toString();
@@ -266,20 +242,13 @@ public class MessageController {
 	public String show_userOwnMessages(String nickname, int page) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
-		// Message[] messagesInUse;
 		try {
 			messages = messageService.show_ownMessages(nickname, page);
-			/*
-			 * messagesInUse = new Message[10]; int index = 0; for (int i = page
-			 * * 10; i < (page + 1) * 10; i++) { if(i + 1 <= messages.length)
-			 * messagesInUse[index++] = messages[i]; else break; }
-			 */
 		} catch (Exception e) {
 			regMsg.append(MessageStatusEnum.SMF.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
 		}
-		// regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
 		regMsg.append(JSON.toJSONString(messages, messageFilter));
 		regMsg.append("}");
 		logger.error(regMsg.toString());
@@ -291,20 +260,13 @@ public class MessageController {
 	public String show_announcements() {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		Message[] messages;
-		// Message[] messagesInUse;
 		try {
 			messages = messageService.show_announcements();
-			/*
-			 * messagesInUse = new Message[10]; int index = 0; for (int i = page
-			 * * 10; i < (page + 1) * 10; i++) { if(i + 1 <= messages.length)
-			 * messagesInUse[index++] = messages[i]; else break; }
-			 */
 		} catch (Exception e) {
 			regMsg.append(MessageStatusEnum.SMF.getValue());
 			regMsg.append("}");
 			return regMsg.toString();
 		}
-		// regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
 		regMsg.append(JSON.toJSONString(messages, messageFilter));
 		regMsg.append("}");
 		logger.error(regMsg.toString());

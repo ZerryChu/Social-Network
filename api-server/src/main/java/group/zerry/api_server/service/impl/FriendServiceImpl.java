@@ -1,6 +1,5 @@
 package group.zerry.api_server.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import group.zerry.api_server.dao.FriendDao;
 import group.zerry.api_server.dao.UserDao;
-import group.zerry.api_server.entity.Count;
-import group.zerry.api_server.entity.Friend;
-import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.entity.Target;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.interceptors.PageHelperInterceptor;
@@ -27,6 +23,7 @@ public class FriendServiceImpl implements FriendService {
 
 	@Autowired
 	UserDao    userDao;
+	
 	@Autowired
 	CacheTools cacheTools;
 
@@ -41,7 +38,8 @@ public class FriendServiceImpl implements FriendService {
 	@Override
 	public User[] showFriendsByGroupname(String username, String group) {
 		// TODO Auto-generated method stub
-		/*try {
+		/*  显示在线好友
+		try {
 			User[] friends = friendDao.selectFriendsByGroupname(username, group);
 			ArrayList<String> friendsOnline = new ArrayList<String>();
 			for (int i = 0; i < friends.length; i++) {
@@ -73,11 +71,11 @@ public class FriendServiceImpl implements FriendService {
 
 	// 判断双方是否好友关系
 	@Override
-	public boolean judgeIfFriendsOrNot(String username, String targetUsername) {
+	public boolean judgeIfFocusOrNot(String username, String targetUsername) {
 		// TODO Auto-generated method stub
 		User user = userDao.selectUserByUsername(username);
 		User target = userDao.selectUserByUsername(targetUsername);
-		if(friendDao.judgeIfFriendsOrNot(user.getId(), target.getId()).getNumber() > 0)
+		if(friendDao.judgeIfFocusOrNot(user.getId(), target.getId()).getNumber() > 0)
 			return true;
 		else
 			return false;
@@ -97,9 +95,10 @@ public class FriendServiceImpl implements FriendService {
 		List<Target> list = myPage.getResult();
 		favorites = (Target[]) list.toArray(new Target[list.size()]);
 		for (int i = 0;i < favorites.length; i++) {
-			Integer integer = userDao.getUserFansNumById(favorites[i].getId());
+			int target_id = favorites[i].getId();
+			Integer integer = userDao.getUserFansNumById(target_id);
 			favorites[i].setFriend_num(integer);
-			integer = userDao.getUserFocusNumById(favorites[i].getId());
+			integer = userDao.getUserFocusNumById(target_id);
 			favorites[i].setFocus_num(integer);
 		}
 		return favorites;
@@ -119,9 +118,10 @@ public class FriendServiceImpl implements FriendService {
 		List<Target> list = myPage.getResult();
 		followers = (Target[]) list.toArray(new Target[list.size()]);
 		for (int i = 0;i < followers.length; i++) {
-			Integer integer = userDao.getUserFansNumById(followers[i].getId());
+			int target_id = followers[i].getId();
+			Integer integer = userDao.getUserFansNumById(target_id);
 			followers[i].setFriend_num(integer);
-			integer = userDao.getUserFocusNumById(followers[i].getId());
+			integer = userDao.getUserFocusNumById(target_id);
 			followers[i].setFocus_num(integer);
 		}
 		return followers;

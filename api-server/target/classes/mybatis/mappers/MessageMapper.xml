@@ -23,36 +23,36 @@
 
 	<select id="getMessageById" resultType="Message">
 		select
-		*
+			*
 		from message_inf
 		where id = #{id}
 	</select>
 
 	<select id="getOwnMessages" parameterType="string" resultType="Message">
 		select
-		*
+			*
 		from message_inf
-		where author = #{nickname}
-		ORDER BY
-		create_time
-		DESC
+			where author = #{nickname}
+			ORDER BY
+				create_time
+			DESC
 	</select>
 
 	<select id="getAnnouncements" resultType="Message">
 		SELECT
-		message_inf.id as
-		id,
-		author,
-		content,
-		create_time
+			message_inf.id as
+			id,
+			author,
+			content,
+			create_time
 		FROM
-		message_inf,
-		user_inf
+			message_inf,
+			user_inf
 		WHERE
-		user_inf.type = 2
-		AND author = nickname
-		ORDER BY
-		create_time
+			user_inf.type = 2
+			AND author = nickname
+			ORDER BY
+				create_time
 		DESC
 	</select>
 
@@ -73,47 +73,47 @@
 
 	<select id="getMessagesByLabelAndHeat" resultType="message">
 		SELECT
-		message_inf.id,
-		type,
-		author,
-		content,
-		create_time,
-		repost_times,
-		comment_times,
-		support_times,
-		pic,
-		label_id,
-		times
+			message_inf.id,
+			type,
+			author,
+			content,
+			create_time,
+			repost_times,
+			comment_times,
+			support_times,
+			pic,
+			label_id,
+			times
 		FROM
-		message_inf
-		INNER JOIN weibo_heat
+			message_inf
+			INNER JOIN weibo_heat
 		WHERE
-		weibo_heat.id = message_inf.id
-		AND message_inf.label_id = #{label_id}
+			weibo_heat.id = message_inf.id
+			AND message_inf.label_id = #{label_id}
 	</select>
 
 	<select id="getMessagesByLabel" resultType="message">
 		SELECT
-		*
+			*
 		FROM
-		message_inf
+			message_inf
 		WHERE
-		label_id=
-		#{label_id}
-		AND create_time &lt; now()
-		ORDER BY
-		create_time DESC
+			label_id=
+			#{label_id}
+			AND create_time &lt; now()
+			ORDER BY
+				create_time DESC
 	</select>
 
 	<select id="selectWeiboByTopicName" resultType="message">
 		SELECT
-		*
+			*
 		FROM
-		message_inf
+			message_inf
 		WHERE
-		content LIKE #{name}
-		ORDER BY
-		create_time DESC
+			content LIKE #{name}
+			ORDER BY
+				create_time DESC
 	</select>
 
 	<delete id="deleteMessageById" parameterType="int">
@@ -127,25 +127,25 @@
 	<insert id="addMessage" parameterType="Message"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO message_inf (
-		type,
-		author,
-		content,
-		create_time,
-		repost_times,
-		comment_times,
-		support_times,
-		pic,
-		label_id
+			type,
+			author,
+			content,
+			create_time,
+			repost_times,
+			comment_times,
+			support_times,
+			pic,
+			label_id
 		)
 		VALUES
 		(
-		#{type}, #{author}, #{content},
-		now(),
-		0,
-		0,
-		0,
-		#{pic},
-		#{label}
+			#{type}, #{author}, #{content},
+			now(),
+			0,
+			0,
+			0,
+			#{pic},
+			#{label}
 		)
 	</insert>
 
@@ -159,43 +159,43 @@
 	<delete id="decreaseSupportInfo">
 		DELETE
 		FROM
-		support_inf
+			support_inf
 		WHERE
-		message_id = #{0}
-		and
-		username = #{1}
+			message_id = #{0}
+			and
+			username = #{1}
 	</delete>
 
 	<select id="searchMessagesLikeContent" parameterType="string"
 		resultType="Message">
 		SELECT
-		*
+			*
 		FROM
-		message_inf
+			message_inf
 		WHERE
-		content LIKE #{content}
+			content LIKE #{content}
 		AND
-		type =
-		1
+			type =
+			1
 	</select>
 
 	<select id="findIfSupportedByUsername" resultType="Count">
 		SELECT
-		count(id) as number
+			count(id) as number
 		FROM
-		support_inf
+			support_inf
 		WHERE
-		username = #{0}
-		AND message_id =
-		#{1}
+			username = #{0}
+			AND message_id =
+			#{1}
 	</select>
 
 	<update id="addRepostTimes" parameterType="int">
 		UPDATE message_inf
 		SET
-		repost_times = repost_times + 1
+			repost_times = repost_times + 1
 		WHERE
-		id = #{id}
+			id = #{id}
 	</update>
 
 	<!-- <update id="addSupportTimes" parameterType="int"> UPDATE message_inf 

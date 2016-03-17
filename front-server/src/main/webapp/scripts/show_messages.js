@@ -3,31 +3,33 @@
  */
 
 function show_label() {
-	$
-			.ajax({
-				type : "post",
-				// async : false,
-				url : "label/show",
-				data : {
-				},
-				dataType : "json",
-				success : function(data) {
-					if (data.returndata != undefined) {
-						$(".rec1 .rec_nickname").empty().append(data.returndata[0].name);
-						$(".rec2 .rec_nickname").empty().append(data.returndata[1].name);
-						$(".rec3 .rec_nickname").empty().append(data.returndata[2].name);
-						$(".rec4 .rec_nickname").empty().append(data.returndata[3].name);
-						$(".rec1 .val").empty().append(data.returndata[0].times);
-						$(".rec2 .val").empty().append(data.returndata[1].times);
-						$(".rec3 .val").empty().append(data.returndata[2].times);
-						$(".rec4 .val").empty().append(data.returndata[3].times);
-						$(".rec1").attr("id", data.returndata[0].id);
-						$(".rec2").attr("id", data.returndata[1].id);
-						$(".rec3").attr("id", data.returndata[2].id);
-						$(".rec4").attr("id", data.returndata[3].id);
-					}
-				}
-			});
+	$.ajax({
+		type : "post",
+		// async : false,
+		url : "label/show",
+		data : {},
+		dataType : "json",
+		success : function(data) {
+			if (data.returndata != undefined) {
+				$(".rec1 .rec_nickname").empty()
+						.append(data.returndata[0].name);
+				$(".rec2 .rec_nickname").empty()
+						.append(data.returndata[1].name);
+				$(".rec3 .rec_nickname").empty()
+						.append(data.returndata[2].name);
+				$(".rec4 .rec_nickname").empty()
+						.append(data.returndata[3].name);
+				$(".rec1 .val").empty().append(data.returndata[0].times);
+				$(".rec2 .val").empty().append(data.returndata[1].times);
+				$(".rec3 .val").empty().append(data.returndata[2].times);
+				$(".rec4 .val").empty().append(data.returndata[3].times);
+				$(".rec1").attr("id", data.returndata[0].id);
+				$(".rec2").attr("id", data.returndata[1].id);
+				$(".rec3").attr("id", data.returndata[2].id);
+				$(".rec4").attr("id", data.returndata[3].id);
+			}
+		}
+	});
 }
 
 // flag ：0 缓存show 1 非缓存show
@@ -51,7 +53,7 @@ function show_messages(pageNumber, _flag) {
 										$("#weibo").empty();
 										var i = 0;
 										while (data.returndata[i] != undefined) {
-											// ///////////////////////////////////////
+											// ////////////////////////////////////////
 											var username;
 											var targetNickname = data.returndata[i].author;
 											$
@@ -72,24 +74,20 @@ function show_messages(pageNumber, _flag) {
 																			});
 														}
 													});
-											// ////////////////////////////////////////
+											// /////////////////////////////////////////
 
 											var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
 											var message = "<li  class=\"weibo_message\" id=\"weibo_"
 													+ data.returndata[i].id
-													+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><a href=\""
-													+ "userinfo.jsp?username="
+													+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><a href=\"userinfo.jsp?username="
 													+ $.query.get("username")
 													+ "&targetNickname="
 													+ data.returndata[i].author
 													+ "&userToken="
 													+ $.query.get("userToken")
-													+ "\"><img title=\"查看用户信息\" src=\""
-													+ "pic/"
+													+ "\"><img title=\"查看用户信息\" src=\"pic/"
 													+ username
-													+ ".jpg"
-													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"weibo_username\"><a href=\""
-													+ "userinfo.jsp?targetNickname="
+													+ ".jpg\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"weibo_username\"><a href=\"userinfo.jsp?targetNickname="
 													+ data.returndata[i].author
 													+ "&username="
 													+ $.query.get("username")
@@ -107,8 +105,7 @@ function show_messages(pageNumber, _flag) {
 												var id = content.substr(content
 														.indexOf(';') + 1); // 原微博id
 												message += authorWords
-														+ "<div class=\"repostInfo\">"
-														+ "</div>";
+														+ "<div class=\"repostInfo\"></div>";
 												message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
 														+ data.returndata[i].create_time
 														+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
@@ -121,12 +118,9 @@ function show_messages(pageNumber, _flag) {
 														+ data.returndata[i].id
 														+ "\" name=\"content\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
 														+ data.returndata[i].id
-														+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
-														+ "<ul class=\"otherCom\" id=\"comment_"
+														+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div><ul class=\"otherCom\" id=\"comment_"
 														+ data.returndata[i].id
-														+ "\" style=\"\"></div>"
-														+ "</ul>"
-														+ "</div></div></div></li>";
+														+ "\" style=\"\"></div></ul></div></div></div></li>";
 												$("#weibo").append(message);
 												show_sourceMessage(id,
 														data.returndata[i].id,
@@ -150,16 +144,13 @@ function show_messages(pageNumber, _flag) {
 														+ data.returndata[i].id
 														+ "\" name=\"content\" style=\"width: 451px, height: 36px;\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
 														+ data.returndata[i].id
-														+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
-														+ "<ul class=\"otherCom\" id=\"comment_"
+														+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div><ul class=\"otherCom\" id=\"comment_"
 														+ data.returndata[i].id
-														+ "\" style=\"\"></ul>"
-														+ "</div></div></div></li>";
+														+ "\" style=\"\"></ul></div></div></div></li>";
 												$("#weibo").append(message);
 											}
 											judgeIfSupport(
 													data.returndata[i].id, 0);
-											// judgeIfSupport.js
 
 											var textarea = ".comarea_"
 													+ data.returndata[i].id;
@@ -265,16 +256,13 @@ function show_announcements(_flag) {
 										while (data.returndata[i] != undefined) {
 											var message = "<li id=\"weibo_"
 													+ data.returndata[i].id
-													+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><img src=\""
-													+ "pic/"
+													+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><img src=\"pic/"
 													+ data.returndata[i].author
-													+ ".jpg"
-													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></div><div class=\"msgBox\"><div class=\"txt\">";
+													+ ".jpg\" onerror=\"javascript:this.src='images/no_found.png'\"/></div><div class=\"msgBox\"><div class=\"txt\">";
 											message += data.returndata[i].content
 													+ "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
 													+ data.returndata[i].create_time
-													+ "\"></time></div>"
-													+ "</div></div></li>";
+													+ "\"></time></div></div></div></li>";
 											$("#weibo").append(message);
 											i++;
 										}
@@ -320,12 +308,10 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 														+ data.returndata[i].id
 														+ "\"><div style=\"display: none; padding-left: 30%;\" class=\"delete_confirm\">确定删除吗？<button onclick=\"deleteOwnmessage('"
 														+ data.returndata[i].id
-														+ "');showUserInfo(1, true);\">确认</button><button onclick=\"$(this).parents('.delete_confirm').slideUp();\">取消</button></div><div class=\"weiboinfo\"><div class=\"userPic\"><img src=\""
-														+ "pic/"
+														+ "');showUserInfo(1, true);\">确认</button><button onclick=\"$(this).parents('.delete_confirm').slideUp();\">取消</button></div><div class=\"weiboinfo\"><div class=\"userPic\"><img src=\"pic/"
 														+ $.query
 																.get("username")
-														+ ".jpg"
-														+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></div><div class=\"msgBox\"><div class=\"txt\">";
+														+ ".jpg\" onerror=\"javascript:this.src='images/no_found.png'\"/></div><div class=\"msgBox\"><div class=\"txt\">";
 												if (data.returndata[i].type == 2) {
 													var content = return_content
 													var authorWords = content
@@ -337,8 +323,7 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 															.substr(content
 																	.indexOf(';') + 1); // 原微博id
 													message += authorWords
-															+ "<div class=\"repostInfo\">"
-															+ "</div></div>";
+															+ "<div class=\"repostInfo\"></div></div>";
 													message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
 															+ data.returndata[i].create_time
 															+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
@@ -351,11 +336,9 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 															+ data.returndata[i].id
 															+ "\" name=\"content\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
 															+ data.returndata[i].id
-															+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
-															+ "<ul class=\"otherCom\" id=\"comment_"
+															+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div><ul class=\"otherCom\" id=\"comment_"
 															+ data.returndata[i].id
-															+ "\" style=\"\"></ul>"
-															+ "</div></div><img align=\"right\" class=\"delete_msg\" style=\"width:10px; height:10px;\" src=\"images/delete.jpg\"></div></li>";
+															+ "\" style=\"\"></ul></div></div><img align=\"right\" class=\"delete_msg\" style=\"width:10px; height:10px;\" src=\"images/delete.jpg\"></div></li>";
 													$("#weibo").append(message);
 													show_sourceMessage(
 															id,
@@ -382,11 +365,9 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 															+ data.returndata[i].id
 															+ "\" name=\"content\" style=\"width: 451px, height: 36px;\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
 															+ data.returndata[i].id
-															+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
-															+ "<ul class=\"otherCom\" id=\"comment_"
+															+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div><ul class=\"otherCom\" id=\"comment_"
 															+ data.returndata[i].id
-															+ "\" style=\"\"></ul>"
-															+ "</div></div><img align=\"right\" class=\"delete_msg\" style=\"width:10px; height:10px;\" src=\"images/delete.jpg\"></div></li>";
+															+ "\" style=\"\"></ul></div></div><img align=\"right\" class=\"delete_msg\" style=\"width:10px; height:10px;\" src=\"images/delete.jpg\"></div></li>";
 													$("#weibo").append(message);
 												}
 												judgeIfSupport(
@@ -444,13 +425,11 @@ function deleteOwnmessage(message_id) {
 $(".delete_msg").live('click', function() {
 	$(this).parents("li").find(".delete_confirm").slideDown();
 
-	/*var ret = confirm("确认删除?");
-	if (ret == true) {
-		var message_id = $(this).parents("li").attr("id");
-		message_id = message_id.substr(6);
-		deleteOwnmessage(message_id);
-		showUserInfo(1, true);
-	}*/
+	/*
+	 * var ret = confirm("确认删除?"); if (ret == true) { var message_id =
+	 * $(this).parents("li").attr("id"); message_id = message_id.substr(6);
+	 * deleteOwnmessage(message_id); showUserInfo(1, true); }
+	 */
 });
 
 /**
@@ -482,7 +461,8 @@ function repost_message(_content, message_id, flag) {
 						var textarea = ".comarea_" + message_id;
 						$(textarea).val("");
 						var weibo = "#weibo_" + message_id;
-						var num = $(weibo).find(".comment").find(".rpt_num").text();
+						var num = $(weibo).find(".comment").find(".rpt_num")
+								.text();
 						$(weibo).find(".comment").find(".rpt_num").text(
 								parseInt(num, 10) + 1); // 转发数+1
 					} else {
@@ -635,7 +615,7 @@ function send_comment(message_id, comment_content) {
 										parseInt(num, 10) + 1); // 评论数+1
 								show_comments(message_id, 1, 1);
 							} else {
-								//...tell fail
+								// ...tell fail
 								alert("fail");
 							}
 						});
@@ -665,12 +645,14 @@ function cmt_nextPage(message_id) {
 	$(target).find(".pageNum").text(pageNum);
 } // 跳转下一页
 
-
 $(".icon").live('click', function() {
 	var classUsername = $(this).parents("li").find("name");
 	var tag_a = classUsername.children("a");
 	var targetNickname = tag_a.text();
-	window.location = "userinfo.jsp?targetNickname=" + targetNickname; //+ "&userToken=" + $.query.get("userToken");
+	window.location = "userinfo.jsp?targetNickname=" + targetNickname; // +
+	// "&userToken="
+	// +
+	// $.query.get("userToken");
 })
 
 $(".comment").live('mouseover', function() {
@@ -710,4 +692,4 @@ $(".comment_button").live('click', function() {
 	content = $(comarea).val();
 	send_comment(message_id, content);
 	$(comarea).val(""); // 清空输入框
-}); //发送评论
+}); // 发送评论

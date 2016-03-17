@@ -10,7 +10,7 @@ public interface FriendService {
 	
 	public Target[] showCommonFriendsByTargetUsername(String username, String targetUsername);
 		
-	public boolean  judgeIfFriendsOrNot(String username, String targetUsername);
+	public boolean  judgeIfFocusOrNot(String username, String targetUsername);
 	
 	public Target[] showFavorites(String username, int page);
 	

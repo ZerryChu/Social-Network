@@ -9,6 +9,11 @@ import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.service.SearchService;
 
+/**
+ * 
+ * @author zhuzirui
+ * 待开发垂直搜索引擎
+ */
 @Service(value="SearchService")
 public class SearchServiceImpl implements SearchService {
 

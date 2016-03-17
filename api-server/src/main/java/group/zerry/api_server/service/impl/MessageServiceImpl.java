@@ -144,7 +144,6 @@ public class MessageServiceImpl implements MessageService {
 			}
 			messageDao.addMessage(message);
 			messageDao.addRepostTimes(id);
-			addLabelHeat(username, id, 50);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;
@@ -165,7 +164,6 @@ public class MessageServiceImpl implements MessageService {
 			comment.setContent(content);
 			comment.setMessage_id(id);
 			commentDao.addComment(comment);
-			addLabelHeat(username, id, 50);
 			//messageDao.addCommentTimes(id);
 		} catch(Exception e) {
 			return MessageStatusEnum.OF;
@@ -184,7 +182,6 @@ public class MessageServiceImpl implements MessageService {
 			else if(num == 1)
 				return MessageStatusEnum.HAS;
 			messageDao.addSupportInfo(id, username);
-			addLabelHeat(username, id, 50);
 			//messageDao.addSupportTimes(id);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -268,6 +265,7 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.getMessageById(message_id);
 	}
 
+	/* Dao层操作频繁，交由队列批量处理，取消此接口
 	@Override
 	public void addLabelHeat(String username, long id, int timeoutMS) {
 		// TODO Auto-generated method stub
@@ -278,6 +276,7 @@ public class MessageServiceImpl implements MessageService {
 		User user = userDao.selectUserByUsername(username);
 		batchHandleWrapperForLabel.add(user.getId(), label_id, 50);
 	}
+	*/
 
 	@Override
 	public Message[] show_messagesByLabel(int label_id, int page) {
@@ -323,6 +322,7 @@ public class MessageServiceImpl implements MessageService {
 		Message[] message = null;
 		try {
 			PageHelperInterceptor.startPage(page, pageSize);
+			// mysql like语句
 			message = messageDao.selectWeiboByTopicName("#" + topic.getName() + "#%");
 			Page<Message> myPage = PageHelperInterceptor.endPage();
 			List<Message> list = myPage.getResult();
@@ -351,7 +351,6 @@ public class MessageServiceImpl implements MessageService {
 		message.setType(1);
 		try {
 			messageDao.addMessage(message);
-			//userDao.addMessage_numByUsername(username); //发微博数+1
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.AMF;

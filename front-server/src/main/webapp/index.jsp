@@ -201,14 +201,17 @@
 				});
 			}
 		});
+		
 		$("#close").click(function(){
 			$(this).parents(".reg_wraper").hide();
 		});
+		
 		$("#reg_btn").hover(function(){
 			$(this).css("background-color","#8adf23");
 		},function(){
 			$(this).css("background-color","#7ec92c");
 		});
+		
 		$(".reg_btn").click(function() {
 			if ($("#form_reg").valid()) {
 				var username = $(".reg_un input").val();

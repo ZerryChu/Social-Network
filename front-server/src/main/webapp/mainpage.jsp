@@ -373,6 +373,7 @@
 		show_messages(1, 1);
 		show_label();
 		showGroups(0);
+		// 检查是否有新微薄
 		setInterval("update()", 30000);
 
 		$(".top_content li").mouseover(function() {
@@ -382,29 +383,6 @@
 		$(".top_content li").mouseout(function() {
 			this.style.background = "";
 		});
-
-		/*
-		$(".right_content").css('height', $(window).height() - 40);
-		var height;
-		function adjustHeight() {
-			if (height == undefined) {
-				height = $(".right_content").height();
-			}
-			if (height <= $(".left_content").height())
-				$(".right_content").css("height", $(".left_content").height());
-			else
-				$(".right_content").css("height", $(window).height());
-		}
-		$(document).scroll(function() {
-			var content = $(".right_content");
-			//if(293 <= $(window).scrollTop()) {
-			content.css("margin-top", $(window).scrollTop());
-			//}
-			//else {
-			//	content.css("margin-top", 0);
-			//}
-		});
-		 */
 
 		$("#all_messages").click(function() {
 			show_announcements(0);

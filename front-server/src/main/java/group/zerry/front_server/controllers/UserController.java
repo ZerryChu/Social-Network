@@ -49,8 +49,8 @@ public class UserController {
 		//password = EncodeTools.encoder(password, password.substring(0, 4));		
 		logger.error(uuid.toString());
 		if(userService.login(username, password, uuid.toString())) {
-			return "{\"msg\" : \"" + uuid.toString() + "\"}";
 			//返回userToken
+			return "{\"msg\" : \"" + uuid.toString() + "\"}";
 		}
 		else
 			return "{\"msg\" : \"0\"}";
@@ -69,7 +69,7 @@ public class UserController {
 			// 加密
 			//username = EncodeTools.encoder(username, EncodeTools.giveMeSalt());
 			//password = EncodeTools.encoder(password, EncodeTools.giveMeSalt());
-			// cookies
+			/* cookies
 			Cookie cookie = new Cookie("username", username);
 			cookie.setMaxAge(1200); // 20min
 			cookie.setPath("/");
@@ -78,10 +78,11 @@ public class UserController {
 			cookie.setPath("/");
 			cookie.setMaxAge(1200); // 20min
 			response.addCookie(cookie);
-			
 			request.getSession().setAttribute(username, uuid.toString());
-			return "{\"msg\" : \"" + uuid.toString() + "\"}";
+			*/
+			
 			//返回userToken
+			return "{\"msg\" : \"" + uuid.toString() + "\"}";
 		}
 		else
 			return "{\"msg\" : \"0\"}";

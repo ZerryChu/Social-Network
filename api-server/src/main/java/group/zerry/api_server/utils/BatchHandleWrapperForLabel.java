@@ -1,12 +1,10 @@
 package group.zerry.api_server.utils;
 
-import java.security.interfaces.RSAKey;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -14,10 +12,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.ibatis.annotations.Update;
-import org.apache.taglibs.standard.tag.common.core.CatchTag;
-
-import com.mysql.jdbc.Statement;
 
 public final class BatchHandleWrapperForLabel {
 
@@ -382,7 +376,8 @@ public final class BatchHandleWrapperForLabel {
 			}
 		}
 	}
-	/*
+	/* TEST
+	 * 
 	 * public static void main(String[] args) {
 	 * 
 	 * //final BatchHandleWrapper<Object> bhw =

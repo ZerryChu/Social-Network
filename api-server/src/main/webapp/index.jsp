@@ -4,7 +4,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>社交网络api文档</title>
+<title>社交网络api文档(旧版本)</title>
 <style type="text/css">
 body {
   font-family: Helvetica, arial, sans-serif;
@@ -530,8 +530,6 @@ Response(JSON):
         ...
     }
 </code></pre>
-
-<p></article></p>
 
 <script type="text/javascript" src="static/js/jquery-1.10.2.min.js"></script>
 

@@ -29,16 +29,12 @@ public interface MessageDao {
 	
 	public void addRepostTimes(int id);
 
-	//public void addCommentTimes(int id);
-	
-	//public void addSupportTimes(int id);
 	public void addSupportInfo(int id, String username);
 	
-	//public void decreaseSupportTimes(int id);
 	public void decreaseSupportInfo(int id, String username);
 	
-	//public void decreaseCommentTimes(int id);
-	
+	public Message[] searchMessagesLikeContent(String content);
+
 	/**
 	 * 
 	 * @param username
@@ -46,6 +42,4 @@ public interface MessageDao {
 	 * @return 查询结果条数
 	 */
 	public Count findIfSupportedByUsername(String username, int id);
-	
-	public Message[] searchMessagesLikeContent(String content);
 }

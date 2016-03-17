@@ -27,7 +27,6 @@ public class FriendController {
 	@Autowired
 	CookiesData cookiesData;
 
-	// 缓存待做
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/favorites ", produces = "text/html;charset=UTF-8")
@@ -37,7 +36,6 @@ public class FriendController {
 		return returnMsg;
 	}
 
-	// 缓存待做
 	@AuthPass
 	@ResponseBody
 	@RequestMapping(value = "/followers ", produces = "text/html;charset=UTF-8")
@@ -89,7 +87,7 @@ public class FriendController {
 	@RequestMapping(value = "/show/groups ", produces = "text/html;charset=UTF-8")
 	public String showGroupsByUsername(HttpServletRequest request, HttpServletResponse response, String username,
 			String userToken, int flag) throws UnsupportedEncodingException {
-		if (flag == 0) {
+		/*if (flag == 0) {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, "group"))) {
 				String returnMsg = friendService.showGroupsByUsername(username, userToken);
@@ -101,21 +99,21 @@ public class FriendController {
 				return returnMsg;
 			}
 		} // 无更新查询
-		else {
+		else {*/
 			String returnMsg = friendService.showGroupsByUsername(username, userToken);
-			cookiesData.save(request, response, "group", URLEncoder.encode(returnMsg, "UTF-8"));
+			//cookiesData.save(request, response, "group", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
-		}
+		//}
 	}
 
 	/**
-	 * @return 1: 双方是朋友 0: 双方不是朋友
+	 * @return 1: 已关注 0: 未关注
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/iffriends", produces = "text/html;charset=UTF-8")
-	public String judgeIfFriendsOrNot(HttpServletRequest request, HttpServletResponse response, String username,
+	public String judgeIfFocusOrNot(HttpServletRequest request, HttpServletResponse response, String username,
 			String targetUsername, int flag) throws UnsupportedEncodingException {
-		String cookieName = "ifFriend_" + targetUsername;
+		/*String cookieName = "ifFriend_" + targetUsername;
 		if (flag == 0) {
 			Cookie cookie;
 			if (null == (cookie = cookiesData.getCookie(request, URLEncoder.encode(cookieName, "UTF-8")))) {
@@ -132,15 +130,15 @@ public class FriendController {
 				return returnMsg;
 			}
 		} // 无更新查询
-		else {
+		else {*/
 			boolean returnMsg = friendService.judgeIfFriendsOrNot(username, targetUsername);
 			if (returnMsg == true) {
-				cookiesData.save(request, response, URLEncoder.encode(cookieName, "UTF-8"), "1");
+				//cookiesData.save(request, response, URLEncoder.encode(cookieName, "UTF-8"), "1");
 				return "1";
 			} else {
-				cookiesData.save(request, response, URLEncoder.encode(cookieName, "UTF-8"), "0");
+				//cookiesData.save(request, response, URLEncoder.encode(cookieName, "UTF-8"), "0");
 				return "0";
-			}
+			//}
 		}
 	}
 }

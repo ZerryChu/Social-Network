@@ -9,6 +9,11 @@ import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
+/**
+ * @author zhuzirui
+ * 每10分钟统计一次标签的热度
+ * 热度计算算法待设计
+ */
 public class LabelHeat implements Runnable {
 	private static HashMap<Long, Long> map;
 	private static List<Long> list;

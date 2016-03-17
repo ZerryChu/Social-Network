@@ -58,7 +58,7 @@ public class UpdateController {
 				cookie.setValue(URLDecoder.decode(cookie.getValue(), "UTF-8"));
 				ReturnDataDto newData = JSON.parseObject(returnMsg, ReturnDataDto.class);
 				ReturnDataDto oldData = JSON.parseObject(cookie.getValue(), ReturnDataDto.class);
-				// 需要更好的逻辑
+				// 需要更好的逻辑代码
 				if (newData.getReturndata()[0].getId() > oldData.getReturndata()[0].getId()) {
 					return "{\"msg\" : 1}";
 				} else {

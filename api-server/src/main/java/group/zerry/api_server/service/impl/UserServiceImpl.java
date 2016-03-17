@@ -156,13 +156,18 @@ public class UserServiceImpl implements UserService {
 		User[] users = new User[3];
 		int user_num = 0;
 		Count count = null;
+		User item = null;
 		for (int i = 0;i < recs.length; i++) {
-			User item = userDao.selectUserById((int)recs[i]);
-			count = friendDao.judgeIfFriendsOrNot(user.getId(), item.getId());
+			item = userDao.selectUserById((int)recs[i]);
+			count = friendDao.judgeIfFocusOrNot(user.getId(), item.getId());
+			
+			// 已关注的不推荐
 			if (count.getNumber() > 0) {
 				continue;
 			}
 			users[user_num++] = item;
+			
+			// 推荐3人
 			if (user_num >= 3)
 				break;
 		}
@@ -188,8 +193,9 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		User[] users = new User[num];
 		Integer[] ids = userDao.getMasterByLabelId(label_id, num);
+		User user = null;
 		for (int i = 0;i < ids.length; i++) {
-			User user = userDao.selectUserById(ids[i]);
+			user = userDao.selectUserById(ids[i]);
 			users[i] = user;
 		}
 		return users;

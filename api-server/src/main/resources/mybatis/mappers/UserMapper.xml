@@ -19,31 +19,31 @@
 	<select id="searchUsersLikeNickname" parameterType="string"
 		resultType="User">
 		SELECT
-		*
+			*
 		FROM
-		user_inf
+			user_inf
 		WHERE
-		nickname LIKE #{nickname}
+			nickname LIKE #{nickname}
 	</select>
 
 	<select id="selectUserByUsername" parameterType="string"
 		resultType="User">
 		SELECT
-		*
+			*
 		FROM
-		user_inf
+			user_inf
 		WHERE
-		username = #{username}
+			username = #{username}
 	</select>
 
 	<select id="selectUserById" parameterType="int"
 		resultType="User">
 		SELECT
-		*
+			*
 		FROM
-		user_inf
+			user_inf
 		WHERE
-		id = #{id}
+			id = #{id}
 	</select>
 	
 	<select id="getUserFansNumById" parameterType="int" resultType="int">
@@ -81,21 +81,20 @@
 	<select id="selectFriendsNicknameByUsername" parameterType="string"
 		resultType="string">
 		SELECT
-		user_inf.nickname
+			user_inf.nickname
 		FROM
-		user_inf
+			user_inf
 		WHERE
-		id IN (
-		SELECT
-		friend_id
-		FROM
-		friend,
-		user_inf
-		WHERE
-		username = #{username}
-		AND user_id =
-		id
-		)
+			id IN (
+				SELECT
+					friend_id
+				FROM
+					friend,
+					user_inf
+				WHERE
+					username = #{username}
+				AND user_id = id
+			)
 	</select>
 
 	<select id="getMasterByLabelId" parameterType="int" resultType="int">
@@ -114,20 +113,20 @@
 	<insert id="addUser" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		INTO user_inf (
-		nickname,
-		username,
-		PASSWORD,
-		age,
-		type,
-		habit,
-		friend_num,
-		message_num
+			nickname,
+			username,
+			PASSWORD,
+			age,
+			type,
+			habit,
+			friend_num,
+			message_num
 		)
 		VALUES
 		(
-		#{nickname}, #{username}, #{password}, #{age},
-		1,
-		#{habit}, 0, 0
+			#{nickname}, #{username}, #{password}, #{age},
+			1,
+			#{habit}, 0, 0
 		)
 	</insert>
 
@@ -139,33 +138,33 @@
 
 	<insert id="deleteFriend">
 		DELETE from
-		friend
+			friend
 		WHERE
-		user_id = #{0}
-		AND friend_id = #{1}
+			user_id = #{0}
+			AND friend_id = #{1}
 	</insert>
 
 	<update id="addMessage_numByUsername" parameterType="string">
 		UPDATE
-		user_inf
+			user_inf
 		SET message_num = message_num + 1
 		WHERE
-		username = #{username}
+			username = #{username}
 	</update>
 
 	<update id="decreaseMessage_numByUsername" parameterType="string">
 		UPDATE
-		user_inf
+			user_inf
 		SET message_num = message_num - 1
 		WHERE
-		username = #{username}
+			username = #{username}
 	</update>
 
 	<update id="addFriend_numByUsername" parameterType="string">
 		UPDATE
-		user_inf
+			user_inf
 		SET friend_num = friend_num + 1
 		WHERE
-		username = #{username}
+			username = #{username}
 	</update>
 </mapper>

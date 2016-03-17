@@ -144,7 +144,7 @@
 			AND user_id = id
 	</select>
 
-	<select id="judgeIfFriendsOrNot" resultType="Count">
+	<select id="judgeIfFocusOrNot" resultType="Count">
 		SELECT
 			COUNT(*) as
 			number

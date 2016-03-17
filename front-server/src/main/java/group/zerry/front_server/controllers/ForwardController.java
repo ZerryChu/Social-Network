@@ -37,7 +37,6 @@ public class ForwardController {
 			mav.addObject("friendNickname", friendNickname);
 		} else {
 			// turn to error page
-			// 没写error.jsp
 			mav = new ModelAndView("error.jsp"); 
 		}
 		return mav;

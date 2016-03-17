@@ -31,7 +31,9 @@ public interface MessageService {
 	
 	public MessageStatusEnum decreaseSupport(String username, int id);
 	
+	/* Dao层操作频繁，交由队列批量处理，取消此接口
 	public void addLabelHeat(String username, long id, int timeoutMS);
+	*/
 	
 	public Message[] showWeiboByTopicId(int topic_id, int page);
 	

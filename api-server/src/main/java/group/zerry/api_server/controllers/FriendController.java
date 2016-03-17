@@ -135,8 +135,8 @@ public class FriendController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/iffriends", produces = "text/html;charset=UTF-8")
-	public String judgeIfFriendsOrNot(String username, String targetUsername) {
-		if(true == friendService.judgeIfFriendsOrNot(username, targetUsername)) {
+	public String judgeIfFocusOrNot(String username, String targetUsername) {
+		if(true == friendService.judgeIfFocusOrNot(username, targetUsername)) {
 			return "{returnmsg: 1}";
 		} else {
 			return "{returnmsg: 0}";

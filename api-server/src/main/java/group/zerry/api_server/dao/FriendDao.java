@@ -17,5 +17,5 @@ public interface FriendDao {
 	
 	public Target[] selectFollowers(String username);
 	
-	public Count    judgeIfFriendsOrNot(int userId, int targetUserId);
+	public Count    judgeIfFocusOrNot(int userId, int targetUserId);
 }
