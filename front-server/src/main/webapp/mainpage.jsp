@@ -543,6 +543,45 @@
 				}
 			});
 		}
+		
+		$(".comment").live('mouseover', function() {
+			$(this).css("color", "#759aad");
+		});
+
+		$(".comment").live('mouseout', function() {
+			$(this).css("color", "gray");
+		});
+
+		$(".comment").live('click', function() {
+			var message_id = $(this).parents("li").attr("id");
+			message_id = message_id.substr(6);
+			var comtxt = $(this).parents("li").find(".comtxt");
+			if (comtxt.css("display") == "none") {
+				show_comments(message_id, 1, 1);
+				comtxt.slideToggle();
+				$(this).parents("li").find(".pageNum").text("1");
+			} else {
+				comtxt.slideToggle();
+			}
+		}); // 查看评论
+
+		$(".repost_button").live('click', function() {
+			var message_id = $(this).parents("li").attr("id");
+			message_id = message_id.substr(6);
+			var textarea = ".comarea_" + message_id;
+			var content = $(textarea).val();
+			repost_message(content, message_id, 1);
+			$(textarea).val("");
+		}); // 转发微博
+
+		$(".comment_button").live('click', function() {
+			var message_id = $(this).parents("li").attr("id");
+			message_id = message_id.substr(6);
+			comarea = ".comarea_" + message_id;
+			content = $(comarea).val();
+			send_comment(message_id, content);
+			$(comarea).val(""); // 清空输入框
+		}); // 发送评论
 	</script>
 </body>
 </html>

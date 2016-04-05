@@ -17,6 +17,7 @@ import group.zerry.api_server.entity.Comment;
 import group.zerry.api_server.entity.Count;
 import group.zerry.api_server.entity.Label;
 import group.zerry.api_server.entity.Message;
+import group.zerry.api_server.entity.SourceMessagae;
 import group.zerry.api_server.entity.Topic;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
@@ -27,7 +28,7 @@ import group.zerry.api_server.utils.BatchHandleWrapperForLabel;
 
 /**
  * @author ZerryChu
- * @since  2015.10.3
+ * @since 2015.10.3
  *
  */
 @Service(value = "MessageService")
@@ -38,28 +39,29 @@ public class MessageServiceImpl implements MessageService {
 
 	@Autowired
 	CommentDao commentDao;
-	
+
 	@Autowired
-	UserDao    userDao;
-	
+	UserDao userDao;
+
 	@Autowired
-	LabelDao   labelDao;
-	
+	LabelDao labelDao;
+
 	@Autowired
-	TopicDao   topicDao;
-	
+	TopicDao topicDao;
+
 	@Autowired
 	private BatchHandleWrapperForLabel batchHandleWrapperForLabel;
-	
+
 	private Logger logger = Logger.getLogger(MessageServiceImpl.class);
-	
+
 	@Override
 	public MessageStatusEnum send_message(String username, String content, int type, String pic, String label) {
 		// TODO Auto-generated method stub
 		User user = userDao.selectUserByUsername(username);
 		Message message = new Message();
-		message.setAuthor(user.getNickname());
-		if(pic != null) {
+
+		message.setAuthor(user);
+		if (pic != null) {
 			message.setPic(pic);
 		} else {
 			message.setPic("");
@@ -71,14 +73,14 @@ public class MessageServiceImpl implements MessageService {
 			int id;
 			if (count.getNumber() == 0) {
 				labelDao.insertNewLabel(label);
-			} 
+			}
 			id = labelDao.searchLabelIdByName(label);
 			labelDao.updateLabelHeatById(user.getId(), id);
 			message.setLabel(id);
 		}
 		try {
 			messageDao.addMessage(message);
-			//userDao.addMessage_numByUsername(username); //发微博数+1
+			// userDao.addMessage_numByUsername(username); //发微博数+1
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.AMF;
@@ -91,7 +93,7 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		try {
 			messageDao.deleteMessageById(id);
-			//userDao.decreaseMessage_numByUsername(username);
+			// userDao.decreaseMessage_numByUsername(username);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return MessageStatusEnum.DMF;
@@ -99,7 +101,6 @@ public class MessageServiceImpl implements MessageService {
 		return MessageStatusEnum.DMS;
 	}
 
-	//分页
 	@Override
 	public Message[] show_messages(String username, int page) {
 		// TODO Auto-generated method stub
@@ -108,7 +109,7 @@ public class MessageServiceImpl implements MessageService {
 		try {
 			String[] friend = null;
 			friend = userDao.selectFriendsNicknameByUsername(username);
-			if(null == friend || 0 == friend.length) {
+			if (null == friend || 0 == friend.length) {
 				return null;
 			}
 			PageHelperInterceptor.startPage(page, pageSize);
@@ -116,6 +117,8 @@ public class MessageServiceImpl implements MessageService {
 			Page<Message> myPage = PageHelperInterceptor.endPage();
 			List<Message> list = myPage.getResult();
 			message = (Message[]) list.toArray(new Message[list.size()]);
+
+			messageCompletion(message, username);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;
@@ -124,8 +127,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	/**
-	 *  转发微博
-	 *  message.content: 用户说的话；原微博id
+	 * 转发微博 message.content: 用户说的话；原微博id
 	 */
 	@Override
 	public MessageStatusEnum addRepost(String username, String _content, int id) {
@@ -133,18 +135,17 @@ public class MessageServiceImpl implements MessageService {
 		try {
 			User user = userDao.selectUserByUsername(username);
 			Message message = messageDao.getMessageById(id);
-			if(message.getType() == 1) {
+			message.setAuthor(user);
+			if (message.getType() == 1) {
 				message.setContent(_content + ";" + id);
-				message.setAuthor(user.getNickname());
-				//setPic()
+				// setPic()
 				message.setType(2);
 			} else {
-				message.setContent( _content + " || " + message.getAuthor() + ":"  + message.getContent());
-				message.setAuthor(user.getNickname());
+				message.setContent(_content + " || " + message.getAuthor() + ":" + message.getContent());
 			}
 			messageDao.addMessage(message);
 			messageDao.addRepostTimes(id);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;
 		}
@@ -152,7 +153,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	/**
-	 *  评论
+	 * 评论
 	 */
 	@Override
 	public MessageStatusEnum addComment(String username, String content, int id) {
@@ -164,8 +165,8 @@ public class MessageServiceImpl implements MessageService {
 			comment.setContent(content);
 			comment.setMessage_id(id);
 			commentDao.addComment(comment);
-			//messageDao.addCommentTimes(id);
-		} catch(Exception e) {
+			// messageDao.addCommentTimes(id);
+		} catch (Exception e) {
 			return MessageStatusEnum.OF;
 		}
 		return MessageStatusEnum.CS;
@@ -176,19 +177,18 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		try {
 			int num = messageDao.findIfSupportedByUsername(username, id).getNumber();
-			if(num > 1 || num < 0) {
+			if (num > 1 || num < 0) {
 				return MessageStatusEnum.OF;
-			}
-			else if(num == 1)
+			} else if (num == 1)
 				return MessageStatusEnum.HAS;
 			messageDao.addSupportInfo(id, username);
-			//messageDao.addSupportTimes(id);
-		} catch(Exception e) {
+			// messageDao.addSupportTimes(id);
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;
 		}
 		return MessageStatusEnum.SS;
-		
+
 	}
 
 	@Override
@@ -196,32 +196,35 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		try {
 			int num = messageDao.findIfSupportedByUsername(username, id).getNumber();
-			if(num == 0) {
+			if (num == 0) {
 				return MessageStatusEnum.HNS;
 			}
-			if(num > 1 || num < 0)
+			if (num > 1 || num < 0)
 				return MessageStatusEnum.OF;
 			messageDao.decreaseSupportInfo(id, username);
-			//messageDao.decreaseSupportTimes(id);
-		} catch(Exception e) {
+			// messageDao.decreaseSupportTimes(id);
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.OF;
 		}
 		return MessageStatusEnum.OS;
 	}
-	
+
 	@Override
 	public Message[] show_ownMessages(String nickname, int page) {
 		// TODO Auto-generated method stub
 		int pageSize = 10;
 		Message[] message = null;
 		try {
-			//User user = userDao.selectUserByUsername(username);
+			// User user = userDao.selectUserByUsername(username);
 			PageHelperInterceptor.startPage(page, pageSize);
 			message = messageDao.getOwnMessages(nickname);
 			Page<Message> myPage = PageHelperInterceptor.endPage();
 			List<Message> list = myPage.getResult();
 			message = (Message[]) list.toArray(new Message[list.size()]);
+
+			User user = userDao.selectUserByNickname(nickname);
+			messageCompletion(message, user.getUsername());
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;
@@ -234,7 +237,7 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		Message[] message = null;
 		try {
-			//User user = userDao.selectUserByUsername(username);
+			// User user = userDao.selectUserByUsername(username);
 			message = messageDao.getAnnouncements();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -247,39 +250,30 @@ public class MessageServiceImpl implements MessageService {
 	 * 
 	 * @param username
 	 * @param id
-	 * @return true: 可以点赞 false： 无法点赞
+	 * @return false: 可以点赞 false： 可以点赞
 	 */
 	@Override
 	public boolean judgeIfSupport(String username, int id) {
 		// TODO Auto-generated method stub
 		Count count = messageDao.findIfSupportedByUsername(username, id);
 		int num = count.getNumber();
-		if(num > 1 || num < 0 || num == 1)
-			return false;
-		return true;
+		if (num > 1 || num < 0 || num == 1)
+			return true;
+		return false;
 	}
 
+	// chuli
 	@Override
-	public Message show_messageById(int message_id) {
+	public Message show_messageById(String username, int message_id) {
 		// TODO Auto-generated method stub
-		return messageDao.getMessageById(message_id);
+		Message message = messageDao.getMessageById(message_id);
+		messageCompletion(message, username);
+		return message;
 	}
 
-	/* Dao层操作频繁，交由队列批量处理，取消此接口
+	// chuli
 	@Override
-	public void addLabelHeat(String username, long id, int timeoutMS) {
-		// TODO Auto-generated method stub
-		int label_id = labelDao.searchLabelIDByMsgId(id);
-		if (label_id == 0) {
-			return;
-		}
-		User user = userDao.selectUserByUsername(username);
-		batchHandleWrapperForLabel.add(user.getId(), label_id, 50);
-	}
-	*/
-
-	@Override
-	public Message[] show_messagesByLabel(int label_id, int page) {
+	public Message[] show_messagesByLabel(String username, int label_id, int page) {
 		// TODO Auto-generated method stub
 		int pageSize = 5;
 		Message[] message = null;
@@ -297,7 +291,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public Message[] showMessagesByLabelAndHeat(int label_id, int page) {
+	public Message[] showMessagesByLabelAndHeat(String username, int label_id, int page) {
 		// TODO Auto-generated method stub
 		int pageSize = 5;
 		Message[] message = null;
@@ -307,6 +301,8 @@ public class MessageServiceImpl implements MessageService {
 			Page<Message> myPage = PageHelperInterceptor.endPage();
 			List<Message> list = myPage.getResult();
 			message = (Message[]) list.toArray(new Message[list.size()]);
+
+			messageCompletion(message, username);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;
@@ -315,7 +311,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public Message[] showWeiboByTopicId(int topic_id, int page) {
+	public Message[] showWeiboByTopicId(String username, int topic_id, int page) {
 		// TODO Auto-generated method stub
 		Topic topic = topicDao.selectTopicById(topic_id);
 		int pageSize = 3;
@@ -327,6 +323,8 @@ public class MessageServiceImpl implements MessageService {
 			Page<Message> myPage = PageHelperInterceptor.endPage();
 			List<Message> list = myPage.getResult();
 			message = (Message[]) list.toArray(new Message[list.size()]);
+
+			messageCompletion(message, username);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;
@@ -339,8 +337,8 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		User user = userDao.selectUserByUsername(username);
 		Message message = new Message();
-		message.setAuthor(user.getNickname());
-		if(pic != null) {
+		message.setAuthor(user);
+		if (pic != null) {
 			message.setPic(pic);
 		} else {
 			message.setPic("");
@@ -357,5 +355,45 @@ public class MessageServiceImpl implements MessageService {
 		}
 		return MessageStatusEnum.AMS;
 	}
-	
+
+	public void messageCompletion(Message[] message, String username) {
+		User author = null;
+		for (int i = 0; i < message.length; i++) {
+			author = userDao.selectUserByNickname(message[i].getAuthor().getNickname());
+			// 屏蔽密码
+			author.setPassword("");
+			message[i].setAuthor(author);
+			message[i].setSupported(judgeIfSupport(username, message[i].getId()));
+			String content = message[i].getContent();
+			if (message[i].getType() == 2) {
+				int index = content.indexOf(';');
+				message[i].setContent(content.substring(0, index));
+				// 获取被转发的原微博
+				Message msg = messageDao.getMessageById(Integer.parseInt(content.substring(index + 1)));
+				SourceMessagae sourceMsg = msg;
+				sourceMsg.setNickname(msg.getAuthor().getNickname());
+				message[i].setSource_message(sourceMsg);
+			}
+		}
+	}
+
+	public void messageCompletion(Message message, String username) {
+		User author = null;
+		author = userDao.selectUserByNickname(message.getAuthor().getNickname());
+		// 屏蔽密码
+		author.setPassword("");
+		message.setAuthor(author);
+		message.setSupported(judgeIfSupport(username, message.getId()));
+		String content = message.getContent();
+		if (message.getType() == 2) {
+			int index = content.indexOf(';');
+			message.setContent(content.substring(0, index));
+			// 获取被转发的原微博
+			Message msg = messageDao.getMessageById(Integer.parseInt(content.substring(index + 1)));
+			SourceMessagae sourceMsg = msg;
+			sourceMsg.setNickname(msg.getAuthor().getNickname());
+			message.setSource_message(sourceMsg);
+		}
+	}
+
 }

@@ -3,41 +3,27 @@
  * @author zerrychu
  * @time 2015.10.23
  */
-function judgeIfSupport(message_id, _flag) {
-	$.ajax({
-		type : "post",
-		url : "message/judge_ifsupport",
-		data : {
-			username : $.query.get("username"),
-			message_id : message_id,
-			userToken : $.query.get("userToken"),
-			flag : _flag
-		},
-		dataType : "json",
-		success : function(data) {
-			$.each(data, function() {
-				if (data.msg == 1) {
-					// 可点赞
-					var message = "#weibo_" + message_id;
-					var zan = $(message).find(".zan");
-					zan.hide();
-					zan.attr("src", "images/2.png");
-					zan.fadeIn();
-					var val = "support(" + message_id + ", 0);"; // 点赞
-					$(message).find(".zan").attr("onclick", val);
-				} else {
-					// 不可点赞
-					var message = "#weibo_" + message_id;
-					var zan = $(message).find(".zan");
-					zan.hide();
-					zan.attr("src", "images/1.png");
-					zan.fadeIn(); // 红色的赞
-					var val = "support(" + message_id + ", 1);"; // 取消点赞
-					$(message).find(".zan").attr("onclick", val);
-				}
-			});
-		}
-	});
+function judgeIfSupport(message_id, isSupported) {
+	if (isSupported == false) {
+		// 可点赞
+		var message = "#weibo_" + message_id;
+		var zan = $(message).find(".zan");
+		zan.hide();
+		zan.attr("src", "images/2.png");
+		zan.fadeIn();
+		var val = "support(" + message_id + ", 0);"; // 点赞
+		$(message).find(".zan").attr("onclick", val);
+	} else {
+		// 不可点赞
+		var message = "#weibo_" + message_id;
+		var zan = $(message).find(".zan");
+		zan.hide();
+		zan.attr("src", "images/1.png");
+		zan.fadeIn(); // 红色的赞
+		var val = "support(" + message_id + ", 1);"; // 取消点赞
+		$(message).find(".zan").attr("onclick", val);
+	}
+
 }
 
 /**
@@ -62,7 +48,7 @@ function support(message_id, flag) {
 						dataType : "json",
 						success : function(data) {
 							if (data.msg == 1) {
-								judgeIfSupport(message_id, 1);
+								judgeIfSupport(message_id, false);
 								var weibo = "#weibo_" + message_id;
 								var num = $(weibo).find(".support")
 										.find(".num").text();
@@ -97,7 +83,7 @@ function support(message_id, flag) {
 						dataType : "json",
 						success : function(data) {
 							if (data.msg == 1) {
-								judgeIfSupport(message_id, 1);
+								judgeIfSupport(message_id, true);
 								var weibo = "#weibo_" + message_id;
 								var num = $(weibo).find(".support")
 										.find(".num").text();

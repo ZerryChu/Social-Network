@@ -440,29 +440,6 @@ body {
 												off = true;
 											}
 											while (data.returndata[i] != undefined) {
-												// ///////////////////////////////////////
-												var username;
-												var targetNickname = data.returndata[i].author;
-												$
-														.ajax({
-															type : "post",
-															url : "user/getTargetinfo",
-															data : {
-																nickname : targetNickname
-															},
-															async : false,
-															dataType : "json",
-															success : function(
-																	data) {
-																$
-																		.each(
-																				data,
-																				function() {
-																					username = data.returndata.username;
-																				});
-															}
-														});
-												// ////////////////////////////////////////
 
 												var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
 												var message = "<li  class=\"weibo_message\" id=\"weibo_"
@@ -472,17 +449,17 @@ body {
 														+ $.query
 																.get("username")
 														+ "&targetNickname="
-														+ data.returndata[i].author
+														+ data.returndata[i].author.nickname
 														+ "&userToken="
 														+ $.query
 																.get("userToken")
 														+ "\"><img title=\"查看用户信息\" src=\""
 													+ "pic/"
-													+ username
+													+ data.returndata[i].username
 													+ ".jpg"
 													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"weibo_username\"><a href=\""
 														+ "userinfo.jsp?targetNickname="
-														+ data.returndata[i].author
+														+ data.returndata[i].author.nickname
 														+ "&username="
 														+ $.query
 																.get("username")
@@ -490,7 +467,7 @@ body {
 														+ $.query
 																.get("userToken")
 														+ "\">"
-														+ data.returndata[i].author
+														+ data.returndata[i].author.nickname
 														+ "</a></div>";
 
 												message += return_content;
@@ -518,9 +495,7 @@ body {
 														+ "</div></div></div></li>";
 												$("#weibo").append(message);
 												judgeIfSupport(
-														data.returndata[i].id,
-														0);
-												// judgeIfSupport.js
+														data.returndata[i].id, data.returndata[i].supported);
 
 												var textarea = ".comarea_"
 														+ data.returndata[i].id;
@@ -545,6 +520,7 @@ body {
 			type : "post",
 			url : "topic/show_topic",
 			data : {
+				username : $.query.get("username"),
 				id : $.query.get("id"),
 			},
 			dataType : "json",

@@ -1,11 +1,4 @@
 /**
- * 
- */
-function searchUsersByNickname(nickname) {
-
-}
-
-/**
  * @content 首页条按内容搜索微博功能
  * @param   search_content
  * @notice  弃用
@@ -27,28 +20,6 @@ function searchMessagesByContent(search_content) {
 										$("#weibo").empty();
 										var i = 0;
 										while (data.returndata[i] != undefined) {
-											// ///////////////////////////////////////
-											var username;
-											var targetNickname = data.returndata[i].author;
-											$
-													.ajax({
-														type : "post",
-														url : "user/getTargetinfo",
-														data : {
-															nickname : targetNickname
-														},
-														async : false,
-														dataType : "json",
-														success : function(data) {
-															$
-																	.each(
-																			data,
-																			function() {
-																				username = data.returndata.username;
-																			});
-														}
-													});
-											// ////////////////////////////////////////
 
 											var message = "<li  class=\"weibo_message\" id=\"weibo_"
 													+ data.returndata[i].id
@@ -56,16 +27,16 @@ function searchMessagesByContent(search_content) {
 													+ "userinfo.jsp?username="
 													+ $.query.get("username")
 													+ "&targetNickname="
-													+ data.returndata[i].author
+													+ data.returndata[i].author.nickname
 													+ "\"><img src=\""
 													+ "pic/"
-													+ username
+													+ data.returndata[i].author.username
 													+ ".jpg"
 													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"weibo_username\"><a href=\""
 													+ "userinfo.jsp?targetNickname="
-													+ data.returndata[i].author
+													+ data.returndata[i].author.nickname
 													+ "\">"
-													+ data.returndata[i].author
+													+ data.returndata[i].author.nickname
 													+ "</a></div><div class=\"txt\">";
 											if (data.returndata[i].type == 2) { // 属于转发的微博
 												var content = data.returndata[i].content;
@@ -95,9 +66,16 @@ function searchMessagesByContent(search_content) {
 														+ "\" style=\"\"></ul>"
 														+ "</div></div></div></li>";
 												$("#weibo").append(message);
-												show_sourceMessage(id,
+												show_sourceMessage(
+														id,
 														data.returndata[i].id,
-														1);
+														data.returndata[i].source_message.nickname,
+														data.returndata[i].source_message.content,
+														data.returndata[i].source_message.pic,
+														data.returndata[i].source_message.create_time,
+														data.returndata[i].source_message.comment_times,
+														data.returndata[i].source_message.repost_times,
+														data.returndata[i].source_message.support_times);
 											} else { // 原创微博
 												message += data.returndata[i].content
 														+ "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
@@ -121,8 +99,7 @@ function searchMessagesByContent(search_content) {
 											}
 
 											judgeIfSupport(
-													data.returndata[i].id, 0); // 引入
-											// judgeIfSupport.js
+													data.returndata[i].id, data.returndata[i].supported);
 
 											i++;
 										}

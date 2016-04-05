@@ -148,7 +148,7 @@ public class UserController {
 		} // 无更新查询
 		else {
 			String returnMsg = userService.showUserInfoByNickname(nickname);
-			cookiesData.save(request, response, "userinfo", URLEncoder.encode(returnMsg, "UTF-8"));
+			//cookiesData.save(request, response, "userinfo", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}

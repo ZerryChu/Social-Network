@@ -24,6 +24,10 @@
 	background-position: 2px -28px
 }
 
+.Comment {
+	cursor: pointer;
+}
+
 .qqFace {
 	margin-top: 4px;
 }
@@ -72,7 +76,7 @@
 						</div>
 						<div class="info">
 							<time class="timeago" datetime=""></time>
-							<span class="num_info"><span class="comment">评论(<span
+							<span class="num_info"><span class="Comment">评论(<span
 									class="num"></span>) &转发(<span class="rpt_num"></span>)
 							</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="support"><img
 									class="zan" style="width: 8%; height: 50%;" src="images/2.png"
@@ -85,8 +89,8 @@
 								name="content"></textarea>
 							<span class="cmt_emotion" id="cmt_emotion"></span>
 							<div class="comment_btn">
-								<button class="comment_button">评论</button>
-								<button class="repost_button">转发</button>
+								<button class="Comment_button">评论</button>
+								<button class="Repost_button">转发</button>
 
 							</div>
 							<ul class="otherCom" id="comment_${param.id}" style=""></ul>
@@ -132,38 +136,16 @@
 										dataType : "json",
 										success : function(data) {
 											if (data.returndata != undefined) {
-												// ///////////////////////////////////////
-												var username;
-												var targetNickname = data.returndata.author;
-												$
-														.ajax({
-															type : "post",
-															url : "user/getTargetinfo",
-															data : {
-																nickname : targetNickname
-															},
-															async : false,
-															dataType : "json",
-															success : function(
-																	data) {
-																$
-																		.each(
-																				data,
-																				function() {
-																					username = data.returndata.username;
-																				});
-															}
-														});
-												// ////////////////////////////////////////
+
 												$(".timeago")
 														.attr(
 																"datetime",
 																data.returndata.create_time);
-												$(".comment")
+												$(".Comment")
 														.find(".rpt_num")
 														.text(
 																data.returndata.repost_times);
-												$(".comment")
+												$(".Comment")
 														.find(".num")
 														.text(
 																data.returndata.comment_times);
@@ -183,30 +165,47 @@
 												$(".userPic a")
 														.attr(
 																"href",
-																"userinfo.jsp?userToken=" + $.query.get("userToken") + "&username=" + $.query.get("username") + "&targetNickname="
-																		+ data.returndata.author);
+																"userinfo.jsp?userToken="
+																		+ $.query
+																				.get("userToken")
+																		+ "&username="
+																		+ $.query
+																				.get("username")
+																		+ "&targetNickname="
+																		+ data.returndata.author.nickname);
 
-												$(".userPic a img").attr(
-														"src",
-														"pic/" + username
-																+ ".jpg");
+												$(".userPic a img")
+														.attr(
+																"src",
+																"pic/"
+																		+ data.returndata.author.username
+																		+ ".jpg");
 
 												$(".weibo_username a")
 														.attr(
 																"href",
-																"userinfo.jsp?userToken=" + $.query.get("userToken") + "&username=" + $.query.get("username") + "&targetNickname="
-																		+ data.returndata.author);
-												$(".weibo_username a").text(
-														data.returndata.author);
-												judgeIfSupport($.query
-														.get("id"), 0);
+																"userinfo.jsp?userToken="
+																		+ $.query
+																				.get("userToken")
+																		+ "&username="
+																		+ $.query
+																				.get("username")
+																		+ "&targetNickname="
+																		+ data.returndata.author.nickname);
+												$(".weibo_username a")
+														.text(
+																data.returndata.author.nickname);
+												judgeIfSupport(
+														$.query.get("id"),
+														data.returndata.supported);
+
 												$(".timeago").timeago();
 											}
 										}
 									});
 						});
 
-		$(".comment").live('click', function() {
+		$(".Comment").live('click', function() {
 			var message_id = $.query.get("id");
 			var comtxt = $(".comtxt");
 			if (comtxt.css("display") == "none") {
@@ -219,7 +218,7 @@
 
 		}); // 查看评论
 
-		$(".repost_button").live('click', function() {
+		$(".Repost_button").live('click', function() {
 			var message_id = $.query.get("id");
 			var textarea = ".rptarea";
 			var content = $(textarea).val();
@@ -227,7 +226,7 @@
 			$(textarea).val("");
 		}); // 转发微博
 
-		$(".comment_button").live('click', function() {
+		$(".Comment_button").live('click', function() {
 			var message_id = $.query.get("id");
 			comarea = ".comarea";
 			content = $(comarea).val();

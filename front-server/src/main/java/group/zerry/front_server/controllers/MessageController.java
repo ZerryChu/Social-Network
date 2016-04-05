@@ -101,8 +101,6 @@ public class MessageController {
 		} // 无cookies更新查询
 		else {
 			String returnMsg = messageService.show_messages(username, userToken, page);
-			if (page == 1)
-				cookiesData.save(request, response, "messages", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}
@@ -143,7 +141,7 @@ public class MessageController {
 		} // 无更新查询
 		else {
 			String returnMsg = messageService.show_announcement();
-			cookiesData.save(request, response, "announcements", URLEncoder.encode(returnMsg, "UTF-8"));
+			//cookiesData.save(request, response, "announcements", URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}
@@ -192,7 +190,7 @@ public class MessageController {
 		} // 无更新查询
 		else {
 			String returnMsg = messageService.judgeIfSupport(username, message_id, userToken);
-			cookiesData.save(request, response, cookieName, URLEncoder.encode(returnMsg, "UTF-8"));
+			//cookiesData.save(request, response, cookieName, URLEncoder.encode(returnMsg, "UTF-8"));
 			return returnMsg;
 		}
 	}
@@ -245,8 +243,8 @@ public class MessageController {
 	
 	@ResponseBody
 	@RequestMapping(value="/show_topicWeibo", produces="text/html;charset=UTF-8")
-	public String showWeiboByTopicId(int topic_id, int page) {
-		String returnMsg = messageService.showWeiboByTopicId(topic_id, page);
+	public String showWeiboByTopicId(String username, int topic_id, int page) {
+		String returnMsg = messageService.showWeiboByTopicId(username, topic_id, page);
 		return returnMsg;
 	}
 

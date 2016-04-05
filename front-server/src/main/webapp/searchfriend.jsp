@@ -352,37 +352,16 @@ body {
 									$(".search_result").empty();
 									message = "<ul id=\"weibo\">";
 								}
-								// ///////////////////////////////////////
-								var username;
-								var targetNickname = data.returndata[i].author;
-								$
-										.ajax({
-											type : "post",
-											url : "user/getTargetinfo",
-											data : {
-												nickname : targetNickname
-											},
-											async : false,
-											dataType : "json",
-											success : function(data) {
-												$
-														.each(
-																data,
-																function() {
-																	username = data.returndata.username;
-																});
-											}
-										});
-								// ////////////////////////////////////////
+								
 								var weiboId = "weibo_" + data.returndata[i].id;
 								message += "<li id=\"" + weiboId + "\"><div class=\"weiboinfo\" id=\"" 
 										+ data.returndata[i].id 
 										+ "\" style=\"background: snow; padding-left: 10px; padding-right: 10px; padding-top: 2px;\">";
 								message += "<div class=\"weibo_username\"><span style=\"color: #006a92;\">"
-										+ data.returndata[i].author
+										+ data.returndata[i].author.nickname
 										+ "</span><img style=\"width:50px; height: 50px;\" src=\""
 									+ "pic/"
-									+ username
+									+ data.returndata[i].author.username
 									+ ".jpg"
 									+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></div><div class=\"txt\">"
 										+ data.returndata[i].content

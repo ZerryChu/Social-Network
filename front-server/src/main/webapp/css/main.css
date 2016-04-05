@@ -244,7 +244,7 @@ input {
 }
 
 .user_friend_text, .user_message_text {
-	width: 60px;
+	width: 70px;
 	height: 27px;
 	float: left;
 	text-align: center;

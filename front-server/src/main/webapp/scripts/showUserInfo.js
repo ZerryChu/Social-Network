@@ -55,7 +55,7 @@ function showTargetInfo(_flag) {
                 	$(".age div").text(data.returndata.age);
                 	$(".habit div").text(data.returndata.habit);
             		$(".topInfo img").attr("src", "pic/" + data.returndata.username + ".jpg");
-            		judgeIfFriend($(".targetUsername div").text(), 0); //判断是否可以点赞
+            		judgeIfFriend($(".targetUsername div").text(), 0);
 					showOwnmessages(1, 1);
                 } else {
                 	$(".targetUsername div").text($.query.get("targetNickname"));
@@ -72,6 +72,7 @@ function showTargetInfo(_flag) {
     });
 }
 
+/*
 var height;
 function adjustHeight() {
 	if(height == undefined) {
@@ -81,7 +82,7 @@ function adjustHeight() {
 		$(".right_content").css("height", $(".left_content").height());
 	else
 		$(".right_content").css("height", $(window).height());
-}
+}*/
 
 function logout() {
     $.ajax({

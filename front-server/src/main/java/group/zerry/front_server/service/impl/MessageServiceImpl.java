@@ -248,10 +248,11 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public String showWeiboByTopicId(int topic_id, int page) {
+	public String showWeiboByTopicId(String username, int topic_id, int page) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "message/show_topicWeibo";
 		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
 		paramsMap.put("topic_id", String.valueOf(topic_id));
 		paramsMap.put("page", String.valueOf(page));
 		return fetchURLTool.doPost(url, paramsMap);

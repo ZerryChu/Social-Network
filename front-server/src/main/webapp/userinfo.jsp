@@ -387,9 +387,15 @@ body {
 															+ "</div></div></div></li>";
 													$("#weibo").append(message);
 													show_sourceMessage(
-															id,
-															data.returndata[i].id,
-															1);
+															data.returndata[i].source_message.id,
+															data.returndata[i].id,														
+															data.returndata[i].source_message.nickname,
+															data.returndata[i].source_message.content,
+															data.returndata[i].source_message.pic,
+															data.returndata[i].source_message.create_time,
+															data.returndata[i].source_message.comment_times,
+															data.returndata[i].source_message.repost_times,
+															data.returndata[i].source_message.support_times);
 												} else {
 
 													message += return_content
@@ -419,9 +425,7 @@ body {
 													$("#weibo").append(message);
 												}
 												judgeIfSupport(
-														data.returndata[i].id,
-														0);
-												// judgeIfSupport.js
+														data.returndata[i].id, data.returndata[i].supported);
 
 												var textarea = ".comarea_"
 														+ data.returndata[i].id;

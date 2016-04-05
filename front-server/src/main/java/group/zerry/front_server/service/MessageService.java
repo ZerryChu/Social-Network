@@ -30,7 +30,7 @@ public interface MessageService {
 	
 	public String judgeIfSupport(String username, int message_id, String userToken);
 	
-	public String showWeiboByTopicId(int topic_id, int page);
+	public String showWeiboByTopicId(String username, int topic_id, int page);
 	
 	public boolean send_topicWeibo(String username, String userToken, String content, MultipartFile pic, int topic_id);
 }

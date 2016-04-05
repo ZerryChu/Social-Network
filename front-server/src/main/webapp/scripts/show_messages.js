@@ -53,48 +53,25 @@ function show_messages(pageNumber, _flag) {
 										$("#weibo").empty();
 										var i = 0;
 										while (data.returndata[i] != undefined) {
-											// ////////////////////////////////////////
-											var username;
-											var targetNickname = data.returndata[i].author;
-											$
-													.ajax({
-														type : "post",
-														url : "user/getTargetinfo",
-														data : {
-															nickname : targetNickname
-														},
-														async : false,
-														dataType : "json",
-														success : function(data) {
-															$
-																	.each(
-																			data,
-																			function() {
-																				username = data.returndata.username;
-																			});
-														}
-													});
-											// /////////////////////////////////////////
-
 											var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
 											var message = "<li  class=\"weibo_message\" id=\"weibo_"
 													+ data.returndata[i].id
 													+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><a href=\"userinfo.jsp?username="
 													+ $.query.get("username")
 													+ "&targetNickname="
-													+ data.returndata[i].author
+													+ data.returndata[i].author.nickname
 													+ "&userToken="
 													+ $.query.get("userToken")
 													+ "\"><img title=\"查看用户信息\" src=\"pic/"
-													+ username
+													+ data.returndata[i].author.username
 													+ ".jpg\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"weibo_username\"><a href=\"userinfo.jsp?targetNickname="
-													+ data.returndata[i].author
+													+ data.returndata[i].author.nickname
 													+ "&username="
 													+ $.query.get("username")
 													+ "&userToken="
 													+ $.query.get("userToken")
 													+ "\">"
-													+ data.returndata[i].author
+													+ data.returndata[i].author.nickname
 													+ "</a></div>";
 
 											if (data.returndata[i].type == 2) { // 属于转发的微博
@@ -122,9 +99,17 @@ function show_messages(pageNumber, _flag) {
 														+ data.returndata[i].id
 														+ "\" style=\"\"></div></ul></div></div></div></li>";
 												$("#weibo").append(message);
-												show_sourceMessage(id,
-														data.returndata[i].id,
-														1);
+												// 获取原微博
+												show_sourceMessage(
+														data.returndata[i].source_message.id,
+														data.returndata[i].id,														
+														data.returndata[i].source_message.nickname,
+														data.returndata[i].source_message.content,
+														data.returndata[i].source_message.pic,
+														data.returndata[i].source_message.create_time,
+														data.returndata[i].source_message.comment_times,
+														data.returndata[i].source_message.repost_times,
+														data.returndata[i].source_message.support_times);
 											} else { // 原创微博
 												message += return_content;
 												if (data.returndata[i].pic != undefined
@@ -150,7 +135,7 @@ function show_messages(pageNumber, _flag) {
 												$("#weibo").append(message);
 											}
 											judgeIfSupport(
-													data.returndata[i].id, 0);
+													data.returndata[i].id, data.returndata[i].supported);
 
 											var textarea = ".comarea_"
 													+ data.returndata[i].id;
@@ -176,49 +161,30 @@ function show_messages(pageNumber, _flag) {
  *            原微博id
  * @param _id
  *            转发者id
- * @param _flag
- *            是否缓存
  */
-function show_sourceMessage(id, _id, _flag) {
-	$
-			.ajax({
-				type : "post",
-				// async : false,
-				url : "message/show_message",
-				data : {
-					username : $.query.get("username"),
-					userToken : $.query.get("userToken"),
-					message_id : id,
-					flag : _flag
-				},
-				dataType : "json",
-				success : function(data) {
-					if (data.returndata != undefined) {
-						var weiboId = "#weibo_" + _id;
-						var repostInfo = $(weiboId).find(".repostInfo");
-						repostInfo.attr("id", id);
-						var message = "<div class=\"weibo_username\"><span style=\"color: #006a92;\">"
-								+ data.returndata.author
-								+ "</span></div><div class=\"txt\">"
-								+ data.returndata.content + "</div>";
-						if (data.returndata.pic != undefined
-								&& data.returndata.pic != "")
-							message += "<img class=\"msg_pic\" src=\"message/"
-									+ data.returndata.pic + ".jpg\">";
-						message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
-								+ data.returndata.create_time
-								+ "\"></time><span class=\"num_info\"><span>评论(<span class=\"comment_num\">"
-								+ data.returndata.comment_times
-								+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转发(<span class=\"repost_num\">"
-								+ data.returndata.repost_times
-								+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>点赞(<span class=\"support_num\">"
-								+ data.returndata.support_times
-								+ "</span>)</span></span></div>";
-						$(repostInfo).append(message);
-						$(".timeago").timeago();
-					}
-				}
-			});
+function show_sourceMessage(id, _id, nickname, content, pic, create_time,
+		comment_times, repost_times, support_times) {
+	var weiboId = "#weibo_" + _id;
+	var repostInfo = $(weiboId).find(".repostInfo");
+	repostInfo.attr("id", id);
+	var message = "<div class=\"weibo_username\"><span style=\"color: #006a92;\">"
+			+ nickname
+			+ "</span></div><div class=\"txt\">"
+			+ content
+			+ "</div>";
+	if (pic != undefined && pic != "")
+		message += "<img class=\"msg_pic\" src=\"message/" + pic + ".jpg\">";
+	message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
+			+ create_time
+			+ "\"></time><span class=\"num_info\"><span>评论(<span class=\"comment_num\">"
+			+ comment_times
+			+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转发(<span class=\"repost_num\">"
+			+ repost_times
+			+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>点赞(<span class=\"support_num\">"
+			+ support_times + "</span>)</span></span></div>";
+	$(repostInfo).append(message);
+	$(".timeago").timeago();
+
 }
 
 $(".repostInfo").live(
@@ -257,7 +223,7 @@ function show_announcements(_flag) {
 											var message = "<li id=\"weibo_"
 													+ data.returndata[i].id
 													+ "\"><div class=\"weiboinfo\"><div class=\"userPic\"><img src=\"pic/"
-													+ data.returndata[i].author
+													+ data.returndata[i].author.nickname
 													+ ".jpg\" onerror=\"javascript:this.src='images/no_found.png'\"/></div><div class=\"msgBox\"><div class=\"txt\">";
 											message += data.returndata[i].content
 													+ "</div><div class=\"info\"><time class=\"timeago\" datetime=\""
@@ -341,9 +307,15 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 															+ "\" style=\"\"></ul></div></div><img align=\"right\" class=\"delete_msg\" style=\"width:10px; height:10px;\" src=\"images/delete.jpg\"></div></li>";
 													$("#weibo").append(message);
 													show_sourceMessage(
-															id,
-															data.returndata[i].id,
-															1);
+															data.returndata[i].source_message.id,
+															data.returndata[i].id,														
+															data.returndata[i].source_message.nickname,
+															data.returndata[i].source_message.content,
+															data.returndata[i].source_message.pic,
+															data.returndata[i].source_message.create_time,
+															data.returndata[i].source_message.comment_times,
+															data.returndata[i].source_message.repost_times,
+															data.returndata[i].source_message.support_times);
 												} else {
 
 													message += return_content
@@ -371,9 +343,7 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 													$("#weibo").append(message);
 												}
 												judgeIfSupport(
-														data.returndata[i].id,
-														0);
-												// judgeIfSupport.js
+														data.returndata[i].id, data.returndata[i].supported);
 
 												var textarea = ".comarea_"
 														+ data.returndata[i].id;
@@ -654,42 +624,3 @@ $(".icon").live('click', function() {
 	// +
 	// $.query.get("userToken");
 })
-
-$(".comment").live('mouseover', function() {
-	$(this).css("color", "#759aad");
-});
-
-$(".comment").live('mouseout', function() {
-	$(this).css("color", "gray");
-});
-
-$(".comment").live('click', function() {
-	var message_id = $(this).parents("li").attr("id");
-	message_id = message_id.substr(6);
-	var comtxt = $(this).parents("li").find(".comtxt");
-	if (comtxt.css("display") == "none") {
-		show_comments(message_id, 1, 1);
-		comtxt.slideToggle();
-		$(this).parents("li").find(".pageNum").text("1");
-	} else {
-		comtxt.slideToggle();
-	}
-}); // 查看评论
-
-$(".repost_button").live('click', function() {
-	var message_id = $(this).parents("li").attr("id");
-	message_id = message_id.substr(6);
-	var textarea = ".comarea_" + message_id;
-	var content = $(textarea).val();
-	repost_message(content, message_id, 1);
-	$(textarea).val("");
-}); // 转发微博
-
-$(".comment_button").live('click', function() {
-	var message_id = $(this).parents("li").attr("id");
-	message_id = message_id.substr(6);
-	comarea = ".comarea_" + message_id;
-	content = $(comarea).val();
-	send_comment(message_id, content);
-	$(comarea).val(""); // 清空输入框
-}); // 发送评论

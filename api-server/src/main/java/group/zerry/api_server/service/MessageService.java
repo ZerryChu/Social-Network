@@ -11,15 +11,15 @@ public interface MessageService {
 	
 	public Message[] show_messages(String username, int page);
 	
-	public Message[] show_messagesByLabel(int label_id, int page);
+	public Message[] show_messagesByLabel(String username, int label_id, int page);
 	
-	public Message[] showMessagesByLabelAndHeat(int label_id, int page);
+	public Message[] showMessagesByLabelAndHeat(String username, int label_id, int page);
 
 	public Message[] show_ownMessages(String nickname, int page);
 
 	public Message[] show_announcements();
 
-	public Message show_messageById(int message_id);
+	public Message show_messageById(String username, int message_id);
 	
 	public boolean judgeIfSupport(String username, int id);
 	
@@ -35,7 +35,7 @@ public interface MessageService {
 	public void addLabelHeat(String username, long id, int timeoutMS);
 	*/
 	
-	public Message[] showWeiboByTopicId(int topic_id, int page);
+	public Message[] showWeiboByTopicId(String username, int topic_id, int page);
 	
 	public MessageStatusEnum send_topicMessage(String username, String content, String pic, int topic_id);
 	
