@@ -557,11 +557,14 @@
 			message_id = message_id.substr(6);
 			var comtxt = $(this).parents("li").find(".comtxt");
 			if (comtxt.css("display") == "none") {
-				show_comments(message_id, 1, 1);
-				comtxt.slideToggle();
+				var target = "#comment_" + message_id;
+				if ($(target).html() == "") {
+					show_comments(message_id, 1, 1);
+				}
+				comtxt.slideDown();
 				$(this).parents("li").find(".pageNum").text("1");
 			} else {
-				comtxt.slideToggle();
+				comtxt.slideUp();
 			}
 		}); // 查看评论
 

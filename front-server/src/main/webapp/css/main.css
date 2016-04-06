@@ -475,7 +475,7 @@ input {
 .friend_list {
 	float: left;
 	/*border: 1px solid #786F66;*/
-	padding-left: 50px;
+	padding-left: 30px;
 }
 
 .otherCom .msgBox .comer_name:hover, .otherCom .msgBox .comer_name:active

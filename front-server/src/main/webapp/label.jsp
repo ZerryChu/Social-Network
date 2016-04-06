@@ -625,32 +625,31 @@
 															+ data.returndata[i].author
 															+ "</a></div>";
 
-														message += return_content;
-														if (data.returndata[i].pic != undefined
-																&& data.returndata[i].pic != "")
-															message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"
+													message += return_content;
+													if (data.returndata[i].pic != undefined
+															&& data.returndata[i].pic != "")
+														message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"
 															+ data.returndata[i].pic
 															+ ".jpg\">";
-														message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
+													message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
 														+ data.returndata[i].create_time
 														+ "\"></time><span class=\"num_info\"><span class=\"comment\">评论(<span class=\"num\">"
-																+ data.returndata[i].comment_times
-																+ "</span>)&转发(<span class=\"rpt_num\">"
-																+ data.returndata[i].repost_times
-																+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"images/2.png\" onclick=\"\">(<span class=\"num\">"
-																+ data.returndata[i].support_times
-																+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
+															+ data.returndata[i].comment_times
+															+ "</span>)&转发(<span class=\"rpt_num\">"
+															+ data.returndata[i].repost_times
+															+ "</span>)</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"support\"><img class=\"zan\" style=\"width:8%; height:50%;\" src=\"images/2.png\" onclick=\"\">(<span class=\"num\">"
+															+ data.returndata[i].support_times
+															+ "</span>)<i class=\"like_plus\" style=\"color: gray; margin-top: -35px; margin-left: 65%; display: none;\">+1</i></span></span></div><div class=\"comtxt\" style=\"display: none\"><textarea style=\"height: 40px; width: 498px;\" class=\"comarea_"
 														+ data.returndata[i].id
 														+ "\" name=\"content\" style=\"width: 451px, height: 36px;\"></textarea><span class=\"cmt_emotion\" id=\"cmt_emotion"
 														+ data.returndata[i].id
 														+ "\"></span><div class=\"comment_btn\"><button class=\"comment_button\">评论</button><button class=\"repost_button\">转发</button></div>"
-																+ "<ul class=\"otherCom\" id=\"comment_"
+															+ "<ul class=\"otherCom\" id=\"comment_"
 														+ data.returndata[i].id
 														+ "\" style=\"\"></ul>"
-																+ "</div></div></div></li>";
-														$("#weibo").append(
-																message);
-													
+															+ "</div></div></div></li>";
+													$("#weibo").append(message);
+
 													judgeIfSupport(
 															data.returndata[i].id,
 															0);
@@ -839,33 +838,25 @@
 							+ targetUsername;
 
 				});
-		/*	$("#changeRecUsers").click(function() {
-				show_recommendedUsers();
-			});*/
-		/*
-		var pos = 0;
 
-		$(".show_user_info").live('mouseover', function() {
-			pos = 1;
-		})
-			
-		$(".show_user_info").live('mouseout', function() {
-			if (pos == 1)
-				$(this).fadeOut();
-		})
-		 */
+		$(".user_info").mouseleave(function(e) {
+			var id = $(this).attr("id").substr(1);
+			if (id >= rec_user_count)
+				return;
+			var temp = "#s" + id;
+			$(temp).stop(true).hide();
+		});
+
 		$(".user_info")
-				.mouseover(
-						function() {
-							//pos = 0; // pos
-							$(".show_user_info").hide();
+				.mouseenter(
+						function(e) {
 							var id = $(this).attr("id").substr(1);
 							if (id >= rec_user_count)
 								return;
 							var temp = "#s" + id;
 							if ($(temp).length > 0) {
-								$(temp).fadeIn();
-							} else {
+								$(temp).stop(true).show();
+							} else { // 动态生成
 								var left = $(this).offset().left
 										- $(this).width() - 35;
 								var top = $(this).offset().top + 20;
@@ -912,28 +903,30 @@
 								$("body").append(str);
 								$(temp).offset(function(n, c) {
 									newPos = new Object();
-									newPos.left = left;
-									newPos.top = top;
+									newPos.left = left - 50;
+									newPos.top = top - 130;
 									return newPos;
 								});
 							}
 						});
 
-		//$(".user_info").mouseout(function() {
-		//if ($("#s1").length > 0)
-		//	$("#s1").hide();
-		//});
+		$(".master_info").mouseleave(function() {
+			var id = $(this).attr("id").substr(1);
+			if (id >= master_user_count)
+				return;
+			var temp = "#master" + id;
+			$(temp).stop(true).hide();
+		})
+		
 		$(".master_info")
-				.mouseover(
+				.mouseenter(
 						function() {
-							//pos = 0; // pos
-							$(".show_user_info").hide();
 							var id = $(this).attr("id").substr(1);
 							if (id >= master_user_count)
 								return;
 							var temp = "#master" + id;
 							if ($(temp).length > 0) {
-								$(temp).fadeIn();
+								$(temp).stop(true).show();
 							} else {
 								var left = $(this).offset().left
 										- $(this).width() - 35;
@@ -982,17 +975,12 @@
 								$("body").append(str);
 								$(temp).offset(function(n, c) {
 									newPos = new Object();
-									newPos.left = left;
-									newPos.top = top;
+									newPos.left = left - 50;
+									newPos.top = top - 130;
 									return newPos;
 								});
 							}
 						});
-
-		//$(".user_info").mouseout(function() {
-		//if ($("#s1").length > 0)
-		//	$("#s1").hide();
-		//});
 
 		$("#messages_count").live('click', function() {
 			var nickname = $("#nickname").text();
@@ -1058,21 +1046,6 @@
 				}
 			});
 		});
-
-		//show mes
-		//setInterval("update()", 30000);
-
-		/*
-		 $(document).scroll(function(){
-		 var content = $(".right_info");
-		 if(293 <= $(window).scrollTop()) {
-		 content.css("margin-top", $(window).scrollTop() - 270);
-		 }
-		 else {
-		 content.css("margin-top", 0);
-		 }
-		 });
-		 */
 
 		$(".user_info").click(
 				function() {
@@ -1180,12 +1153,15 @@
 			$(this).css("background-color", "#dee3e3");
 			$(this).find(".label_name").css("background-color", "white");
 		});
-		
-		$("#topic_link").click(function() {
-			var str = "topic.jsp?username=" + $.query.get("username") + "&userToken=" + $.query.get("userToken") + "&nickname=";
-			str += $("#nickname").text();
-			window.location = str;
-		});
+
+		$("#topic_link").click(
+				function() {
+					var str = "topic.jsp?username=" + $.query.get("username")
+							+ "&userToken=" + $.query.get("userToken")
+							+ "&nickname=";
+					str += $("#nickname").text();
+					window.location = str;
+				});
 	</script>
 </body>
 </html>

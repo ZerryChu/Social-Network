@@ -210,10 +210,10 @@
 			var comtxt = $(".comtxt");
 			if (comtxt.css("display") == "none") {
 				show_comments(message_id, 1, 1);
-				comtxt.slideToggle();
+				comtxt.slideDown();
 				$(".pageNum").text("1");
 			} else {
-				comtxt.slideToggle();
+				comtxt.slideUp();
 			}
 
 		}); // 查看评论
