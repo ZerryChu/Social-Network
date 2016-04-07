@@ -165,27 +165,26 @@ public class UserController {
 	//显示目标用户的信息
 	/**
 	 * 注意nickname与username一一对应
-	 * @param request
-	 * @param response
-	 * @param nickname
+	 * @param username
+	 * @param nickname (targetNickname)
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getTargetinfo", produces = "text/html;charset=UTF-8")
-	public String showTargetInfoByNickname(HttpServletRequest request, HttpServletResponse response, String nickname) throws UnsupportedEncodingException {
-		Cookie cookie;
-		nickname = URLEncoder.encode(nickname, "UTF-8");
-		if (null == (cookie = cookiesData.getCookie(request, nickname))) {
-			String returnMsg = userService.showTargetInfoByNickname(URLDecoder.decode(nickname, "UTF-8"));
-			logger.error("getTargetInfo: " + returnMsg);
-			cookiesData.save(request, response, nickname, returnMsg);
+	public String showTargetInfoByNickname(String username, String nickname) throws UnsupportedEncodingException {
+		//Cookie cookie;
+		//nickname = URLEncoder.encode(nickname, "UTF-8");
+		//if (null == (cookie = cookiesData.getCookie(request, nickname))) {
+			String returnMsg = userService.showTargetInfoByNickname(username, nickname);
+			//logger.error("getTargetInfo: " + returnMsg);
+			//cookiesData.save(request, response, nickname, returnMsg);
 			return returnMsg;
-		} else {
-			String returnMsg = cookie.getValue();
-			returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
-			return returnMsg;
-		}
+		//} else {
+			//String returnMsg = cookie.getValue();
+			//returnMsg = URLDecoder.decode(returnMsg, "UTF-8");
+			//return returnMsg;
+		//}
 	}
 	
 	/**

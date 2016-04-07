@@ -33,7 +33,7 @@ public class UserController {
 	//private static Jedis                   jedis = new Jedis("localhost", 6379);
 
 	private static SimplePropertyPreFilter userFilter   = new SimplePropertyPreFilter(User.class, "username", "nickname",
-            "age", "type", "habit", "focus_num", "friend_num", "message_num");
+            "age", "type", "habit", "focus_num", "friend_num", "message_num", "friend");
 		
     private static Logger                  logger = Logger.getLogger(UserController.class);
 
@@ -138,10 +138,10 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getTargetinfo", produces = "text/html;charset=UTF-8")
-	public String ShowTargetInfoByNickname(String nickname) {
+	public String ShowTargetInfoByNickname(String username, String nickname) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
 		User user;
-		if(null == (user = userService.showTargetInfoByNickname(nickname))) {
+		if(null == (user = userService.showTargetInfoByNickname(username, nickname))) {
 			regMsg.append(UserStatusEnum.UNV.getValue());
 		}
 		else {

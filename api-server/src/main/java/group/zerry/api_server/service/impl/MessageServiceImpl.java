@@ -283,6 +283,8 @@ public class MessageServiceImpl implements MessageService {
 			Page<Message> myPage = PageHelperInterceptor.endPage();
 			List<Message> list = myPage.getResult();
 			message = (Message[]) list.toArray(new Message[list.size()]);
+			
+			messageCompletion(message, username);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;

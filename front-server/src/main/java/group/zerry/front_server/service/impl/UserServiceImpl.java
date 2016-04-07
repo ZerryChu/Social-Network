@@ -157,10 +157,11 @@ public class UserServiceImpl implements UserService {
 		return true;
 	}
 
-	public String showTargetInfoByNickname(String nickname) {
+	public String showTargetInfoByNickname(String username, String nickname) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "user/getTargetinfo";
 		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
 		paramsMap.put("nickname", nickname);
 		return fetchURLTool.doPost(url, paramsMap);
 	}

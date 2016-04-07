@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User showTargetInfoByNickname(String nickname) {
+	public User showTargetInfoByNickname(String username, String nickname) {
 		// TODO Auto-generated method stub
 		User user = null;
 		try {
@@ -123,6 +123,12 @@ public class UserServiceImpl implements UserService {
 			user.setFriend_num(integer);
 			integer = userDao.getUserFocusNumById(user.getId());
 			user.setFocus_num(integer);
+			Count count = friendDao.judgeIfFocusOrNot(userDao.selectUserByUsername(username).getId(), user.getId());
+			if (count.getNumber() >= 1) {
+				user.setFriend(true);
+			} else {
+				user.setFriend(false);
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;

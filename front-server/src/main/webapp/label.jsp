@@ -572,29 +572,6 @@
 												$("#weibo").empty();
 												var i = 0;
 												while (data.returndata[i] != undefined) {
-													// ///////////////////////////////////////
-													var username;
-													var targetNickname = data.returndata[i].author;
-													$
-															.ajax({
-																type : "post",
-																url : "user/getTargetinfo",
-																data : {
-																	nickname : targetNickname
-																},
-																async : false,
-																dataType : "json",
-																success : function(
-																		data) {
-																	$
-																			.each(
-																					data,
-																					function() {
-																						username = data.returndata.username;
-																					});
-																}
-															});
-													// ////////////////////////////////////////
 
 													var return_content = replace_em(data.returndata[i].content); // 解析QQ表情
 													var message = "<li  class=\"weibo_message\" id=\"weibo_"
@@ -604,17 +581,17 @@
 															+ $.query
 																	.get("username")
 															+ "&targetNickname="
-															+ data.returndata[i].author
+															+ data.returndata[i].author.nickname
 															+ "&userToken="
 															+ $.query
 																	.get("userToken")
 															+ "\"><img title=\"查看用户信息\" src=\""
 													+ "pic/"
-													+ username
+													+ data.returndata[i].username
 													+ ".jpg"
 													+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></a></div><div class=\"msgBox\"><div class=\"weibo_username\"><a href=\""
 															+ "userinfo.jsp?targetNickname="
-															+ data.returndata[i].author
+															+ data.returndata[i].author.nickname
 															+ "&username="
 															+ $.query
 																	.get("username")
@@ -622,7 +599,7 @@
 															+ $.query
 																	.get("userToken")
 															+ "\">"
-															+ data.returndata[i].author
+															+ data.returndata[i].author.nickname
 															+ "</a></div>";
 
 													message += return_content;
@@ -652,8 +629,7 @@
 
 													judgeIfSupport(
 															data.returndata[i].id,
-															0);
-													// judgeIfSupport.js
+															data.returndata[i].supported);
 
 													var textarea = ".comarea_"
 															+ data.returndata[i].id;
@@ -917,7 +893,7 @@
 			var temp = "#master" + id;
 			$(temp).stop(true).hide();
 		})
-		
+
 		$(".master_info")
 				.mouseenter(
 						function() {
@@ -1162,6 +1138,48 @@
 					str += $("#nickname").text();
 					window.location = str;
 				});
+		
+		$(".comment").live('mouseover', function() {
+			$(this).css("color", "#759aad");
+		});
+
+		$(".comment").live('mouseout', function() {
+			$(this).css("color", "gray");
+		});
+
+		$(".comment").live('click', function() {
+			var message_id = $(this).parents("li").attr("id");
+			message_id = message_id.substr(6);
+			var comtxt = $(this).parents("li").find(".comtxt");
+			if (comtxt.css("display") == "none") {
+				var target = "#comment_" + message_id;
+				if ($(target).html() == "") {
+					show_comments(message_id, 1, 1);
+				}
+				comtxt.slideDown();
+				$(this).parents("li").find(".pageNum").text("1");
+			} else {
+				comtxt.slideUp();
+			}
+		}); // 查看评论
+
+		$(".repost_button").live('click', function() {
+			var message_id = $(this).parents("li").attr("id");
+			message_id = message_id.substr(6);
+			var textarea = ".comarea_" + message_id;
+			var content = $(textarea).val();
+			repost_message(content, message_id, 1);
+			$(textarea).val("");
+		}); // 转发微博
+
+		$(".comment_button").live('click', function() {
+			var message_id = $(this).parents("li").attr("id");
+			message_id = message_id.substr(6);
+			comarea = ".comarea_" + message_id;
+			content = $(comarea).val();
+			send_comment(message_id, content);
+			$(comarea).val(""); // 清空输入框
+		}); // 发送评论
 	</script>
 </body>
 </html>

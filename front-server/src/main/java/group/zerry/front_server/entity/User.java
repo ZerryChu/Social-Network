@@ -7,17 +7,24 @@ package group.zerry.front_server.entity;
  * 
  */
 public class User {
-	private int    id;
-	private String nickname;
-	private int    age;
-	private String username;
-	private String password;
-	private int    type;
-	private String habit;
-	private int    friend_num;
-	private int    focus_num;
-	private int    message_num;
+	private int     id;
+	private String  nickname;
+	private int     age;
+	private String  username;
+	private String  password;
+	private int     type;
+	private String  habit;
+	private int     friend_num;
+	private int     focus_num;
+	private int     message_num;
+	private boolean isFriend;
 
+	public boolean isFriend() {
+		return isFriend;
+	}
+	public void setFriend(boolean isFriend) {
+		this.isFriend = isFriend;
+	}
 	public int getFocus_num() {
 		return focus_num;
 	}

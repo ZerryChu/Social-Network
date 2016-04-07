@@ -424,6 +424,7 @@ body {
 					type : "post",
 					url : "message/show_topicWeibo",
 					data : {
+						username : $.query.get("username"), 
 						topic_id : $.query.get("id"),
 						page : pageNumber
 					},

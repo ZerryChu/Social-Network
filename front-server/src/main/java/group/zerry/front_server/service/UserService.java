@@ -16,7 +16,7 @@ public interface UserService {
 
 	public String showUserInfoByNickname(String nickname);
 
-	public String showTargetInfoByNickname(String nickname);
+	public String showTargetInfoByNickname(String username, String nickname);
 
 	public String showFriendsByNickname(String nickname);
 	

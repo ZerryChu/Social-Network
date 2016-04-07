@@ -83,32 +83,6 @@ function openFriendList(i) {
 }
 
 /**
- * @content 判断目标用户是否已被关注
- */
-function judgeIfFriend(TargetUsername, _flag) {
-	$.ajax({
-		type : "post",
-		url : "friend/iffriends",
-		data : {
-			username : $.query.get("username"),
-			targetUsername : TargetUsername,
-			flag : _flag
-		},
-		// dataType : "json",
-		success : function(data) {
-			var i = 0;
-			if (data == "1") { // 两者是好友关系， 关注按钮失效
-				$("#focus").attr("disabled", true);
-				$("#unfocus").attr("disabled", false);
-			} else { // 两者不是好友关系， 取消关注按钮失效
-				$("#focus").attr("disabled", false);
-				$("#unfocus").attr("disabled", true);
-			}
-		}
-	});
-}
-
-/**
  * @content show共同好友
  * 
  */
@@ -158,7 +132,6 @@ function showCommonFriends(page) {
 						i++;
 					}
 					$(".subtitle span").text(i);
-					//adjustHeight();
 				}
 			});
 }
