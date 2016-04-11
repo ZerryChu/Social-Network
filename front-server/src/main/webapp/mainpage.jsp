@@ -233,7 +233,7 @@
 			<div class="right_info">
 				<div id="heated_topic">
 					<div class="sub_title"
-						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">热门话题</div>
+						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;"><span id="tpk" class="icon"></span>热门话题</div>
 					<div
 						style="display: inline-block; float: right; font-size: 12px; color: red;"
 						class="heat">阅读</div>
@@ -260,7 +260,7 @@
 		<div style="top: 512px;" class="right_content">
 			<div id="label_recommand">
 				<div class="sub_title"
-					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">发现标签</div>
+					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;"><span id="l_icon" class="icon"></span>发现标签</div>
 				<div
 					style="display: inline-block; float: right; font-size: 12px; color: red;"
 					class="heat">热度</div>
@@ -288,7 +288,7 @@
 		<div style="top: 688px;" class="right_content">
 			<div id="chat">
 				<div class="sub_title"
-					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">发送私信</div>
+					style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;"><span id="p_msg" class="icon"></span>发送私信</div>
 				<ul class="group">
 					<!--
 						<li id="rec_1"><div class="cls1" onclick="">好友分组1</div><div class="friendlist></div><li>

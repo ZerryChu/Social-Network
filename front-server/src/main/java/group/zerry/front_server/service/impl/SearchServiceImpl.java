@@ -30,10 +30,11 @@ public class SearchServiceImpl implements SearchService{
 		return fetchURLTool.doPost(url, paramsMap);
 	}
 
-	public String searchMessagesLikeContent(String content, int page) {
+	public String searchMessagesLikeContent(String username, String content, int page) {
 		// TODO Auto-generated method stub
 		String url = httpTarget.getHostname() + httpTarget.getPath() + "search/messages";
 		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("username", username);
 		paramsMap.put("content", content);
 		paramsMap.put("page", String.valueOf(page));
 		return fetchURLTool.doPost(url, paramsMap);

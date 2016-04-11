@@ -102,7 +102,7 @@ function show_messages(pageNumber, _flag) {
 												// 获取原微博
 												show_sourceMessage(
 														data.returndata[i].source_message.id,
-														data.returndata[i].id,														
+														data.returndata[i].id,
 														data.returndata[i].source_message.nickname,
 														data.returndata[i].source_message.content,
 														data.returndata[i].source_message.pic,
@@ -112,6 +112,13 @@ function show_messages(pageNumber, _flag) {
 														data.returndata[i].source_message.support_times);
 											} else { // 原创微博
 												message += return_content;
+												if (data.returndata[i].label_id != 0)
+													message += "<div id=\"lbl"
+															+ data.returndata[i].label_id
+															+ "\" class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>"
+															+ data.returndata[i].label_name
+															+ "</div>";
+												message += "</div>";
 												if (data.returndata[i].pic != undefined
 														&& data.returndata[i].pic != "")
 													message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"
@@ -135,7 +142,8 @@ function show_messages(pageNumber, _flag) {
 												$("#weibo").append(message);
 											}
 											judgeIfSupport(
-													data.returndata[i].id, data.returndata[i].supported);
+													data.returndata[i].id,
+													data.returndata[i].supported);
 
 											var textarea = ".comarea_"
 													+ data.returndata[i].id;
@@ -308,7 +316,7 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 													$("#weibo").append(message);
 													show_sourceMessage(
 															data.returndata[i].source_message.id,
-															data.returndata[i].id,														
+															data.returndata[i].id,
 															data.returndata[i].source_message.nickname,
 															data.returndata[i].source_message.content,
 															data.returndata[i].source_message.pic,
@@ -318,8 +326,14 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 															data.returndata[i].source_message.support_times);
 												} else {
 
-													message += return_content
-															+ "</div>";
+													message += return_content;
+													if (data.returndata[i].label_id != 0)
+														message += "<div id=\""
+																+ data.returndata[i].label_id
+																+ "\" class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>"
+																+ data.returndata[i].label_name
+																+ "</div>";
+													message += "</div>";
 													if (data.returndata[i].pic != undefined
 															&& data.returndata[i].pic != "")
 														message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"
@@ -343,7 +357,8 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 													$("#weibo").append(message);
 												}
 												judgeIfSupport(
-														data.returndata[i].id, data.returndata[i].supported);
+														data.returndata[i].id,
+														data.returndata[i].supported);
 
 												var textarea = ".comarea_"
 														+ data.returndata[i].id;

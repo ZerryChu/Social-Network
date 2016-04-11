@@ -74,6 +74,7 @@
 						<div class="txt">
 							<div class="textInfo"></div>
 						</div>
+						<div class="label"></div>
 						<div class="info">
 							<time class="timeago" datetime=""></time>
 							<span class="num_info"><span class="Comment">评论(<span
@@ -149,6 +150,15 @@
 														.find(".num")
 														.text(
 																data.returndata.comment_times);
+												if (data.returndata.label_id != 0) {
+													$(".label")
+															.append(
+																	"<div id=\""
+														+ data.returndata.label_id
+														+ "\" class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>"
+																			+ data.returndata.label_name
+																			+ "</div>");
+												}
 												$(".support")
 														.find(".num")
 														.text(

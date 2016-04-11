@@ -76,7 +76,7 @@ public class MessageServiceImpl implements MessageService {
 			}
 			id = labelDao.searchLabelIdByName(label);
 			labelDao.updateLabelHeatById(user.getId(), id);
-			message.setLabel(id);
+			message.setLabel_id(id);
 		}
 		try {
 			messageDao.addMessage(message);
@@ -360,6 +360,7 @@ public class MessageServiceImpl implements MessageService {
 
 	public void messageCompletion(Message[] message, String username) {
 		User author = null;
+		int label_id;
 		for (int i = 0; i < message.length; i++) {
 			author = userDao.selectUserByNickname(message[i].getAuthor().getNickname());
 			// 屏蔽密码
@@ -367,6 +368,9 @@ public class MessageServiceImpl implements MessageService {
 			message[i].setAuthor(author);
 			message[i].setSupported(judgeIfSupport(username, message[i].getId()));
 			String content = message[i].getContent();
+			if (0 != (label_id = message[i].getLabel_id())) {
+				message[i].setLabel_name(labelDao.searchLabelNameById(label_id));
+			}
 			if (message[i].getType() == 2) {
 				int index = content.indexOf(';');
 				message[i].setContent(content.substring(0, index));
@@ -387,6 +391,10 @@ public class MessageServiceImpl implements MessageService {
 		message.setAuthor(author);
 		message.setSupported(judgeIfSupport(username, message.getId()));
 		String content = message.getContent();
+		int label_id;
+		if (0 != (label_id = message.getLabel_id())) {
+			message.setLabel_name(labelDao.searchLabelNameById(label_id));
+		}
 		if (message.getType() == 2) {
 			int index = content.indexOf(';');
 			message.setContent(content.substring(0, index));

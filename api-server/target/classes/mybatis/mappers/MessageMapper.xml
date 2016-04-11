@@ -14,7 +14,7 @@
 		<result property="comment_times" column="comment_times" />
 		<result property="support_times" column="support_times" />
 		<result property="pic" column="pic" />
-		<result property="label" column="label" />
+		<result property="label_id" column="label_id" />
 	</resultMap>
 
 	<resultMap id="CountMap" type="Count">

@@ -8,6 +8,10 @@
 <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <style type="text/css">
+#topic_link {
+    cursor: pointer;
+}
+
 .msg_emotion, .cmt_emotion, .rpt_emotion {
 	width: 42px;
 	height: 20px;
@@ -181,7 +185,7 @@
 				href="main?username=${param.username}&userToken=${param.userToken}">首页</a></li>
 			<li><a class="link"
 				href="label.jsp?username=${param.username}&userToken=${param.userToken}">标签</a></li>
-			<li><a class="link" id="topic_link">话题</a></li>
+			<li><a id="topic_link" class="link">话题</a></li>
 			<!--  at    好友    私信 -->
 			<form action="" method="post">
 				<input type="text" class="search_text" /> <select
@@ -363,7 +367,7 @@
 			</div>
 			<div style="margin-top: 5px;" class="right_content">
 				<div class="user_recommend">
-					<div class="sub_title">推荐用户</div>
+					<div class="sub_title"><span id="fcs" class="icon"></span>推荐用户</div>
 					<div class="user_list">
 						<div id="u1" class="user_info">
 							<img class="usericon"><span class="rec_nickname"></span>
@@ -381,7 +385,7 @@
 			</div>
 			<div style="margin-top: 5px;" class="right_content">
 				<div class="user_recommend">
-					<div class="sub_title">圈内大神</div>
+					<div class="sub_title"><span id="fcs" class="icon"></span>圈内大神</div>
 					<div class="master_list">
 						<div id="m1" class="master_info">
 							<img class="master_icon"><span class="master_nickname"></span>

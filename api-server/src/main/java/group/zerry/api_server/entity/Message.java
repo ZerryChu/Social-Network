@@ -16,21 +16,28 @@ public class Message extends SourceMessagae {
 	//private int     comment_times; //评论量
 	//private int     support_times; //点赞量
 	private String  pic;           //uuid值，图片名，暂定一微博只能存一张图片
-	private int     label;
+	private int     label_id;
+	private String  label_name;
 	private boolean isSupported;
 	private SourceMessagae source_message;
 	
+	public String getLabel_name() {
+		return label_name;
+	}
+	public void setLabel_name(String label_name) {
+		this.label_name = label_name;
+	}
 	public boolean isSupported() {
 		return isSupported;
 	}
 	public void setSupported(boolean isSupported) {
 		this.isSupported = isSupported;
 	}
-	public int getLabel() {
-		return label;
+	public int getLabel_id() {
+		return label_id;
 	}
-	public void setLabel(int label) {
-		this.label = label;
+	public void setLabel_id(int label_id) {
+		this.label_id = label_id;
 	}
 	public String getPic() {
 		return pic;

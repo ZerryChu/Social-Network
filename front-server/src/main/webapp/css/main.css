@@ -3,10 +3,9 @@
 	padding: 0px;
 }
 
-body{
-  /*  background-color: #73cff1;*/  
+body {
+	/*  background-color: #73cff1;*/
 	background: url(../images/bg_background.png) left top repeat;
-  
 }
 
 .option {
@@ -27,18 +26,18 @@ body{
 	padding-top: 10px;
 }
 
-.bg{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0px;
-    z-index: -1;
+.bg {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	z-index: -1;
 }
 
 .msg_pic {
 	width: 100px;
 	/*display: inline-block;
-	float: right;*/	
+	float: right;*/
 }
 
 .top {
@@ -49,7 +48,7 @@ body{
 	top: 0;
 	left: 0;
 	z-index: 5;
-	opacity: 0.45;	
+	opacity: 0.45;
 }
 
 .top_content {
@@ -66,7 +65,7 @@ body{
 }
 
 .link {
-	color: black;	
+	color: black;
 	text-decoration: none;
 }
 
@@ -94,22 +93,22 @@ body{
 
 .w-top {
 	position: fixed;
-    bottom: 30px;
-    height: 50px;
-    overflow: hidden;
-    position: fixed;
-    right: 30px;
-    text-indent: -2000px;
-    width: 50px;
-    z-index: 79;
-    background: url(../images/icon2-8.png) no-repeat scroll 999px 999px;
-    background-position: 0 -934px;    
+	bottom: 30px;
+	height: 50px;
+	overflow: hidden;
+	position: fixed;
+	right: 30px;
+	text-indent: -2000px;
+	width: 50px;
+	z-index: 79;
+	background: url(../images/icon2-8.png) no-repeat scroll 999px 999px;
+	background-position: 0 -934px;
 }
 
 .next_one {
 	display: inline-block;
 	float: right;
-	cursor: pointer;	
+	cursor: pointer;
 	font-size: 12px;
 }
 
@@ -178,7 +177,7 @@ body{
 
 .send_success, .delete_confirm {
 	padding-left: 50px;
-	background-color: #fcffc3;	
+	background-color: #fcffc3;
 }
 
 #nickname {
@@ -214,7 +213,6 @@ input {
 	margin: 10px;
 }
 
-
 .comment, .support, .comment span {
 	color: gray;
 	cursor: pointer;
@@ -240,11 +238,11 @@ input {
 }
 
 .user_friend_text {
-	border-right: 0.5px solid gray;	
+	border-right: 0.5px solid gray;
 }
 
 .user_friend_text, .user_message_text {
-	width: 70px;
+	width: 61px;
 	height: 27px;
 	float: left;
 	text-align: center;
@@ -256,7 +254,7 @@ input {
 }
 
 #friends_count, #focus_count, #messages_count {
-	cursor: pointer;	
+	cursor: pointer;
 }
 
 .delete_msg, .delete_cmt {
@@ -340,7 +338,6 @@ input {
 .weibo {
 	list-style: none;
 	padding: 0px 20%;
-	
 }
 
 .weibolist ul li {
@@ -406,7 +403,7 @@ input {
 }
 
 .comment_button {
-	cursor: pointer;	
+	cursor: pointer;
 }
 
 .msgBox .comment_btn {
@@ -429,7 +426,7 @@ input {
 }
 
 .rec_nickname {
-	cursor: pointer;	
+	cursor: pointer;
 }
 
 .btn {
@@ -556,8 +553,46 @@ input {
 	padding-bottom: 8px;
 }
 
-/*bigic*/
+.icon {
+	background: rgba(0, 0, 0, 0) url("../images/icon2-8.png") repeat scroll
+		0 0;
+	display: inline-block;
+	height: 25px;
+	width: 28px;
+}
 
+#tpk {
+	background: rgba(0, 0, 0, 0) url("../images/icon24.png") repeat scroll 0
+		-1677px;
+}
+
+#fcs {
+	margin-left: 5px;
+	background: rgba(0, 0, 0, 0) url("../images/icon24.png") repeat scroll 0
+		-280px
+}
+
+#p_msg {
+	background: rgba(0, 0, 0, 0) url("../images/icon24.png") repeat scroll 0
+		-1960px;
+}
+
+#l_icon {
+	background: rgba(0, 0, 0, 0) url("../images/icon24.png") repeat scroll 0
+		-103px;
+	width: 20px;
+	height: 14px;
+}
+
+.msg_label {
+	font-size: 10px;	
+}
+
+#icon {
+	background-position: -72px -1095px;
+}
+
+/*bigic*/
 .popup-bigic {
 	position: absolute;
 	left: 0;
@@ -565,6 +600,7 @@ input {
 	overflow: hidden;
 	z-index: 9999;
 }
+
 .popup-bigic .loading-bigic {
 	position: absolute;
 	left: 50%;
@@ -574,15 +610,18 @@ input {
 	margin-left: -12px;
 	margin-top: -12px;
 }
+
 .popup-bigic .img-bigic {
 	position: absolute;
 }
+
 .option-bigic {
 	position: absolute;
 	right: 20px;
 	top: 20px;
 	z-index: 1;
 }
+
 .option-bigic span {
 	display: inline-block;
 	width: 40px;
@@ -597,17 +636,21 @@ input {
 	background-color: #fff;
 	opacity: .5;
 }
+
 .option-bigic span:hover {
 	opacity: 1;
 }
+
 .option-bigic span.change-bigic {
 	display: none;
 	background-position: -52px 3px;
 }
+
 .option-bigic span.max-bigic {
 	display: none;
 	background-position: -119px 3px;
 }
+
 .option-bigic span.close-bigic {
 	background-position: 8px 8px;
 }

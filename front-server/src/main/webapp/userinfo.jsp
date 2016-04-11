@@ -398,8 +398,14 @@ body {
 															data.returndata[i].source_message.support_times);
 												} else {
 
-													message += return_content
-															+ "</div>";
+													message += return_content;
+													if (data.returndata[i].label_id != 0)
+														message += "<div id=\"lbl"
+																+ data.returndata[i].label_id
+																+ "\" class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>"
+																+ data.returndata[i].label_name
+																+ "</div>";
+													message += "</div>";
 													if (data.returndata[i].pic != undefined
 															&& data.returndata[i].pic != "")
 														message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"

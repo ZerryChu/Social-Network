@@ -343,7 +343,7 @@ body {
 			<div style="margin-top: 10px;" class="topic_right_content">
 				<div id="heated_topic">
 					<div class="sub_title"
-						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">热门话题</div>
+						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;"><span id="tpk" class="icon"></span>热门话题</div>
 					<div class="heated_subtitle">
 						<a class="heated_topic"><div id="topic_1">#情人节要这样过#</div></a> <a
 							class="heated_topic"><div id="topic_2">#那些年，让你跌破眼镜的童鞋#</div></a>
@@ -358,7 +358,7 @@ body {
 			<div style="margin-top: 10px;" class="topic_right_content">
 				<div id="topic_info">
 					<div class="sub_title"
-						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;">话题分类</div>
+						style="padding-left: 0px; margin-left: 10px; width: 85%; font-size: 20px;"><span id="l_icon" class="icon"></span>话题分类</div>
 					<div class="topic_subtitle">
 						<a class="topic_classify"
 							href="topic.jsp?id=1&username=${param.username}&userToken=${param.userToken}&nickname=${param.nickname}"><div
@@ -722,5 +722,47 @@ body {
 	$(".next_one").mouseout(function() {
 		$(this).css("color", "black");
 	});
+	
+	$(".comment").live('mouseover', function() {
+		$(this).css("color", "#759aad");
+	});
+
+	$(".comment").live('mouseout', function() {
+		$(this).css("color", "gray");
+	});
+
+	$(".comment").live('click', function() {
+		var message_id = $(this).parents("li").attr("id");
+		message_id = message_id.substr(6);
+		var comtxt = $(this).parents("li").find(".comtxt");
+		if (comtxt.css("display") == "none") {
+			var target = "#comment_" + message_id;
+			if ($(target).html() == "") {
+				show_comments(message_id, 1, 1);
+			}
+			comtxt.slideDown();
+			$(this).parents("li").find(".pageNum").text("1");
+		} else {
+			comtxt.slideUp();
+		}
+	}); // 查看评论
+
+	$(".repost_button").live('click', function() {
+		var message_id = $(this).parents("li").attr("id");
+		message_id = message_id.substr(6);
+		var textarea = ".comarea_" + message_id;
+		var content = $(textarea).val();
+		repost_message(content, message_id, 1);
+		$(textarea).val("");
+	}); // 转发微博
+
+	$(".comment_button").live('click', function() {
+		var message_id = $(this).parents("li").attr("id");
+		message_id = message_id.substr(6);
+		comarea = ".comarea_" + message_id;
+		content = $(comarea).val();
+		send_comment(message_id, content);
+		$(comarea).val(""); // 清空输入框
+	}); // 发送评论
 </script>
 </html>

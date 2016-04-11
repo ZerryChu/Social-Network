@@ -62,7 +62,7 @@ body {
 	display: inline-block;
 	float: left;
 	width: 20%;
-	height: 616px;	
+	height: 616px;
 }
 
 .left_content {
@@ -181,7 +181,7 @@ body {
 }
 
 .friend_icon {
-	float: left; 
+	float: left;
 	margin-left: 10px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -195,7 +195,7 @@ body {
 
 .friend_info span, .focus_info span {
 	font-weight: bold;
-	color: #759aad;	
+	color: #759aad;
 }
 
 .friend_list {
@@ -339,6 +339,7 @@ body {
 					// async : false,
 					url : "search/messages",
 					data : {
+						username : $.query.get("username"),
 						content : _content,
 						page : _page
 					},
@@ -352,11 +353,11 @@ body {
 									$(".search_result").empty();
 									message = "<ul id=\"weibo\">";
 								}
-								
+
 								var weiboId = "weibo_" + data.returndata[i].id;
 								message += "<li id=\"" + weiboId + "\"><div class=\"weiboinfo\" id=\"" 
 										+ data.returndata[i].id 
-										+ "\" style=\"background: snow; padding-left: 10px; padding-right: 10px; padding-top: 2px;\">";
+										+ "\" style=\"background: white; padding-left: 10px; padding-right: 10px; padding-top: 2px;\">";
 								message += "<div class=\"weibo_username\"><span style=\"color: #006a92;\">"
 										+ data.returndata[i].author.nickname
 										+ "</span><img style=\"width:50px; height: 50px;\" src=\""
@@ -364,8 +365,14 @@ body {
 									+ data.returndata[i].author.username
 									+ ".jpg"
 									+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></div><div class=\"txt\">"
-										+ data.returndata[i].content
-										+ "</div>"
+										+ data.returndata[i].content;
+								if (data.returndata[i].label_id != 0)
+									message += "<div id=\"lbl"
+												+ data.returndata[i].label_id
+												+ "\" class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>"
+											+ data.returndata[i].label_name
+											+ "</div>";
+								message += "</div>"
 										+ "<div class=\"info\"><time class=\"timeago\" datetime=\""
 											+ data.returndata[i].create_time
 											+ "\"></time><span class=\"num_info\"><span>评论(<span class=\"comment_num\">"
@@ -545,7 +552,7 @@ body {
 	$(".top_content li").mouseout(function() {
 		this.style.background = "";
 	});
-	
+
 	$(".target_info").live("mouseover", function() {
 		$(this).css("width", "208");
 		$(this).css("height", "78");

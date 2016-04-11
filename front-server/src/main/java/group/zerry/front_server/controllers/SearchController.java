@@ -35,10 +35,10 @@ public class SearchController {
 
 	@ResponseBody
 	@RequestMapping(value = "/messages", produces = "text/html;charset=UTF-8")
-	public String searchMessagesLikeContent(HttpServletRequest request, HttpServletResponse response, String content,
+	public String searchMessagesLikeContent(HttpServletRequest request, HttpServletResponse response, String username, String content,
 			int page) {
 		saveTrace(request, response, content, 1);
-		return searchService.searchMessagesLikeContent(content, page);
+		return searchService.searchMessagesLikeContent(username, content, page);
 	}
 
 	/**
