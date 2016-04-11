@@ -118,7 +118,7 @@ function show_messages(pageNumber, _flag) {
 															+ "\" class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>"
 															+ data.returndata[i].label_name
 															+ "</div>";
-												message += "</div>";
+												//message += "</div>";
 												if (data.returndata[i].pic != undefined
 														&& data.returndata[i].pic != "")
 													message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"
