@@ -238,6 +238,7 @@ body {
 <script src="scripts/support.js" type="text/javascript"></script>
 <script src="scripts/checkSubmit.js" type="text/javascript"></script>
 <script src="scripts/jquery-bigic.js" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		showTargetInfo(1);

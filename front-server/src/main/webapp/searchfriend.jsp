@@ -201,6 +201,12 @@ body {
 .friend_list {
 	padding-left: 24px;
 }
+
+.txt {
+	float: left;
+	width: 470px;
+	margin-left: 10px;
+}
 </style>
 
 </head>
@@ -358,22 +364,27 @@ body {
 								message += "<li id=\"" + weiboId + "\"><div class=\"weiboinfo\" id=\"" 
 										+ data.returndata[i].id 
 										+ "\" style=\"background: white; padding-left: 10px; padding-right: 10px; padding-top: 2px;\">";
-								message += "<div class=\"weibo_username\"><span style=\"color: #006a92;\">"
-										+ data.returndata[i].author.nickname
-										+ "</span><img style=\"width:50px; height: 50px;\" src=\""
+								message += "<img style=\"float: left; width:50px; height: 50px;\" src=\""
 									+ "pic/"
 									+ data.returndata[i].author.username
 									+ ".jpg"
-									+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/></div><div class=\"txt\">"
+									+ "\" onerror=\"javascript:this.src='images/no_found.png'\"/><div class=\"txt\">"
+										+ "<div class=\"weibo_username\"><span style=\"margin-left: 10px; color: #006a92;\">"
+										+ data.returndata[i].author.nickname
+										+ "</span></div>"
 										+ data.returndata[i].content;
+								if (data.returndata[i].pic != undefined
+										&& data.returndata[i].pic != "")
+									message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"
+												+ data.returndata[i].pic
+												+ ".jpg\">";
 								if (data.returndata[i].label_id != 0)
 									message += "<div id=\"lbl"
 												+ data.returndata[i].label_id
 												+ "\" class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>"
 											+ data.returndata[i].label_name
 											+ "</div>";
-								message += "</div>"
-										+ "<div class=\"info\"><time class=\"timeago\" datetime=\""
+								message += "<div class=\"info\"><time class=\"timeago\" datetime=\""
 											+ data.returndata[i].create_time
 											+ "\"></time><span class=\"num_info\"><span>评论(<span class=\"comment_num\">"
 										+ data.returndata[i].comment_times

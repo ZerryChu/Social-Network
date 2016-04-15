@@ -109,6 +109,7 @@
 	<script src="plugins/jquery.qqFace.js" type="text/javascript"></script>
 	<script src="scripts/show_messages.js" type="text/javascript"></script>
 	<script src="scripts/checkSubmit.js" type="text/javascript"></script>
+	<script src="scripts/jquery-bigic.js" type="text/javascript"></script>
 	<script src="scripts/support.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document)
@@ -210,6 +211,7 @@
 														data.returndata.supported);
 
 												$(".timeago").timeago();
+												$(".msg_pic").bigic();
 											}
 										}
 									});

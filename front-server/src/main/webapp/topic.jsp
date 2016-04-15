@@ -10,13 +10,13 @@
 <style type="text/css">
 .sort {
 	margin-top: 50px;
-	margin-left: 190px;
+	margin-left: 10%;
 	height: 380px;
 	width: 1000px;
 }
 
 .info {
-	margin-left: 196px;
+	margin-left: 10.5%;
 	height: auto;
 	width: 917px;
 	border-radius: 5px 5px 5px 5px;
@@ -174,6 +174,7 @@
 <script src="plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="plugins/jquery.query-2.1.7.js" type="text/javascript"></script>
 <script src="plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var topic = 0;
 	if ((topic = $.query.get("id")) != 0)
