@@ -1,6 +1,7 @@
 package group.zerry.front_server.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.instrument.classloading.ShadowingClassLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,5 +25,11 @@ public class LabelController {
 	@RequestMapping(value = "/show_rec", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String showRecommendedLabels(String username) {
 		return labelService.showRecommendedLabels(username);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/show_similar", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String showSimilarLabel(int label_id) {
+		return labelService.showSimilarLabel(label_id);
 	}
 }

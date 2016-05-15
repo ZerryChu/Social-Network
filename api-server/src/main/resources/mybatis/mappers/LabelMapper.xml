@@ -43,6 +43,12 @@
 			name = #{name}
  	</select>
  	
+ 	<insert id="addLabel">
+ 		INSERT INTO msg_lbl_relation
+ 		VALUES
+ 		    (#{0}, #{1})
+ 	</insert>
+ 	
  	<update id="updateLabelHeatById">
  		INSERT INTO label_heat
 		VALUES

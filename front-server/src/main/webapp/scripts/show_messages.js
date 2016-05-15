@@ -112,12 +112,17 @@ function show_messages(pageNumber, _flag) {
 														data.returndata[i].source_message.support_times);
 											} else { // 原创微博
 												message += return_content;
-												if (data.returndata[i].label_id != 0)
-													message += "<div id=\"lbl"
-															+ data.returndata[i].label_id
-															+ "\" class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>"
-															+ data.returndata[i].label_name
-															+ "</div>";
+												if (data.returndata[i].label_name != undefined) {
+													message += "<div class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>";
+															var j = 0;
+															while (data.returndata[i].label_name[j]) {
+																message += "<a>"
+																	+ data.returndata[i].label_name[j]
+																	+ "</a>&nbsp;&nbsp;";
+																j++;
+															}
+													message += "</div>";
+												}
 												if (data.returndata[i].pic != undefined
 														&& data.returndata[i].pic != "")
 													message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"
@@ -326,13 +331,17 @@ function showOwnmessages(target, pageNumber, _flag, ifShow) {
 												} else {
 
 													message += return_content;
-													if (data.returndata[i].label_id != 0)
-														message += "<div id=\""
-																+ data.returndata[i].label_id
-																+ "\" class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>"
-																+ data.returndata[i].label_name
-																+ "</div>";
-													message += "</div>";
+													if (data.returndata[i].label_name != undefined) {
+														message += "<div class=\"msg_label\"><span id=\"l_icon\" class=\"icon\"></span>";
+																var j = 0;
+																while (data.returndata[i].label_name[j]) {
+																	message += "<a>"
+																		+ data.returndata[i].label_name[j]
+																		+ "</a>&nbsp;&nbsp;";
+																	j++;
+																}
+														message += "</div>";
+													}
 													if (data.returndata[i].pic != undefined
 															&& data.returndata[i].pic != "")
 														message += "<br><img class=\"msg_pic\" title=\"点击显示原图\" src=\"message/"

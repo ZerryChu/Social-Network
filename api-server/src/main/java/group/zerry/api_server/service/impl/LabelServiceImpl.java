@@ -17,6 +17,7 @@ import group.zerry.api_server.entity.Label;
 import group.zerry.api_server.entity.User;
 import group.zerry.api_server.service.LabelService;
 import group.zerry.api_server.utils.LabelHeat;
+import group.zerry.api_server.utils.LabelManageTools;
 import group.zerry.api_server.utils.Recommender;
 
 @Service(value = "LabelService")
@@ -33,6 +34,9 @@ public class LabelServiceImpl implements LabelService {
 	
 	@Autowired
 	private Recommender recommender;
+	
+	@Autowired
+	private LabelManageTools labelManageTools;
 	
 	@Autowired
 	private static Logger logger = Logger.getLogger(LabelServiceImpl.class); 
@@ -103,4 +107,17 @@ public class LabelServiceImpl implements LabelService {
 		return lbs;
 	}
 	
+	public void addLabels(int msg_id, List<String> labels) {
+		for (String label : labels) {
+			int lbl_id = labelDao.searchLabelIdByName(label);
+			labelDao.addLabel(msg_id, lbl_id);
+		}
+	}
+
+	@Override
+	public String[] showSimilarLabels(int label_id) {
+		// TODO Auto-generated method stub
+		String label = labelDao.searchLabelNameById(label_id);
+		return labelManageTools.recommentLabel(label).toArray(new String[]{});
+	}
 }

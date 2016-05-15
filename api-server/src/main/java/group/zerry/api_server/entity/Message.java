@@ -8,23 +8,22 @@ package group.zerry.api_server.entity;
  */
 public class Message extends SourceMessagae {
 	//private int     id;
-	private User    author;
+	private User      author;
 	//private String  content;
-	private int     type;
+	private int       type;
 	//private String  create_time;
 	//private int     repost_times;  //转发量
 	//private int     comment_times; //评论量
 	//private int     support_times; //点赞量
-	private String  pic;           //uuid值，图片名，暂定一微博只能存一张图片
-	private int     label_id;
-	private String  label_name;
-	private boolean isSupported;
+	private String    pic;           //uuid值，图片名，暂定一微博只能存一张图片
+	private String[]  label_name;
+	private boolean   isSupported;
 	private SourceMessagae source_message;
 	
-	public String getLabel_name() {
+	public String[] getLabel_name() {
 		return label_name;
 	}
-	public void setLabel_name(String label_name) {
+	public void setLabel_name(String[] label_name) {
 		this.label_name = label_name;
 	}
 	public boolean isSupported() {
@@ -32,12 +31,6 @@ public class Message extends SourceMessagae {
 	}
 	public void setSupported(boolean isSupported) {
 		this.isSupported = isSupported;
-	}
-	public int getLabel_id() {
-		return label_id;
-	}
-	public void setLabel_id(int label_id) {
-		this.label_id = label_id;
 	}
 	public String getPic() {
 		return pic;

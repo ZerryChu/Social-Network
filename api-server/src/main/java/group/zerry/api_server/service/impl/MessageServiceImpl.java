@@ -23,8 +23,10 @@ import group.zerry.api_server.entity.User;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.interceptors.PageHelperInterceptor;
 import group.zerry.api_server.interceptors.PageHelperInterceptor.Page;
+import group.zerry.api_server.service.LabelService;
 import group.zerry.api_server.service.MessageService;
 import group.zerry.api_server.utils.BatchHandleWrapperForLabel;
+import group.zerry.api_server.utils.LabelManageTools;
 
 /**
  * @author ZerryChu
@@ -35,20 +37,26 @@ import group.zerry.api_server.utils.BatchHandleWrapperForLabel;
 public class MessageServiceImpl implements MessageService {
 
 	@Autowired
-	MessageDao messageDao;
+	MessageDao       messageDao;
 
 	@Autowired
-	CommentDao commentDao;
+	CommentDao       commentDao;
 
 	@Autowired
-	UserDao userDao;
+	UserDao          userDao;
 
 	@Autowired
-	LabelDao labelDao;
+	LabelDao         labelDao;
 
 	@Autowired
-	TopicDao topicDao;
+	LabelService     labelService;
+	
+	@Autowired
+	TopicDao         topicDao;
 
+	@Autowired
+	LabelManageTools labelManageTools;
+	
 	@Autowired
 	private BatchHandleWrapperForLabel batchHandleWrapperForLabel;
 
@@ -68,6 +76,7 @@ public class MessageServiceImpl implements MessageService {
 		}
 		message.setContent(content);
 		message.setType(type);
+		/*
 		if (label != null) {
 			Count count = labelDao.judgeIfLabelExists(label);
 			int id;
@@ -76,11 +85,14 @@ public class MessageServiceImpl implements MessageService {
 			}
 			id = labelDao.searchLabelIdByName(label);
 			labelDao.updateLabelHeatById(user.getId(), id);
-			message.setLabel_id(id);
 		}
+		*/
 		try {
 			messageDao.addMessage(message);
-			// userDao.addMessage_numByUsername(username); //发微博数+1
+			// 标签识别
+			Message lastMessage = messageDao.getLastMessage(user.getNickname());
+			List<String> labels = labelManageTools.extractLabel(content);
+			labelService.addLabels(lastMessage.getId(), labels);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return MessageStatusEnum.AMF;
@@ -117,7 +129,6 @@ public class MessageServiceImpl implements MessageService {
 			Page<Message> myPage = PageHelperInterceptor.endPage();
 			List<Message> list = myPage.getResult();
 			message = (Message[]) list.toArray(new Message[list.size()]);
-
 			messageCompletion(message, username);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -360,7 +371,6 @@ public class MessageServiceImpl implements MessageService {
 
 	public void messageCompletion(Message[] message, String username) {
 		User author = null;
-		int label_id;
 		for (int i = 0; i < message.length; i++) {
 			author = userDao.selectUserByNickname(message[i].getAuthor().getNickname());
 			// 屏蔽密码
@@ -368,9 +378,7 @@ public class MessageServiceImpl implements MessageService {
 			message[i].setAuthor(author);
 			message[i].setSupported(judgeIfSupport(username, message[i].getId()));
 			String content = message[i].getContent();
-			if (0 != (label_id = message[i].getLabel_id())) {
-				message[i].setLabel_name(labelDao.searchLabelNameById(label_id));
-			}
+			message[i].setLabel_name(messageDao.findLabel(message[i].getId()));
 			if (message[i].getType() == 2) {
 				int index = content.indexOf(';');
 				message[i].setContent(content.substring(0, index));
@@ -391,10 +399,7 @@ public class MessageServiceImpl implements MessageService {
 		message.setAuthor(author);
 		message.setSupported(judgeIfSupport(username, message.getId()));
 		String content = message.getContent();
-		int label_id;
-		if (0 != (label_id = message.getLabel_id())) {
-			message.setLabel_name(labelDao.searchLabelNameById(label_id));
-		}
+		message.setLabel_name(messageDao.findLabel(message.getId()));		
 		if (message.getType() == 2) {
 			int index = content.indexOf(';');
 			message.setContent(content.substring(0, index));

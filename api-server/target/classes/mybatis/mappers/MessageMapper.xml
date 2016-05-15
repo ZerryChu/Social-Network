@@ -14,7 +14,6 @@
 		<result property="comment_times" column="comment_times" />
 		<result property="support_times" column="support_times" />
 		<result property="pic" column="pic" />
-		<result property="label_id" column="label_id" />
 	</resultMap>
 
 	<resultMap id="CountMap" type="Count">
@@ -37,6 +36,17 @@
 		create_time
 		DESC
 	</select>
+	
+	<select id="getLastMessage" parameterType="string" resultMap="MessageMap">
+		select
+		*
+		from message_inf
+		where author = #{nickname}
+		ORDER BY
+		create_time
+		DESC
+		limit 0,1
+	</select>
 
 	<select id="getAnnouncements" resultMap="MessageMap">
 		SELECT
@@ -58,19 +68,28 @@
 
 	<select id="getMessages" resultMap="MessageMap">
 		SELECT
-		*
+			message_inf.id,
+			type,
+			author,
+			content,
+			create_time,
+			repost_times,
+			comment_times,
+			support_times,
+			pic
 		FROM
-		message_inf
+			message_inf
 		WHERE
-		<foreach collection="array" item="friend" index="index" open=" "
-			close=" " separator=" or ">
-			author=#{friend}
-		</foreach>
-		AND create_time &lt; now()
-		ORDER BY
-		create_time DESC
+			<foreach collection="array" item="friend" index="index" open=" "
+				close=" " separator=" or ">
+				author=#{friend}
+			</foreach>
+			AND create_time &lt; now()
+			ORDER BY
+			create_time DESC
 	</select>
-
+	
+	<!--  
 	<select id="getMessagesByLabelAndHeat" resultMap="MessageMap">
 		SELECT
 		message_inf.id,
@@ -82,7 +101,6 @@
 		comment_times,
 		support_times,
 		pic,
-		label_id,
 		times
 		FROM
 		message_inf
@@ -91,29 +109,48 @@
 		weibo_heat.id = message_inf.id
 		AND message_inf.label_id = #{label_id}
 	</select>
-
+	-->
+	
 	<select id="getMessagesByLabel" resultMap="MessageMap">
 		SELECT
-		*
+			message_inf.id,
+			type,
+			author,
+			content,
+			create_time,
+			repost_times,
+			comment_times,
+			support_times,
+			pic,
+			label_inf.name
 		FROM
-		message_inf
+			msg_lbl_relation,
+			message_inf,
+			label_inf
 		WHERE
-		label_id=
-		#{label_id}
-		AND create_time &lt; now()
-		ORDER BY
-		create_time DESC
+			label_inf.id = #{label_id}
+		AND message_inf.id = msg_lbl_relation.msg_id
+		AND label_inf.id = msg_lbl_relation.label_id
 	</select>
 
 	<select id="selectWeiboByTopicName" resultMap="MessageMap">
 		SELECT
-		*
+			message_inf.id,
+			type,
+			author,
+			content,
+			create_time,
+			repost_times,
+			comment_times,
+			support_times,
+			pic,
+			label_inf.name
 		FROM
-		message_inf
+			message_inf
 		WHERE
-		content LIKE #{name}
-		ORDER BY
-		create_time DESC
+			content LIKE #{name}
+			ORDER BY
+			create_time DESC
 	</select>
 
 	<delete id="deleteMessageById" parameterType="int">
@@ -127,25 +164,22 @@
 	<insert id="addMessage" parameterType="Message"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO message_inf (
-		type,
-		author,
-		content,
-		create_time,
-		repost_times,
-		comment_times,
-		support_times,
-		pic,
-		label_id
+			type,
+			author,
+			content,
+			create_time,
+			repost_times,
+			comment_times,
+			support_times,
+			pic
 		)
-		VALUES
-		(
-		#{type}, #{author.nickname}, #{content},
-		now(),
-		0,
-		0,
-		0,
-		#{pic},
-		#{label}
+		VALUES (
+		 	#{type}, #{author.nickname}, #{content},
+			now(),
+			0,
+			0,
+			0,
+			#{pic}
 		)
 	</insert>
 
@@ -197,5 +231,18 @@
 		WHERE
 		id = #{id}
 	</update>
+	
+	<select id="findLabel" resultType="string">
+		SELECT
+			label_inf.name
+		FROM
+			message_inf,
+			msg_lbl_relation,
+			label_inf
+		WHERE
+			message_inf.id = msg_lbl_relation.msg_id
+		AND label_inf.id = msg_lbl_relation.label_id
+		AND message_inf.id = #{msg_id}
+	</select>
 
 </mapper>

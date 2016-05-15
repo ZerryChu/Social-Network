@@ -29,31 +29,8 @@ public final class BatchHandleWrapperForLabel {
 	public BatchHandleWrapperForLabel() throws Exception {
 		BatchHandler<Object> batchHandler = new BatchHandler<Object>() {
 			@Override
-			public void handle(List<Object> list_usrId, List<Object> list_lblId, Runnable task) { // 需要算法关联三个参数
+			public void handle(List<Object> list_usrId, List<Object> list_lblId, Runnable task) {
 				for (int i = 0; i < list_usrId.size(); i++) {
-					/*
-					String sql1 = "select count(*) from label_heat where user_id=";
-					sql1 += String.valueOf(list_usrId.get(i));
-					sql1 += " and label_id=";
-					sql1 += String.valueOf(list_lblId.get(i));
-					int num = excuteQuery(sql1);
-					System.out.println(sql1);
-					String sql2 = null;
-					if (num == 0) {
-						sql2 = "insert into label_heat values(";
-						sql2 += String.valueOf(list_usrId.get(i));
-						sql2 += ",";
-						sql2 += String.valueOf(list_lblId.get(i));
-						sql2 += ",1)";
-					} else if (num == 1) {
-						sql2 = "update label_heat set times=times+1";
-						sql2 += " where user_id=";
-						sql2 += String.valueOf(list_usrId.get(i));
-						sql2 += " and label_id=";
-						sql2 += String.valueOf(list_lblId.get(i));
-					}
-					excuteUpdate(sql2);
-					*/
 					String sql = "insert into label_heat values("
 						+ String.valueOf(list_usrId.get(i))
 						+ ","

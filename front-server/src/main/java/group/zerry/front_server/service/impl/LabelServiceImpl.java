@@ -35,5 +35,11 @@ public class LabelServiceImpl implements LabelService {
 		paramsMap.put("username", username);
 		return fetchURLTool.doPost(url, paramsMap);
 	}
+
+	@Override
+	public String showSimilarLabel(int label_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

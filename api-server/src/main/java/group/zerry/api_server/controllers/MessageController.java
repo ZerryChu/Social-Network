@@ -17,6 +17,7 @@ import group.zerry.api_server.annotation.AuthPass;
 import group.zerry.api_server.entity.Message;
 import group.zerry.api_server.enumtypes.MessageStatusEnum;
 import group.zerry.api_server.enumtypes.TopicStatusEnum;
+import group.zerry.api_server.service.LabelService;
 import group.zerry.api_server.service.MessageService;
 import group.zerry.api_server.utils.BatchHandleWrapperForLabel;
 import group.zerry.api_server.utils.BatchHandleWrapperForMsg;
@@ -36,6 +37,9 @@ public class MessageController {
 	@Autowired
 	private MessageService messageService;
 
+	@Autowired
+	private LabelService   labelService;
+	
 	@Autowired
 	private CacheTools cacheTools; // 记录微博的热度
 
@@ -130,22 +134,31 @@ public class MessageController {
 	@RequestMapping(value = "/show_by_label", produces = "text/html;charset=UTF-8")
 	public String show_messageByLabel(String username, String userToken, int label_id, int page) {
 		StringBuilder regMsg = new StringBuilder("{\"returndata\":");
-		Message[] messages;
+		Message[] messages = null;
+		String[] rec_labels = null;
 		// Message[] messagesInUse;
 		try {
 			messages = messageService.show_messagesByLabel(username, label_id, page);
+			rec_labels = labelService.showSimilarLabels(label_id);
 			/*
 			 * messagesInUse = new Message[10]; int index = 0; for (int i = page
 			 * * 10; i < (page + 1) * 10; i++) { if(i + 1 <= messages.length)
 			 * messagesInUse[index++] = messages[i]; else break; }
 			 */
 		} catch (Exception e) {
+			e.printStackTrace();
 			regMsg.append(MessageStatusEnum.SMF);
 			regMsg.append("}");
 			return regMsg.toString();
 		}
-		// regMsg.append(JSON.toJSONString(messagesInUse, messageFilter));
 		regMsg.append(JSON.toJSONString(messages));
+		
+		// 捎带相似标签标签信息
+		if (rec_labels != null) {
+			regMsg.append(", \"rec\":");
+			regMsg.append(JSON.toJSON(rec_labels));
+		}
+		
 		regMsg.append("}");
 		// logger.error(regMsg.toString());
 		return regMsg.toString();

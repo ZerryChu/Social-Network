@@ -149,8 +149,7 @@
 						style="font-size: 20px; font-weight: bold; color: #999; padding-top: 10px;">说点什么吧~</h2>
 					<textarea class="message_content" id="content" name="content"></textarea>
 					<br> <span id="msg_emotion" class="msg_emotion"></span><input
-						type="file" style="width: 150px;" class="fileOnLoad" name="pic">标签<input
-						type="text" style="width: 70px;" class="label" name="label">
+						type="file" style="width: 150px;" class="fileOnLoad" name="pic">
 					<!-- <select
 						class="type" name="type">
 						<option value="2">暂无</option>

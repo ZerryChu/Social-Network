@@ -32,6 +32,7 @@ public class SearchServiceImpl implements SearchService {
 	
 	@Autowired
 	LabelDao       labelDao;
+	
 	@Autowired
 	MessageService messageService;
 	
@@ -77,17 +78,13 @@ public class SearchServiceImpl implements SearchService {
 	
 	public void messageCompletion(Message[] message, String username) {
 		User author = null;
-		int label_id;
 		for (int i = 0; i < message.length; i++) {
 			author = userDao.selectUserByNickname(message[i].getAuthor().getNickname());
 			// 屏蔽密码
 			author.setPassword("");
 			message[i].setAuthor(author);
 			message[i].setSupported(messageService.judgeIfSupport(username, message[i].getId()));
-			String content = message[i].getContent();
-			if (0 != (label_id = message[i].getLabel_id())) {
-				message[i].setLabel_name(labelDao.searchLabelNameById(label_id));
-			}
+			message[i].setLabel_name(messageDao.findLabel(message[i].getId()));
 		}
 	}
 

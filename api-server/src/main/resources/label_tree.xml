@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<!-- 标签关系的决策树 -->
+	<label id="">
+		<name>体育</name>
+		<value>1</value>
+		<label id="">
+			<name>篮球</name>
+			<value>0.4</value>
+
+		</label>
+		<label id="">
+			<name>足球</name>
+			<value>0.4</value>
+
+		</label>
+		<label id="">
+			<name>健身</name>
+			<value>0.2</value>
+		</label>
+	</label>
+
+	<label id="">
+		<name>艺术</name>
+		<value>1</value>
+		<label id="">
+			<name>摄影</name>
+			<value>0.5</value>
+		</label>
+		<label id="">
+			<name>绘画</name>
+			<value>0.5</value>
+			<label id="">
+				<name>素描</name>
+				<value>0.6</value>
+			</label>
+			<label id="">
+				<name>涂鸦</name>
+				<value>0.4</value>
+			</label>
+		</label>
+	</label>
+
+</root>
+<!-- 待做决策树内存中的拓展。。。决策树的写入文件 -->

@@ -19,10 +19,14 @@ public interface MessageDao {
 	
 	public Message[] getOwnMessages(String nickname);
 	
+	public Message   getLastMessage(String nickname);
+	
 	public Message[] getAnnouncements();
 	
 	public Message[] selectWeiboByTopicName(String name);
 
+	public String[]  findLabel(int msg_id);
+	
 	public void deleteMessageById(int id);
 	
 	public void addRepost(Message message);

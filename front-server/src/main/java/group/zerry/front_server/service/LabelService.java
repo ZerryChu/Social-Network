@@ -5,4 +5,5 @@ public interface LabelService {
 	
 	public String showRecommendedLabels(String username);
 
+	public String showSimilarLabel(int label_id);
 }

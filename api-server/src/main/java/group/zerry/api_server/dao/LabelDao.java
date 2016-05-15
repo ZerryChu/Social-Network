@@ -1,5 +1,7 @@
 package group.zerry.api_server.dao;
 
+import java.util.List;
+
 import group.zerry.api_server.entity.Count;
 
 public interface LabelDao {
@@ -14,4 +16,6 @@ public interface LabelDao {
 	void insertNewLabel(String name);
 	
 	Count judgeIfLabelExists(String name);
+	
+	void addLabel(int msg_id, int lbl_id);
 }

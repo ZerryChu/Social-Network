@@ -9,7 +9,7 @@
 </head>
 <style type="text/css">
 #topic_link {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .msg_emotion, .cmt_emotion, .rpt_emotion {
@@ -63,7 +63,7 @@
 	background: #dee3e3;
 	margin-left: 5px;
 	margin-top: 10px;
-	cursor: pointer
+	cursor: pointer;
 }
 
 .label_name {
@@ -80,15 +80,25 @@
 	margin: 10px;
 }
 
-.user_info, .master_info {
+.master_info {
 	cursor: pointer;
 	width: 90%;
 	height: 60px;
 	background: snow;
-	width: 90%;
 	border: 1px solid silver;
 	margin: 3px;
 	margin-left: 5%;
+}
+
+.rec_lbl_info {
+	cursor: pointer;
+	width: 85%;
+	height: 20px;
+	margin: 3px;
+	margin-left: 5%;
+	background: snow;
+	border: 1px solid silver;
+	padding-left: 5%;
 }
 
 .m-menu .w-icn2 {
@@ -367,25 +377,24 @@
 			</div>
 			<div style="margin-top: 5px;" class="right_content">
 				<div class="user_recommend">
-					<div class="sub_title"><span id="fcs" class="icon"></span>推荐用户</div>
+					<div class="sub_title">
+						</span>相关标签
+					</div>
 					<div class="user_list">
-						<div id="u1" class="user_info">
-							<img class="usericon"><span class="rec_nickname"></span>
-						</div>
-						<div id="u2" class="user_info">
-							<img class="usericon"><span class="rec_nickname"></span>
-						</div>
-						<div id="u3" class="user_info">
-							<img class="usericon"><span class="rec_nickname"></span>
-						</div>
-
+						<div id="l1" class="rec_lbl_info"></div>
+						<div id="l2" class="rec_lbl_info"></div>
+						<div id="l3" class="rec_lbl_info"></div>
+						<div id="l4" class="rec_lbl_info"></div>
+						<div id="l5" class="rec_lbl_info"></div>
 						<!--  <div class="next_one" id="changeRecUsers" align="right">换一组</div>  -->
 					</div>
 				</div>
 			</div>
 			<div style="margin-top: 5px;" class="right_content">
 				<div class="user_recommend">
-					<div class="sub_title"><span id="fcs" class="icon"></span>圈内大神</div>
+					<div class="sub_title">
+						<span id="fcs" class="icon"></span>圈内大神
+					</div>
 					<div class="master_list">
 						<div id="m1" class="master_info">
 							<img class="master_icon"><span class="master_nickname"></span>
@@ -426,7 +435,7 @@
 			showUserInfo(1, true);
 			$(".label_now").hide();
 			show_recommendedlabel();
-			show_recommendedUsers();
+			//show_recommendedUsers();
 			var label;
 			if ((label = $.query.get("label")) != null) {
 				label_now = label;
@@ -496,14 +505,9 @@
 					});
 		}
 
+		/* 由user-based 协同过滤算法推荐， 暂弃
 		var rec_user_count = 0;
 		function show_recommendedUsers() {
-			/*
-					<div id="u1" class="user_info">
-						<img class="usericon"><span class="username">zerry</span><a
-							class="w-icn2 itag" style="" href="#">关注</a>
-					</div>
-			 */
 			$
 					.ajax({
 						type : "post",
@@ -541,7 +545,7 @@
 						}
 					});
 
-		}
+		}*/
 
 		//flag 1 show_msgByLabel 2 show_msgByLabelAndHeat
 		function show_msgByLabel(id, pageNumber, flag) {
@@ -644,6 +648,18 @@
 														path : 'face/' // 表情图片存放的路径
 													});
 
+													i++;
+												}
+												i = 0;
+												$(".rec_lbl_info").empty();
+												while (data.rec[i] != undefined) {
+													var id = "#l" + (i + 1);
+													$(id).empty();
+													$(id)
+															.append(
+																	"<span id=\"l_icon\" class=\"icon\"></span><a>"
+																			+ data.rec[i]
+																			+ "</a>");
 													i++;
 												}
 											});
@@ -819,85 +835,6 @@
 
 				});
 
-		$(".user_info").mouseleave(function(e) {
-			var id = $(this).attr("id").substr(1);
-			if (id >= rec_user_count)
-				return;
-			var temp = "#s" + id;
-			$(temp).stop(true).hide();
-		});
-
-		$(".user_info")
-				.mouseenter(
-						function(e) {
-							var id = $(this).attr("id").substr(1);
-							if (id >= rec_user_count)
-								return;
-							var temp = "#s" + id;
-							if ($(temp).length > 0) {
-								$(temp).stop(true).show();
-							} else { // 动态生成
-								var left = $(this).offset().left
-										- $(this).width() - 35;
-								var top = $(this).offset().top + 20;
-								var nickname = $(this).find(".rec_nickname")
-										.text();
-								var username;
-								var msg_count;
-								var fan_count;
-								var pic;
-								$
-										.ajax({
-											type : "post",
-											async : false,
-											url : "user/getinfoByNickname",
-											data : {
-												nickname : nickname,
-												flag : 1
-											},
-											dataType : "json",
-											success : function(data) {
-												if (data.returndata != undefined) {
-													username = data.returndata.username;
-													pic = "pic/" + username
-															+ ".jpg";
-													msg_count = data.returndata.message_num;
-													fan_count = data.returndata.friend_num;
-												}
-											}
-										});
-								id = temp.substr(1);
-								var str = "<div id=\"" + id + "\" class=\"show_user_info\"><div class=\"show_user_top\"><span class=\"show_user_subtitle\">用户资料</span>";
-								str += "<button id=\"focus\" style=\"float: right;margin: 3%;\">添加关注</button>";
-								str += "</div><div class=\"show_user_content\"><img class=\"show_user_usericon\" src=\""
-										+ pic
-										+ "\" style=\"width: 25%; height: 25%;\"><span class=\"show_user_username\">用户名："
-										+ username
-										+ "</span><span class=\"show_user_nickname\">昵称："
-										+ nickname
-										+ "</span><div style=\"padding-top: 23%;margin-left: 5%;\"><span class=\"show_user_fans_count\">粉丝数："
-										+ fan_count
-										+ "</span><span class=\"show_user_msg_count\">&nbsp;&nbsp;&nbsp;广播数："
-										+ msg_count
-										+ "</span><div>常用标签</div><button style=\"\">爬山</button><button style=\"\">游泳</button><button style=\"\">购物</button></div></div></div>";
-								$("body").append(str);
-								$(temp).offset(function(n, c) {
-									newPos = new Object();
-									newPos.left = left - 50;
-									newPos.top = top - 130;
-									return newPos;
-								});
-							}
-						});
-
-		$(".master_info").mouseleave(function() {
-			var id = $(this).attr("id").substr(1);
-			if (id >= master_user_count)
-				return;
-			var temp = "#master" + id;
-			$(temp).stop(true).hide();
-		})
-
 		$(".master_info")
 				.mouseenter(
 						function() {
@@ -1027,23 +964,6 @@
 			});
 		});
 
-		$(".user_info").click(
-				function() {
-					var targetNickname = $(this).find(".rec_nickname").text();
-					window.location = "userinfo.jsp?username="
-							+ $.query.get("username") + "&targetNickname="
-							+ targetNickname + "&userToken="
-							+ $.query.get("userToken");
-				});
-
-		$(".user_info").mouseover(function() {
-			$(this).css("color", "blue");
-		});
-
-		$(".user_info").mouseout(function() {
-			$(this).css("color", "black");
-		});
-
 		$(".top_content li").mouseover(function() {
 			this.style.background = "snow";
 		});
@@ -1142,7 +1062,7 @@
 					str += $("#nickname").text();
 					window.location = str;
 				});
-		
+
 		$(".comment").live('mouseover', function() {
 			$(this).css("color", "#759aad");
 		});
